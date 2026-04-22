@@ -5,12 +5,14 @@ management:
   docVersion: 0.1.0
   speakeasyVersion: 1.761.9
   generationVersion: 2.881.4
-  releaseVersion: 0.1.0
-  configChecksum: e7f29310eb970a161f64f597e18e95bb
+  releaseVersion: 0.1.1
+  configChecksum: b2879c1f61fae6ceda8b481b4b920786
+  repoURL: https://github.com/paygentic/sdk-go.git
+  installationURL: https://github.com/paygentic/sdk-go
 persistentEdits:
-  generation_id: b65f5ac9-18a3-4e02-b8b9-95c2cc2708a0
-  pristine_commit_hash: 22f356b949df808eab8674f0baca0855503b92b5
-  pristine_tree_hash: f16918621d9288bb78fc16659a585d0f8694336f
+  generation_id: 3d169692-980a-4d14-acd0-758edd0094d2
+  pristine_commit_hash: d433cb331324fbc270c2886e00e73d5a40c3cba2
+  pristine_tree_hash: 5c6f3f0f97c0ba1bbe97673336b772c87e89ed3f
 features:
   go:
     additionalDependencies: 0.1.0
@@ -51,8 +53,8 @@ trackedFiles:
     pristine_git_object: 8ed27c54f5a0920a9a613aabf63db17fb839d3b6
   client.go:
     id: d633516feaf9
-    last_write_checksum: sha1:3866800f94ba9a94735bfa2f862ee6b94c3b0e89
-    pristine_git_object: 90a499f111e6ffc97a31a8339ac19de56d42cc63
+    last_write_checksum: sha1:be6d3d54104ab44d41bd3b0d552d507ebaf24e75
+    pristine_git_object: 96fc65693301d99ae2039f38a9d68ba5eda33a8c
   costs.go:
     id: 247b6e6ecaf3
     last_write_checksum: sha1:9e98ab9e11a9208d5b449713e8157b2bd493f668
@@ -4156,3 +4158,4 @@ generatedTests:
   getTestClock: "2026-04-22T20:20:52+01:00"
   advanceTestClock: "2026-04-22T20:20:52+01:00"
   deleteTestClock: "2026-04-22T20:20:52+01:00"
+  getEntitlement: "2026-04-22T19:33:47Z"

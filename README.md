@@ -18,9 +18,6 @@ See the [Quickstart](https://docs.paygentic.io/getting-started/quickstart) to go
 ## Table of Contents
 <!-- $toc-max-depth=2 -->
 * [Paygentic Go SDK](#paygentic-go-sdk)
-  * [Install](#install)
-  * [Quick start](#quick-start)
-  * [License](#license)
   * [SDK Installation](#sdk-installation)
   * [SDK Example Usage](#sdk-example-usage)
   * [Authentication](#authentication)
