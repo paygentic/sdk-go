@@ -1,0 +1,26 @@
+speakeasyVersion: 1.761.9
+sources: {}
+targets:
+    go:
+        source: Paygentic API
+        codeSamplesNamespace: paygentic-api-go-code-samples
+        codeSamplesRevisionDigest: sha256:6e23c46c16146cca1f8974b42a30369d68a69a25a47602a52d6b17e3b35bcd2d
+workflow:
+    workflowVersion: 1.0.0
+    speakeasyVersion: latest
+    sources:
+        Paygentic API:
+            inputs:
+                - location: registry.speakeasyapi.dev/paygentic/default/paygentic-api@$TAG
+    targets:
+        go:
+            target: go
+            source: Paygentic API
+            codeSamples:
+                registry:
+                    location: registry.speakeasyapi.dev/paygentic/default/paygentic-api-go-code-samples
+                labelOverride:
+                    fixedValue: Go (SDK)
+                blocking: false
+            testing:
+                enabled: true

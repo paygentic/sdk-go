@@ -1,0 +1,15 @@
+# MeterEvent
+
+
+## Fields
+
+| Field                                                                       | Type                                                                        | Required                                                                    | Description                                                                 |
+| --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `ID`                                                                        | `string`                                                                    | :heavy_check_mark:                                                          | Unique event identifier                                                     |
+| `Object`                                                                    | [*components.MeterEventObject](../../models/components/metereventobject.md) | :heavy_minus_sign:                                                          | N/A                                                                         |
+| `Type`                                                                      | `string`                                                                    | :heavy_check_mark:                                                          | CloudEvents event type (matches the meter's eventType)                      |
+| `Source`                                                                    | `string`                                                                    | :heavy_check_mark:                                                          | CloudEvents source that published the event                                 |
+| `Subject`                                                                   | `string`                                                                    | :heavy_check_mark:                                                          | Subject of the event — typically the customer ID                            |
+| `Time`                                                                      | [time.Time](https://pkg.go.dev/time#Time)                                   | :heavy_check_mark:                                                          | Time the event occurred                                                     |
+| `IdempotencyKey`                                                            | `string`                                                                    | :heavy_check_mark:                                                          | Caller-supplied idempotency key                                             |
+| `Data`                                                                      | map[string]`any`                                                            | :heavy_check_mark:                                                          | Event payload                                                               |

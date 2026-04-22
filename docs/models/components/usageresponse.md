@@ -1,0 +1,12 @@
+# UsageResponse
+
+
+## Fields
+
+| Field                                                                             | Type                                                                              | Required                                                                          | Description                                                                       |
+| --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| `Object`                                                                          | [*components.UsageResponseObject](../../models/components/usageresponseobject.md) | :heavy_minus_sign:                                                                | N/A                                                                               |
+| `BillableMetricID`                                                                | `string`                                                                          | :heavy_check_mark:                                                                | Unique identifier for a billable metric                                           |
+| `TotalValue`                                                                      | `float64`                                                                         | :heavy_check_mark:                                                                | Total aggregated value across the query window                                    |
+| `WindowedValues`                                                                  | [][components.WindowedValue](../../models/components/windowedvalue.md)            | :heavy_minus_sign:                                                                | Time-bucketed values. Only present when windowSize is specified.                  |
+| `GroupedValues`                                                                   | [][components.GroupedValue](../../models/components/groupedvalue.md)              | :heavy_minus_sign:                                                                | Dimension-grouped values. Only present when groupBy is specified.                 |

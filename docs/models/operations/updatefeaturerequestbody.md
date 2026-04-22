@@ -1,0 +1,11 @@
+# UpdateFeatureRequestBody
+
+
+## Fields
+
+| Field                                                                              | Type                                                                               | Required                                                                           | Description                                                                        |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `Key`                                                                              | `*string`                                                                          | :heavy_minus_sign:                                                                 | Updated feature key slug. Sample values: 'increased-api-limit', 'new-storage-tier' |
+| `Name`                                                                             | `*string`                                                                          | :heavy_minus_sign:                                                                 | Updated feature name.                                                              |
+| `Type`                                                                             | [*operations.UpdateFeatureType](../../models/operations/updatefeaturetype.md)      | :heavy_minus_sign:                                                                 | Updated feature type                                                               |
+| `Metadata`                                                                         | map[string]`string`                                                                | :heavy_minus_sign:                                                                 | Updated metadata for the feature                                                   |

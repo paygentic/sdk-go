@@ -1,0 +1,11 @@
+# InvoiceSummary
+
+
+## Fields
+
+| Field                                                                                  | Type                                                                                   | Required                                                                               | Description                                                                            |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `Issued`                                                                               | [components.InvoiceCategorySummary](../../models/components/invoicecategorysummary.md) | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `Outstanding`                                                                          | [components.InvoiceCategorySummary](../../models/components/invoicecategorysummary.md) | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `Paid`                                                                                 | [components.InvoiceCategorySummary](../../models/components/invoicecategorysummary.md) | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `WrittenOff`                                                                           | [components.InvoiceCategorySummary](../../models/components/invoicecategorysummary.md) | :heavy_check_mark:                                                                     | N/A                                                                                    |

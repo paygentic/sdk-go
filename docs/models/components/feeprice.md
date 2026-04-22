@@ -1,0 +1,16 @@
+# FeePrice
+
+The price configuration for a fee within a subscription context.
+
+
+## Fields
+
+| Field                                                                            | Type                                                                             | Required                                                                         | Description                                                                      |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `ID`                                                                             | `string`                                                                         | :heavy_check_mark:                                                               | The unique identifier of the price.                                              |
+| `FeeID`                                                                          | `string`                                                                         | :heavy_check_mark:                                                               | The unique identifier of the fee.                                                |
+| `Model`                                                                          | [components.FeePriceModel](../../models/components/feepricemodel.md)             | :heavy_check_mark:                                                               | The pricing model. Fees only support standard pricing.                           |
+| `PaymentTerm`                                                                    | [components.FeePricePaymentTerm](../../models/components/feepricepaymentterm.md) | :heavy_check_mark:                                                               | When the fee is charged relative to the billing period.                          |
+| `InvoiceDisplayName`                                                             | `string`                                                                         | :heavy_check_mark:                                                               | The name to display on invoices for this fee.                                    |
+| `Properties`                                                                     | [components.Properties](../../models/components/properties.md)                   | :heavy_check_mark:                                                               | N/A                                                                              |
+| `TaxRate`                                                                        | `*float64`                                                                       | :heavy_minus_sign:                                                               | The tax rate as a percentage (e.g., 10 for 10%).                                 |

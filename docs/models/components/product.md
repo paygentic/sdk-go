@@ -1,0 +1,15 @@
+# Product
+
+
+## Fields
+
+| Field                                                                 | Type                                                                  | Required                                                              | Description                                                           |
+| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| `ID`                                                                  | `string`                                                              | :heavy_check_mark:                                                    | Unique identifier for a product                                       |
+| `Object`                                                              | [*components.ProductObject](../../models/components/productobject.md) | :heavy_minus_sign:                                                    | N/A                                                                   |
+| `CreatedAt`                                                           | [time.Time](https://pkg.go.dev/time#Time)                             | :heavy_check_mark:                                                    | N/A                                                                   |
+| `Description`                                                         | `string`                                                              | :heavy_check_mark:                                                    | N/A                                                                   |
+| `MerchantID`                                                          | `string`                                                              | :heavy_check_mark:                                                    | Unique identifier for an organization                                 |
+| `Metadata`                                                            | map[string]`string`                                                   | :heavy_check_mark:                                                    | N/A                                                                   |
+| `Name`                                                                | `string`                                                              | :heavy_check_mark:                                                    | N/A                                                                   |
+| `UpdatedAt`                                                           | [time.Time](https://pkg.go.dev/time#Time)                             | :heavy_check_mark:                                                    | N/A                                                                   |

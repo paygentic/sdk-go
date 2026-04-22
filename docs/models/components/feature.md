@@ -1,0 +1,17 @@
+# Feature
+
+
+## Fields
+
+| Field                                                                 | Type                                                                  | Required                                                              | Description                                                           |
+| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| `ID`                                                                  | `string`                                                              | :heavy_check_mark:                                                    | Unique identifier for a feature                                       |
+| `Object`                                                              | [*components.FeatureObject](../../models/components/featureobject.md) | :heavy_minus_sign:                                                    | N/A                                                                   |
+| `Key`                                                                 | `string`                                                              | :heavy_check_mark:                                                    | N/A                                                                   |
+| `Name`                                                                | `string`                                                              | :heavy_check_mark:                                                    | N/A                                                                   |
+| `Type`                                                                | [components.FeatureType](../../models/components/featuretype.md)      | :heavy_check_mark:                                                    | N/A                                                                   |
+| `MerchantID`                                                          | `string`                                                              | :heavy_check_mark:                                                    | Unique identifier for an organization                                 |
+| `ProductID`                                                           | `string`                                                              | :heavy_check_mark:                                                    | Unique identifier for a product                                       |
+| `Metadata`                                                            | map[string]`string`                                                   | :heavy_check_mark:                                                    | N/A                                                                   |
+| `CreatedAt`                                                           | [time.Time](https://pkg.go.dev/time#Time)                             | :heavy_check_mark:                                                    | Timestamp when the feature was created                                |
+| `UpdatedAt`                                                           | [time.Time](https://pkg.go.dev/time#Time)                             | :heavy_check_mark:                                                    | Timestamp when the feature was last updated                           |

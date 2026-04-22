@@ -13,28 +13,37 @@ generation:
     requestResponseComponentNamesFeb2024: true
     securityFeb2025: true
     sharedErrorComponentsApr2025: true
+    sharedNestedComponentsJan2026: false
+    nameOverrideFeb2026: false
   auth:
     oAuth2ClientCredentialsEnabled: false
     oAuth2PasswordEnabled: false
     hoistGlobalSecurity: true
+  inferSSEOverload: true
+  sdkHooksConfigAccess: true
   schemas:
     allOfMergeStrategy: shallowMerge
+  requestBodyFieldName: body
   versioningStrategy: auto
+  persistentEdits: {}
   tests:
     generateTests: true
     generateNewTests: true
     skipResponseBodyAssertions: false
 go:
   version: 0.1.0
-  sdkPackageName: paygentic
-  modulePath: github.com/paygentic/sdk-go
   additionalDependencies: {}
   allowUnknownFieldsInWeakUnions: false
+  baseErrorName: ClientError
   clientServerStatusCodesAsErrors: true
   defaultErrorName: PaygenticDefaultError
+  enableCustomCodeRegions: false
+  enableSkipDeserialization: false
   envVarPrefix: PAYGENTIC
   flattenGlobalSecurity: true
   flatteningOrder: parameters-first
+  forwardCompatibleEnumsByDefault: true
+  forwardCompatibleUnionsByDefault: tagged-and-untagged
   generateExamples: true
   imports:
     option: openapi
@@ -44,8 +53,18 @@ go:
       operations: models/operations
       shared: models/components
       webhooks: models/webhooks
+  includeEmptyObjects: true
   inferUnionDiscriminators: true
+  inputModelSuffix: input
+  maxMethodParams: 4
   methodArguments: infer-optional-args
+  modulePath: github.com/paygentic/sdk-go
+  multipartArrayFormat: standard
+  nullableOptionalWrapper: true
+  outputModelSuffix: output
   preApplyUnionDiscriminators: true
+  respectRequiredFields: false
+  respectTitlesForPrimitiveUnionMembers: true
   responseFormat: flat
-  unionStrategy: left-to-right
+  sdkPackageName: paygentic
+  unionStrategy: populated-fields

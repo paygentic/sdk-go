@@ -1,0 +1,9 @@
+# CreateLineItemRequest
+
+
+## Fields
+
+| Field                                                                                                           | Type                                                                                                            | Required                                                                                                        | Description                                                                                                     |
+| --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| `IdempotencyKey`                                                                                                | `*string`                                                                                                       | :heavy_minus_sign:                                                                                              | Optional idempotency key. If provided, duplicate requests with the same key return the previously created item. |
+| `Body`                                                                                                          | [components.CreateManualLineItemRequest](../../models/components/createmanuallineitemrequest.md)                | :heavy_check_mark:                                                                                              | N/A                                                                                                             |

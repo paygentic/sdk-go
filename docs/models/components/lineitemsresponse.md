@@ -1,0 +1,11 @@
+# LineItemsResponse
+
+
+## Fields
+
+| Field                                                                                    | Type                                                                                     | Required                                                                                 | Description                                                                              |
+| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `Object`                                                                                 | [components.LineItemsResponseObject](../../models/components/lineitemsresponseobject.md) | :heavy_check_mark:                                                                       | The object type                                                                          |
+| `Data`                                                                                   | [][components.LineItem](../../models/components/lineitem.md)                             | :heavy_check_mark:                                                                       | Array of line items                                                                      |
+| `TotalCount`                                                                             | `int64`                                                                                  | :heavy_check_mark:                                                                       | Total number of matching line items                                                      |
+| `Summary`                                                                                | [components.LineItemsSummary](../../models/components/lineitemssummary.md)               | :heavy_check_mark:                                                                       | N/A                                                                                      |

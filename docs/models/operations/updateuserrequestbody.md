@@ -1,0 +1,13 @@
+# UpdateUserRequestBody
+
+
+## Fields
+
+| Field                                                                   | Type                                                                    | Required                                                                | Description                                                             |
+| ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `Address`                                                               | [*components.Address](../../models/components/address.md)               | :heavy_minus_sign:                                                      | N/A                                                                     |
+| `DateOfBirth`                                                           | [*types.Date](../../types/date.md)                                      | :heavy_minus_sign:                                                      | The date of birth of the user.                                          |
+| `FirstName`                                                             | `*string`                                                               | :heavy_minus_sign:                                                      | The first name of the user.                                             |
+| `LastName`                                                              | `*string`                                                               | :heavy_minus_sign:                                                      | The last name of the user.                                              |
+| `Phone`                                                                 | `*string`                                                               | :heavy_minus_sign:                                                      | The phone number of the user.                                           |
+| `Type`                                                                  | [*operations.UpdateUserType](../../models/operations/updateusertype.md) | :heavy_minus_sign:                                                      | Type of entity the user represents.                                     |

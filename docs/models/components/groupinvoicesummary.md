@@ -1,0 +1,12 @@
+# GroupInvoiceSummary
+
+
+## Fields
+
+| Field                                                                                  | Type                                                                                   | Required                                                                               | Description                                                                            |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `GroupKey`                                                                             | `string`                                                                               | :heavy_check_mark:                                                                     | Unique identifier for the group (e.g. plan ID, or 'other')                             |
+| `GroupLabel`                                                                           | `string`                                                                               | :heavy_check_mark:                                                                     | Human-readable label for the group (e.g. plan name)                                    |
+| `Outstanding`                                                                          | [components.InvoiceCategorySummary](../../models/components/invoicecategorysummary.md) | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `Paid`                                                                                 | [components.InvoiceCategorySummary](../../models/components/invoicecategorysummary.md) | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `WrittenOff`                                                                           | [components.InvoiceCategorySummary](../../models/components/invoicecategorysummary.md) | :heavy_check_mark:                                                                     | N/A                                                                                    |

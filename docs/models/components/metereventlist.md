@@ -1,0 +1,11 @@
+# MeterEventList
+
+
+## Fields
+
+| Field                                                                               | Type                                                                                | Required                                                                            | Description                                                                         |
+| ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `Object`                                                                            | [*components.MeterEventListObject](../../models/components/metereventlistobject.md) | :heavy_minus_sign:                                                                  | N/A                                                                                 |
+| `BillableMetricID`                                                                  | `string`                                                                            | :heavy_check_mark:                                                                  | Unique identifier for a billable metric                                             |
+| `Events`                                                                            | [][components.MeterEvent](../../models/components/meterevent.md)                    | :heavy_check_mark:                                                                  | N/A                                                                                 |
+| `Pagination`                                                                        | [components.OffsetPagination](../../models/components/offsetpagination.md)          | :heavy_check_mark:                                                                  | Offset-based pagination response.                                                   |

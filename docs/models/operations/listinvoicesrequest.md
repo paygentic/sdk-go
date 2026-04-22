@@ -1,0 +1,12 @@
+# ListInvoicesRequest
+
+
+## Fields
+
+| Field                                                                           | Type                                                                            | Required                                                                        | Description                                                                     |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `Limit`                                                                         | `*int64`                                                                        | :heavy_minus_sign:                                                              | Maximum number of invoices to return                                            |
+| `NextActionAt`                                                                  | [*operations.NextActionAt](../../models/operations/nextactionat.md)             | :heavy_minus_sign:                                                              | Filter for invoices ready for processing (platform only)                        |
+| `Status`                                                                        | [*operations.ListInvoicesStatus](../../models/operations/listinvoicesstatus.md) | :heavy_minus_sign:                                                              | Filter invoices by status                                                       |
+| `SubscriptionID`                                                                | `*string`                                                                       | :heavy_minus_sign:                                                              | Filter invoices by subscription ID                                              |
+| `MerchantID`                                                                    | `*string`                                                                       | :heavy_minus_sign:                                                              | Filter invoices by merchant ID                                                  |

@@ -1,0 +1,11 @@
+# PriceFeature
+
+
+## Fields
+
+| Field                                                                             | Type                                                                              | Required                                                                          | Description                                                                       |
+| --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| `ID`                                                                              | `string`                                                                          | :heavy_check_mark:                                                                | N/A                                                                               |
+| `FeatureID`                                                                       | `string`                                                                          | :heavy_check_mark:                                                                | N/A                                                                               |
+| `EntitlementTemplate`                                                             | map[string]`any`                                                                  | :heavy_check_mark:                                                                | N/A                                                                               |
+| `Feature`                                                                         | [*components.PriceFeatureFeature](../../models/components/pricefeaturefeature.md) | :heavy_minus_sign:                                                                | N/A                                                                               |

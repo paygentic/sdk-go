@@ -1,0 +1,12 @@
+# RevenueTrendBucket
+
+
+## Fields
+
+| Field                                                                          | Type                                                                           | Required                                                                       | Description                                                                    |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| `Timestamp`                                                                    | [time.Time](https://pkg.go.dev/time#Time)                                      | :heavy_check_mark:                                                             | Start time of this bucket                                                      |
+| `IssuedInvoices`                                                               | `string`                                                                       | :heavy_check_mark:                                                             | Total amount of all invoices issued in this bucket (all statuses, by issuedAt) |
+| `WrittenOffInvoices`                                                           | `string`                                                                       | :heavy_check_mark:                                                             | Amount of written-off invoices in dollars for this bucket (by writtenOffAt)    |
+| `CompletedPayments`                                                            | `string`                                                                       | :heavy_check_mark:                                                             | Revenue from completed payments in dollars for this bucket                     |
+| `GroupBreakdown`                                                               | [][components.GroupTrendEntry](../../models/components/grouptrendentry.md)     | :heavy_minus_sign:                                                             | Per-group trend entries (only present when groupBy is specified)               |
