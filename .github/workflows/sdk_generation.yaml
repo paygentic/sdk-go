@@ -1,0 +1,56 @@
+name: Generate
+
+# Regenerates the Go SDK from the Speakeasy Registry.
+#
+# Triggers:
+# - repository_dispatch (event_type: monorepo-release): fired by the monorepo's
+#   sdk_release.yaml after it publishes the merged spec to the registry.
+#   client_payload.monorepo_tag is the paygentic-* release tag.
+# - workflow_dispatch: manual run for testing or ad-hoc regeneration.
+#
+# Flow:
+# 1. Speakeasy CLI reads .speakeasy/workflow.yaml, which has the source
+#    pinned to registry.speakeasyapi.dev/.../paygentic-api@$TAG.
+# 2. The `environment` input below passes TAG through to speakeasy run.
+# 3. In mode: direct, the action commits the regenerated SDK directly to
+#    main and creates a v* tag, which is the "release" for a Go module
+#    (consumed via proxy.golang.org).
+
+permissions:
+  checks: write
+  contents: write
+  pull-requests: write
+  statuses: write
+  id-token: write
+
+"on":
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Registry tag to pull spec from (default 'main')
+        type: string
+        default: main
+      force:
+        description: Force generation of SDKs
+        type: boolean
+        default: false
+      set_version:
+        description: Optionally set a specific SDK version (e.g. 0.1.0)
+        type: string
+  repository_dispatch:
+    types:
+      - monorepo-release
+
+jobs:
+  generate:
+    uses: speakeasy-api/sdk-generation-action/.github/workflows/workflow-executor.yaml@v15
+    with:
+      force: ${{ github.event.inputs.force || 'false' }}
+      mode: direct
+      set_version: ${{ github.event.inputs.set_version }}
+      environment: |
+        TAG=${{ github.event.client_payload.monorepo_tag || github.event.inputs.tag || 'main' }}
+    secrets:
+      github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      speakeasy_api_key: ${{ secrets.ORG_SPEAKEASY_API_KEY }}
+      slack_webhook_url: ${{ secrets.ORG_SLACK_WEBHOOK_URL }}
