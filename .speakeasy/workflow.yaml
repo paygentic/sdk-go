@@ -1,0 +1,18 @@
+workflowVersion: 1.0.0
+speakeasyVersion: latest
+sources:
+    Paygentic API:
+        registry:
+            location: registry.speakeasyapi.dev/paygentic/default/paygentic-api
+targets:
+    go:
+        target: go
+        source: Paygentic API
+        codeSamples:
+            registry:
+                location: registry.speakeasyapi.dev/paygentic/default/paygentic-api-go-code-samples
+            labelOverride:
+                fixedValue: Go (SDK)
+            blocking: false
+        testing:
+            enabled: true

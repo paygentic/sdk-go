@@ -1,0 +1,51 @@
+configVersion: 2.0.0
+generation:
+  sdkClassName: Paygentic
+  maintainOpenAPIOrder: true
+  usageSnippets:
+    optionalPropertyRendering: withExample
+    sdkInitStyle: constructor
+  useClassNamesForArrayFields: true
+  fixes:
+    nameResolutionDec2023: true
+    nameResolutionFeb2025: true
+    parameterOrderingFeb2024: true
+    requestResponseComponentNamesFeb2024: true
+    securityFeb2025: true
+    sharedErrorComponentsApr2025: true
+  auth:
+    oAuth2ClientCredentialsEnabled: false
+    oAuth2PasswordEnabled: false
+    hoistGlobalSecurity: true
+  schemas:
+    allOfMergeStrategy: shallowMerge
+  versioningStrategy: auto
+  tests:
+    generateTests: true
+    generateNewTests: true
+    skipResponseBodyAssertions: false
+go:
+  version: 0.1.0
+  packageName: paygentic
+  moduleName: github.com/paygentic/sdk-go
+  additionalDependencies: {}
+  allowUnknownFieldsInWeakUnions: false
+  clientServerStatusCodesAsErrors: true
+  defaultErrorName: PaygenticDefaultError
+  envVarPrefix: PAYGENTIC
+  flattenGlobalSecurity: true
+  flatteningOrder: parameters-first
+  generateExamples: true
+  imports:
+    option: openapi
+    paths:
+      callbacks: models/callbacks
+      errors: models/errors
+      operations: models/operations
+      shared: models/components
+      webhooks: models/webhooks
+  inferUnionDiscriminators: true
+  methodArguments: infer-optional-args
+  preApplyUnionDiscriminators: true
+  responseFormat: flat
+  unionStrategy: left-to-right
