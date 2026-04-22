@@ -1,6 +1,6 @@
 configVersion: 2.0.0
 generation:
-  sdkClassName: Paygentic
+  sdkClassName: Client
   maintainOpenAPIOrder: true
   usageSnippets:
     optionalPropertyRendering: withExample
@@ -26,8 +26,8 @@ generation:
     skipResponseBodyAssertions: false
 go:
   version: 0.1.0
-  packageName: paygentic
-  moduleName: github.com/paygentic/sdk-go
+  sdkPackageName: paygentic
+  modulePath: github.com/paygentic/sdk-go
   additionalDependencies: {}
   allowUnknownFieldsInWeakUnions: false
   clientServerStatusCodesAsErrors: true
