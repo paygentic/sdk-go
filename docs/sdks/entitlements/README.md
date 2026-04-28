@@ -2,8 +2,6 @@
 
 ## Overview
 
-An `Entitlement` grants a customer the right to access and use a specific product feature.
-
 ### Available Operations
 
 * [List](#list) - List Entitlements
@@ -296,7 +294,7 @@ func main() {
 
 ### Response
 
-**[*components.SchemasEntitlement](../../models/components/schemasentitlement.md), error**
+**[*components.Entitlement](../../models/components/entitlement.md), error**
 
 ### Errors
 

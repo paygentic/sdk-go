@@ -34,7 +34,7 @@ func (e *SubscriptionObject) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// PaymentAwaitingApproval - Invoice 0 awaiting merchant approval before payment can proceed. The invoice is in DRAFT status with totals calculated. Approval is currently platform-only — do not call PATCH /v2/invoices/{id} with {"trigger": "APPROVE"} from merchant credentials (it will return 403). A merchant-accessible approval endpoint is planned for PAYG-754.
+// PaymentAwaitingApproval - Invoice 0 awaiting merchant approval before payment can proceed. The invoice is in DRAFT status with totals calculated. Approval is a platform-managed action and will be available via a public endpoint in a future release.
 type PaymentAwaitingApproval struct {
 	// The Invoice 0 id awaiting approval
 	InvoiceID string `json:"invoiceId"`
@@ -509,6 +509,8 @@ type Subscription struct {
 	RenewalReminderEnabled optionalnullable.OptionalNullable[bool] `json:"renewalReminderEnabled,omitzero"`
 	// Number of days before renewal to send the reminder. Null means use plan default.
 	RenewalReminderDays optionalnullable.OptionalNullable[int64] `json:"renewalReminderDays,omitzero"`
+	// Subscription-level auto-approval override. Null means plan default is used.
+	AutoApprove optionalnullable.OptionalNullable[bool] `json:"autoApprove,omitzero"`
 	// Customer details with merchant and consumer information. Only included when include=customer is specified in the list query.
 	Customer *SubscriptionCustomer `json:"customer,omitzero"`
 }
@@ -704,6 +706,13 @@ func (s *Subscription) GetRenewalReminderDays() optionalnullable.OptionalNullabl
 		return nil
 	}
 	return s.RenewalReminderDays
+}
+
+func (s *Subscription) GetAutoApprove() optionalnullable.OptionalNullable[bool] {
+	if s == nil {
+		return nil
+	}
+	return s.AutoApprove
 }
 
 func (s *Subscription) GetCustomer() *SubscriptionCustomer {

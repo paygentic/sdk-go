@@ -9,20 +9,20 @@ import (
 	"time"
 )
 
-// WindowSize - Time bucket granularity
-type WindowSize string
+// GetBillableMetricMeterWindowSize - Time bucket granularity
+type GetBillableMetricMeterWindowSize string
 
 const (
-	WindowSizeMinute WindowSize = "MINUTE"
-	WindowSizeHour   WindowSize = "HOUR"
-	WindowSizeDay    WindowSize = "DAY"
-	WindowSizeMonth  WindowSize = "MONTH"
+	GetBillableMetricMeterWindowSizeMinute GetBillableMetricMeterWindowSize = "MINUTE"
+	GetBillableMetricMeterWindowSizeHour   GetBillableMetricMeterWindowSize = "HOUR"
+	GetBillableMetricMeterWindowSizeDay    GetBillableMetricMeterWindowSize = "DAY"
+	GetBillableMetricMeterWindowSizeMonth  GetBillableMetricMeterWindowSize = "MONTH"
 )
 
-func (e WindowSize) ToPointer() *WindowSize {
+func (e GetBillableMetricMeterWindowSize) ToPointer() *GetBillableMetricMeterWindowSize {
 	return &e
 }
-func (e *WindowSize) UnmarshalJSON(data []byte) error {
+func (e *GetBillableMetricMeterWindowSize) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -35,10 +35,10 @@ func (e *WindowSize) UnmarshalJSON(data []byte) error {
 	case "DAY":
 		fallthrough
 	case "MONTH":
-		*e = WindowSize(v)
+		*e = GetBillableMetricMeterWindowSize(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for WindowSize: %v", v)
+		return fmt.Errorf("invalid value for GetBillableMetricMeterWindowSize: %v", v)
 	}
 }
 
@@ -51,7 +51,7 @@ type GetBillableMetricMeterRequest struct {
 	// Filter by customer/user ID
 	Subject *string `queryParam:"style=form,explode=true,name=subject"`
 	// Time bucket granularity
-	WindowSize *WindowSize `queryParam:"style=form,explode=true,name=windowSize"`
+	WindowSize *GetBillableMetricMeterWindowSize `queryParam:"style=form,explode=true,name=windowSize"`
 	// JSON-encoded dimension filter (e.g. {"key":"value"})
 	FilterGroupBy *string `queryParam:"style=form,explode=true,name=filterGroupBy"`
 	// Comma-separated dimension keys
@@ -97,7 +97,7 @@ func (g *GetBillableMetricMeterRequest) GetSubject() *string {
 	return g.Subject
 }
 
-func (g *GetBillableMetricMeterRequest) GetWindowSize() *WindowSize {
+func (g *GetBillableMetricMeterRequest) GetWindowSize() *GetBillableMetricMeterWindowSize {
 	if g == nil {
 		return nil
 	}

@@ -251,6 +251,7 @@ func main() {
 * [UpdateCost](docs/sdks/costs/README.md#updatecost) - Update
 * [DeleteCost](docs/sdks/costs/README.md#deletecost) - Delete
 * [GetCostSummary](docs/sdks/costs/README.md#getcostsummary) - Query Summary
+* [GetCostReport](docs/sdks/costs/README.md#getcostreport) - Report
 
 ### [Customers](docs/sdks/customers/README.md)
 
@@ -259,11 +260,6 @@ func main() {
 * [Get](docs/sdks/customers/README.md#get) - Get
 * [Delete](docs/sdks/customers/README.md#delete) - Delete
 * [Update](docs/sdks/customers/README.md#update) - Update
-
-### [Disputes](docs/sdks/disputes/README.md)
-
-* [Create](docs/sdks/disputes/README.md#create) - Create
-* [List](docs/sdks/disputes/README.md#list) - List
 
 ### [Entitlements](docs/sdks/entitlements/README.md)
 
@@ -278,11 +274,6 @@ func main() {
 * [Purchase](docs/sdks/grants/README.md#purchase) - Purchase Grant
 * [Get](docs/sdks/grants/README.md#get) - Get Grant
 * [Void](docs/sdks/grants/README.md#void) - Void Grant
-
-### [EntitlementsV0](docs/sdks/entitlementsv0/README.md)
-
-* [ListActive](docs/sdks/entitlementsv0/README.md#listactive) - List by Customer
-* [Create](docs/sdks/entitlementsv0/README.md#create) - Create
 
 ### [Events](docs/sdks/events/README.md)
 
@@ -384,14 +375,6 @@ func main() {
 * [Get](docs/sdks/testclocks/README.md#get) - Get
 * [Advance](docs/sdks/testclocks/README.md#advance) - Advance
 * [Delete](docs/sdks/testclocks/README.md#delete) - Delete
-
-### [UsageEvents](docs/sdks/usageevents/README.md)
-
-* [Create](docs/sdks/usageevents/README.md#create) - Create
-* [List](docs/sdks/usageevents/README.md#list) - List
-* [Get](docs/sdks/usageevents/README.md#get) - Get
-* [Refund](docs/sdks/usageevents/README.md#refund) - Refund
-* [BatchCreate](docs/sdks/usageevents/README.md#batchcreate) - Batch Create
 
 ### [Users](docs/sdks/users/README.md)
 
@@ -585,9 +568,17 @@ func main() {
 <!-- Start Server Selection [server] -->
 ## Server Selection
 
-### Override Server URL Per-Client
+### Select Server by Index
 
-The default server can be overridden globally using the `WithServerURL(serverURL string)` option when initializing the SDK client instance. For example:
+You can override the default server globally using the `WithServerIndex(serverIndex int)` option when initializing the SDK client instance. The selected server will then be used as the default on the operations that use it. This table lists the indexes associated with the available servers:
+
+| #   | Server                             | Description    |
+| --- | ---------------------------------- | -------------- |
+| 0   | `https://api.paygentic.io`         | Production API |
+| 1   | `https://api.sandbox.paygentic.io` | Sandbox API    |
+
+#### Example
+
 ```go
 package main
 
@@ -603,7 +594,47 @@ func main() {
 	ctx := context.Background()
 
 	s := paygentic.New(
-		paygentic.WithServerURL("https://api.paygentic.io"),
+		paygentic.WithServerIndex(0),
+		paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
+	)
+
+	res, err := s.BillableMetrics.Create(ctx, operations.CreateBillableMetricRequest{
+		Aggregation: operations.CreateBillableMetricAggregationSum,
+		Description: "Tracks total tokens consumed per API call.",
+		MerchantID:  "org_YS8jkP59V71TdUvj",
+		Name:        "Token Counter",
+		ProductID:   "prod_abc123",
+		Unit:        "tokens",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	if res != nil {
+		// handle response
+	}
+}
+
+```
+
+### Override Server URL Per-Client
+
+The default server can also be overridden globally using the `WithServerURL(serverURL string)` option when initializing the SDK client instance. For example:
+```go
+package main
+
+import (
+	"context"
+	paygentic "github.com/paygentic/sdk-go"
+	"github.com/paygentic/sdk-go/models/operations"
+	"log"
+	"os"
+)
+
+func main() {
+	ctx := context.Background()
+
+	s := paygentic.New(
+		paygentic.WithServerURL("https://api.sandbox.paygentic.io"),
 		paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
 	)
 

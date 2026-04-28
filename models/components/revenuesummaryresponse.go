@@ -10,14 +10,16 @@ type RevenueSummaryResponse struct {
 	// Object type identifier
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	object string `const:"revenue_summary" json:"object"`
-	// Net collected revenue in dollars (paid invoices + completed payments)
-	NetRevenue string         `json:"netRevenue"`
-	Invoices   InvoiceSummary `json:"invoices"`
-	Payments   PaymentSummary `json:"payments"`
-	// Time-bucketed revenue trend data
-	Trend []RevenueTrendBucket `json:"trend"`
-	// Invoice breakdown by group dimension (only present when groupBy is specified)
+	// Net collected revenue in dollars (paid invoices + completed payments). Omitted when groupBy=currency is active.
+	NetRevenue *string         `json:"netRevenue,omitzero"`
+	Invoices   *InvoiceSummary `json:"invoices,omitzero"`
+	Payments   *PaymentSummary `json:"payments,omitzero"`
+	// Time-bucketed revenue trend data. Omitted when groupBy=currency is active.
+	Trend []RevenueTrendBucket `json:"trend,omitzero"`
+	// Invoice breakdown by group dimension (only present when groupBy=plan or groupBy=customer is specified)
 	GroupBreakdown []GroupInvoiceSummary `json:"groupBreakdown,omitzero"`
+	// Per-currency revenue aggregates (only present when groupBy=currency is specified). Primary currency appears first, then alphabetical by ISO code. When present, top-level netRevenue, invoices, payments, and trend fields are omitted.
+	CurrencyBreakdown []CurrencyBreakdownEntry `json:"currencyBreakdown,omitzero"`
 }
 
 func (r RevenueSummaryResponse) MarshalJSON() ([]byte, error) {
@@ -35,30 +37,30 @@ func (r *RevenueSummaryResponse) GetObject() string {
 	return "revenue_summary"
 }
 
-func (r *RevenueSummaryResponse) GetNetRevenue() string {
+func (r *RevenueSummaryResponse) GetNetRevenue() *string {
 	if r == nil {
-		return ""
+		return nil
 	}
 	return r.NetRevenue
 }
 
-func (r *RevenueSummaryResponse) GetInvoices() InvoiceSummary {
+func (r *RevenueSummaryResponse) GetInvoices() *InvoiceSummary {
 	if r == nil {
-		return InvoiceSummary{}
+		return nil
 	}
 	return r.Invoices
 }
 
-func (r *RevenueSummaryResponse) GetPayments() PaymentSummary {
+func (r *RevenueSummaryResponse) GetPayments() *PaymentSummary {
 	if r == nil {
-		return PaymentSummary{}
+		return nil
 	}
 	return r.Payments
 }
 
 func (r *RevenueSummaryResponse) GetTrend() []RevenueTrendBucket {
 	if r == nil {
-		return []RevenueTrendBucket{}
+		return nil
 	}
 	return r.Trend
 }
@@ -68,4 +70,11 @@ func (r *RevenueSummaryResponse) GetGroupBreakdown() []GroupInvoiceSummary {
 		return nil
 	}
 	return r.GroupBreakdown
+}
+
+func (r *RevenueSummaryResponse) GetCurrencyBreakdown() []CurrencyBreakdownEntry {
+	if r == nil {
+		return nil
+	}
+	return r.CurrencyBreakdown
 }

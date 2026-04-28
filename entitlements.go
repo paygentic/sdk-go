@@ -18,7 +18,6 @@ import (
 	"time"
 )
 
-// Entitlements - An `Entitlement` grants a customer the right to access and use a specific product feature.
 type Entitlements struct {
 	Grants *Grants
 
@@ -303,7 +302,7 @@ func (s *Entitlements) List(ctx context.Context, request operations.ListEntitlem
 
 // Issue Entitlement
 // Issue a new entitlement to a customer, granting them access to a specific feature. The feature must exist and belong to the same merchant as the customer.
-func (s *Entitlements) Issue(ctx context.Context, request components.IssueEntitlementRequest, opts ...operations.Option) (*components.SchemasEntitlement, error) {
+func (s *Entitlements) Issue(ctx context.Context, request components.IssueEntitlementRequest, opts ...operations.Option) (*components.Entitlement, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -469,7 +468,7 @@ func (s *Entitlements) Issue(ctx context.Context, request components.IssueEntitl
 				return nil, err
 			}
 
-			var out components.SchemasEntitlement
+			var out components.Entitlement
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}

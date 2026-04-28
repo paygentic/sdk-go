@@ -39,11 +39,13 @@ func (e *BucketWidth) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// GroupBy - Group invoice data by dimension. Max 5 groups (top 4 + 'other' when exceeding).
+// GroupBy - Group invoice data by dimension. Allowed values: 'plan' (max 5 groups, top 4 + 'other' when exceeding), 'customer' (max 25 groups, top 24 + 'other' when exceeding, sorted by revenue descending), 'currency' (one entry per currency, primary currency first then alphabetical). Note: groupBy values are mutually exclusive — combining them returns a 400 error. When groupBy=currency is active, top-level netRevenue, invoices, and payments fields are omitted; currencyBreakdown is the sole data source.
 type GroupBy string
 
 const (
-	GroupByPlan GroupBy = "plan"
+	GroupByPlan     GroupBy = "plan"
+	GroupByCustomer GroupBy = "customer"
+	GroupByCurrency GroupBy = "currency"
 )
 
 func (e GroupBy) ToPointer() *GroupBy {
@@ -56,6 +58,10 @@ func (e *GroupBy) UnmarshalJSON(data []byte) error {
 	}
 	switch v {
 	case "plan":
+		fallthrough
+	case "customer":
+		fallthrough
+	case "currency":
 		*e = GroupBy(v)
 		return nil
 	default:
@@ -76,7 +82,9 @@ type GetRevenueRequest struct {
 	CustomerID *string `queryParam:"style=form,explode=true,name=customerId"`
 	// Filter by subscription IDs. At least one of merchantId, subscriptionIds, or customerId must be provided.
 	SubscriptionIds []string `queryParam:"style=form,explode=true,name=subscriptionIds"`
-	// Group invoice data by dimension. Max 5 groups (top 4 + 'other' when exceeding).
+	// Filter all results to a single ISO 4217 currency code (e.g. 'USD'). When omitted, results include all currencies.
+	Currency *string `queryParam:"style=form,explode=true,name=currency"`
+	// Group invoice data by dimension. Allowed values: 'plan' (max 5 groups, top 4 + 'other' when exceeding), 'customer' (max 25 groups, top 24 + 'other' when exceeding, sorted by revenue descending), 'currency' (one entry per currency, primary currency first then alphabetical). Note: groupBy values are mutually exclusive — combining them returns a 400 error. When groupBy=currency is active, top-level netRevenue, invoices, and payments fields are omitted; currencyBreakdown is the sole data source.
 	GroupBy *GroupBy `queryParam:"style=form,explode=true,name=groupBy"`
 }
 
@@ -131,6 +139,13 @@ func (g *GetRevenueRequest) GetSubscriptionIds() []string {
 		return nil
 	}
 	return g.SubscriptionIds
+}
+
+func (g *GetRevenueRequest) GetCurrency() *string {
+	if g == nil {
+		return nil
+	}
+	return g.Currency
 }
 
 func (g *GetRevenueRequest) GetGroupBy() *GroupBy {

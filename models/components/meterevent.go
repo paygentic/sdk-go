@@ -48,6 +48,8 @@ type MeterEvent struct {
 	IdempotencyKey string `json:"idempotencyKey"`
 	// Event payload
 	Data map[string]any `json:"data"`
+	// Optional external identifier for cross-referencing with external systems. Alphanumeric characters, hyphens, and underscores only.
+	ExternalID *string `json:"externalId,omitzero"`
 }
 
 func (m MeterEvent) MarshalJSON() ([]byte, error) {
@@ -115,4 +117,11 @@ func (m *MeterEvent) GetData() map[string]any {
 		return map[string]any{}
 	}
 	return m.Data
+}
+
+func (m *MeterEvent) GetExternalID() *string {
+	if m == nil {
+		return nil
+	}
+	return m.ExternalID
 }

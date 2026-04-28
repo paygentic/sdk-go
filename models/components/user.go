@@ -60,6 +60,19 @@ type UserOrganization struct {
 	// Unique identifier for an organization
 	ID    *string `json:"id,omitzero"`
 	State *State  `json:"state,omitzero"`
+	// Roles assigned to the user in this organization.
+	Roles []string `json:"roles,omitzero"`
+}
+
+func (u UserOrganization) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UserOrganization) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (u *UserOrganization) GetID() *string {
@@ -74,6 +87,13 @@ func (u *UserOrganization) GetState() *State {
 		return nil
 	}
 	return u.State
+}
+
+func (u *UserOrganization) GetRoles() []string {
+	if u == nil {
+		return nil
+	}
+	return u.Roles
 }
 
 type UserType string

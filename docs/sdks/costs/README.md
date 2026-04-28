@@ -12,6 +12,7 @@ A Cost represents the operational or infrastructure expense of serving customers
 * [UpdateCost](#updatecost) - Update
 * [DeleteCost](#deletecost) - Delete
 * [GetCostSummary](#getcostsummary) - Query Summary
+* [GetCostReport](#getcostreport) - Report
 
 ## CreateCost
 
@@ -354,5 +355,136 @@ func main() {
 | ---------------------------- | ---------------------------- | ---------------------------- |
 | errors.BadRequest            | 400                          | application/json             |
 | errors.Error                 | 403, 404                     | application/json             |
+| errors.Error                 | 500                          | application/json             |
+| errors.PaygenticDefaultError | 4XX, 5XX                     | \*/\*                        |
+
+## GetCostReport
+
+Aggregate cost data across costs and customers with grouping, filtering, and time-series breakdown.
+
+### Example Usage: byCost
+
+<!-- UsageSnippet language="go" operationID="getCostReport" method="get" path="/v0/costs/report" example="byCost" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	paygentic "github.com/paygentic/sdk-go"
+	"github.com/paygentic/sdk-go/types"
+	"github.com/paygentic/sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := paygentic.New(
+        paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
+    )
+
+    res, err := s.Costs.GetCostReport(ctx, operations.GetCostReportRequest{
+        From: types.MustTimeFromString("2025-03-21T13:37:39.948Z"),
+        To: types.MustTimeFromString("2024-04-29T10:02:17.490Z"),
+        GroupBy: "cost",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: byCustomer
+
+<!-- UsageSnippet language="go" operationID="getCostReport" method="get" path="/v0/costs/report" example="byCustomer" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	paygentic "github.com/paygentic/sdk-go"
+	"github.com/paygentic/sdk-go/types"
+	"github.com/paygentic/sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := paygentic.New(
+        paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
+    )
+
+    res, err := s.Costs.GetCostReport(ctx, operations.GetCostReportRequest{
+        From: types.MustTimeFromString("2025-08-12T01:51:47.475Z"),
+        To: types.MustTimeFromString("2026-03-02T08:25:30.632Z"),
+        GroupBy: "customer",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: byDimension
+
+<!-- UsageSnippet language="go" operationID="getCostReport" method="get" path="/v0/costs/report" example="byDimension" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	paygentic "github.com/paygentic/sdk-go"
+	"github.com/paygentic/sdk-go/types"
+	"github.com/paygentic/sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := paygentic.New(
+        paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
+    )
+
+    res, err := s.Costs.GetCostReport(ctx, operations.GetCostReportRequest{
+        From: types.MustTimeFromString("2024-12-31T00:20:48.817Z"),
+        To: types.MustTimeFromString("2026-12-30T08:35:53.784Z"),
+        GroupBy: "region",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                          | Type                                                                               | Required                                                                           | Description                                                                        |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `ctx`                                                                              | [context.Context](https://pkg.go.dev/context#Context)                              | :heavy_check_mark:                                                                 | The context to use for the request.                                                |
+| `request`                                                                          | [operations.GetCostReportRequest](../../models/operations/getcostreportrequest.md) | :heavy_check_mark:                                                                 | The request object to use for the request.                                         |
+| `opts`                                                                             | [][operations.Option](../../models/operations/option.md)                           | :heavy_minus_sign:                                                                 | The options for this request.                                                      |
+
+### Response
+
+**[*components.CostReportResponse](../../models/components/costreportresponse.md), error**
+
+### Errors
+
+| Error Type                   | Status Code                  | Content Type                 |
+| ---------------------------- | ---------------------------- | ---------------------------- |
+| errors.BadRequest            | 400                          | application/json             |
+| errors.Error                 | 401, 403                     | application/json             |
 | errors.Error                 | 500                          | application/json             |
 | errors.PaygenticDefaultError | 4XX, 5XX                     | \*/\*                        |

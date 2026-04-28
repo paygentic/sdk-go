@@ -20,6 +20,8 @@ import (
 var ServerList = []string{
 	// Production API
 	"https://api.paygentic.io",
+	// Sandbox API
+	"https://api.sandbox.paygentic.io",
 }
 
 // HTTPClient provides an interface for supplying the SDK with a custom HTTP client
@@ -55,11 +57,7 @@ type Client struct {
 	SDKVersion      string
 	BillableMetrics *BillableMetrics
 	// A `Customer` is an entity connected to a `Merchant` via a `Subscription`. This represents the merchant-facing perspective of `Consumers` who purchase their `Products`.
-	Customers *Customers
-	// A `Dispute` enables customers to contest usage events that they consider to be inaccurately recorded or billed.
-	Disputes       *Disputes
-	EntitlementsV0 *EntitlementsV0
-	// An `Entitlement` grants a customer the right to access and use a specific product feature.
+	Customers    *Customers
 	Entitlements *Entitlements
 	// A `Feature` represents a specific capability or functionality provided by a `Product`. Features can be metered (usage-based), static (fixed allocation), or boolean (enabled/disabled).
 	Features *Features
@@ -75,7 +73,6 @@ type Client struct {
 	Sources *Sources
 	// A `Subscription` is a customer's commitment to purchase a `Product` following the terms of a `Plan` and its linked `Prices`.
 	Subscriptions *Subscriptions
-	UsageEvents   *UsageEvents
 	// A `User` is an entity granted access to an Organization's resources. All operations are performed by users.
 	Users *Users
 	// Invoice V2 operations supporting billing cycles organized by time periods. Warning: v0 invoice endpoints are no longer supported.
@@ -166,9 +163,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided options
 func New(opts ...SDKOption) *Client {
 	sdk := &Client{
-		SDKVersion: "0.1.1",
+		SDKVersion: "0.2.0",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent:  "speakeasy-sdk/go 0.1.1 2.881.4 0.1.0 github.com/paygentic/sdk-go",
+			UserAgent:  "speakeasy-sdk/go 0.2.0 2.881.4 0.1.0 github.com/paygentic/sdk-go",
 			ServerList: ServerList,
 		},
 		hooks: hooks.New(),
@@ -193,8 +190,6 @@ func New(opts ...SDKOption) *Client {
 
 	sdk.BillableMetrics = newBillableMetrics(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Customers = newCustomers(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.Disputes = newDisputes(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.EntitlementsV0 = newEntitlementsV0(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Entitlements = newEntitlements(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Features = newFeatures(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Fees = newFees(sdk, sdk.sdkConfiguration, sdk.hooks)
@@ -203,7 +198,6 @@ func New(opts ...SDKOption) *Client {
 	sdk.Products = newProducts(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Sources = newSources(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Subscriptions = newSubscriptions(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.UsageEvents = newUsageEvents(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Users = newUsers(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.InvoicesV2 = newInvoicesV2(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Payments = newPayments(sdk, sdk.sdkConfiguration, sdk.hooks)

@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/paygentic/sdk-go/internal/utils"
+	"github.com/paygentic/sdk-go/optionalnullable"
 	"time"
 )
 
@@ -32,58 +33,50 @@ func (e *EntitlementObject) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type EntitlementBillableMetric struct {
-	// Unique identifier for a billable metric
-	BillableMetricID *string `json:"billableMetricId,omitzero"`
-	// Custom price override in decimal dollars. Sample values: '0.000012' sets $0.000012 per unit, '0.50' sets $0.50 per unit, '1.25' sets $1.25 per unit
-	Price *string `json:"price,omitzero"`
-	// Pre-authorized metric quantity amount. Sample values: 10000 tokens, 500 GB storage, 1000 API calls, 24 compute hours
-	Quantity *float64 `json:"quantity,omitzero"`
+// EntitlementStatus - Current status of the entitlement.
+type EntitlementStatus string
+
+const (
+	EntitlementStatusActive   EntitlementStatus = "active"
+	EntitlementStatusCanceled EntitlementStatus = "canceled"
+	EntitlementStatusExpired  EntitlementStatus = "expired"
+)
+
+func (e EntitlementStatus) ToPointer() *EntitlementStatus {
+	return &e
 }
 
-func (e *EntitlementBillableMetric) GetBillableMetricID() *string {
-	if e == nil {
-		return nil
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *EntitlementStatus) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "active", "canceled", "expired":
+			return true
+		}
 	}
-	return e.BillableMetricID
-}
-
-func (e *EntitlementBillableMetric) GetPrice() *string {
-	if e == nil {
-		return nil
-	}
-	return e.Price
-}
-
-func (e *EntitlementBillableMetric) GetQuantity() *float64 {
-	if e == nil {
-		return nil
-	}
-	return e.Quantity
+	return false
 }
 
 type Entitlement struct {
-	// Unique identifier for an entitlement
-	ID     *string            `json:"id,omitzero"`
 	Object *EntitlementObject `default:"entitlement" json:"object"`
-	// Billable metrics and quantities reserved stored as JSON.
-	BillableMetrics []EntitlementBillableMetric `json:"billableMetrics,omitzero"`
-	// Entitlement creation timestamp in ISO 8601 format. Sample values: '2024-01-15T10:30:00Z', '2024-02-01T14:45:30Z'
-	CreatedAt *time.Time `json:"createdAt,omitzero"`
+	// Unique identifier for the entitlement.
+	ID string `json:"id"`
 	// Unique identifier for a customer
-	CustomerID *string `json:"customerId,omitzero"`
-	// Entitlement expiration timestamp in ISO 8601 format. Sample values: '2024-12-31T23:59:59Z', '2025-01-15T10:30:00Z'
-	ExpiresAt *time.Time `json:"expiresAt,omitzero"`
-	// Maximum consumption events allowed before entitlement expires. Sample values: 1 allows single use, 10 allows ten uses, 100 allows one hundred uses
-	MaxUses *int64 `json:"maxUses,omitzero"`
-	// Unique identifier for a merchant/organization
-	MerchantID *string `json:"merchantId,omitzero"`
-	// Geographic restriction zone limiting where this entitlement applies. Sample values: 'us-west-2' confines usage to AWS US West 2 region, 'eu-central-1' confines usage to EU Central 1 region, 'global' permits usage from all regions
-	Region *string `json:"region,omitzero"`
-	// Unused entitlement balance in atomic units (string representation of BigInt). Sample values: '100000000000' equals $100.00 remaining, '50000000000' equals $50.00 remaining, '0' equals fully consumed
-	RemainingBalance *string `json:"remainingBalance,omitzero"`
-	// Count of consumption events processed using this entitlement. Sample values: 0 indicates unused, 5 indicates five events processed, 10 indicates ten events processed
-	UsedCount *int64 `json:"usedCount,omitzero"`
+	CustomerID string `json:"customerId"`
+	// The feature this entitlement grants access to.
+	FeatureID string `json:"featureId"`
+	// The subscription this entitlement is associated with, if any.
+	SubscriptionID optionalnullable.OptionalNullable[string] `json:"subscriptionId,omitzero"`
+	// Current status of the entitlement.
+	Status EntitlementStatus `json:"status"`
+	// When the entitlement becomes active.
+	ActiveFrom time.Time `json:"activeFrom"`
+	// When the entitlement expires. Null means no expiration.
+	ActiveTo optionalnullable.OptionalNullable[time.Time] `json:"activeTo,omitzero"`
+	// Configuration values for static features.
+	Config map[string]any `json:"config"`
+	// Additional metadata for the entitlement.
+	Metadata map[string]string `json:"metadata,omitzero"`
 }
 
 func (e Entitlement) MarshalJSON() ([]byte, error) {
@@ -97,13 +90,6 @@ func (e *Entitlement) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (e *Entitlement) GetID() *string {
-	if e == nil {
-		return nil
-	}
-	return e.ID
-}
-
 func (e *Entitlement) GetObject() *EntitlementObject {
 	if e == nil {
 		return nil
@@ -111,65 +97,65 @@ func (e *Entitlement) GetObject() *EntitlementObject {
 	return e.Object
 }
 
-func (e *Entitlement) GetBillableMetrics() []EntitlementBillableMetric {
+func (e *Entitlement) GetID() string {
 	if e == nil {
-		return nil
+		return ""
 	}
-	return e.BillableMetrics
+	return e.ID
 }
 
-func (e *Entitlement) GetCreatedAt() *time.Time {
+func (e *Entitlement) GetCustomerID() string {
 	if e == nil {
-		return nil
-	}
-	return e.CreatedAt
-}
-
-func (e *Entitlement) GetCustomerID() *string {
-	if e == nil {
-		return nil
+		return ""
 	}
 	return e.CustomerID
 }
 
-func (e *Entitlement) GetExpiresAt() *time.Time {
+func (e *Entitlement) GetFeatureID() string {
 	if e == nil {
-		return nil
+		return ""
 	}
-	return e.ExpiresAt
+	return e.FeatureID
 }
 
-func (e *Entitlement) GetMaxUses() *int64 {
+func (e *Entitlement) GetSubscriptionID() optionalnullable.OptionalNullable[string] {
 	if e == nil {
 		return nil
 	}
-	return e.MaxUses
+	return e.SubscriptionID
 }
 
-func (e *Entitlement) GetMerchantID() *string {
+func (e *Entitlement) GetStatus() EntitlementStatus {
 	if e == nil {
-		return nil
+		return EntitlementStatus("")
 	}
-	return e.MerchantID
+	return e.Status
 }
 
-func (e *Entitlement) GetRegion() *string {
+func (e *Entitlement) GetActiveFrom() time.Time {
 	if e == nil {
-		return nil
+		return time.Time{}
 	}
-	return e.Region
+	return e.ActiveFrom
 }
 
-func (e *Entitlement) GetRemainingBalance() *string {
+func (e *Entitlement) GetActiveTo() optionalnullable.OptionalNullable[time.Time] {
 	if e == nil {
 		return nil
 	}
-	return e.RemainingBalance
+	return e.ActiveTo
 }
 
-func (e *Entitlement) GetUsedCount() *int64 {
+func (e *Entitlement) GetConfig() map[string]any {
 	if e == nil {
 		return nil
 	}
-	return e.UsedCount
+	return e.Config
+}
+
+func (e *Entitlement) GetMetadata() map[string]string {
+	if e == nil {
+		return nil
+	}
+	return e.Metadata
 }

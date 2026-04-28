@@ -10,8 +10,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ericlagergren/decimal"
-
 	"github.com/paygentic/sdk-go/optionalnullable"
 	"github.com/paygentic/sdk-go/types"
 )
@@ -43,8 +41,6 @@ func populateForm(paramName string, explode bool, objType reflect.Type, objValue
 		case types.Date:
 			formValues.Add(paramName, valToString(objValue.Interface()))
 		case big.Int:
-			formValues.Add(paramName, valToString(objValue.Interface()))
-		case decimal.Big:
 			formValues.Add(paramName, valToString(objValue.Interface()))
 		default:
 			var items []string

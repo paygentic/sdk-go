@@ -16,7 +16,7 @@ type RevenueTrendBucket struct {
 	WrittenOffInvoices string `json:"writtenOffInvoices"`
 	// Revenue from completed payments in dollars for this bucket
 	CompletedPayments string `json:"completedPayments"`
-	// Per-group trend entries (only present when groupBy is specified)
+	// Per-group trend entries (present when groupBy=plan or groupBy=customer)
 	GroupBreakdown []GroupTrendEntry `json:"groupBreakdown,omitzero"`
 }
 
