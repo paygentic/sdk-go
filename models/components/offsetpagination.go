@@ -4,31 +4,31 @@ package components
 
 // OffsetPagination - Offset-based pagination response.
 type OffsetPagination struct {
-	// Number of items returned in the current page.
-	Limit *int64 `json:"limit,omitzero"`
+	// Requested page size.
+	Limit int64 `json:"limit"`
 	// Number of items skipped.
-	Offset *int64 `json:"offset,omitzero"`
+	Offset int64 `json:"offset"`
 	// Total number of items available.
-	Total *int64 `json:"total,omitzero"`
+	Total int64 `json:"total"`
 }
 
-func (o *OffsetPagination) GetLimit() *int64 {
+func (o *OffsetPagination) GetLimit() int64 {
 	if o == nil {
-		return nil
+		return 0
 	}
 	return o.Limit
 }
 
-func (o *OffsetPagination) GetOffset() *int64 {
+func (o *OffsetPagination) GetOffset() int64 {
 	if o == nil {
-		return nil
+		return 0
 	}
 	return o.Offset
 }
 
-func (o *OffsetPagination) GetTotal() *int64 {
+func (o *OffsetPagination) GetTotal() int64 {
 	if o == nil {
-		return nil
+		return 0
 	}
 	return o.Total
 }

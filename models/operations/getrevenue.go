@@ -9,19 +9,19 @@ import (
 	"time"
 )
 
-// BucketWidth - Time bucket granularity for trend data
-type BucketWidth string
+// GetRevenueBucketWidth - Time bucket granularity for trend data
+type GetRevenueBucketWidth string
 
 const (
-	BucketWidthHour BucketWidth = "hour"
-	BucketWidthDay  BucketWidth = "day"
-	BucketWidthWeek BucketWidth = "week"
+	GetRevenueBucketWidthHour GetRevenueBucketWidth = "hour"
+	GetRevenueBucketWidthDay  GetRevenueBucketWidth = "day"
+	GetRevenueBucketWidthWeek GetRevenueBucketWidth = "week"
 )
 
-func (e BucketWidth) ToPointer() *BucketWidth {
+func (e GetRevenueBucketWidth) ToPointer() *GetRevenueBucketWidth {
 	return &e
 }
-func (e *BucketWidth) UnmarshalJSON(data []byte) error {
+func (e *GetRevenueBucketWidth) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -32,10 +32,10 @@ func (e *BucketWidth) UnmarshalJSON(data []byte) error {
 	case "day":
 		fallthrough
 	case "week":
-		*e = BucketWidth(v)
+		*e = GetRevenueBucketWidth(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for BucketWidth: %v", v)
+		return fmt.Errorf("invalid value for GetRevenueBucketWidth: %v", v)
 	}
 }
 
@@ -75,7 +75,7 @@ type GetRevenueRequest struct {
 	// End of the time range (ISO 8601 format)
 	EndTime time.Time `queryParam:"style=form,explode=true,name=endTime"`
 	// Time bucket granularity for trend data
-	BucketWidth *BucketWidth `default:"day" queryParam:"style=form,explode=true,name=bucketWidth"`
+	BucketWidth *GetRevenueBucketWidth `default:"day" queryParam:"style=form,explode=true,name=bucketWidth"`
 	// Filter by merchant ID. At least one of merchantId, subscriptionIds, or customerId must be provided.
 	MerchantID *string `queryParam:"style=form,explode=true,name=merchantId"`
 	// Filter by customer ID. At least one of merchantId, subscriptionIds, or customerId must be provided.
@@ -113,7 +113,7 @@ func (g *GetRevenueRequest) GetEndTime() time.Time {
 	return g.EndTime
 }
 
-func (g *GetRevenueRequest) GetBucketWidth() *BucketWidth {
+func (g *GetRevenueRequest) GetBucketWidth() *GetRevenueBucketWidth {
 	if g == nil {
 		return nil
 	}

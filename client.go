@@ -2,7 +2,7 @@
 
 package paygentic
 
-// Generated from OpenAPI doc version 0.1.0 and generator version 2.881.4
+// Generated from OpenAPI doc version 0.1.0 and generator version 2.881.17
 
 import (
 	"context"
@@ -79,12 +79,16 @@ type Client struct {
 	InvoicesV2 *InvoicesV2
 	// Create and manage one-off payments. A payment represents a single charge that a merchant wants to collect from a customer.
 	Payments *Payments
+	// Handle payment session lifecycle and processing across various entity types including invoices and subscriptions
+	PaymentSessions *PaymentSessions
 	// Ingest raw metering events that are processed by the meters service.
 	Events *Events
 	// A Cost represents the operational or infrastructure expense of serving customers for a given product. Costs are metered (driven by event-based usage) and are tracked in parallel with billable metrics to give merchants visibility into both revenue and cost per customer.
 	Costs *Costs
 	// Revenue data from invoices and payments
 	Revenue *Revenue
+	// Per-customer profitability summaries
+	Profitability *Profitability
 	// Test clocks provide programmable time control to simulate subscription and billing scenarios during testing.
 	TestClocks *TestClocks
 
@@ -163,9 +167,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided options
 func New(opts ...SDKOption) *Client {
 	sdk := &Client{
-		SDKVersion: "0.2.0",
+		SDKVersion: "0.2.1",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent:  "speakeasy-sdk/go 0.2.0 2.881.4 0.1.0 github.com/paygentic/sdk-go",
+			UserAgent:  "speakeasy-sdk/go 0.2.1 2.881.17 0.1.0 github.com/paygentic/sdk-go",
 			ServerList: ServerList,
 		},
 		hooks: hooks.New(),
@@ -201,9 +205,11 @@ func New(opts ...SDKOption) *Client {
 	sdk.Users = newUsers(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.InvoicesV2 = newInvoicesV2(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Payments = newPayments(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.PaymentSessions = newPaymentSessions(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Events = newEvents(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Costs = newCosts(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Revenue = newRevenue(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Profitability = newProfitability(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.TestClocks = newTestClocks(sdk, sdk.sdkConfiguration, sdk.hooks)
 
 	return sdk

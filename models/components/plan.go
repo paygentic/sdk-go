@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/paygentic/sdk-go/internal/utils"
+	"github.com/paygentic/sdk-go/optionalnullable"
 	"time"
 )
 
@@ -135,6 +136,8 @@ type Plan struct {
 	RenewalReminderDays *int64 `json:"renewalReminderDays,omitzero"`
 	// Billing engine version. Managed by Paygentic support.
 	BillingVersion *int64 `json:"billingVersion,omitzero"`
+	// ISO 8601 datetime reference point for billing period alignment. Must be in the past or present at the time of creation or update. When set, all subscriptions created under this plan align their first billing period to the next recurrence of this anchor. Null means each subscription uses its own start time (hour-rounded) as the anchor.
+	BillingAnchor optionalnullable.OptionalNullable[time.Time] `json:"billingAnchor,omitzero"`
 }
 
 func (p Plan) MarshalJSON() ([]byte, error) {
@@ -300,4 +303,11 @@ func (p *Plan) GetBillingVersion() *int64 {
 		return nil
 	}
 	return p.BillingVersion
+}
+
+func (p *Plan) GetBillingAnchor() optionalnullable.OptionalNullable[time.Time] {
+	if p == nil {
+		return nil
+	}
+	return p.BillingAnchor
 }

@@ -33,7 +33,7 @@ func (e *PurchaseGrantResponseObject) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type PaymentSession struct {
+type PurchaseGrantResponsePaymentSession struct {
 	// The Stripe checkout URL for the customer to complete payment.
 	URL string `json:"url"`
 	// When the payment session expires.
@@ -42,32 +42,32 @@ type PaymentSession struct {
 	Amount *float64 `json:"amount,omitzero"`
 }
 
-func (p PaymentSession) MarshalJSON() ([]byte, error) {
+func (p PurchaseGrantResponsePaymentSession) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(p, "", false)
 }
 
-func (p *PaymentSession) UnmarshalJSON(data []byte) error {
+func (p *PurchaseGrantResponsePaymentSession) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PaymentSession) GetURL() string {
+func (p *PurchaseGrantResponsePaymentSession) GetURL() string {
 	if p == nil {
 		return ""
 	}
 	return p.URL
 }
 
-func (p *PaymentSession) GetExpiresAt() optionalnullable.OptionalNullable[time.Time] {
+func (p *PurchaseGrantResponsePaymentSession) GetExpiresAt() optionalnullable.OptionalNullable[time.Time] {
 	if p == nil {
 		return nil
 	}
 	return p.ExpiresAt
 }
 
-func (p *PaymentSession) GetAmount() *float64 {
+func (p *PurchaseGrantResponsePaymentSession) GetAmount() *float64 {
 	if p == nil {
 		return nil
 	}
@@ -87,7 +87,7 @@ type PurchaseGrantResponse struct {
 	// The three-letter ISO 4217 currency code (e.g., 'usd').
 	Currency string `json:"currency"`
 	// Payment session(s) for the customer to complete the purchase.
-	PaymentSessions []PaymentSession `json:"paymentSessions"`
+	PaymentSessions []PurchaseGrantResponsePaymentSession `json:"paymentSessions"`
 }
 
 func (p PurchaseGrantResponse) MarshalJSON() ([]byte, error) {
@@ -143,9 +143,9 @@ func (p *PurchaseGrantResponse) GetCurrency() string {
 	return p.Currency
 }
 
-func (p *PurchaseGrantResponse) GetPaymentSessions() []PaymentSession {
+func (p *PurchaseGrantResponse) GetPaymentSessions() []PurchaseGrantResponsePaymentSession {
 	if p == nil {
-		return []PaymentSession{}
+		return []PurchaseGrantResponsePaymentSession{}
 	}
 	return p.PaymentSessions
 }

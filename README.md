@@ -304,6 +304,10 @@ func main() {
 * [Get](docs/sdks/invoicesv2/README.md#get) - Get
 * [GetLineItems](docs/sdks/invoicesv2/README.md#getlineitems) - Get Line Items
 
+### [PaymentSessions](docs/sdks/paymentsessions/README.md)
+
+* [ListPaymentSessions](docs/sdks/paymentsessions/README.md#listpaymentsessions) - List
+
 ### [Payments](docs/sdks/payments/README.md)
 
 * [List](docs/sdks/payments/README.md#list) - List Payments
@@ -332,6 +336,10 @@ func main() {
 * [List](docs/sdks/products/README.md#list) - List
 * [Get](docs/sdks/products/README.md#get) - Get
 * [Update](docs/sdks/products/README.md#update) - Update
+
+### [Profitability](docs/sdks/profitability/README.md)
+
+* [GetProfitability](docs/sdks/profitability/README.md#getprofitability) - Get profitability summary
 
 ### [Revenue](docs/sdks/revenue/README.md)
 
