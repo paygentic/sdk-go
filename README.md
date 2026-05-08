@@ -260,6 +260,8 @@ func main() {
 * [Get](docs/sdks/customers/README.md#get) - Get
 * [Delete](docs/sdks/customers/README.md#delete) - Delete
 * [Update](docs/sdks/customers/README.md#update) - Update
+* [ListCustomerPaymentMethods](docs/sdks/customers/README.md#listcustomerpaymentmethods) - List payment methods
+* [CreateCustomerPaymentMethod](docs/sdks/customers/README.md#createcustomerpaymentmethod) - Set up a payment method
 
 ### [Entitlements](docs/sdks/entitlements/README.md)
 

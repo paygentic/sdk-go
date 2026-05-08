@@ -13,7 +13,7 @@ import (
 type PaymentSessionObject string
 
 const (
-	PaymentSessionObjectPaymentSession PaymentSessionObject = "payment_session"
+	PaymentSessionObjectPaymentSession PaymentSessionObject = "paymentSession"
 )
 
 func (e PaymentSessionObject) ToPointer() *PaymentSessionObject {
@@ -25,7 +25,7 @@ func (e *PaymentSessionObject) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	switch v {
-	case "payment_session":
+	case "paymentSession":
 		*e = PaymentSessionObject(v)
 		return nil
 	default:
@@ -33,7 +33,28 @@ func (e *PaymentSessionObject) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// PaymentSessionStatus - Lifecycle status of the session.
+type Mode string
+
+const (
+	ModePayment Mode = "payment"
+	ModeSetup   Mode = "setup"
+)
+
+func (e Mode) ToPointer() *Mode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *Mode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "payment", "setup":
+			return true
+		}
+	}
+	return false
+}
+
 type PaymentSessionStatus string
 
 const (
@@ -62,24 +83,18 @@ func (e *PaymentSessionStatus) IsExact() bool {
 
 type PaymentSession struct {
 	Object PaymentSessionObject `json:"object"`
-	// Payment session ID (ps_*).
-	ID string `json:"id"`
-	// Type of entity the session pays for (invoice, subscription, payment, topup).
-	EntityType string `json:"entityType"`
-	// ID of the entity the session pays for.
-	EntityID string `json:"entityId"`
-	// Amount in decimal dollars.
-	Amount string `json:"amount"`
-	// ISO 4217 currency code.
-	Currency string `json:"currency"`
-	// Lifecycle status of the session.
+	// Payment session identifier (e.g. `ps_...`).
+	ID     string               `json:"id"`
+	Mode   Mode                 `json:"mode"`
 	Status PaymentSessionStatus `json:"status"`
-	// Stripe Connect account ID (acct_*) when the session is routed to a connected account.
-	MerchantPaymentAccountID optionalnullable.OptionalNullable[string] `json:"merchantPaymentAccountId,omitzero"`
-	// Timestamp the session reached terminal completion. Null until the session completes.
-	CompletedAt optionalnullable.OptionalNullable[time.Time] `json:"completedAt,omitzero"`
-	CreatedAt   time.Time                                    `json:"createdAt"`
-	UpdatedAt   time.Time                                    `json:"updatedAt"`
+	// Hosted page URL. Redirect the customer here, or load it inside an iframe — when iframed, the page reports outcomes via `postMessage` (`payment_success` / `payment_error`) to the parent window.
+	URL                string                                       `json:"url"`
+	SuccessRedirectURL optionalnullable.OptionalNullable[string]    `json:"successRedirectUrl,omitzero"`
+	FailureRedirectURL optionalnullable.OptionalNullable[string]    `json:"failureRedirectUrl,omitzero"`
+	Metadata           map[string]any                               `json:"metadata,omitzero"`
+	ExpiresAt          time.Time                                    `json:"expiresAt"`
+	CompletedAt        optionalnullable.OptionalNullable[time.Time] `json:"completedAt,omitzero"`
+	CreatedAt          time.Time                                    `json:"createdAt"`
 }
 
 func (p PaymentSession) MarshalJSON() ([]byte, error) {
@@ -107,32 +122,11 @@ func (p *PaymentSession) GetID() string {
 	return p.ID
 }
 
-func (p *PaymentSession) GetEntityType() string {
+func (p *PaymentSession) GetMode() Mode {
 	if p == nil {
-		return ""
+		return Mode("")
 	}
-	return p.EntityType
-}
-
-func (p *PaymentSession) GetEntityID() string {
-	if p == nil {
-		return ""
-	}
-	return p.EntityID
-}
-
-func (p *PaymentSession) GetAmount() string {
-	if p == nil {
-		return ""
-	}
-	return p.Amount
-}
-
-func (p *PaymentSession) GetCurrency() string {
-	if p == nil {
-		return ""
-	}
-	return p.Currency
+	return p.Mode
 }
 
 func (p *PaymentSession) GetStatus() PaymentSessionStatus {
@@ -142,11 +136,39 @@ func (p *PaymentSession) GetStatus() PaymentSessionStatus {
 	return p.Status
 }
 
-func (p *PaymentSession) GetMerchantPaymentAccountID() optionalnullable.OptionalNullable[string] {
+func (p *PaymentSession) GetURL() string {
+	if p == nil {
+		return ""
+	}
+	return p.URL
+}
+
+func (p *PaymentSession) GetSuccessRedirectURL() optionalnullable.OptionalNullable[string] {
 	if p == nil {
 		return nil
 	}
-	return p.MerchantPaymentAccountID
+	return p.SuccessRedirectURL
+}
+
+func (p *PaymentSession) GetFailureRedirectURL() optionalnullable.OptionalNullable[string] {
+	if p == nil {
+		return nil
+	}
+	return p.FailureRedirectURL
+}
+
+func (p *PaymentSession) GetMetadata() map[string]any {
+	if p == nil {
+		return nil
+	}
+	return p.Metadata
+}
+
+func (p *PaymentSession) GetExpiresAt() time.Time {
+	if p == nil {
+		return time.Time{}
+	}
+	return p.ExpiresAt
 }
 
 func (p *PaymentSession) GetCompletedAt() optionalnullable.OptionalNullable[time.Time] {
@@ -161,11 +183,4 @@ func (p *PaymentSession) GetCreatedAt() time.Time {
 		return time.Time{}
 	}
 	return p.CreatedAt
-}
-
-func (p *PaymentSession) GetUpdatedAt() time.Time {
-	if p == nil {
-		return time.Time{}
-	}
-	return p.UpdatedAt
 }

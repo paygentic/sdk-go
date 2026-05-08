@@ -11,6 +11,8 @@ A `Customer` is an entity connected to a `Merchant` via a `Subscription`. This r
 * [Get](#get) - Get
 * [Delete](#delete) - Delete
 * [Update](#update) - Update
+* [ListCustomerPaymentMethods](#listcustomerpaymentmethods) - List payment methods
+* [CreateCustomerPaymentMethod](#createcustomerpaymentmethod) - Set up a payment method
 
 ## List
 
@@ -298,5 +300,115 @@ func main() {
 | ---------------------------- | ---------------------------- | ---------------------------- |
 | errors.BadRequest            | 400                          | application/json             |
 | errors.Error                 | 401, 403, 404, 409           | application/json             |
+| errors.Error                 | 500                          | application/json             |
+| errors.PaygenticDefaultError | 4XX, 5XX                     | \*/\*                        |
+
+## ListCustomerPaymentMethods
+
+List off-session payment methods saved for this customer.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="listCustomerPaymentMethods" method="get" path="/v0/customers/{id}/paymentMethods" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	paygentic "github.com/paygentic/sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := paygentic.New(
+        paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
+    )
+
+    res, err := s.Customers.ListCustomerPaymentMethods(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `id`                                                     | `string`                                                 | :heavy_check_mark:                                       | The unique identifier of the customer.                   |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
+
+### Response
+
+**[*operations.ListCustomerPaymentMethodsResponse](../../models/operations/listcustomerpaymentmethodsresponse.md), error**
+
+### Errors
+
+| Error Type                   | Status Code                  | Content Type                 |
+| ---------------------------- | ---------------------------- | ---------------------------- |
+| errors.Error                 | 403, 404                     | application/json             |
+| errors.Error                 | 500                          | application/json             |
+| errors.PaygenticDefaultError | 4XX, 5XX                     | \*/\*                        |
+
+## CreateCustomerPaymentMethod
+
+Create a payment session that captures a new off-session payment method for this customer without charging. The response contains a hosted-page URL — redirect the customer to it, or load it inside an iframe (when iframed, the page reports outcomes via `postMessage` to the parent window).
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="createCustomerPaymentMethod" method="post" path="/v0/customers/{id}/paymentMethods" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	paygentic "github.com/paygentic/sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := paygentic.New(
+        paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
+    )
+
+    res, err := s.Customers.CreateCustomerPaymentMethod(ctx, "<id>", nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                               | Type                                                                                                                    | Required                                                                                                                | Description                                                                                                             |
+| ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                   | [context.Context](https://pkg.go.dev/context#Context)                                                                   | :heavy_check_mark:                                                                                                      | The context to use for the request.                                                                                     |
+| `id`                                                                                                                    | `string`                                                                                                                | :heavy_check_mark:                                                                                                      | The unique identifier of the customer.                                                                                  |
+| `body`                                                                                                                  | [*operations.CreateCustomerPaymentMethodRequestBody](../../models/operations/createcustomerpaymentmethodrequestbody.md) | :heavy_minus_sign:                                                                                                      | N/A                                                                                                                     |
+| `opts`                                                                                                                  | [][operations.Option](../../models/operations/option.md)                                                                | :heavy_minus_sign:                                                                                                      | The options for this request.                                                                                           |
+
+### Response
+
+**[*components.PaymentSession](../../models/components/paymentsession.md), error**
+
+### Errors
+
+| Error Type                   | Status Code                  | Content Type                 |
+| ---------------------------- | ---------------------------- | ---------------------------- |
+| errors.BadRequest            | 400                          | application/json             |
+| errors.Error                 | 403, 404                     | application/json             |
 | errors.Error                 | 500                          | application/json             |
 | errors.PaygenticDefaultError | 4XX, 5XX                     | \*/\*                        |

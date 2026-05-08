@@ -15,4 +15,4 @@ value := components.PaymentSessionObjectPaymentSession
 
 | Name                                 | Value                                |
 | ------------------------------------ | ------------------------------------ |
-| `PaymentSessionObjectPaymentSession` | payment_session                      |
+| `PaymentSessionObjectPaymentSession` | paymentSession                       |

@@ -183,18 +183,7 @@ type ListInvoicesResponse struct {
 	Object ListInvoicesObject   `json:"object"`
 	Data   []components.Invoice `json:"data"`
 	// Offset-based pagination response.
-	Pagination *components.OffsetPagination `json:"pagination,omitzero"`
-}
-
-func (l ListInvoicesResponse) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(l, "", false)
-}
-
-func (l *ListInvoicesResponse) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
-		return err
-	}
-	return nil
+	Pagination components.OffsetPagination `json:"pagination"`
 }
 
 func (l *ListInvoicesResponse) GetObject() ListInvoicesObject {
@@ -211,9 +200,9 @@ func (l *ListInvoicesResponse) GetData() []components.Invoice {
 	return l.Data
 }
 
-func (l *ListInvoicesResponse) GetPagination() *components.OffsetPagination {
+func (l *ListInvoicesResponse) GetPagination() components.OffsetPagination {
 	if l == nil {
-		return nil
+		return components.OffsetPagination{}
 	}
 	return l.Pagination
 }
