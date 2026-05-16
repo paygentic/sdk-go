@@ -81,7 +81,7 @@ type PurchaseGrantResponse struct {
 	// The entitlement that will receive the grant.
 	EntitlementID string `json:"entitlementId"`
 	// The number of credits that will be granted on payment.
-	GrantAmount int64 `json:"grantAmount"`
+	GrantAmount float64 `json:"grantAmount"`
 	// The price in decimal format (e.g., '5.00').
 	Price string `json:"price"`
 	// The three-letter ISO 4217 currency code (e.g., 'usd').
@@ -122,9 +122,9 @@ func (p *PurchaseGrantResponse) GetEntitlementID() string {
 	return p.EntitlementID
 }
 
-func (p *PurchaseGrantResponse) GetGrantAmount() int64 {
+func (p *PurchaseGrantResponse) GetGrantAmount() float64 {
 	if p == nil {
-		return 0
+		return 0.0
 	}
 	return p.GrantAmount
 }

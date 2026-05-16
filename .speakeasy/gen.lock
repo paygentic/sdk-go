@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 5f9f8092-429e-454b-8c55-a2d2d1508328
 management:
-  docChecksum: c7df4275136d28af0b9aaf23e05ce149
+  docChecksum: fa3e27396067f66bf1d337bbb2d92518
   docVersion: 0.1.0
-  speakeasyVersion: 1.762.0
-  generationVersion: 2.882.0
-  releaseVersion: 0.2.2
-  configChecksum: 05ad94d3b2f04ea3550567b3294fe5a6
+  speakeasyVersion: 1.763.1
+  generationVersion: 2.884.4
+  releaseVersion: 0.2.3
+  configChecksum: 4246c3dc417bd9167fcf3b8346604af3
   repoURL: https://github.com/paygentic/sdk-go.git
   installationURL: https://github.com/paygentic/sdk-go
 persistentEdits:
-  generation_id: 897c058c-cf52-4e61-a111-bb28b8f29bf2
-  pristine_commit_hash: 9dbfe06bf11a00bb5318ba30866613979ac00bcc
-  pristine_tree_hash: 2c30dd051cc1640c05a3529d3b87cd0586b227d9
+  generation_id: 690c0b77-2c8f-4724-a59c-c894a38341aa
+  pristine_commit_hash: 10ca20091b74571e9a64d32895c4cbe43ca7b837
+  pristine_tree_hash: dc856ea905a33f085104988a253ea64afcd3170d
 features:
   go:
     additionalDependencies: 0.1.0
@@ -36,7 +36,7 @@ features:
     responseFormat: 0.1.2
     retries: 2.84.2
     sdkHooks: 0.3.0
-    unions: 2.87.6
+    unions: 2.87.7
 trackedFiles:
   .gitattributes:
     id: 24139dae6567
@@ -52,8 +52,8 @@ trackedFiles:
     pristine_git_object: 8ed27c54f5a0920a9a613aabf63db17fb839d3b6
   client.go:
     id: d633516feaf9
-    last_write_checksum: sha1:c7a781a6f2b62a840d4a6ce558667a0510335bdf
-    pristine_git_object: a3e8eacdd9be1e30810b4831cd6ca66547a8c31a
+    last_write_checksum: sha1:1658dd1193f64d4110501ba8319986fbf0401221
+    pristine_git_object: 37f5b410b01767f86a757c1abe291d81ee8c6625
   costs.go:
     id: 247b6e6ecaf3
     last_write_checksum: sha1:6a0c8cf65c575073eba23dfb3b2f8e5044013500
@@ -588,8 +588,8 @@ trackedFiles:
     pristine_git_object: 6f83d5c02092c3b98a30e90a7eb9923c9372cdd5
   docs/models/components/purchasegrantresponse.md:
     id: b21d496a95c5
-    last_write_checksum: sha1:6b7bc0c1d3732ddd413beb08763c02d8b3b4ffdd
-    pristine_git_object: 74811b032eb1619fd0365b7ec9cc78a035c0c512
+    last_write_checksum: sha1:495fe9ad69b1ba37b701447080cec1dae1a4e72e
+    pristine_git_object: 23881450f6ac3a0f59c392a074b079a8c5bd5033
   docs/models/components/purchasegrantresponseobject.md:
     id: 4cf2977df0be
     last_write_checksum: sha1:3f45550229e0bcb3f97d1f22e8a1631102b53612
@@ -1796,12 +1796,12 @@ trackedFiles:
     pristine_git_object: 7c1a372ae314a9d82ab82c3db610e7ffe67ecfab
   internal/utils/union.go:
     id: db86c85746b6
-    last_write_checksum: sha1:7958e92a08a282d06725b1f33b4f2e0ac577fdcc
-    pristine_git_object: c454bd9e20d4dd8a5ddeeb59aee59cc3d40d31e8
+    last_write_checksum: sha1:0de28c3a0819adde65805b1fcdacf3b051424b61
+    pristine_git_object: 0f61712aeded8a4dbe1af12cbc028de0b3d81824
   internal/utils/union_test.go:
     id: 4b56247171bd
-    last_write_checksum: sha1:83ac73c1901de4c6db90f65cf5879163f3d47a00
-    pristine_git_object: f66814c73ace94d8e71d785fd6161fb405745754
+    last_write_checksum: sha1:bd5c7506e1d6238117c1ac4e340314a5a41401b5
+    pristine_git_object: 138f7e2a066b10dffd0a9957ecfcab9e00dd26fe
   internal/utils/utils.go:
     id: 1133b2a27019
     last_write_checksum: sha1:36a3e6fb95d71868d1755dbb3b924a37340c7ea7
@@ -2016,8 +2016,8 @@ trackedFiles:
     pristine_git_object: f0f09452e381154d47e09b47e1f00bad7a7483c4
   models/components/purchasegrantresponse.go:
     id: 2190f8555fe9
-    last_write_checksum: sha1:275c1fa2cff8ab6badd72829180c22b7ec55ec51
-    pristine_git_object: 4ff81c04a2275a84c4faa9bb8aefcd8e7ec991b9
+    last_write_checksum: sha1:e1883cf4bb226ecb9be61c88012e6e570ebb9c39
+    pristine_git_object: 173ab9b66f63208e6c20028068057e4b2e1d774f
   models/components/revenuesummaryresponse.go:
     id: 9499bbef3995
     last_write_checksum: sha1:19e6c0d000c42dfbdee6172fa276220c7b96b909
@@ -4267,6 +4267,4 @@ generatedTests:
   createCustomerPaymentMethod: "2026-05-08T17:36:38Z"
 releaseNotes: |
   ## Go SDK Changes:
-  * `Client.Customers.ListCustomerPaymentMethods()`: **Added**
-  * `Client.Customers.CreateCustomerPaymentMethod()`: **Added**
-  * `Client.InvoicesV2.List()`:  `response.Pagination` **Changed**
+  * `Client.Entitlements.Grants.Purchase()`:  `response.GrantAmount` **Changed** (Breaking ⚠️)
