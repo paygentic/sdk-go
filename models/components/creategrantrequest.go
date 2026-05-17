@@ -17,6 +17,10 @@ type CreateGrantRequest struct {
 	ExpiresAt optionalnullable.OptionalNullable[time.Time] `json:"expiresAt,omitzero"`
 	// Idempotency key to prevent duplicate grants. Must be unique per entitlement.
 	IdempotencyKey string `json:"idempotencyKey"`
+	// Maximum balance carried over at the entitlement's reset boundary. If omitted, the entire balance rolls over until consumed or expired. Set to 0 to discard any remaining balance at each reset.
+	ResetMaxRollover *float64 `json:"resetMaxRollover,omitzero"`
+	// Minimum balance at the entitlement's reset boundary; balances below this are floored up. Defaults to 0 (no floor).
+	ResetMinRollover *float64 `json:"resetMinRollover,omitzero"`
 }
 
 func (c CreateGrantRequest) MarshalJSON() ([]byte, error) {
@@ -56,4 +60,18 @@ func (c *CreateGrantRequest) GetIdempotencyKey() string {
 		return ""
 	}
 	return c.IdempotencyKey
+}
+
+func (c *CreateGrantRequest) GetResetMaxRollover() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.ResetMaxRollover
+}
+
+func (c *CreateGrantRequest) GetResetMinRollover() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.ResetMinRollover
 }

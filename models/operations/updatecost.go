@@ -64,9 +64,9 @@ type UpdateCostRequestBody struct {
 	Aggregation optionalnullable.OptionalNullable[UpdateCostAggregation] `json:"aggregation,omitzero"`
 	// Updated CloudEvents type (metered costs only).
 	EventType optionalnullable.OptionalNullable[string] `json:"eventType,omitzero"`
-	// Updated JSONPath for value extraction (metered costs only).
+	// Updated JSONPath for value extraction. Must start with `$.` (example: `$.amount` or `$.payload.bytes`). Metered costs only.
 	ValueProperty optionalnullable.OptionalNullable[string] `json:"valueProperty,omitzero"`
-	// Updated group-by dimension map (metered costs only).
+	// Updated group-by dimension map. Each value must start with `$.` (example: `$.region`). Metered costs only.
 	GroupBy optionalnullable.OptionalNullable[map[string]string] `json:"groupBy,omitzero"`
 }
 

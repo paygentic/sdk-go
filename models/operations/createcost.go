@@ -91,9 +91,9 @@ type CreateCostRequest struct {
 	Aggregation CreateCostAggregation `json:"aggregation"`
 	// CloudEvents type that identifies the metered event.
 	EventType string `json:"eventType"`
-	// JSONPath to extract numeric value from event data. Required for SUM/AVG/MIN/MAX/LATEST aggregations.
+	// JSONPath to extract a numeric value from event data. Must start with `$.` (example: `$.amount` or `$.payload.bytes`). Required for SUM/AVG/MIN/MAX/LATEST aggregations.
 	ValueProperty *string `json:"valueProperty,omitzero"`
-	// Map of dimension name to JSONPath for group-by queries. Only valid for metered costs.
+	// Map of dimension name to JSONPath for group-by queries. Each value must start with `$.` (example: `$.region`). Only valid for metered costs.
 	GroupBy map[string]string `json:"groupBy,omitzero"`
 	// Unique identifier for an organization
 	MerchantID *string `json:"merchantId,omitzero"`

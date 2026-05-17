@@ -10,6 +10,7 @@ import (
 	"time"
 )
 
+// UsagePeriod - Recurrence configuration. Omit for a one-time grant that does not refill.
 type UsagePeriod struct {
 	// ISO 8601 duration for the usage period, e.g. P1D, P1W, P1M, P1Y.
 	Interval string `json:"interval"`
@@ -44,11 +45,12 @@ func (u *UsagePeriod) GetAnchor() *time.Time {
 
 type EntitlementTemplateMetered struct {
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
-	type_       string      `const:"metered" json:"type"`
-	UsagePeriod UsagePeriod `json:"usagePeriod"`
+	type_ string `const:"metered" json:"type"`
+	// Recurrence configuration. Omit for a one-time grant that does not refill.
+	UsagePeriod *UsagePeriod `json:"usagePeriod,omitzero"`
 	// When false (hard limit), access is blocked when balance is exhausted and overage is not charged on invoices. When true (soft limit), access continues past the grant and overage is charged at the per-unit rate.
 	IsSoftLimit *bool `json:"isSoftLimit,omitzero"`
-	// Amount of grants to issue after each period reset.
+	// Credits issued at each period reset. Set to 0 for entitlements without included credits; top-ups may be supplied via direct grants or grant purchases.
 	IssueAfterReset *float64 `json:"issueAfterReset,omitzero"`
 	// Priority for grants issued after reset.
 	IssueAfterResetPriority *int64 `json:"issueAfterResetPriority,omitzero"`
@@ -75,9 +77,9 @@ func (e *EntitlementTemplateMetered) GetType() string {
 	return "metered"
 }
 
-func (e *EntitlementTemplateMetered) GetUsagePeriod() UsagePeriod {
+func (e *EntitlementTemplateMetered) GetUsagePeriod() *UsagePeriod {
 	if e == nil {
-		return UsagePeriod{}
+		return nil
 	}
 	return e.UsagePeriod
 }

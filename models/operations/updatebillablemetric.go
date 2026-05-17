@@ -17,9 +17,9 @@ type UpdateBillableMetricRequestBody struct {
 	Unit *string `json:"unit,omitzero"`
 	// CloudEvents type for meter routing.
 	EventType optionalnullable.OptionalNullable[string] `json:"eventType,omitzero"`
-	// JSONPath to extract numeric value from event data.
+	// JSONPath to extract a numeric value from event data. Must start with `$.` (example: `$.amount` or `$.payload.bytes`).
 	ValueProperty optionalnullable.OptionalNullable[string] `json:"valueProperty,omitzero"`
-	// Map of dimension name to JSONPath for group-by queries.
+	// Map of dimension name to JSONPath for group-by queries. Each value must start with `$.` (example: `$.region`).
 	GroupBy optionalnullable.OptionalNullable[map[string]string] `json:"groupBy,omitzero"`
 	// Only count events after this timestamp.
 	EventFrom optionalnullable.OptionalNullable[time.Time] `json:"eventFrom,omitzero"`

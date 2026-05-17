@@ -66,9 +66,9 @@ type CreateBillableMetricRequest struct {
 	Unit string `json:"unit"`
 	// CloudEvents type for meter routing. Links this billable metric to the metering service.
 	EventType *string `json:"eventType,omitzero"`
-	// JSONPath to extract numeric value from event data. Required for SUM/AVG/MIN/MAX/LATEST aggregations.
+	// JSONPath to extract a numeric value from event data. Must start with `$.` (example: `$.amount` or `$.payload.bytes`). Required for SUM/AVG/MIN/MAX/LATEST aggregations.
 	ValueProperty *string `json:"valueProperty,omitzero"`
-	// Map of dimension name to JSONPath for group-by queries.
+	// Map of dimension name to JSONPath for group-by queries. Each value must start with `$.` (example: `$.region`).
 	GroupBy map[string]string `json:"groupBy,omitzero"`
 	// Only count events after this timestamp. Used for meter versioning.
 	EventFrom *time.Time `json:"eventFrom,omitzero"`
