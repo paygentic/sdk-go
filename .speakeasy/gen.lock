@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 5f9f8092-429e-454b-8c55-a2d2d1508328
 management:
-  docChecksum: 5dd54decad06d46302f72b92aed26116
+  docChecksum: ac3d6ba0bca06021703e79fc6475fce0
   docVersion: 0.1.0
-  speakeasyVersion: 1.763.1
-  generationVersion: 2.884.4
-  releaseVersion: 0.2.4
-  configChecksum: 660749847a87dc297f4fa65866453c0a
+  speakeasyVersion: 1.763.3
+  generationVersion: 2.884.7
+  releaseVersion: 0.2.5
+  configChecksum: b37068eec315b052820bed24dba4269a
   repoURL: https://github.com/paygentic/sdk-go.git
   installationURL: https://github.com/paygentic/sdk-go
 persistentEdits:
-  generation_id: 01e8bbff-dce3-4593-b048-911861e4757e
-  pristine_commit_hash: 18f7144d071461b172df9d71addfda6086fb2890
-  pristine_tree_hash: d337277f7d9e32b2acccbfea23f00419a6bebbb8
+  generation_id: 633da7ad-35c7-4a94-8da9-b4f7b71dfa6b
+  pristine_commit_hash: 2546f832147a2048391132aeb73a746cfcb8abb3
+  pristine_tree_hash: 757548d803f3688d0b434473b2284a3d51052b70
 features:
   go:
     additionalDependencies: 0.1.0
@@ -22,7 +22,7 @@ features:
     deprecations: 2.81.3
     envVarSecurityUsage: 0.3.2
     errorUnions: 0.1.0
-    examples: 2.81.6
+    examples: 2.81.7
     flattening: 2.81.2
     globalSecurity: 2.82.15
     globalSecurityCallbacks: 0.1.0
@@ -52,8 +52,8 @@ trackedFiles:
     pristine_git_object: 8ed27c54f5a0920a9a613aabf63db17fb839d3b6
   client.go:
     id: d633516feaf9
-    last_write_checksum: sha1:016de1b36c4cdd96137c1fc8062a9263ff4ec374
-    pristine_git_object: dd18307b8772ae5a82571e077b5055394071f0e4
+    last_write_checksum: sha1:431f0610eb81a11f4c12793720626e6ff3383690
+    pristine_git_object: e4bf78028da31a09753e51b5c2f80ae24f74ab4d
   costs.go:
     id: 247b6e6ecaf3
     last_write_checksum: sha1:6a0c8cf65c575073eba23dfb3b2f8e5044013500
@@ -148,8 +148,8 @@ trackedFiles:
     pristine_git_object: 7ec9b5e19088292197fbda79c7dd510689ec5fc6
   docs/models/components/creategrantrequest.md:
     id: 8c3d4302c5aa
-    last_write_checksum: sha1:4e9520fe0beceaafbcb1cb83a884a16b172a3d1a
-    pristine_git_object: 5ae964a29288d651e421cb3a437a8beeea120d9a
+    last_write_checksum: sha1:fe18396a0af9d8e0dafbbf2705f2a6bd0eb124bb
+    pristine_git_object: 45a24eb8f09ef8de609548a4ca19ecc251945280
   docs/models/components/createmanuallineitemrequest.md:
     id: 5e785e09770c
     last_write_checksum: sha1:2585a754404ae5f44f50ecbe91e685ffaa0e33d7
@@ -584,8 +584,8 @@ trackedFiles:
     pristine_git_object: 7ccdfb64f33a2e9a4a205d73d7307674aa67dd59
   docs/models/components/purchasegrantrequest.md:
     id: a8a0fe951e46
-    last_write_checksum: sha1:ed83215442a6d1eed7b688a60713259c86894fe0
-    pristine_git_object: 1c473fe6e6ca47bb025915364fe5504447771985
+    last_write_checksum: sha1:df51c5435f527d3e10d9e6f24ce0b02079c880c7
+    pristine_git_object: 5c47118b89fcb40a45b7867bf69786edc7966272
   docs/models/components/purchasegrantresponse.md:
     id: b21d496a95c5
     last_write_checksum: sha1:495fe9ad69b1ba37b701447080cec1dae1a4e72e
@@ -1844,8 +1844,8 @@ trackedFiles:
     pristine_git_object: 01779863fe8264acf782201239889a8b546bed46
   models/components/creategrantrequest.go:
     id: 588db36a88bd
-    last_write_checksum: sha1:0173c05835308eb6c6d86dbac07129c99dd902e1
-    pristine_git_object: 5a8c23b0d6c508b7f103f718ed4371e184cc0e6a
+    last_write_checksum: sha1:c12b3d34bc2f0d4199b9fc0c6f16e4f2cf6da4da
+    pristine_git_object: f6e195258fa27c690fb0fd38b02e8ffcae1a3d4a
   models/components/createmanuallineitemrequest.go:
     id: 865692d15fb9
     last_write_checksum: sha1:3c1b76d601e70617b2c21be30199f2a7b247586c
@@ -2012,8 +2012,8 @@ trackedFiles:
     pristine_git_object: 1d955a075e6ee240dd4ccdd3d3a72a321d66bc23
   models/components/purchasegrantrequest.go:
     id: 3e233be4da82
-    last_write_checksum: sha1:4243623182c4cf685912c4bb082b03cb6a2aa9a9
-    pristine_git_object: 93674951e59acc5d36bfdf1f5628476b5f5868f4
+    last_write_checksum: sha1:ef61fbc321318bca38f1531f6f28a87c2ed4b75e
+    pristine_git_object: 0153291342f40a3d148235fb24cbf3a62f8e8a66
   models/components/purchasegrantresponse.go:
     id: 2190f8555fe9
     last_write_checksum: sha1:e1883cf4bb226ecb9be61c88012e6e570ebb9c39
@@ -4265,4 +4265,3 @@ generatedTests:
   getProfitability: "2026-05-05T10:48:43Z"
   listCustomerPaymentMethods: "2026-05-08T17:36:38Z"
   createCustomerPaymentMethod: "2026-05-08T17:36:38Z"
-releaseNotes: "## Go SDK Changes:\n* `Client.Entitlements.Issue()`: \n  *  `request.Request.Template.union(metered).UsagePeriod` **Changed**\n* `Client.Entitlements.Grants.List()`:  `response.Data[]` **Changed**\n* `Client.Entitlements.Grants.Create()`: \n  *  `request.Body` **Changed**\n  *  `response` **Changed**\n* `Client.Entitlements.Grants.Purchase()`:  `request.Body` **Changed**\n* `Client.Entitlements.Grants.Get()`:  `response` **Changed**\n* `Client.Entitlements.Grants.Void()`:  `response` **Changed**\n"

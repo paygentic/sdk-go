@@ -25,9 +25,9 @@ type PurchaseGrantRequest struct {
 	CancelURL *string `json:"cancelUrl,omitzero"`
 	// When the payment session expires. If omitted, uses the default expiry.
 	PaymentExpiresAt *time.Time `json:"paymentExpiresAt,omitzero"`
-	// Maximum balance carried over at the entitlement's reset boundary. If omitted, the purchased grant balance rolls over until consumed or expired. Set to 0 to discard any remaining balance at each reset.
+	// Maximum balance carried over at the entitlement's reset boundary. If omitted, the purchased grant balance rolls over until consumed or expired. Set to 0 to discard any remaining balance at each reset. Ignored when the target entitlement has no `usagePeriod` (one-time entitlement) — one-time entitlements have no reset boundary, so this field has no effect.
 	ResetMaxRollover *float64 `json:"resetMaxRollover,omitzero"`
-	// Minimum balance at the entitlement's reset boundary; balances below this are floored up. Defaults to 0 (no floor).
+	// Minimum balance at the entitlement's reset boundary; balances below this are floored up. Defaults to 0 (no floor). Ignored when the target entitlement has no `usagePeriod` (one-time entitlement).
 	ResetMinRollover *float64 `json:"resetMinRollover,omitzero"`
 }
 
