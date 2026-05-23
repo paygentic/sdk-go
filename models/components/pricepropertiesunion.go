@@ -201,7 +201,7 @@ func (p *PriceProperties2) GetMinPrice() string {
 
 // PriceProperties1 - Standard pricing model
 type PriceProperties1 struct {
-	// Per-unit cost in decimal format for fixed-rate pricing. Sample values: '0.00002' represents $0.00002 per token, '0.15' represents $0.15 per gigabyte stored, '0.05' represents $0.05 per API call
+	// Per-unit cost in decimal format for fixed-rate pricing. Sample values: '0.00002' represents $0.00002 per token, '0.15' represents $0.15 per gigabyte stored, '0.05' represents $0.05 per API call. Per unit. Total per period = quantity × unitPrice; see the `quantity` field.
 	UnitPrice string `json:"unitPrice"`
 }
 

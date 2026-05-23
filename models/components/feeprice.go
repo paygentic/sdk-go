@@ -55,7 +55,7 @@ func (e *FeePricePaymentTerm) IsExact() bool {
 }
 
 type Properties struct {
-	// The unit price in dollars (e.g., '10.00').
+	// The unit price in dollars (e.g., '10.00'). Per unit. Total per period = quantity × unitPrice; see the `quantity` field.
 	UnitPrice string `json:"unitPrice"`
 }
 
@@ -79,6 +79,8 @@ type FeePrice struct {
 	// The name to display on invoices for this fee.
 	InvoiceDisplayName string     `json:"invoiceDisplayName"`
 	Properties         Properties `json:"properties"`
+	// Quantity for invoice line items. Total per period = quantity × unitPrice. Only supported for fee prices; metered prices derive quantity from usage. Defaults to 1.
+	Quantity int64 `json:"quantity"`
 	// The tax rate as a percentage (e.g., 10 for 10%).
 	TaxRate *float64 `json:"taxRate,omitzero"`
 }
@@ -123,6 +125,13 @@ func (f *FeePrice) GetProperties() Properties {
 		return Properties{}
 	}
 	return f.Properties
+}
+
+func (f *FeePrice) GetQuantity() int64 {
+	if f == nil {
+		return 0
+	}
+	return f.Quantity
 }
 
 func (f *FeePrice) GetTaxRate() *float64 {

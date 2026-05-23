@@ -114,7 +114,7 @@ type LineItem struct {
 	MeteredQuantity optionalnullable.OptionalNullable[string] `json:"meteredQuantity,omitzero"`
 	// Payment term for fee items. Null for metered/manual lines
 	PaymentTerm optionalnullable.OptionalNullable[LineItemPaymentTerm] `json:"paymentTerm,omitzero"`
-	// quantity x unitPrice, before discounts and taxes. Defaults to '0.00' when not yet calculated
+	// quantity × unitPrice, before discounts and taxes. For prorated lines, may differ from `quantity × unitPrice` by display precision; subtotal is the authoritative billed amount. Defaults to '0.00' when not yet calculated.
 	Subtotal *string `json:"subtotal,omitzero"`
 	// Total tax amount for this line item in decimal format. Null until invoice calculation is complete
 	TaxesTotal optionalnullable.OptionalNullable[string] `json:"taxesTotal,omitzero"`

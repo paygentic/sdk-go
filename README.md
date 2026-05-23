@@ -375,6 +375,7 @@ func main() {
 * [List](docs/sdks/subscriptions/README.md#list) - List
 * [Create](docs/sdks/subscriptions/README.md#create) - Create
 * [Get](docs/sdks/subscriptions/README.md#get) - Get
+* [UpdateSubscription](docs/sdks/subscriptions/README.md#updatesubscription) - Update
 * [GeneratePortalLink](docs/sdks/subscriptions/README.md#generateportallink) - Generate Portal Link
 * [Terminate](docs/sdks/subscriptions/README.md#terminate) - Terminate
 

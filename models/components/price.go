@@ -102,6 +102,8 @@ type Price struct {
 	Features []PriceFeature `json:"features,omitzero"`
 	// When true, grants applied to a subscription will discount usage charged by this price. Only supported for standard metered prices.
 	GrantDiscountEnabled *bool `default:"false" json:"grantDiscountEnabled"`
+	// Quantity used when generating invoice line items for this price. Total per period = quantity × unitPrice. Only supported for fee prices; metered prices derive quantity from usage. Defaults to 1.
+	Quantity *int64 `default:"1" json:"quantity"`
 }
 
 func (p Price) MarshalJSON() ([]byte, error) {
@@ -225,4 +227,11 @@ func (p *Price) GetGrantDiscountEnabled() *bool {
 		return nil
 	}
 	return p.GrantDiscountEnabled
+}
+
+func (p *Price) GetQuantity() *int64 {
+	if p == nil {
+		return nil
+	}
+	return p.Quantity
 }
