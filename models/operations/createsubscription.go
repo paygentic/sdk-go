@@ -4,6 +4,7 @@ package operations
 
 import (
 	"github.com/paygentic/sdk-go/internal/utils"
+	"github.com/paygentic/sdk-go/models/components"
 	"github.com/paygentic/sdk-go/optionalnullable"
 	"time"
 )
@@ -170,6 +171,8 @@ type CreateSubscriptionRequest struct {
 	RenewalReminderDays optionalnullable.OptionalNullable[int64] `json:"renewalReminderDays,omitzero"`
 	// Number of minutes until the payment session expires. Defaults to 240 minutes (4 hours) if not provided.
 	SessionExpiryMinutes *float64 `json:"sessionExpiryMinutes,omitzero"`
+	// Free-form merchant metadata to attach to the subscription. Values must be strings, numbers, or booleans.
+	Metadata map[string]components.SubscriptionMetadata `json:"metadata,omitzero"`
 }
 
 func (c CreateSubscriptionRequest) MarshalJSON() ([]byte, error) {
@@ -286,4 +289,11 @@ func (c *CreateSubscriptionRequest) GetSessionExpiryMinutes() *float64 {
 		return nil
 	}
 	return c.SessionExpiryMinutes
+}
+
+func (c *CreateSubscriptionRequest) GetMetadata() map[string]components.SubscriptionMetadata {
+	if c == nil {
+		return nil
+	}
+	return c.Metadata
 }

@@ -64,10 +64,13 @@ func (e *Include) UnmarshalJSON(data []byte) error {
 }
 
 type ListSubscriptionsRequest struct {
+	// Return subscriptions for this consumer organization. May be combined with `merchantId` to scope to a single consumer/merchant pair. Cannot be combined with `customerId`.
 	ConsumerID *string `queryParam:"style=form,explode=true,name=consumerId"`
+	// Return subscriptions for this customer. Cannot be combined with `consumerId` or `merchantId`.
 	CustomerID *string `queryParam:"style=form,explode=true,name=customerId"`
 	// Number of subscriptions to return
-	Limit      *string `default:"10" queryParam:"style=form,explode=true,name=limit"`
+	Limit *string `default:"10" queryParam:"style=form,explode=true,name=limit"`
+	// Return subscriptions for this merchant organization. May be combined with `consumerId` to scope to a single consumer/merchant pair. Cannot be combined with `customerId`.
 	MerchantID *string `queryParam:"style=form,explode=true,name=merchantId"`
 	// Number of subscriptions to skip
 	Offset *string                  `default:"0" queryParam:"style=form,explode=true,name=offset"`

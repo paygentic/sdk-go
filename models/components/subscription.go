@@ -511,6 +511,8 @@ type Subscription struct {
 	RenewalReminderDays optionalnullable.OptionalNullable[int64] `json:"renewalReminderDays,omitzero"`
 	// Subscription-level auto-approval override. Null means plan default is used.
 	AutoApprove optionalnullable.OptionalNullable[bool] `json:"autoApprove,omitzero"`
+	// Free-form merchant metadata to attach to the subscription. Values must be strings, numbers, or booleans.
+	Metadata map[string]SubscriptionMetadata `json:"metadata,omitzero"`
 	// Customer details with merchant and consumer information. Only included when include=customer is specified in the list query.
 	Customer *SubscriptionCustomer `json:"customer,omitzero"`
 }
@@ -713,6 +715,13 @@ func (s *Subscription) GetAutoApprove() optionalnullable.OptionalNullable[bool] 
 		return nil
 	}
 	return s.AutoApprove
+}
+
+func (s *Subscription) GetMetadata() map[string]SubscriptionMetadata {
+	if s == nil {
+		return nil
+	}
+	return s.Metadata
 }
 
 func (s *Subscription) GetCustomer() *SubscriptionCustomer {
