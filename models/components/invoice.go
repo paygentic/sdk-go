@@ -219,6 +219,8 @@ type Invoice struct {
 	PaidAmount string `json:"paidAmount"`
 	// When the invoice was paid (null if not yet paid)
 	PaidAt optionalnullable.OptionalNullable[time.Time] `json:"paidAt,omitzero"`
+	// Payment due date snapshotted at invoice-create time as the issue date + subscription.paymentTermDays, anchored to midnight UTC. Null only for invoices created before this feature shipped (no backfill).
+	DueAt optionalnullable.OptionalNullable[time.Time] `json:"dueAt,omitzero"`
 	// Payment URL for completing payment (only present when status is ISSUED and unpaidAmount > 0)
 	PaymentURL optionalnullable.OptionalNullable[string] `json:"paymentUrl,omitzero"`
 	// Direct PDF download link for tax invoice
@@ -375,6 +377,13 @@ func (i *Invoice) GetPaidAt() optionalnullable.OptionalNullable[time.Time] {
 		return nil
 	}
 	return i.PaidAt
+}
+
+func (i *Invoice) GetDueAt() optionalnullable.OptionalNullable[time.Time] {
+	if i == nil {
+		return nil
+	}
+	return i.DueAt
 }
 
 func (i *Invoice) GetPaymentURL() optionalnullable.OptionalNullable[string] {

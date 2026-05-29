@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 5f9f8092-429e-454b-8c55-a2d2d1508328
 management:
-  docChecksum: d359f91ee55813ba2f8b3355e466fff6
+  docChecksum: 7bd4782ffdd27c48343f8692938b1b4b
   docVersion: 0.1.0
   speakeasyVersion: 1.763.3
   generationVersion: 2.884.7
-  releaseVersion: 0.2.7
-  configChecksum: 70c098a6b1b5dcbd27c0024d0be958c0
+  releaseVersion: 0.2.8
+  configChecksum: 02344a99b92cdc4c5bf21b2693f98ced
   repoURL: https://github.com/paygentic/sdk-go.git
   installationURL: https://github.com/paygentic/sdk-go
 persistentEdits:
-  generation_id: 61573b7b-e2bf-4b27-8df3-8ca5ed85758c
-  pristine_commit_hash: 386aa9383991237c031a69f3fa02a61ee7d3d0ac
-  pristine_tree_hash: 87886e6a2cf68b1358728e38578895ee926c5b22
+  generation_id: c22db0f8-c7a4-4fb9-9731-188a94b64d38
+  pristine_commit_hash: 7be6711fda01d1919d01cc9c958d0ef899f7f97d
+  pristine_tree_hash: 73122395f34a3b905a035c14a83deec8ad2c267e
 features:
   go:
     additionalDependencies: 0.1.0
@@ -52,8 +52,8 @@ trackedFiles:
     pristine_git_object: 8ed27c54f5a0920a9a613aabf63db17fb839d3b6
   client.go:
     id: d633516feaf9
-    last_write_checksum: sha1:7927edf549783ec42e85d680167f03c16666b0c9
-    pristine_git_object: b990bf6fb47390bd970a2bf7a7bf2958c9f2dd2d
+    last_write_checksum: sha1:c72a15215aad613975fa502e056f326b94c1165b
+    pristine_git_object: d965c7a3f70aa5fcdd1964e1dd22f8cac160cf77
   costs.go:
     id: 247b6e6ecaf3
     last_write_checksum: sha1:6a0c8cf65c575073eba23dfb3b2f8e5044013500
@@ -304,8 +304,8 @@ trackedFiles:
     pristine_git_object: 60e533c226bf592a97ac5bb5cd6dfa1a806f7185
   docs/models/components/invoice.md:
     id: dfe36624d47f
-    last_write_checksum: sha1:ed30a9cd4dac10eda8981f19286d8ee269bbf1a9
-    pristine_git_object: 947e9304b798eb28e2b93b60bd099a9051ca189b
+    last_write_checksum: sha1:21543be5fe0dc7321149450edef8fd883b954044
+    pristine_git_object: dacbcd8b696d2006fc3be446a2c3be73db5659f0
   docs/models/components/invoicecategorysummary.md:
     id: a5e39b9edb7e
     last_write_checksum: sha1:fbebb01af4297d2806a479e9ebed892eeeb64a4e
@@ -688,8 +688,8 @@ trackedFiles:
     pristine_git_object: c7da25de8f9f1061e297feb1738f54b234f1783c
   docs/models/components/subscription.md:
     id: 66a8decfafdd
-    last_write_checksum: sha1:19c1487aa1796122691f0ec1e35bd84427dc0276
-    pristine_git_object: bd0e42066004f50c447a53b2517c53f4054fb24e
+    last_write_checksum: sha1:2d079ccc9347f204a3c64c50ecd82636b4cc8ca2
+    pristine_git_object: 0b886dffd966f2b1ccc3a1bdbe751965d2cac220
   docs/models/components/subscriptioncustomer.md:
     id: 5fb52320ebbf
     last_write_checksum: sha1:bfd8f4e9f9a450818aad19c9934f9abff6aeba05
@@ -968,8 +968,8 @@ trackedFiles:
     pristine_git_object: 899243271eca9c36ae2a2b0cda407c07f908d44b
   docs/models/operations/createsubscriptionrequest.md:
     id: e71be0fed944
-    last_write_checksum: sha1:63268929aae2f1fbc105db79aabe69158830a237
-    pristine_git_object: 6f3799a1c79ef7c4b207eee7dc96c0c9cfc1ae8e
+    last_write_checksum: sha1:cdbd5f949b0cc3953a8320acf9893d53ac261bc0
+    pristine_git_object: 59a420181a5c72f4a1753b62a3a468d106f209d2
   docs/models/operations/createtestclockrequest.md:
     id: 024f0a664cfd
     last_write_checksum: sha1:bcde8c95a72c926bec04d0779c0e525d6ac8a88e
@@ -1620,8 +1620,8 @@ trackedFiles:
     pristine_git_object: 6091de85e29682c169aef412d34a634a66f69c8c
   docs/models/operations/updatesubscriptionrequestbody.md:
     id: 956d2e64dc58
-    last_write_checksum: sha1:d24aeb5c013a8365d41f1b6568228af042af7672
-    pristine_git_object: 9e148dd8a0892baa482c4b5374dea9bcdceaa6c8
+    last_write_checksum: sha1:bc5796c25023656d5d198074723c3f16d1581882
+    pristine_git_object: 5b3dcc0768b2b3b09e455c6b34cf653e44ece0cb
   docs/models/operations/updatesubscriptionstatus.md:
     id: 3d83791d73f3
     last_write_checksum: sha1:43d3dbaf42224a9e87451467731da775f9556304
@@ -1676,8 +1676,8 @@ trackedFiles:
     pristine_git_object: a0e2591e0f6cbb98e2e22741c0835ef605f8cb6e
   docs/sdks/grants/README.md:
     id: f4371a3352ee
-    last_write_checksum: sha1:fe121245efc655e64adc1617fbe3d610df4549d0
-    pristine_git_object: bcf15dd369617465e2515f7d50eba9710f211ab6
+    last_write_checksum: sha1:300b3edb824b79a6ef9e7c34286ffd00106f44f1
+    pristine_git_object: 74ece990ad6cefecf549b1b3059d0f656f7b90af
   docs/sdks/invoicesv2/README.md:
     id: 671851b727bc
     last_write_checksum: sha1:9e77f99c71dd5414090a83c4a250c0a053251cf2
@@ -1760,8 +1760,8 @@ trackedFiles:
     pristine_git_object: ab0a464e570b04f805895950b011a7224e0f7edc
   grants.go:
     id: aa31b6a54c14
-    last_write_checksum: sha1:74e90ccdb4572dd031bca490237c0ab7a0dbb66c
-    pristine_git_object: 4621ee5b172d17b1a65830cd674716619ae287bf
+    last_write_checksum: sha1:d7134d299cb293a5380131a688d4bd5a47213788
+    pristine_git_object: e8be705c1045c1d0285cdba0a6aa616d675e92c6
   internal/config/sdkconfiguration.go:
     id: 33b8bfac5265
     last_write_checksum: sha1:5eff917529533815c512296b7df5d95a293f6dea
@@ -1924,8 +1924,8 @@ trackedFiles:
     pristine_git_object: 8ff1b7a1be3a86afd536955c9ce90e608ddd1659
   models/components/invoice.go:
     id: c48ce6abe467
-    last_write_checksum: sha1:de769319a4bc70dd827d44dd3cd297d21b41358d
-    pristine_git_object: bee51eb7ddb9f03a84eca83d3cf5dd5667f136e5
+    last_write_checksum: sha1:33de5364043dceae5bb8b5ff0a0eaa0747db5333
+    pristine_git_object: de3253571c97afab2b7ee7ea381689faa2747557
   models/components/invoicecategorysummary.go:
     id: 0426254d387e
     last_write_checksum: sha1:d1cc293e7e0ea1c6c1bf710cbb167e7be813c3ad
@@ -2076,8 +2076,8 @@ trackedFiles:
     pristine_git_object: 7d9ee59eab3e159d48fdf73e533320432887dcab
   models/components/subscription.go:
     id: de331fe1338d
-    last_write_checksum: sha1:6b706b25f29991c67456bd1409aab84884c72bac
-    pristine_git_object: bf44590b4ea462fd6bba39bb09bb888a21b69438
+    last_write_checksum: sha1:a70d726766d73857d841f45f1f4fe35c720ea008
+    pristine_git_object: 419d9150ee9328a90930bbdab6d347e77ab8ca7d
   models/components/subscriptionmetadata.go:
     id: ea18fd1a9457
     last_write_checksum: sha1:df2f856f5161c055e36348831a401b589e358dbf
@@ -2204,8 +2204,8 @@ trackedFiles:
     pristine_git_object: 933f3c1ec4cbd19f0f87642b284adf5aeacffd27
   models/operations/createsubscription.go:
     id: 16b511206b4f
-    last_write_checksum: sha1:a4ca29c0042b092c627af912a5f2667942293830
-    pristine_git_object: c16fb22d62e99d4d57281450a5a8fbf56926c1a3
+    last_write_checksum: sha1:f163a4714cdcae93fa0d21874eee0444e7d4a22b
+    pristine_git_object: c5d971e5d29fd5582e9946703103f530bd2b8cc5
   models/operations/createtestclock.go:
     id: f367ff52a059
     last_write_checksum: sha1:00567fb1b5474a50a07b3d699dfa932429dc02e3
@@ -2488,8 +2488,8 @@ trackedFiles:
     pristine_git_object: c6c85e31b66d37cfe9f02d77b69866e1fcd6a31e
   models/operations/updatesubscription.go:
     id: 1f900e362646
-    last_write_checksum: sha1:9dd82e6ba16a4943d2d44853d30c6eafcd8c79d7
-    pristine_git_object: 030ca7e06145100e08f39713795613f99b4112de
+    last_write_checksum: sha1:8658cb6ea8731724e9b703980684891f4e892f95
+    pristine_git_object: 914ac5841f538d4a63f445aea7559ea9ed3f333f
   models/operations/updateuser.go:
     id: 11181bdabe9f
     last_write_checksum: sha1:8f36097905c51e563b57176e0dc88eb69ebee3e8
@@ -3621,7 +3621,7 @@ examples:
         application/json: {"autoCharge": false, "taxExempt": false, "name": "Monthly API Service", "planId": "<id>", "startedAt": "2026-08-09T13:09:26.829Z"}
       responses:
         "200":
-          application/json: {"id": "<id>", "object": "subscription", "autoCharge": false, "createdAt": "2025-10-04T05:26:12.259Z", "customerId": "<id>", "taxExempt": false, "name": "<value>", "planId": "<id>", "startedAt": "2026-02-12T13:24:02.807Z", "status": "pending_payment", "updatedAt": "2026-02-28T00:23:19.112Z"}
+          application/json: {"id": "<id>", "object": "subscription", "autoCharge": false, "createdAt": "2025-10-04T05:26:12.259Z", "customerId": "<id>", "taxExempt": false, "name": "<value>", "planId": "<id>", "startedAt": "2026-02-12T13:24:02.807Z", "status": "pending_payment", "updatedAt": "2026-02-28T00:23:19.112Z", "paymentTermDays": 868201}
         "400":
           application/json: {"error": "not_found", "message": "The requested resource was not found"}
         "401":
@@ -3635,7 +3635,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"id": "<id>", "object": "subscription", "autoCharge": false, "createdAt": "2024-07-23T15:18:45.410Z", "customerId": "<id>", "taxExempt": false, "name": "<value>", "planId": "<id>", "startedAt": "2024-04-08T18:26:09.428Z", "status": "active", "updatedAt": "2024-04-25T21:55:26.643Z"}
+          application/json: {"id": "<id>", "object": "subscription", "autoCharge": false, "createdAt": "2024-07-23T15:18:45.410Z", "customerId": "<id>", "taxExempt": false, "name": "<value>", "planId": "<id>", "startedAt": "2024-04-08T18:26:09.428Z", "status": "active", "updatedAt": "2024-04-25T21:55:26.643Z", "paymentTermDays": 186713}
         "401":
           application/json: {"error": "not_found", "message": "The requested resource was not found"}
         "500":
@@ -3661,7 +3661,7 @@ examples:
         application/json: {"reason": "<value>"}
       responses:
         "200":
-          application/json: {"id": "<id>", "object": "subscription", "autoCharge": false, "createdAt": "2025-06-02T08:17:12.899Z", "customerId": "<id>", "taxExempt": false, "name": "<value>", "planId": "<id>", "startedAt": "2026-06-24T00:11:37.150Z", "status": "terminated", "updatedAt": "2024-07-15T23:15:55.932Z"}
+          application/json: {"id": "<id>", "object": "subscription", "autoCharge": false, "createdAt": "2025-06-02T08:17:12.899Z", "customerId": "<id>", "taxExempt": false, "name": "<value>", "planId": "<id>", "startedAt": "2026-06-24T00:11:37.150Z", "status": "terminated", "updatedAt": "2024-07-15T23:15:55.932Z", "paymentTermDays": 472943}
         "400":
           application/json: {"error": "not_found", "message": "The requested resource was not found"}
         "401":
@@ -4185,7 +4185,7 @@ examples:
         application/json: {}
       responses:
         "200":
-          application/json: {"id": "<id>", "object": "subscription", "autoCharge": false, "createdAt": "2025-01-18T06:20:25.243Z", "customerId": "<id>", "taxExempt": false, "name": "<value>", "planId": "<id>", "startedAt": "2026-01-02T09:19:04.663Z", "status": "terminated", "updatedAt": "2026-08-30T00:11:32.073Z"}
+          application/json: {"id": "<id>", "object": "subscription", "autoCharge": false, "createdAt": "2025-01-18T06:20:25.243Z", "customerId": "<id>", "taxExempt": false, "name": "<value>", "planId": "<id>", "startedAt": "2026-01-02T09:19:04.663Z", "status": "terminated", "updatedAt": "2026-08-30T00:11:32.073Z", "paymentTermDays": 349693}
         "400":
           application/json: {"error": "not_found", "message": "The requested resource was not found"}
         "401":
@@ -4306,4 +4306,4 @@ generatedTests:
   listCustomerPaymentMethods: "2026-05-08T17:36:38Z"
   createCustomerPaymentMethod: "2026-05-08T17:36:38Z"
   updateSubscription: "2026-05-23T07:45:48Z"
-releaseNotes: "## Go SDK Changes:\n* `Client.Subscriptions.List()`:  `response.Data[].Metadata` **Added**\n* `Client.Subscriptions.Create()`: \n  *  `request.Request.Metadata` **Added**\n  *  `response.Metadata` **Added**\n* `Client.Subscriptions.Get()`:  `response.Metadata` **Added**\n* `Client.Subscriptions.UpdateSubscription()`:  `response.Metadata` **Added**\n* `Client.Subscriptions.Terminate()`:  `response.Metadata` **Added**\n"
+releaseNotes: "## Go SDK Changes:\n* `Client.Subscriptions.List()`:  `response.Data[].PaymentTermDays` **Added**\n* `Client.Subscriptions.Create()`: \n  *  `request.Request.PaymentTermDays` **Added**\n  *  `response.PaymentTermDays` **Added**\n* `Client.Subscriptions.Get()`:  `response.PaymentTermDays` **Added**\n* `Client.Subscriptions.UpdateSubscription()`: \n  *  `request.Body.PaymentTermDays` **Added**\n  *  `response.PaymentTermDays` **Added**\n* `Client.Subscriptions.Terminate()`:  `response.PaymentTermDays` **Added**\n* `Client.InvoicesV2.List()`:  `response.Data[].DueAt` **Added**\n* `Client.InvoicesV2.Get()`:  `response.DueAt` **Added**\n"

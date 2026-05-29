@@ -169,6 +169,8 @@ type CreateSubscriptionRequest struct {
 	RenewalReminderEnabled optionalnullable.OptionalNullable[bool] `json:"renewalReminderEnabled,omitzero"`
 	// Override plan setting for number of days before renewal to send the reminder. Only used if renewalReminderEnabled is true (or inherited from plan). Set to null to use plan default.
 	RenewalReminderDays optionalnullable.OptionalNullable[int64] `json:"renewalReminderDays,omitzero"`
+	// Payment term in days ("Net X") applied to every invoice the subscription generates: invoice dueAt = invoice issue date + paymentTermDays. Defaults to 0 ("due on issue"). A non-zero value is only valid alongside bankTransferOnly=true.
+	PaymentTermDays *int64 `json:"paymentTermDays,omitzero"`
 	// Number of minutes until the payment session expires. Defaults to 240 minutes (4 hours) if not provided.
 	SessionExpiryMinutes *float64 `json:"sessionExpiryMinutes,omitzero"`
 	// Free-form merchant metadata to attach to the subscription. Values must be strings, numbers, or booleans.
@@ -282,6 +284,13 @@ func (c *CreateSubscriptionRequest) GetRenewalReminderDays() optionalnullable.Op
 		return nil
 	}
 	return c.RenewalReminderDays
+}
+
+func (c *CreateSubscriptionRequest) GetPaymentTermDays() *int64 {
+	if c == nil {
+		return nil
+	}
+	return c.PaymentTermDays
 }
 
 func (c *CreateSubscriptionRequest) GetSessionExpiryMinutes() *float64 {

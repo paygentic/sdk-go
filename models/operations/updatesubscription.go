@@ -54,6 +54,8 @@ type UpdateSubscriptionRequestBody struct {
 	RenewalReminderEnabled optionalnullable.OptionalNullable[bool] `json:"renewalReminderEnabled,omitzero"`
 	// Override plan setting for number of days before renewal to send the reminder. Set to null to use plan default.
 	RenewalReminderDays optionalnullable.OptionalNullable[int64] `json:"renewalReminderDays,omitzero"`
+	// Payment term in days ("Net X") applied to subsequently generated invoices: invoice dueAt = invoice issue date + paymentTermDays. A non-zero value is only valid alongside bankTransferOnly=true. Set 0 for "due on issue". Already-issued invoices keep their snapshotted dueAt.
+	PaymentTermDays *int64 `json:"paymentTermDays,omitzero"`
 }
 
 func (u UpdateSubscriptionRequestBody) MarshalJSON() ([]byte, error) {
@@ -135,6 +137,13 @@ func (u *UpdateSubscriptionRequestBody) GetRenewalReminderDays() optionalnullabl
 		return nil
 	}
 	return u.RenewalReminderDays
+}
+
+func (u *UpdateSubscriptionRequestBody) GetPaymentTermDays() *int64 {
+	if u == nil {
+		return nil
+	}
+	return u.PaymentTermDays
 }
 
 type UpdateSubscriptionRequest struct {
