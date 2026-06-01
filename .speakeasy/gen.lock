@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 5f9f8092-429e-454b-8c55-a2d2d1508328
 management:
-  docChecksum: 7bd4782ffdd27c48343f8692938b1b4b
+  docChecksum: 5543dffd1d0b28714079628faa5578b2
   docVersion: 0.1.0
   speakeasyVersion: 1.763.3
   generationVersion: 2.884.7
-  releaseVersion: 0.2.8
-  configChecksum: 02344a99b92cdc4c5bf21b2693f98ced
+  releaseVersion: 0.2.9
+  configChecksum: d220bea10ab23707725d26b5f2cce8e5
   repoURL: https://github.com/paygentic/sdk-go.git
   installationURL: https://github.com/paygentic/sdk-go
 persistentEdits:
-  generation_id: c22db0f8-c7a4-4fb9-9731-188a94b64d38
-  pristine_commit_hash: 7be6711fda01d1919d01cc9c958d0ef899f7f97d
-  pristine_tree_hash: 73122395f34a3b905a035c14a83deec8ad2c267e
+  generation_id: 43a3a2f5-2a95-42f0-8a47-2de85327dc5b
+  pristine_commit_hash: f0e996e45818500e9e01872537ae5ee36da16474
+  pristine_tree_hash: 07a93db9cffda5ccf085e2c04af8af4ac99eccdd
 features:
   go:
     additionalDependencies: 0.1.0
@@ -52,8 +52,8 @@ trackedFiles:
     pristine_git_object: 8ed27c54f5a0920a9a613aabf63db17fb839d3b6
   client.go:
     id: d633516feaf9
-    last_write_checksum: sha1:c72a15215aad613975fa502e056f326b94c1165b
-    pristine_git_object: d965c7a3f70aa5fcdd1964e1dd22f8cac160cf77
+    last_write_checksum: sha1:6ca7edc966eff7a8ce2078cc84df12c93446cf06
+    pristine_git_object: dcb4b400a9e8e619ad9cc596cca9ba1c25502056
   costs.go:
     id: 247b6e6ecaf3
     last_write_checksum: sha1:6a0c8cf65c575073eba23dfb3b2f8e5044013500
@@ -672,8 +672,8 @@ trackedFiles:
     pristine_git_object: 805d7739a849659a699cd029691d930e104ec10f
   docs/models/components/state.md:
     id: 441de3ea6229
-    last_write_checksum: sha1:bf8a0a8ecfc3d2c42667128c5dd83a4274fb1ebc
-    pristine_git_object: c502a94c9fccc9d28e80db7b38ab68caab088082
+    last_write_checksum: sha1:568e209d5bd81c43116b548fdae117ede38b75f7
+    pristine_git_object: 9dffa9c3bad36faa055574b2d71c77d667b2ecc5
   docs/models/components/staticentitlementdetail.md:
     id: c6bd68d1b6a7
     last_write_checksum: sha1:df6aaaddf8a4a65aed9757748e41034d478612d3
@@ -2100,8 +2100,8 @@ trackedFiles:
     pristine_git_object: 8ee95346ed24c32688e166accd9e1996e010cbc3
   models/components/user.go:
     id: 972e0ca973c7
-    last_write_checksum: sha1:9560495130a7cddff54cb00f55b6505913305f35
-    pristine_git_object: d4fc1ae417900ea514ad65936ca657d01c116cf7
+    last_write_checksum: sha1:587cd477af215ae167d4f53e18114daaabc3509c
+    pristine_git_object: 63a428ec3b1d5e2dc28009aa03d74e2acd6ac7d7
   models/components/validationerror.go:
     id: f7f14895a76c
     last_write_checksum: sha1:fa83f751fc2372abee0e95ed5179a7e677f52f2b
@@ -4306,4 +4306,7 @@ generatedTests:
   listCustomerPaymentMethods: "2026-05-08T17:36:38Z"
   createCustomerPaymentMethod: "2026-05-08T17:36:38Z"
   updateSubscription: "2026-05-23T07:45:48Z"
-releaseNotes: "## Go SDK Changes:\n* `Client.Subscriptions.List()`:  `response.Data[].PaymentTermDays` **Added**\n* `Client.Subscriptions.Create()`: \n  *  `request.Request.PaymentTermDays` **Added**\n  *  `response.PaymentTermDays` **Added**\n* `Client.Subscriptions.Get()`:  `response.PaymentTermDays` **Added**\n* `Client.Subscriptions.UpdateSubscription()`: \n  *  `request.Body.PaymentTermDays` **Added**\n  *  `response.PaymentTermDays` **Added**\n* `Client.Subscriptions.Terminate()`:  `response.PaymentTermDays` **Added**\n* `Client.InvoicesV2.List()`:  `response.Data[].DueAt` **Added**\n* `Client.InvoicesV2.Get()`:  `response.DueAt` **Added**\n"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `Client.Users.Get()`:  `response.Organizations[].State.Enum(declined)` **Added**
+  * `Client.Users.Update()`:  `response.Organizations[].State.Enum(declined)` **Added**

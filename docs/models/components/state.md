@@ -21,3 +21,4 @@ custom := components.State("custom_value")
 | `StateInvited`   | invited          |
 | `StateActive`    | active           |
 | `StateSuspended` | suspended        |
+| `StateDeclined`  | declined         |
