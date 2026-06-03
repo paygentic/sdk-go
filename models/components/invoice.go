@@ -199,6 +199,8 @@ type Invoice struct {
 	CreatedAt time.Time `json:"createdAt"`
 	// ISO 4217 currency code (e.g., USD, EUR)
 	Currency string `json:"currency"`
+	// Machine-readable reason code for the most recent failure (e.g. CALCULATION_FAILED). Present only when status is FAILED or PAYMENT_FAILED.
+	FailureReason *string `json:"failureReason,omitzero"`
 	// The end of the grace period for accepting usage events
 	GracePeriodEnd time.Time `json:"gracePeriodEnd"`
 	// Grand total (subtotal + tax) in decimal dollars (real-time for ACTIVE/CLOSING/CLOSED, cached otherwise)
@@ -307,6 +309,13 @@ func (i *Invoice) GetCurrency() string {
 		return ""
 	}
 	return i.Currency
+}
+
+func (i *Invoice) GetFailureReason() *string {
+	if i == nil {
+		return nil
+	}
+	return i.FailureReason
 }
 
 func (i *Invoice) GetGracePeriodEnd() time.Time {

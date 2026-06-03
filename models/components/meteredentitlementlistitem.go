@@ -3,40 +3,14 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/paygentic/sdk-go/internal/utils"
 	"time"
 )
 
-type MeteredEntitlementDetailObject string
-
-const (
-	MeteredEntitlementDetailObjectEntitlement MeteredEntitlementDetailObject = "entitlement"
-)
-
-func (e MeteredEntitlementDetailObject) ToPointer() *MeteredEntitlementDetailObject {
-	return &e
-}
-func (e *MeteredEntitlementDetailObject) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "entitlement":
-		*e = MeteredEntitlementDetailObject(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for MeteredEntitlementDetailObject: %v", v)
-	}
-}
-
-// MeteredEntitlementDetail - Common fields shared by all entitlement types.
-type MeteredEntitlementDetail struct {
-	Object *MeteredEntitlementDetailObject `default:"entitlement" json:"object"`
+// MeteredEntitlementListItem - Common fields shared by all entitlement list items. List items use `entitlementId` (not `id`) to preserve the original public field name on `/v1/entitlements`. The get-by-id endpoint returns the same object with a top-level `id` and `object: "entitlement"` instead.
+type MeteredEntitlementListItem struct {
 	// Unique identifier for the entitlement.
-	ID string `json:"id"`
+	EntitlementID string `json:"entitlementId"`
 	// Unique identifier for a customer
 	CustomerID string `json:"customerId"`
 	// The feature this entitlement grants access to.
@@ -59,7 +33,7 @@ type MeteredEntitlementDetail struct {
 	HasAccess bool `json:"hasAccess"`
 	// Additional metadata for the entitlement.
 	Metadata map[string]string `json:"metadata"`
-	// Always `null` for metered entitlements. Surfaced on every entitlement so clients can read `config` without first switching on `featureType`.
+	// Always `null` for metered entitlements. Surfaced on every list item so clients can read `item.config` without first switching on `featureType`.
 	Config map[string]any `json:"config"`
 	// When false (hard limit), access is blocked when balance is exhausted and overage is not charged on invoices. When true (soft limit), access continues past the grant and overage is charged at the per-unit rate.
 	IsSoftLimit bool `json:"isSoftLimit"`
@@ -75,148 +49,141 @@ type MeteredEntitlementDetail struct {
 	CurrentPeriodEnd *time.Time `json:"currentPeriodEnd"`
 }
 
-func (m MeteredEntitlementDetail) MarshalJSON() ([]byte, error) {
+func (m MeteredEntitlementListItem) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(m, "", false)
 }
 
-func (m *MeteredEntitlementDetail) UnmarshalJSON(data []byte) error {
+func (m *MeteredEntitlementListItem) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &m, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (m *MeteredEntitlementDetail) GetObject() *MeteredEntitlementDetailObject {
-	if m == nil {
-		return nil
-	}
-	return m.Object
-}
-
-func (m *MeteredEntitlementDetail) GetID() string {
+func (m *MeteredEntitlementListItem) GetEntitlementID() string {
 	if m == nil {
 		return ""
 	}
-	return m.ID
+	return m.EntitlementID
 }
 
-func (m *MeteredEntitlementDetail) GetCustomerID() string {
+func (m *MeteredEntitlementListItem) GetCustomerID() string {
 	if m == nil {
 		return ""
 	}
 	return m.CustomerID
 }
 
-func (m *MeteredEntitlementDetail) GetFeatureID() string {
+func (m *MeteredEntitlementListItem) GetFeatureID() string {
 	if m == nil {
 		return ""
 	}
 	return m.FeatureID
 }
 
-func (m *MeteredEntitlementDetail) GetFeatureKey() string {
+func (m *MeteredEntitlementListItem) GetFeatureKey() string {
 	if m == nil {
 		return ""
 	}
 	return m.FeatureKey
 }
 
-func (m *MeteredEntitlementDetail) GetFeatureType() string {
+func (m *MeteredEntitlementListItem) GetFeatureType() string {
 	return "metered"
 }
 
-func (m *MeteredEntitlementDetail) GetProductID() string {
+func (m *MeteredEntitlementListItem) GetProductID() string {
 	if m == nil {
 		return ""
 	}
 	return m.ProductID
 }
 
-func (m *MeteredEntitlementDetail) GetSubscriptionID() *string {
+func (m *MeteredEntitlementListItem) GetSubscriptionID() *string {
 	if m == nil {
 		return nil
 	}
 	return m.SubscriptionID
 }
 
-func (m *MeteredEntitlementDetail) GetStatus() EntitlementStatus {
+func (m *MeteredEntitlementListItem) GetStatus() EntitlementStatus {
 	if m == nil {
 		return EntitlementStatus("")
 	}
 	return m.Status
 }
 
-func (m *MeteredEntitlementDetail) GetActiveFrom() time.Time {
+func (m *MeteredEntitlementListItem) GetActiveFrom() time.Time {
 	if m == nil {
 		return time.Time{}
 	}
 	return m.ActiveFrom
 }
 
-func (m *MeteredEntitlementDetail) GetActiveTo() *time.Time {
+func (m *MeteredEntitlementListItem) GetActiveTo() *time.Time {
 	if m == nil {
 		return nil
 	}
 	return m.ActiveTo
 }
 
-func (m *MeteredEntitlementDetail) GetHasAccess() bool {
+func (m *MeteredEntitlementListItem) GetHasAccess() bool {
 	if m == nil {
 		return false
 	}
 	return m.HasAccess
 }
 
-func (m *MeteredEntitlementDetail) GetMetadata() map[string]string {
+func (m *MeteredEntitlementListItem) GetMetadata() map[string]string {
 	if m == nil {
 		return map[string]string{}
 	}
 	return m.Metadata
 }
 
-func (m *MeteredEntitlementDetail) GetConfig() map[string]any {
+func (m *MeteredEntitlementListItem) GetConfig() map[string]any {
 	if m == nil {
 		return nil
 	}
 	return m.Config
 }
 
-func (m *MeteredEntitlementDetail) GetIsSoftLimit() bool {
+func (m *MeteredEntitlementListItem) GetIsSoftLimit() bool {
 	if m == nil {
 		return false
 	}
 	return m.IsSoftLimit
 }
 
-func (m *MeteredEntitlementDetail) GetBalance() float64 {
+func (m *MeteredEntitlementListItem) GetBalance() float64 {
 	if m == nil {
 		return 0.0
 	}
 	return m.Balance
 }
 
-func (m *MeteredEntitlementDetail) GetUsageInPeriod() float64 {
+func (m *MeteredEntitlementListItem) GetUsageInPeriod() float64 {
 	if m == nil {
 		return 0.0
 	}
 	return m.UsageInPeriod
 }
 
-func (m *MeteredEntitlementDetail) GetOverage() float64 {
+func (m *MeteredEntitlementListItem) GetOverage() float64 {
 	if m == nil {
 		return 0.0
 	}
 	return m.Overage
 }
 
-func (m *MeteredEntitlementDetail) GetCurrentPeriodStart() *time.Time {
+func (m *MeteredEntitlementListItem) GetCurrentPeriodStart() *time.Time {
 	if m == nil {
 		return nil
 	}
 	return m.CurrentPeriodStart
 }
 
-func (m *MeteredEntitlementDetail) GetCurrentPeriodEnd() *time.Time {
+func (m *MeteredEntitlementListItem) GetCurrentPeriodEnd() *time.Time {
 	if m == nil {
 		return nil
 	}

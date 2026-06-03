@@ -113,8 +113,8 @@ func (e *ListEntitlementsObject) UnmarshalJSON(data []byte) error {
 // ListEntitlementsResponse - Successfully retrieved the list of entitlements for the customer.
 type ListEntitlementsResponse struct {
 	Object *ListEntitlementsObject `default:"list" json:"object"`
-	// Array of entitlement access results.
-	Data []components.EntitlementAccessResult `json:"data"`
+	// Array of entitlement list items. The shape of each item varies by featureType.
+	Data []components.EntitlementListItem `json:"data"`
 	// Offset-based pagination response.
 	Pagination components.OffsetPagination `json:"pagination"`
 }
@@ -137,9 +137,9 @@ func (l *ListEntitlementsResponse) GetObject() *ListEntitlementsObject {
 	return l.Object
 }
 
-func (l *ListEntitlementsResponse) GetData() []components.EntitlementAccessResult {
+func (l *ListEntitlementsResponse) GetData() []components.EntitlementListItem {
 	if l == nil {
-		return []components.EntitlementAccessResult{}
+		return []components.EntitlementListItem{}
 	}
 	return l.Data
 }

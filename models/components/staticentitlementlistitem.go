@@ -3,40 +3,14 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/paygentic/sdk-go/internal/utils"
 	"time"
 )
 
-type StaticEntitlementDetailObject string
-
-const (
-	StaticEntitlementDetailObjectEntitlement StaticEntitlementDetailObject = "entitlement"
-)
-
-func (e StaticEntitlementDetailObject) ToPointer() *StaticEntitlementDetailObject {
-	return &e
-}
-func (e *StaticEntitlementDetailObject) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "entitlement":
-		*e = StaticEntitlementDetailObject(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for StaticEntitlementDetailObject: %v", v)
-	}
-}
-
-// StaticEntitlementDetail - Common fields shared by all entitlement types.
-type StaticEntitlementDetail struct {
-	Object *StaticEntitlementDetailObject `default:"entitlement" json:"object"`
+// StaticEntitlementListItem - Common fields shared by all entitlement list items. List items use `entitlementId` (not `id`) to preserve the original public field name on `/v1/entitlements`. The get-by-id endpoint returns the same object with a top-level `id` and `object: "entitlement"` instead.
+type StaticEntitlementListItem struct {
 	// Unique identifier for the entitlement.
-	ID string `json:"id"`
+	EntitlementID string `json:"entitlementId"`
 	// Unique identifier for a customer
 	CustomerID string `json:"customerId"`
 	// The feature this entitlement grants access to.
@@ -63,106 +37,99 @@ type StaticEntitlementDetail struct {
 	Config map[string]any `json:"config"`
 }
 
-func (s StaticEntitlementDetail) MarshalJSON() ([]byte, error) {
+func (s StaticEntitlementListItem) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(s, "", false)
 }
 
-func (s *StaticEntitlementDetail) UnmarshalJSON(data []byte) error {
+func (s *StaticEntitlementListItem) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *StaticEntitlementDetail) GetObject() *StaticEntitlementDetailObject {
-	if s == nil {
-		return nil
-	}
-	return s.Object
-}
-
-func (s *StaticEntitlementDetail) GetID() string {
+func (s *StaticEntitlementListItem) GetEntitlementID() string {
 	if s == nil {
 		return ""
 	}
-	return s.ID
+	return s.EntitlementID
 }
 
-func (s *StaticEntitlementDetail) GetCustomerID() string {
+func (s *StaticEntitlementListItem) GetCustomerID() string {
 	if s == nil {
 		return ""
 	}
 	return s.CustomerID
 }
 
-func (s *StaticEntitlementDetail) GetFeatureID() string {
+func (s *StaticEntitlementListItem) GetFeatureID() string {
 	if s == nil {
 		return ""
 	}
 	return s.FeatureID
 }
 
-func (s *StaticEntitlementDetail) GetFeatureKey() string {
+func (s *StaticEntitlementListItem) GetFeatureKey() string {
 	if s == nil {
 		return ""
 	}
 	return s.FeatureKey
 }
 
-func (s *StaticEntitlementDetail) GetFeatureType() string {
+func (s *StaticEntitlementListItem) GetFeatureType() string {
 	return "static"
 }
 
-func (s *StaticEntitlementDetail) GetProductID() string {
+func (s *StaticEntitlementListItem) GetProductID() string {
 	if s == nil {
 		return ""
 	}
 	return s.ProductID
 }
 
-func (s *StaticEntitlementDetail) GetSubscriptionID() *string {
+func (s *StaticEntitlementListItem) GetSubscriptionID() *string {
 	if s == nil {
 		return nil
 	}
 	return s.SubscriptionID
 }
 
-func (s *StaticEntitlementDetail) GetStatus() EntitlementStatus {
+func (s *StaticEntitlementListItem) GetStatus() EntitlementStatus {
 	if s == nil {
 		return EntitlementStatus("")
 	}
 	return s.Status
 }
 
-func (s *StaticEntitlementDetail) GetActiveFrom() time.Time {
+func (s *StaticEntitlementListItem) GetActiveFrom() time.Time {
 	if s == nil {
 		return time.Time{}
 	}
 	return s.ActiveFrom
 }
 
-func (s *StaticEntitlementDetail) GetActiveTo() *time.Time {
+func (s *StaticEntitlementListItem) GetActiveTo() *time.Time {
 	if s == nil {
 		return nil
 	}
 	return s.ActiveTo
 }
 
-func (s *StaticEntitlementDetail) GetHasAccess() bool {
+func (s *StaticEntitlementListItem) GetHasAccess() bool {
 	if s == nil {
 		return false
 	}
 	return s.HasAccess
 }
 
-func (s *StaticEntitlementDetail) GetMetadata() map[string]string {
+func (s *StaticEntitlementListItem) GetMetadata() map[string]string {
 	if s == nil {
 		return map[string]string{}
 	}
 	return s.Metadata
 }
 
-func (s *StaticEntitlementDetail) GetConfig() map[string]any {
+func (s *StaticEntitlementListItem) GetConfig() map[string]any {
 	if s == nil {
 		return map[string]any{}
 	}

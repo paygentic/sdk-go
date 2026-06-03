@@ -12,6 +12,10 @@
 
 Retrieve all entitlements for a customer, optionally filtered by feature or product.
 
+List items identify the entitlement with `entitlementId` (the original list contract). The get-by-id endpoint (`GET /v1/entitlements/{entitlementId}`) returns the same object but with a top-level `id` and `object: "entitlement"` instead — so use `item.entitlementId`, not `item.id`, when chaining a list result into a get-by-id call.
+
+For metered entitlements, each item carries live balance/usage fields, which the API resolves with one grant-engine balance lookup per metered item (bounded concurrency, up to `limit` items per page).
+
 ### Example Usage: emptyResult
 
 <!-- UsageSnippet language="go" operationID="listEntitlements" method="get" path="/v1/entitlements" example="emptyResult" -->
@@ -47,6 +51,38 @@ func main() {
 ### Example Usage: expiredEntitlement
 
 <!-- UsageSnippet language="go" operationID="listEntitlements" method="get" path="/v1/entitlements" example="expiredEntitlement" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	paygentic "github.com/paygentic/sdk-go"
+	"github.com/paygentic/sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := paygentic.New(
+        paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
+    )
+
+    res, err := s.Entitlements.List(ctx, operations.ListEntitlementsRequest{
+        CustomerID: "cus_q3r4s5t6u7v8w9x0",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: meteredEntitlement
+
+<!-- UsageSnippet language="go" operationID="listEntitlements" method="get" path="/v1/entitlements" example="meteredEntitlement" -->
 ```go
 package main
 
@@ -198,7 +234,17 @@ func main() {
         log.Fatal(err)
     }
     if res != nil {
-        // handle response
+        switch res.Type {
+            case components.EntitlementDetailTypeBoolean:
+                // res.BooleanEntitlementDetail is populated
+            case components.EntitlementDetailTypeStatic:
+                // res.StaticEntitlementDetail is populated
+            case components.EntitlementDetailTypeMetered:
+                // res.MeteredEntitlementDetail is populated
+            default:
+                // Unknown type - use res.GetUnknownRaw() for raw JSON
+        }
+
     }
 }
 ```
@@ -239,7 +285,17 @@ func main() {
         log.Fatal(err)
     }
     if res != nil {
-        // handle response
+        switch res.Type {
+            case components.EntitlementDetailTypeBoolean:
+                // res.BooleanEntitlementDetail is populated
+            case components.EntitlementDetailTypeStatic:
+                // res.StaticEntitlementDetail is populated
+            case components.EntitlementDetailTypeMetered:
+                // res.MeteredEntitlementDetail is populated
+            default:
+                // Unknown type - use res.GetUnknownRaw() for raw JSON
+        }
+
     }
 }
 ```
@@ -279,7 +335,17 @@ func main() {
         log.Fatal(err)
     }
     if res != nil {
-        // handle response
+        switch res.Type {
+            case components.EntitlementDetailTypeBoolean:
+                // res.BooleanEntitlementDetail is populated
+            case components.EntitlementDetailTypeStatic:
+                // res.StaticEntitlementDetail is populated
+            case components.EntitlementDetailTypeMetered:
+                // res.MeteredEntitlementDetail is populated
+            default:
+                // Unknown type - use res.GetUnknownRaw() for raw JSON
+        }
+
     }
 }
 ```
@@ -294,7 +360,7 @@ func main() {
 
 ### Response
 
-**[*components.Entitlement](../../models/components/entitlement.md), error**
+**[*components.EntitlementDetail](../../models/components/entitlementdetail.md), error**
 
 ### Errors
 

@@ -3,40 +3,14 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/paygentic/sdk-go/internal/utils"
 	"time"
 )
 
-type BooleanEntitlementDetailObject string
-
-const (
-	BooleanEntitlementDetailObjectEntitlement BooleanEntitlementDetailObject = "entitlement"
-)
-
-func (e BooleanEntitlementDetailObject) ToPointer() *BooleanEntitlementDetailObject {
-	return &e
-}
-func (e *BooleanEntitlementDetailObject) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "entitlement":
-		*e = BooleanEntitlementDetailObject(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for BooleanEntitlementDetailObject: %v", v)
-	}
-}
-
-// BooleanEntitlementDetail - Common fields shared by all entitlement types.
-type BooleanEntitlementDetail struct {
-	Object *BooleanEntitlementDetailObject `default:"entitlement" json:"object"`
+// BooleanEntitlementListItem - Common fields shared by all entitlement list items. List items use `entitlementId` (not `id`) to preserve the original public field name on `/v1/entitlements`. The get-by-id endpoint returns the same object with a top-level `id` and `object: "entitlement"` instead.
+type BooleanEntitlementListItem struct {
 	// Unique identifier for the entitlement.
-	ID string `json:"id"`
+	EntitlementID string `json:"entitlementId"`
 	// Unique identifier for a customer
 	CustomerID string `json:"customerId"`
 	// The feature this entitlement grants access to.
@@ -59,110 +33,103 @@ type BooleanEntitlementDetail struct {
 	HasAccess bool `json:"hasAccess"`
 	// Additional metadata for the entitlement.
 	Metadata map[string]string `json:"metadata"`
-	// Always `null` for boolean entitlements. Surfaced on every entitlement so clients can read `config` without first switching on `featureType`.
+	// Always `null` for boolean entitlements. Surfaced on every list item so clients can read `item.config` without first switching on `featureType`.
 	Config map[string]any `json:"config"`
 }
 
-func (b BooleanEntitlementDetail) MarshalJSON() ([]byte, error) {
+func (b BooleanEntitlementListItem) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(b, "", false)
 }
 
-func (b *BooleanEntitlementDetail) UnmarshalJSON(data []byte) error {
+func (b *BooleanEntitlementListItem) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (b *BooleanEntitlementDetail) GetObject() *BooleanEntitlementDetailObject {
-	if b == nil {
-		return nil
-	}
-	return b.Object
-}
-
-func (b *BooleanEntitlementDetail) GetID() string {
+func (b *BooleanEntitlementListItem) GetEntitlementID() string {
 	if b == nil {
 		return ""
 	}
-	return b.ID
+	return b.EntitlementID
 }
 
-func (b *BooleanEntitlementDetail) GetCustomerID() string {
+func (b *BooleanEntitlementListItem) GetCustomerID() string {
 	if b == nil {
 		return ""
 	}
 	return b.CustomerID
 }
 
-func (b *BooleanEntitlementDetail) GetFeatureID() string {
+func (b *BooleanEntitlementListItem) GetFeatureID() string {
 	if b == nil {
 		return ""
 	}
 	return b.FeatureID
 }
 
-func (b *BooleanEntitlementDetail) GetFeatureKey() string {
+func (b *BooleanEntitlementListItem) GetFeatureKey() string {
 	if b == nil {
 		return ""
 	}
 	return b.FeatureKey
 }
 
-func (b *BooleanEntitlementDetail) GetFeatureType() string {
+func (b *BooleanEntitlementListItem) GetFeatureType() string {
 	return "boolean"
 }
 
-func (b *BooleanEntitlementDetail) GetProductID() string {
+func (b *BooleanEntitlementListItem) GetProductID() string {
 	if b == nil {
 		return ""
 	}
 	return b.ProductID
 }
 
-func (b *BooleanEntitlementDetail) GetSubscriptionID() *string {
+func (b *BooleanEntitlementListItem) GetSubscriptionID() *string {
 	if b == nil {
 		return nil
 	}
 	return b.SubscriptionID
 }
 
-func (b *BooleanEntitlementDetail) GetStatus() EntitlementStatus {
+func (b *BooleanEntitlementListItem) GetStatus() EntitlementStatus {
 	if b == nil {
 		return EntitlementStatus("")
 	}
 	return b.Status
 }
 
-func (b *BooleanEntitlementDetail) GetActiveFrom() time.Time {
+func (b *BooleanEntitlementListItem) GetActiveFrom() time.Time {
 	if b == nil {
 		return time.Time{}
 	}
 	return b.ActiveFrom
 }
 
-func (b *BooleanEntitlementDetail) GetActiveTo() *time.Time {
+func (b *BooleanEntitlementListItem) GetActiveTo() *time.Time {
 	if b == nil {
 		return nil
 	}
 	return b.ActiveTo
 }
 
-func (b *BooleanEntitlementDetail) GetHasAccess() bool {
+func (b *BooleanEntitlementListItem) GetHasAccess() bool {
 	if b == nil {
 		return false
 	}
 	return b.HasAccess
 }
 
-func (b *BooleanEntitlementDetail) GetMetadata() map[string]string {
+func (b *BooleanEntitlementListItem) GetMetadata() map[string]string {
 	if b == nil {
 		return map[string]string{}
 	}
 	return b.Metadata
 }
 
-func (b *BooleanEntitlementDetail) GetConfig() map[string]any {
+func (b *BooleanEntitlementListItem) GetConfig() map[string]any {
 	if b == nil {
 		return nil
 	}

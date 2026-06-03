@@ -37,6 +37,10 @@ func newEntitlements(rootSDK *Client, sdkConfig config.SDKConfiguration, hooks *
 
 // List Entitlements
 // Retrieve all entitlements for a customer, optionally filtered by feature or product.
+//
+// List items identify the entitlement with `entitlementId` (the original list contract). The get-by-id endpoint (`GET /v1/entitlements/{entitlementId}`) returns the same object but with a top-level `id` and `object: "entitlement"` instead — so use `item.entitlementId`, not `item.id`, when chaining a list result into a get-by-id call.
+//
+// For metered entitlements, each item carries live balance/usage fields, which the API resolves with one grant-engine balance lookup per metered item (bounded concurrency, up to `limit` items per page).
 func (s *Entitlements) List(ctx context.Context, request operations.ListEntitlementsRequest, opts ...operations.Option) (*operations.ListEntitlementsResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -302,7 +306,7 @@ func (s *Entitlements) List(ctx context.Context, request operations.ListEntitlem
 
 // Issue Entitlement
 // Issue a new entitlement to a customer, granting them access to a specific feature. The feature must exist and belong to the same merchant as the customer.
-func (s *Entitlements) Issue(ctx context.Context, request components.IssueEntitlementRequest, opts ...operations.Option) (*components.Entitlement, error) {
+func (s *Entitlements) Issue(ctx context.Context, request components.IssueEntitlementRequest, opts ...operations.Option) (*components.EntitlementDetail, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -468,7 +472,7 @@ func (s *Entitlements) Issue(ctx context.Context, request components.IssueEntitl
 				return nil, err
 			}
 
-			var out components.Entitlement
+			var out components.EntitlementDetail
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
