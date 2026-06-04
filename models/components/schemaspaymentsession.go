@@ -68,6 +68,8 @@ type SchemasPaymentSession struct {
 	EntityType string `json:"entityType"`
 	// ID of the entity the session pays for.
 	EntityID string `json:"entityId"`
+	// Display label for the entity — invoice number, payment-link reference, or subscription name. Null when no label is available.
+	EntityLabel optionalnullable.OptionalNullable[string] `json:"entityLabel,omitzero"`
 	// Amount in decimal dollars.
 	Amount string `json:"amount"`
 	// ISO 4217 currency code.
@@ -76,6 +78,8 @@ type SchemasPaymentSession struct {
 	Status SchemasPaymentSessionStatus `json:"status"`
 	// Stripe Connect account ID (acct_*) when the session is routed to a connected account.
 	MerchantPaymentAccountID optionalnullable.OptionalNullable[string] `json:"merchantPaymentAccountId,omitzero"`
+	// Provider payment intent reference — Stripe PaymentIntent ID (pi_*) or Airwallex intent ID (int_*). Null until the intent is created on first checkout load.
+	ProviderPaymentRef optionalnullable.OptionalNullable[string] `json:"providerPaymentRef,omitzero"`
 	// Timestamp the session reached terminal completion. Null until the session completes.
 	CompletedAt optionalnullable.OptionalNullable[time.Time] `json:"completedAt,omitzero"`
 	CreatedAt   time.Time                                    `json:"createdAt"`
@@ -121,6 +125,13 @@ func (s *SchemasPaymentSession) GetEntityID() string {
 	return s.EntityID
 }
 
+func (s *SchemasPaymentSession) GetEntityLabel() optionalnullable.OptionalNullable[string] {
+	if s == nil {
+		return nil
+	}
+	return s.EntityLabel
+}
+
 func (s *SchemasPaymentSession) GetAmount() string {
 	if s == nil {
 		return ""
@@ -147,6 +158,13 @@ func (s *SchemasPaymentSession) GetMerchantPaymentAccountID() optionalnullable.O
 		return nil
 	}
 	return s.MerchantPaymentAccountID
+}
+
+func (s *SchemasPaymentSession) GetProviderPaymentRef() optionalnullable.OptionalNullable[string] {
+	if s == nil {
+		return nil
+	}
+	return s.ProviderPaymentRef
 }
 
 func (s *SchemasPaymentSession) GetCompletedAt() optionalnullable.OptionalNullable[time.Time] {

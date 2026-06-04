@@ -86,7 +86,7 @@ type ListPaymentSessionsRequest struct {
 	MerchantID *string `queryParam:"style=form,explode=true,name=merchantId"`
 	// Filter to sessions linked to this subscription (its own activation session plus all of its invoices' sessions).
 	SubscriptionID *string `queryParam:"style=form,explode=true,name=subscriptionId"`
-	// Filter to sessions linked to a payment for this customer.
+	// Filter to sessions for this customer: payment-link sessions plus the activation and invoice sessions of the customer's subscriptions.
 	CustomerID *string `queryParam:"style=form,explode=true,name=customerId"`
 	// Filter by payment session status.
 	Status *ListPaymentSessionsStatus `queryParam:"style=form,explode=true,name=status"`
