@@ -20,6 +20,8 @@ type IngestEventRequest struct {
 	Timestamp *time.Time `json:"timestamp,omitzero"`
 	// User-provided deduplication key. If not provided, a unique key is generated.
 	IdempotencyKey *string `json:"idempotencyKey,omitzero"`
+	// Optional external identifier for cross-referencing with external systems. Alphanumeric characters, hyphens, and underscores only.
+	ExternalID *string `json:"externalId,omitzero"`
 	// Event payload containing the metering data.
 	Data map[string]any `json:"data"`
 }
@@ -75,6 +77,13 @@ func (i *IngestEventRequest) GetIdempotencyKey() *string {
 		return nil
 	}
 	return i.IdempotencyKey
+}
+
+func (i *IngestEventRequest) GetExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ExternalID
 }
 
 func (i *IngestEventRequest) GetData() map[string]any {

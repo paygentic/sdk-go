@@ -42,6 +42,8 @@ type EventResponse struct {
 	Namespace      *string              `json:"namespace,omitzero"`
 	Timestamp      *time.Time           `json:"timestamp,omitzero"`
 	IdempotencyKey *string              `json:"idempotencyKey,omitzero"`
+	// Optional external identifier for cross-referencing with external systems. Alphanumeric characters, hyphens, and underscores only.
+	ExternalID *string `json:"externalId,omitzero"`
 }
 
 func (e EventResponse) MarshalJSON() ([]byte, error) {
@@ -109,4 +111,11 @@ func (e *EventResponse) GetIdempotencyKey() *string {
 		return nil
 	}
 	return e.IdempotencyKey
+}
+
+func (e *EventResponse) GetExternalID() *string {
+	if e == nil {
+		return nil
+	}
+	return e.ExternalID
 }

@@ -53,9 +53,9 @@ type Grant struct {
 	RecurrencePeriod *string `json:"recurrencePeriod"`
 	// The idempotency key used when creating this grant. Null if not provided.
 	IdempotencyKey *string `json:"idempotencyKey"`
-	// Maximum balance carried over at the entitlement's reset boundary.
+	// Maximum balance carried over at the entitlement's reset boundary. A value of 999999999999 represents effectively unlimited rollover (the default for direct and purchase grants). A value of 0 means any remaining balance is discarded at each reset.
 	ResetMaxRollover *float64 `json:"resetMaxRollover,omitzero"`
-	// Minimum balance at the entitlement's reset boundary.
+	// Minimum balance at the entitlement's reset boundary; balances below this are floored up. 0 means no floor.
 	ResetMinRollover *float64 `json:"resetMinRollover,omitzero"`
 }
 
