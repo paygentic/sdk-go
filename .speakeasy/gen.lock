@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 5f9f8092-429e-454b-8c55-a2d2d1508328
 management:
-  docChecksum: 84d7c2924c2ac5c0308abebeed68fbf1
+  docChecksum: 0269de32a04dc0c8c3b8f380bf88cd2f
   docVersion: 0.1.0
-  speakeasyVersion: 1.771.1
-  generationVersion: 2.893.0
-  releaseVersion: 0.2.12
-  configChecksum: 89a13dae1be473c0be6e0fc6942751ff
+  speakeasyVersion: 1.773.1
+  generationVersion: 2.897.1
+  releaseVersion: 0.2.13
+  configChecksum: 7eca93e0d1f1d5fede141f822da1392a
   repoURL: https://github.com/paygentic/sdk-go.git
   installationURL: https://github.com/paygentic/sdk-go
 persistentEdits:
-  generation_id: ba7b2647-95af-460b-b943-9a12fe899b19
-  pristine_commit_hash: f115ba1e162e39abd33660bacedfc9725913c39c
-  pristine_tree_hash: 2f5014ddfc15667687bdd87ab7a6c29d658f3ef5
+  generation_id: 6acf5381-66fa-4c70-b068-78000ef18810
+  pristine_commit_hash: aab753d5749fff11417ac848a53568d891728238
+  pristine_tree_hash: ed18240add25204245f0843a9675eb7d7ab85b43
 features:
   go:
     additionalDependencies: 0.1.0
@@ -52,8 +52,8 @@ trackedFiles:
     pristine_git_object: 8ed27c54f5a0920a9a613aabf63db17fb839d3b6
   client.go:
     id: d633516feaf9
-    last_write_checksum: sha1:e13a5d0804bf0d7c0f60d00e4a4a24628b8aa4ae
-    pristine_git_object: 173d616ea3dd8a87bb4e25c3854f3e5a56ba7c0b
+    last_write_checksum: sha1:3c347649b1568ba69c20cbf2a4c78d2b729ef2eb
+    pristine_git_object: 86c104b90ef57a60578af32e9406ce0eea25ba2c
   costs.go:
     id: 247b6e6ecaf3
     last_write_checksum: sha1:6a0c8cf65c575073eba23dfb3b2f8e5044013500
@@ -4312,4 +4312,3 @@ generatedTests:
   createCustomerPaymentMethod: "2026-05-08T17:36:38Z"
   updateSubscription: "2026-05-23T07:45:48Z"
   listEntitlements-meteredEntitlement: "2026-06-03T20:54:38Z"
-releaseNotes: "## Go SDK Changes:\n* `Client.Events.Ingest()`: \n  *  `request.Request.ExternalId` **Added**\n  *  `response.ExternalId` **Added**\n"
