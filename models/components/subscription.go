@@ -476,6 +476,8 @@ func (s *SubscriptionCustomer) GetConsumer() *Consumer {
 type Subscription struct {
 	ID     string             `json:"id"`
 	Object SubscriptionObject `json:"object"`
+	// Unique identifier for an organization
+	MerchantID string `json:"merchantId"`
 	// Whether automatic charging is enabled for this subscription. When true, invoices will be automatically paid using stored payment methods.
 	AutoCharge *bool      `default:"false" json:"autoCharge"`
 	CreatedAt  time.Time  `json:"createdAt"`
@@ -542,6 +544,13 @@ func (s *Subscription) GetObject() SubscriptionObject {
 		return SubscriptionObject("")
 	}
 	return s.Object
+}
+
+func (s *Subscription) GetMerchantID() string {
+	if s == nil {
+		return ""
+	}
+	return s.MerchantID
 }
 
 func (s *Subscription) GetAutoCharge() *bool {

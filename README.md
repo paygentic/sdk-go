@@ -281,6 +281,14 @@ func main() {
 
 * [Ingest](docs/sdks/events/README.md#ingest) - Ingest Event
 
+### [ExternalReferences](docs/sdks/externalreferences/README.md)
+
+* [CreateExternalReference](docs/sdks/externalreferences/README.md#createexternalreference) - Create
+* [ListExternalReferences](docs/sdks/externalreferences/README.md#listexternalreferences) - List
+* [GetExternalReference](docs/sdks/externalreferences/README.md#getexternalreference) - Get
+* [UpdateExternalReference](docs/sdks/externalreferences/README.md#updateexternalreference) - Update
+* [DeleteExternalReference](docs/sdks/externalreferences/README.md#deleteexternalreference) - Delete
+
 ### [Features](docs/sdks/features/README.md)
 
 * [List](docs/sdks/features/README.md#list) - List
@@ -305,6 +313,21 @@ func main() {
 * [CreateLineItem](docs/sdks/invoicesv2/README.md#createlineitem) - Create Manual Line Item
 * [Get](docs/sdks/invoicesv2/README.md#get) - Get
 * [GetLineItems](docs/sdks/invoicesv2/README.md#getlineitems) - Get Line Items
+
+### [Items](docs/sdks/items/README.md)
+
+* [CreateItem](docs/sdks/items/README.md#createitem) - Create
+* [ListItems](docs/sdks/items/README.md#listitems) - List
+* [GetItem](docs/sdks/items/README.md#getitem) - Get
+* [UpdateItem](docs/sdks/items/README.md#updateitem) - Update
+* [DeleteItem](docs/sdks/items/README.md#deleteitem) - Delete
+
+### [MerchantIntegrations](docs/sdks/merchantintegrations/README.md)
+
+* [ListMerchantIntegrations](docs/sdks/merchantintegrations/README.md#listmerchantintegrations) - List
+* [UpsertMerchantIntegration](docs/sdks/merchantintegrations/README.md#upsertmerchantintegration) - Upsert
+* [GetMerchantIntegration](docs/sdks/merchantintegrations/README.md#getmerchantintegration) - Get
+* [DisconnectMerchantIntegration](docs/sdks/merchantintegrations/README.md#disconnectmerchantintegration) - Disconnect
 
 ### [PaymentSessions](docs/sdks/paymentsessions/README.md)
 

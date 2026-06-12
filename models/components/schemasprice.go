@@ -88,6 +88,8 @@ type SchemasPrice struct {
 	BillableMetricID *string `json:"billableMetricId,omitzero"`
 	// The unique identifier for the fee referred to by this price. Present when price is linked to a fee.
 	FeeID *string `json:"feeId,omitzero"`
+	// Unique identifier for an organization
+	MerchantID string `json:"merchantId"`
 	// ISO 8601 duration. 'P0D' for one-time, 'P1M' for monthly, 'P1Y' for yearly. Required for fees, optional for billable metrics. Defaults to plan's billingCadence if not specified.
 	BillingCadence     optionalnullable.OptionalNullable[string] `json:"billingCadence,omitzero"`
 	CreatedAt          time.Time                                 `json:"createdAt"`
@@ -141,6 +143,13 @@ func (s *SchemasPrice) GetFeeID() *string {
 		return nil
 	}
 	return s.FeeID
+}
+
+func (s *SchemasPrice) GetMerchantID() string {
+	if s == nil {
+		return ""
+	}
+	return s.MerchantID
 }
 
 func (s *SchemasPrice) GetBillingCadence() optionalnullable.OptionalNullable[string] {
