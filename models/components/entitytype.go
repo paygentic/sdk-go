@@ -2,31 +2,25 @@
 
 package components
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
 // EntityType - The type of Paygentic entity this external reference points at
 type EntityType string
 
 const (
-	EntityTypeItem EntityType = "item"
+	EntityTypeItem     EntityType = "item"
+	EntityTypeCustomer EntityType = "customer"
 )
 
 func (e EntityType) ToPointer() *EntityType {
 	return &e
 }
-func (e *EntityType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *EntityType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "item", "customer":
+			return true
+		}
 	}
-	switch v {
-	case "item":
-		*e = EntityType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for EntityType: %v", v)
-	}
+	return false
 }

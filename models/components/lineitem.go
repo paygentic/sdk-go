@@ -84,6 +84,8 @@ type LineItem struct {
 	ID string `json:"id"`
 	// The subscription this line item belongs to
 	SubscriptionID string `json:"subscriptionId"`
+	// The customer ID that owns this line item
+	CustomerID string `json:"customerId"`
 	// The price ID associated with this line item
 	PriceID optionalnullable.OptionalNullable[string] `json:"priceId,omitzero"`
 	// The invoice ID if this item has been invoiced
@@ -153,6 +155,13 @@ func (l *LineItem) GetSubscriptionID() string {
 		return ""
 	}
 	return l.SubscriptionID
+}
+
+func (l *LineItem) GetCustomerID() string {
+	if l == nil {
+		return ""
+	}
+	return l.CustomerID
 }
 
 func (l *LineItem) GetPriceID() optionalnullable.OptionalNullable[string] {

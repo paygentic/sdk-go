@@ -370,6 +370,10 @@ func main() {
 
 * [Get](docs/sdks/revenue/README.md#get) - Get revenue summary
 
+### [Salesforce](docs/sdks/salesforce/README.md)
+
+* [ListSalesforceAccounts](docs/sdks/salesforce/README.md#listsalesforceaccounts) - List Salesforce accounts
+
 ### [Sources](docs/sdks/sources/README.md)
 
 * [Create](docs/sdks/sources/README.md#create) - Create

@@ -98,6 +98,8 @@ type ListInvoicesRequest struct {
 	Status *ListInvoicesStatus `queryParam:"style=form,explode=true,name=status"`
 	// Filter invoices by subscription ID
 	SubscriptionID *string `queryParam:"style=form,explode=true,name=subscriptionId"`
+	// Filter invoices by customer ID. Authorizes against the customer's merchant; takes precedence as the merchant source when combined with other filters.
+	CustomerID *string `queryParam:"style=form,explode=true,name=customerId"`
 	// Filter invoices by merchant ID
 	MerchantID *string `queryParam:"style=form,explode=true,name=merchantId"`
 }
@@ -146,6 +148,13 @@ func (l *ListInvoicesRequest) GetSubscriptionID() *string {
 		return nil
 	}
 	return l.SubscriptionID
+}
+
+func (l *ListInvoicesRequest) GetCustomerID() *string {
+	if l == nil {
+		return nil
+	}
+	return l.CustomerID
 }
 
 func (l *ListInvoicesRequest) GetMerchantID() *string {

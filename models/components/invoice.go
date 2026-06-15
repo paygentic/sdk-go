@@ -239,6 +239,8 @@ type Invoice struct {
 	Status InvoiceStatus `json:"status"`
 	// The subscription ID this invoice belongs to
 	SubscriptionID string `json:"subscriptionId"`
+	// The customer ID that owns this invoice
+	CustomerID string `json:"customerId"`
 	// Subtotal in decimal dollars (real-time for ACTIVE/CLOSING/CLOSED, cached otherwise)
 	Subtotal string `json:"subtotal"`
 	// Tax reconciliation metadata (only present when plan has taxEnabled)
@@ -449,6 +451,13 @@ func (i *Invoice) GetSubscriptionID() string {
 		return ""
 	}
 	return i.SubscriptionID
+}
+
+func (i *Invoice) GetCustomerID() string {
+	if i == nil {
+		return ""
+	}
+	return i.CustomerID
 }
 
 func (i *Invoice) GetSubtotal() string {

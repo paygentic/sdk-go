@@ -11,7 +11,7 @@ import (
 type PurchaseGrantRequest struct {
 	// The number of credits to grant upon payment completion.
 	Amount float64 `json:"amount"`
-	// The price in decimal format (e.g., '5.00' for $5.00 USD). Must be at least $0.50.
+	// The price in decimal format (e.g., '5.00' for $5.00 USD). A non-negative decimal with at most 9 fractional digits (nanodollar precision). Must be at least $0.50 and must not exceed 4503599.62 (the maximum supported grant purchase amount).
 	Price string `json:"price"`
 	// Caller-provided deduplication key. Retrying with the same key returns the existing invoice.
 	IdempotencyKey string `json:"idempotencyKey"`
