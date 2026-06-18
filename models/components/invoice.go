@@ -201,6 +201,8 @@ type Invoice struct {
 	Currency string `json:"currency"`
 	// Machine-readable reason code for the most recent failure (e.g. CALCULATION_FAILED). Present only when status is FAILED or PAYMENT_FAILED.
 	FailureReason *string `json:"failureReason,omitzero"`
+	// Whether a payment for this invoice is currently being processed (the payment session is in the 'processing' state). Clients should not offer manual 'mark as paid' while true. Only populated by GET /invoices/{id}.
+	PaymentInFlight *bool `json:"paymentInFlight,omitzero"`
 	// The end of the grace period for accepting usage events
 	GracePeriodEnd time.Time `json:"gracePeriodEnd"`
 	// Grand total (subtotal + tax) in decimal dollars (real-time for ACTIVE/CLOSING/CLOSED, cached otherwise)
@@ -318,6 +320,13 @@ func (i *Invoice) GetFailureReason() *string {
 		return nil
 	}
 	return i.FailureReason
+}
+
+func (i *Invoice) GetPaymentInFlight() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PaymentInFlight
 }
 
 func (i *Invoice) GetGracePeriodEnd() time.Time {

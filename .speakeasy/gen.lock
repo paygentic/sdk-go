@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 5f9f8092-429e-454b-8c55-a2d2d1508328
 management:
-  docChecksum: 6008bb11c139545b253312e2e964fddb
+  docChecksum: e45a61dca958530627f827a20a925751
   docVersion: 0.1.0
-  speakeasyVersion: 1.778.0
-  generationVersion: 2.904.2
-  releaseVersion: 0.2.15
-  configChecksum: 56f6bab707afe7e4ed3988410d4f00fa
+  speakeasyVersion: 1.783.1
+  generationVersion: 2.910.1
+  releaseVersion: 0.2.16
+  configChecksum: 809c461487af8a9daec63f961e277c80
   repoURL: https://github.com/paygentic/sdk-go.git
   installationURL: https://github.com/paygentic/sdk-go
 persistentEdits:
-  generation_id: bca935cb-f7de-4080-b89d-a722914f2ba4
-  pristine_commit_hash: 904fce077bed61f66134c278517ec87a8409d4e9
-  pristine_tree_hash: 699df7f5d5777c40b34107e7e995642318740f78
+  generation_id: 60f337cf-759b-4874-874f-78802e363c16
+  pristine_commit_hash: 03f4a99e497020163b0d5a21c9362c8f0170332f
+  pristine_tree_hash: 21b170cae8c910993c23f9a5d46a5e15af3268f5
 features:
   go:
     additionalDependencies: 0.1.0
@@ -34,7 +34,7 @@ features:
     nameOverrides: 2.81.4
     nullables: 0.2.1
     responseFormat: 0.1.2
-    retries: 2.84.2
+    retries: 2.84.3
     sdkHooks: 0.3.0
     unions: 2.87.7
 trackedFiles:
@@ -52,8 +52,8 @@ trackedFiles:
     pristine_git_object: 8ed27c54f5a0920a9a613aabf63db17fb839d3b6
   client.go:
     id: d633516feaf9
-    last_write_checksum: sha1:04cb19e423d05f6c7e0575e9d0a5c4a6b6c7874e
-    pristine_git_object: ffe1383301470a9a15b87ad5a847d6a3a5ec30cd
+    last_write_checksum: sha1:6095b97dfd3b0402b2ededb3d9f428fd864096a3
+    pristine_git_object: 0c548807bcd9486c55a6fc4aa436f8cc0cf3c174
   costs.go:
     id: 247b6e6ecaf3
     last_write_checksum: sha1:6a0c8cf65c575073eba23dfb3b2f8e5044013500
@@ -300,8 +300,8 @@ trackedFiles:
     pristine_git_object: 60e533c226bf592a97ac5bb5cd6dfa1a806f7185
   docs/models/components/invoice.md:
     id: dfe36624d47f
-    last_write_checksum: sha1:216edb20a255ae36f621287cce25ed2262cbbd9b
-    pristine_git_object: fef7e2b8cc8dad7af44354f8e2cbf069e29fcba7
+    last_write_checksum: sha1:d024728d834cbf4d0843af8b04285b55bc618c08
+    pristine_git_object: ab76cd70c22fd20f1be9901526ff2df94415f0a7
   docs/models/components/invoicecategorysummary.md:
     id: a5e39b9edb7e
     last_write_checksum: sha1:fbebb01af4297d2806a479e9ebed892eeeb64a4e
@@ -2068,8 +2068,8 @@ trackedFiles:
     pristine_git_object: 8ff1b7a1be3a86afd536955c9ce90e608ddd1659
   models/components/invoice.go:
     id: c48ce6abe467
-    last_write_checksum: sha1:18dc984829f353db9c7ec98ad197d464456862dc
-    pristine_git_object: 43e50f722fb650ada79752deb3abcd717a138a64
+    last_write_checksum: sha1:b7f32bc5cf61ab4e52626e941e736a1fd930d9f6
+    pristine_git_object: 683d1c27a54196d3a76f6d17f761e4b77b0f9e28
   models/components/invoicecategorysummary.go:
     id: 0426254d387e
     last_write_checksum: sha1:d1cc293e7e0ea1c6c1bf710cbb167e7be813c3ad
@@ -2760,8 +2760,8 @@ trackedFiles:
     pristine_git_object: d02cf2ce386cec68a6a25b587fe46bbf445a8491
   retry/config.go:
     id: 82d673cb0389
-    last_write_checksum: sha1:7f7d96b59a18e95bac847ae09c63bbd911ee8432
-    pristine_git_object: 5b3dc7c122d8ab08905485342d7474f8f163888d
+    last_write_checksum: sha1:102d1953fbd7e9f312c4442c71ccca2eaaeaa27d
+    pristine_git_object: 767002c7898128324d8741ce9c534bd466492169
   revenue.go:
     id: 18ab2a3bb454
     last_write_checksum: sha1:f35b9e5cf273cbc07ed40a57d0d3b5bf8f6a09b4
@@ -4761,4 +4761,7 @@ generatedTests:
   getMerchantIntegration: "2026-06-12T09:40:26Z"
   disconnectMerchantIntegration: "2026-06-12T09:40:26Z"
   listSalesforceAccounts: "2026-06-15T10:37:11Z"
-releaseNotes: "## Go SDK Changes:\n* `Client.Items.CreateItem()`:  `response.ExternalReferences[].EntityType.Enum(customer)` **Added** (Breaking ⚠️)\n* `Client.ExternalReferences.CreateExternalReference()`: \n  *  `request.Request.EntityType.Enum(customer)` **Added**\n  *  `response.EntityType.Enum(customer)` **Added** (Breaking ⚠️)\n* `Client.ExternalReferences.ListExternalReferences()`: \n  *  `request.Request.EntityType` **Changed**\n  *  `response.Data[].EntityType.Enum(customer)` **Added** (Breaking ⚠️)\n* `Client.ExternalReferences.GetExternalReference()`:  `response.EntityType.Enum(customer)` **Added** (Breaking ⚠️)\n* `Client.ExternalReferences.UpdateExternalReference()`:  `response.EntityType.Enum(customer)` **Added** (Breaking ⚠️)\n* `Client.Items.ListItems()`:  `response.Data[].ExternalReferences[].EntityType.Enum(customer)` **Added** (Breaking ⚠️)\n* `Client.Items.GetItem()`:  `response.ExternalReferences[].EntityType.Enum(customer)` **Added** (Breaking ⚠️)\n* `Client.Items.UpdateItem()`:  `response.ExternalReferences[].EntityType.Enum(customer)` **Added** (Breaking ⚠️)\n* `Client.InvoicesV2.List()`: \n  *  `request.Request.CustomerId` **Added**\n  *  `response.Data[].CustomerId` **Added**\n* `Client.InvoicesV2.ListLineItems()`:  `response.Data[].CustomerId` **Added**\n* `Client.InvoicesV2.CreateLineItem()`:  `response.CustomerId` **Added**\n* `Client.InvoicesV2.Get()`:  `response.CustomerId` **Added**\n* `Client.Salesforce.ListSalesforceAccounts()`: **Added**\n"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `Client.InvoicesV2.List()`:  `response.Data[].PaymentInFlight` **Added**
+  * `Client.InvoicesV2.Get()`:  `response.PaymentInFlight` **Added**
