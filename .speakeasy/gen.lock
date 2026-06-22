@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 5f9f8092-429e-454b-8c55-a2d2d1508328
 management:
-  docChecksum: e45a61dca958530627f827a20a925751
+  docChecksum: bb3f4556a655e91547a4f63b00c08f98
   docVersion: 0.1.0
-  speakeasyVersion: 1.783.1
-  generationVersion: 2.910.1
-  releaseVersion: 0.2.16
-  configChecksum: 809c461487af8a9daec63f961e277c80
+  speakeasyVersion: 1.784.0
+  generationVersion: 2.911.0
+  releaseVersion: 0.2.17
+  configChecksum: 2c4eea39bcdaf4a6fc3882ee61e5270f
   repoURL: https://github.com/paygentic/sdk-go.git
   installationURL: https://github.com/paygentic/sdk-go
 persistentEdits:
-  generation_id: 60f337cf-759b-4874-874f-78802e363c16
-  pristine_commit_hash: 03f4a99e497020163b0d5a21c9362c8f0170332f
-  pristine_tree_hash: 21b170cae8c910993c23f9a5d46a5e15af3268f5
+  generation_id: b6e71678-96f9-4ddc-bb59-2bbf960873cf
+  pristine_commit_hash: 7d10a50cf67ad4ede8dd8eb477f71f41b5fbe749
+  pristine_tree_hash: b7f11bdfad430637da17a03b7034303c30cfaff3
 features:
   go:
     additionalDependencies: 0.1.0
@@ -52,8 +52,8 @@ trackedFiles:
     pristine_git_object: 8ed27c54f5a0920a9a613aabf63db17fb839d3b6
   client.go:
     id: d633516feaf9
-    last_write_checksum: sha1:6095b97dfd3b0402b2ededb3d9f428fd864096a3
-    pristine_git_object: 0c548807bcd9486c55a6fc4aa436f8cc0cf3c174
+    last_write_checksum: sha1:ef1022c39c279b619e46a5530715a020d30ac4d2
+    pristine_git_object: e9989f34f12111353c92c30344f6c84506cf7ea0
   costs.go:
     id: 247b6e6ecaf3
     last_write_checksum: sha1:6a0c8cf65c575073eba23dfb3b2f8e5044013500
@@ -900,8 +900,8 @@ trackedFiles:
     pristine_git_object: 88cd1754afea60b8b2f2f5792f7f02608bb71c9e
   docs/models/operations/createcustomerpaymentmethodrequestbody.md:
     id: 82ef789a7bf0
-    last_write_checksum: sha1:a82001499b6d422947cd9a3d152376040cb09de0
-    pristine_git_object: 9a5cede5849ee5a0f893d33b0c4a60727708de5e
+    last_write_checksum: sha1:f8bfd87525a01fafca84ce0236001eef05d86aab
+    pristine_git_object: f06b772dcb7bc936b28ad2b45f2a62add28559a2
   docs/models/operations/createcustomerrequest.md:
     id: c3734eb8b76d
     last_write_checksum: sha1:62f97f96a7f524f4149b4d5f098ec2b004d90805
@@ -1324,8 +1324,8 @@ trackedFiles:
     pristine_git_object: 8d0cef29173e9dc6de2b53905ccbf4d1ba55534c
   docs/models/operations/listentitlementsrequest.md:
     id: c4fe4b1e447a
-    last_write_checksum: sha1:1eebf727a434ccd2bc1ac1ecc71ea9da009bbe8b
-    pristine_git_object: ffbd22134e16e5cf8170b9848051b79aa2d68899
+    last_write_checksum: sha1:b58e35c7b311809eb5017ac1a80e305b829ad422
+    pristine_git_object: cd45756a78580de12a76a3e24f93758c3577955e
   docs/models/operations/listentitlementsresponse.md:
     id: f05ca91db771
     last_write_checksum: sha1:80aca6b2ed8c869d6c7de95d04578684c60fc5dd
@@ -1764,8 +1764,8 @@ trackedFiles:
     pristine_git_object: 69e3b43a4d5a7e55b8ae30457771067959476532
   docs/sdks/entitlements/README.md:
     id: 3dfed54d4d65
-    last_write_checksum: sha1:cab4ea2b453fc5b82e931463a936a7bab7ab46fc
-    pristine_git_object: 33318a2cbada47533be2dc15761f20add9b094ae
+    last_write_checksum: sha1:7d2ef02dc9ddb47c651e5a372bb76c8952213e3b
+    pristine_git_object: c30188827796053972909392b3fdd2e7392568cf
   docs/sdks/events/README.md:
     id: cf45a4390b9b
     last_write_checksum: sha1:3a55ec729801c618e5117311c835eecae9217114
@@ -1860,8 +1860,8 @@ trackedFiles:
     pristine_git_object: 3d83ed2f48ff36968042694693ec08d892ef94fe
   entitlements.go:
     id: 88093a15bf12
-    last_write_checksum: sha1:9a2578d41b6d63a509e4a95c7deca9945cd3d775
-    pristine_git_object: 0d7f9a95b0aec9927abcefb22ad3439506e7f155
+    last_write_checksum: sha1:7a1eefa6e6bf8cceb56dfb59b000c4a1a036b506
+    pristine_git_object: 7f5629dba80d99c7b8628a7fd99b0b3a49c53c3e
   events.go:
     id: fe26b3f87ab7
     last_write_checksum: sha1:e1b54cdc2573cbc3a003f16842fb6a5090391427
@@ -2332,8 +2332,8 @@ trackedFiles:
     pristine_git_object: cd146bf895ec253444b85db71bcb7d8b50a08721
   models/operations/createcustomerpaymentmethod.go:
     id: 40f0d88a359f
-    last_write_checksum: sha1:2f9a8ba5cb165a604f929710f9d13cd95653e575
-    pristine_git_object: f4744fa922773d8b892b560085a455520056d62d
+    last_write_checksum: sha1:56de51cda2adda59cedc890a65251e51e6a55127
+    pristine_git_object: 345d7b13feee97a22eeaf07fdd800bbbb14941cf
   models/operations/createentitlementgrant.go:
     id: a90c3da503a4
     last_write_checksum: sha1:1324102f824a730feffa70fa000b44e0c42f7369
@@ -2572,8 +2572,8 @@ trackedFiles:
     pristine_git_object: 73ef81c02039ca2d338cc0841bf7cb91aa374336
   models/operations/listentitlements.go:
     id: 894a7cb2c79b
-    last_write_checksum: sha1:1080fba887050aceb3263de248732896b52295a4
-    pristine_git_object: 94a9b3a17751ffde7f5787d78baf32f182c4203b
+    last_write_checksum: sha1:a3139cd4029054df0ffb862277a8d2a00833cf87
+    pristine_git_object: 7ca749846053f2a1759baa1ee8faef7c95864b25
   models/operations/listexternalreferences.go:
     id: 5b0a3f629218
     last_write_checksum: sha1:4fc5f1f4688c81a8906f2a707d3c879d2ac4c850
@@ -3033,6 +3033,8 @@ examples:
           customerId: "cus_q3r4s5t6u7v8w9x0"
           limit: 10
           offset: 0
+          externalCustomerId: "ext-customer-123"
+          merchantId: "org_a1b2c3d4e5f6g7h8"
       responses:
         "200":
           application/json: {"object": "list", "data": [], "pagination": {"limit": 109839, "offset": 186518, "total": 410309}}
@@ -3048,6 +3050,8 @@ examples:
           customerId: "cus_q3r4s5t6u7v8w9x0"
           limit: 10
           offset: 0
+          externalCustomerId: "ext-customer-123"
+          merchantId: "org_a1b2c3d4e5f6g7h8"
       responses:
         "200":
           application/json: {"object": "list", "data": [{"entitlementId": "ent_a7b8c9d0e1f2g3h4", "customerId": "cus_q3r4s5t6u7v8w9x0", "featureId": "feat_max_users", "featureKey": "max_users", "featureType": "static", "productId": "prod_m5n6o7p8q9r0s1t2", "subscriptionId": "sub_pro_plan", "status": "active", "activeFrom": "2024-01-01T00:00:00Z", "activeTo": "2025-01-01T00:00:00Z", "hasAccess": true, "metadata": {}, "config": {"limit": 25}}, {"entitlementId": "ent_b8c9d0e1f2g3h4i5", "customerId": "cus_q3r4s5t6u7v8w9x0", "featureId": "feat_sso_enabled", "featureKey": "sso_enabled", "featureType": "boolean", "productId": "prod_m5n6o7p8q9r0s1t2", "subscriptionId": "sub_pro_plan", "status": "active", "activeFrom": "2024-01-01T00:00:00Z", "activeTo": null, "hasAccess": true, "metadata": {}, "config": null}], "pagination": {"limit": 10, "offset": 0, "total": 2}}
@@ -3057,6 +3061,8 @@ examples:
           customerId: "cus_q3r4s5t6u7v8w9x0"
           limit: 10
           offset: 0
+          externalCustomerId: "ext-customer-123"
+          merchantId: "org_a1b2c3d4e5f6g7h8"
       responses:
         "200":
           application/json: {"object": "list", "data": [{"entitlementId": "ent_d0e1f2g3h4i5j6k7", "customerId": "cus_q3r4s5t6u7v8w9x0", "featureId": "feat_storage_quota", "featureKey": "storage_quota", "featureType": "static", "productId": "prod_storage123456", "subscriptionId": "sub_storage_plan", "status": "active", "activeFrom": "2024-03-15T00:00:00Z", "activeTo": null, "hasAccess": true, "metadata": {}, "config": {"limitGB": 500, "allowedFileTypes": ["pdf", "doc", "xlsx", "png", "jpg"]}}], "pagination": {"limit": 10, "offset": 0, "total": 1}}
@@ -3066,6 +3072,8 @@ examples:
           customerId: "cus_q3r4s5t6u7v8w9x0"
           limit: 10
           offset: 0
+          externalCustomerId: "ext-customer-123"
+          merchantId: "org_a1b2c3d4e5f6g7h8"
       responses:
         "200":
           application/json: {"object": "list", "data": [{"entitlementId": "ent_e1f2g3h4i5j6k7l8", "customerId": "cus_q3r4s5t6u7v8w9x0", "featureId": "feat_premium_support", "featureKey": "premium_support", "featureType": "boolean", "productId": "prod_support789012", "subscriptionId": null, "status": "expired", "activeFrom": "2023-01-01T00:00:00Z", "activeTo": "2024-01-01T00:00:00Z", "hasAccess": false, "metadata": {}, "config": null}], "pagination": {"limit": 10, "offset": 0, "total": 1}}
@@ -3075,6 +3083,8 @@ examples:
           customerId: "cus_q3r4s5t6u7v8w9x0"
           limit: 10
           offset: 0
+          externalCustomerId: "ext-customer-123"
+          merchantId: "org_a1b2c3d4e5f6g7h8"
       responses:
         "200":
           application/json: {"object": "list", "data": [], "pagination": {"limit": 10, "offset": 0, "total": 0}}
@@ -3084,6 +3094,8 @@ examples:
           customerId: "cus_q3r4s5t6u7v8w9x0"
           limit: 10
           offset: 0
+          externalCustomerId: "ext-customer-123"
+          merchantId: "org_a1b2c3d4e5f6g7h8"
       responses:
         "200":
           application/json: {"object": "list", "data": [{"entitlementId": "ent_c9d0e1f2g3h4i5j6", "customerId": "cus_q3r4s5t6u7v8w9x0", "featureId": "feat_api_calls", "featureKey": "api_calls", "featureType": "metered", "productId": "prod_m5n6o7p8q9r0s1t2", "subscriptionId": "sub_pro_plan", "status": "active", "activeFrom": "2024-03-01T00:00:00Z", "activeTo": null, "hasAccess": true, "metadata": {}, "config": null, "isSoftLimit": false, "balance": 8340, "usageInPeriod": 1660, "overage": 0, "currentPeriodStart": "2024-03-01T00:00:00Z", "currentPeriodEnd": "2024-04-01T00:00:00Z"}], "pagination": {"limit": 10, "offset": 0, "total": 1}}
@@ -4761,7 +4773,4 @@ generatedTests:
   getMerchantIntegration: "2026-06-12T09:40:26Z"
   disconnectMerchantIntegration: "2026-06-12T09:40:26Z"
   listSalesforceAccounts: "2026-06-15T10:37:11Z"
-releaseNotes: |
-  ## Go SDK Changes:
-  * `Client.InvoicesV2.List()`:  `response.Data[].PaymentInFlight` **Added**
-  * `Client.InvoicesV2.Get()`:  `response.PaymentInFlight` **Added**
+releaseNotes: "## Go SDK Changes:\n* `Client.Customers.CreateCustomerPaymentMethod()`: \n  *  `request.Body.ExpiresAt` **Added**\n* `Client.Entitlements.List()`:  `request.Request` **Changed**\n"

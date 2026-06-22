@@ -4,6 +4,7 @@ package operations
 
 import (
 	"github.com/paygentic/sdk-go/internal/utils"
+	"time"
 )
 
 type CreateCustomerPaymentMethodRequestBody struct {
@@ -13,6 +14,8 @@ type CreateCustomerPaymentMethodRequestBody struct {
 	FailureRedirectURL *string `json:"failureRedirectUrl,omitzero"`
 	// Arbitrary key/value pairs to attach to the session.
 	Metadata map[string]any `json:"metadata,omitzero"`
+	// Absolute time the generated link expires. Optional; defaults to the server's configured session expiry (30 days) when omitted. Must be in the future and no more than 30 days ahead.
+	ExpiresAt *time.Time `json:"expiresAt,omitzero"`
 }
 
 func (c CreateCustomerPaymentMethodRequestBody) MarshalJSON() ([]byte, error) {
@@ -45,6 +48,13 @@ func (c *CreateCustomerPaymentMethodRequestBody) GetMetadata() map[string]any {
 		return nil
 	}
 	return c.Metadata
+}
+
+func (c *CreateCustomerPaymentMethodRequestBody) GetExpiresAt() *time.Time {
+	if c == nil {
+		return nil
+	}
+	return c.ExpiresAt
 }
 
 type CreateCustomerPaymentMethodRequest struct {

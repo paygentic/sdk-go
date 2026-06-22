@@ -37,8 +37,10 @@ func main() {
         paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
     )
 
-    res, err := s.Entitlements.List(ctx, operations.ListEntitlementsRequest{
-        CustomerID: "cus_q3r4s5t6u7v8w9x0",
+    res, err := s.Entitlements.List(ctx, &operations.ListEntitlementsRequest{
+        CustomerID: paygentic.Pointer("cus_q3r4s5t6u7v8w9x0"),
+        ExternalCustomerID: paygentic.Pointer("ext-customer-123"),
+        MerchantID: paygentic.Pointer("org_a1b2c3d4e5f6g7h8"),
     })
     if err != nil {
         log.Fatal(err)
@@ -69,8 +71,10 @@ func main() {
         paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
     )
 
-    res, err := s.Entitlements.List(ctx, operations.ListEntitlementsRequest{
-        CustomerID: "cus_q3r4s5t6u7v8w9x0",
+    res, err := s.Entitlements.List(ctx, &operations.ListEntitlementsRequest{
+        CustomerID: paygentic.Pointer("cus_q3r4s5t6u7v8w9x0"),
+        ExternalCustomerID: paygentic.Pointer("ext-customer-123"),
+        MerchantID: paygentic.Pointer("org_a1b2c3d4e5f6g7h8"),
     })
     if err != nil {
         log.Fatal(err)
@@ -101,8 +105,10 @@ func main() {
         paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
     )
 
-    res, err := s.Entitlements.List(ctx, operations.ListEntitlementsRequest{
-        CustomerID: "cus_q3r4s5t6u7v8w9x0",
+    res, err := s.Entitlements.List(ctx, &operations.ListEntitlementsRequest{
+        CustomerID: paygentic.Pointer("cus_q3r4s5t6u7v8w9x0"),
+        ExternalCustomerID: paygentic.Pointer("ext-customer-123"),
+        MerchantID: paygentic.Pointer("org_a1b2c3d4e5f6g7h8"),
     })
     if err != nil {
         log.Fatal(err)
@@ -133,8 +139,10 @@ func main() {
         paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
     )
 
-    res, err := s.Entitlements.List(ctx, operations.ListEntitlementsRequest{
-        CustomerID: "cus_q3r4s5t6u7v8w9x0",
+    res, err := s.Entitlements.List(ctx, &operations.ListEntitlementsRequest{
+        CustomerID: paygentic.Pointer("cus_q3r4s5t6u7v8w9x0"),
+        ExternalCustomerID: paygentic.Pointer("ext-customer-123"),
+        MerchantID: paygentic.Pointer("org_a1b2c3d4e5f6g7h8"),
     })
     if err != nil {
         log.Fatal(err)
@@ -165,8 +173,10 @@ func main() {
         paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
     )
 
-    res, err := s.Entitlements.List(ctx, operations.ListEntitlementsRequest{
-        CustomerID: "cus_q3r4s5t6u7v8w9x0",
+    res, err := s.Entitlements.List(ctx, &operations.ListEntitlementsRequest{
+        CustomerID: paygentic.Pointer("cus_q3r4s5t6u7v8w9x0"),
+        ExternalCustomerID: paygentic.Pointer("ext-customer-123"),
+        MerchantID: paygentic.Pointer("org_a1b2c3d4e5f6g7h8"),
     })
     if err != nil {
         log.Fatal(err)

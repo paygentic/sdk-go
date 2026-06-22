@@ -11,8 +11,12 @@ import (
 )
 
 type ListEntitlementsRequest struct {
-	// The unique identifier of the customer to retrieve entitlements for.
-	CustomerID string `queryParam:"style=form,explode=true,name=customerId"`
+	// The Paygentic customer id to retrieve entitlements for. Supply exactly one of `customerId` or `externalCustomerId`. When combined with `merchantId`, the customer must belong to that merchant or the request resolves to not found.
+	CustomerID *string `queryParam:"style=form,explode=true,name=customerId"`
+	// The merchant's own external customer reference (`Customer.externalId`, exact match), used to retrieve entitlements without first resolving it to a `cus_` id. Matches the `externalId` filter on `GET /v1/customers` (plain string, exact match — no pattern constraint, so any stored `externalId` is addressable). Supply exactly one of `customerId` or `externalCustomerId`. `externalId` is unique only within a merchant, so an effective merchant scope is required: either pass `merchantId`, or authenticate with a single-merchant API key. With no resolvable merchant scope the request is rejected.
+	ExternalCustomerID *string `queryParam:"style=form,explode=true,name=externalCustomerId"`
+	// Optional merchant scope. With `externalCustomerId` it selects the merchant the external id is resolved within (required for the platform key, which has no single merchant). With `customerId` it acts as a tenant guard — the resolved customer must belong to this merchant, otherwise the request resolves to not found. A passed `merchantId` is only a filter and never grants access the caller does not already hold; authorization is always evaluated against the resolved customer's merchant.
+	MerchantID *string `queryParam:"style=form,explode=true,name=merchantId"`
 	// Filter results to a specific feature by its key. When specified, `productId` is also required. Use this to check access to a single feature.
 	FeatureKey *string `queryParam:"style=form,explode=true,name=featureKey"`
 	// Filter results to entitlements for a specific product. Required when `featureKey` is specified since feature keys are scoped to products.
@@ -38,11 +42,25 @@ func (l *ListEntitlementsRequest) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (l *ListEntitlementsRequest) GetCustomerID() string {
+func (l *ListEntitlementsRequest) GetCustomerID() *string {
 	if l == nil {
-		return ""
+		return nil
 	}
 	return l.CustomerID
+}
+
+func (l *ListEntitlementsRequest) GetExternalCustomerID() *string {
+	if l == nil {
+		return nil
+	}
+	return l.ExternalCustomerID
+}
+
+func (l *ListEntitlementsRequest) GetMerchantID() *string {
+	if l == nil {
+		return nil
+	}
+	return l.MerchantID
 }
 
 func (l *ListEntitlementsRequest) GetFeatureKey() *string {
