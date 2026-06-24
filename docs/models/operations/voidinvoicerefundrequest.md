@@ -1,0 +1,10 @@
+# VoidInvoiceRefundRequest
+
+
+## Fields
+
+| Field                                                                                               | Type                                                                                                | Required                                                                                            | Description                                                                                         |
+| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `ID`                                                                                                | `string`                                                                                            | :heavy_check_mark:                                                                                  | The invoice ID                                                                                      |
+| `RefundID`                                                                                          | `string`                                                                                            | :heavy_check_mark:                                                                                  | The refund (credit note) ID                                                                         |
+| `Body`                                                                                              | [*operations.VoidInvoiceRefundRequestBody](../../models/operations/voidinvoicerefundrequestbody.md) | :heavy_minus_sign:                                                                                  | N/A                                                                                                 |

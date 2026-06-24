@@ -10,10 +10,14 @@ type RevenueSummaryResponse struct {
 	// Object type identifier
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	object string `const:"revenue_summary" json:"object"`
-	// Net collected revenue in dollars (paid invoices + completed payments). Omitted when groupBy=currency is active.
-	NetRevenue *string         `json:"netRevenue,omitzero"`
-	Invoices   *InvoiceSummary `json:"invoices,omitzero"`
-	Payments   *PaymentSummary `json:"payments,omitzero"`
+	// Net collected revenue in dollars (paid invoices + completed payments), already net of non-voided refunds. Omitted when groupBy=currency is active.
+	NetRevenue *string `json:"netRevenue,omitzero"`
+	// Gross total of non-voided refunds (credit notes) issued in the period, in dollars. Already subtracted from netRevenue and invoice totals. Omitted when groupBy=currency is active.
+	TotalRefunds *string `json:"totalRefunds,omitzero"`
+	// Number of non-voided refunds (credit notes) issued in the period. Omitted when groupBy=currency is active.
+	RefundCount *float64        `json:"refundCount,omitzero"`
+	Invoices    *InvoiceSummary `json:"invoices,omitzero"`
+	Payments    *PaymentSummary `json:"payments,omitzero"`
 	// Time-bucketed revenue trend data. Omitted when groupBy=currency is active.
 	Trend []RevenueTrendBucket `json:"trend,omitzero"`
 	// Invoice breakdown by group dimension (only present when groupBy=plan or groupBy=customer is specified)
@@ -42,6 +46,20 @@ func (r *RevenueSummaryResponse) GetNetRevenue() *string {
 		return nil
 	}
 	return r.NetRevenue
+}
+
+func (r *RevenueSummaryResponse) GetTotalRefunds() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TotalRefunds
+}
+
+func (r *RevenueSummaryResponse) GetRefundCount() *float64 {
+	if r == nil {
+		return nil
+	}
+	return r.RefundCount
 }
 
 func (r *RevenueSummaryResponse) GetInvoices() *InvoiceSummary {

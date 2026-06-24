@@ -2,7 +2,7 @@
 
 package paygentic
 
-// Generated from OpenAPI doc version 0.1.0 and generator version 2.911.0
+// Generated from OpenAPI doc version 0.1.0 and generator version 2.912.1
 
 import (
 	"context"
@@ -174,9 +174,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided options
 func New(opts ...SDKOption) *Client {
 	sdk := &Client{
-		SDKVersion: "0.2.17",
+		SDKVersion: "0.2.18",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent:  "speakeasy-sdk/go 0.2.17 2.911.0 0.1.0 github.com/paygentic/sdk-go",
+			UserAgent:  "speakeasy-sdk/go 0.2.18 2.912.1 0.1.0 github.com/paygentic/sdk-go",
 			ServerList: ServerList,
 		},
 		hooks: hooks.New(),

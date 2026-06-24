@@ -31,7 +31,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 go:
-  version: 0.2.17
+  version: 0.2.18
   additionalDependencies: {}
   allowUnknownFieldsInWeakUnions: false
   baseErrorName: ClientError

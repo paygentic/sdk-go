@@ -11,6 +11,9 @@ Invoice V2 operations supporting billing cycles organized by time periods. Warni
 * [CreateLineItem](#createlineitem) - Create Manual Line Item
 * [Get](#get) - Get
 * [GetLineItems](#getlineitems) - Get Line Items
+* [CreateInvoiceRefund](#createinvoicerefund) - Refund Invoice
+* [ListInvoiceRefunds](#listinvoicerefunds) - List Invoice Refunds
+* [VoidInvoiceRefund](#voidinvoicerefund) - Void Invoice Refund
 
 ## List
 
@@ -294,6 +297,173 @@ func main() {
 
 | Error Type                   | Status Code                  | Content Type                 |
 | ---------------------------- | ---------------------------- | ---------------------------- |
+| errors.Error                 | 403, 404                     | application/json             |
+| errors.Error                 | 500                          | application/json             |
+| errors.PaygenticDefaultError | 4XX, 5XX                     | \*/\*                        |
+
+## CreateInvoiceRefund
+
+Issue a full refund against a paid invoice by creating a credit note. The invoice stays PAID; the refund is recorded as a child credit note. Accessible to the owning merchant or platform operators. Only works for invoices in PAID status that have not already been refunded. Full refund only — the entire invoice (subtotal + tax) is credited.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="createInvoiceRefund" method="post" path="/v2/invoices/{id}/refunds" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	paygentic "github.com/paygentic/sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := paygentic.New(
+        paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
+    )
+
+    res, err := s.InvoicesV2.CreateInvoiceRefund(ctx, "<id>", nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                               | Type                                                                                                    | Required                                                                                                | Description                                                                                             |
+| ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                   | [context.Context](https://pkg.go.dev/context#Context)                                                   | :heavy_check_mark:                                                                                      | The context to use for the request.                                                                     |
+| `id`                                                                                                    | `string`                                                                                                | :heavy_check_mark:                                                                                      | The invoice ID                                                                                          |
+| `body`                                                                                                  | [*operations.CreateInvoiceRefundRequestBody](../../models/operations/createinvoicerefundrequestbody.md) | :heavy_minus_sign:                                                                                      | N/A                                                                                                     |
+| `opts`                                                                                                  | [][operations.Option](../../models/operations/option.md)                                                | :heavy_minus_sign:                                                                                      | The options for this request.                                                                           |
+
+### Response
+
+**[*components.InvoiceRefund](../../models/components/invoicerefund.md), error**
+
+### Errors
+
+| Error Type                   | Status Code                  | Content Type                 |
+| ---------------------------- | ---------------------------- | ---------------------------- |
+| errors.BadRequest            | 400                          | application/json             |
+| errors.Error                 | 403, 404                     | application/json             |
+| errors.Error                 | 500                          | application/json             |
+| errors.PaygenticDefaultError | 4XX, 5XX                     | \*/\*                        |
+
+## ListInvoiceRefunds
+
+List the credit notes (refunds) recorded against an invoice. Accessible to the owning merchant or platform operators.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="listInvoiceRefunds" method="get" path="/v2/invoices/{id}/refunds" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	paygentic "github.com/paygentic/sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := paygentic.New(
+        paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
+    )
+
+    res, err := s.InvoicesV2.ListInvoiceRefunds(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `id`                                                     | `string`                                                 | :heavy_check_mark:                                       | The invoice ID                                           |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
+
+### Response
+
+**[*components.InvoiceRefundList](../../models/components/invoicerefundlist.md), error**
+
+### Errors
+
+| Error Type                   | Status Code                  | Content Type                 |
+| ---------------------------- | ---------------------------- | ---------------------------- |
+| errors.Error                 | 403, 404                     | application/json             |
+| errors.Error                 | 500                          | application/json             |
+| errors.PaygenticDefaultError | 4XX, 5XX                     | \*/\*                        |
+
+## VoidInvoiceRefund
+
+Void a previously-issued refund (credit note). Reverses the credit note in the tax provider and excludes it from revenue. Accessible to the owning merchant or platform operators.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="voidInvoiceRefund" method="post" path="/v2/invoices/{id}/refunds/{refundId}/void" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	paygentic "github.com/paygentic/sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := paygentic.New(
+        paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
+    )
+
+    res, err := s.InvoicesV2.VoidInvoiceRefund(ctx, "<id>", "<id>", nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                           | Type                                                                                                | Required                                                                                            | Description                                                                                         |
+| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                               | [context.Context](https://pkg.go.dev/context#Context)                                               | :heavy_check_mark:                                                                                  | The context to use for the request.                                                                 |
+| `id`                                                                                                | `string`                                                                                            | :heavy_check_mark:                                                                                  | The invoice ID                                                                                      |
+| `refundID`                                                                                          | `string`                                                                                            | :heavy_check_mark:                                                                                  | The refund (credit note) ID                                                                         |
+| `body`                                                                                              | [*operations.VoidInvoiceRefundRequestBody](../../models/operations/voidinvoicerefundrequestbody.md) | :heavy_minus_sign:                                                                                  | N/A                                                                                                 |
+| `opts`                                                                                              | [][operations.Option](../../models/operations/option.md)                                            | :heavy_minus_sign:                                                                                  | The options for this request.                                                                       |
+
+### Response
+
+**[*components.InvoiceRefund](../../models/components/invoicerefund.md), error**
+
+### Errors
+
+| Error Type                   | Status Code                  | Content Type                 |
+| ---------------------------- | ---------------------------- | ---------------------------- |
+| errors.BadRequest            | 400                          | application/json             |
 | errors.Error                 | 403, 404                     | application/json             |
 | errors.Error                 | 500                          | application/json             |
 | errors.PaygenticDefaultError | 4XX, 5XX                     | \*/\*                        |

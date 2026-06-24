@@ -313,6 +313,9 @@ func main() {
 * [CreateLineItem](docs/sdks/invoicesv2/README.md#createlineitem) - Create Manual Line Item
 * [Get](docs/sdks/invoicesv2/README.md#get) - Get
 * [GetLineItems](docs/sdks/invoicesv2/README.md#getlineitems) - Get Line Items
+* [CreateInvoiceRefund](docs/sdks/invoicesv2/README.md#createinvoicerefund) - Refund Invoice
+* [ListInvoiceRefunds](docs/sdks/invoicesv2/README.md#listinvoicerefunds) - List Invoice Refunds
+* [VoidInvoiceRefund](docs/sdks/invoicesv2/README.md#voidinvoicerefund) - Void Invoice Refund
 
 ### [Items](docs/sdks/items/README.md)
 
