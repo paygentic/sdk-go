@@ -21,6 +21,8 @@ type CreateGrantRequest struct {
 	ResetMaxRollover *float64 `json:"resetMaxRollover,omitzero"`
 	// Minimum balance at the entitlement's reset boundary; balances below this are floored up. Defaults to 0 (no floor). Ignored when the target entitlement has no `usagePeriod` (one-time entitlement).
 	ResetMinRollover *float64 `json:"resetMinRollover,omitzero"`
+	// Burn-down priority. Grants with a lower priority are consumed before grants with a higher priority; ties break on earliest expiration, then creation order. Negative values are allowed and can be used to make a grant burn ahead of existing priority-0 grants (e.g. a correction grant absorbing erroneous usage before a recurring allowance). Defaults to 0.
+	Priority *int64 `json:"priority,omitzero"`
 }
 
 func (c CreateGrantRequest) MarshalJSON() ([]byte, error) {
@@ -74,4 +76,11 @@ func (c *CreateGrantRequest) GetResetMinRollover() *float64 {
 		return nil
 	}
 	return c.ResetMinRollover
+}
+
+func (c *CreateGrantRequest) GetPriority() *int64 {
+	if c == nil {
+		return nil
+	}
+	return c.Priority
 }

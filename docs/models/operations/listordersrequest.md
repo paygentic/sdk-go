@@ -1,0 +1,13 @@
+# ListOrdersRequest
+
+
+## Fields
+
+| Field                                                                       | Type                                                                        | Required                                                                    | Description                                                                 |
+| --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `MerchantID`                                                                | `*string`                                                                   | :heavy_minus_sign:                                                          | Filter by merchant                                                          |
+| `CustomerID`                                                                | `*string`                                                                   | :heavy_minus_sign:                                                          | Filter by customer                                                          |
+| `Status`                                                                    | [*operations.ListOrdersStatus](../../models/operations/listordersstatus.md) | :heavy_minus_sign:                                                          | Filter by status                                                            |
+| `Type`                                                                      | [*operations.ListOrdersType](../../models/operations/listorderstype.md)     | :heavy_minus_sign:                                                          | Filter by type                                                              |
+| `Limit`                                                                     | `*int64`                                                                    | :heavy_minus_sign:                                                          | N/A                                                                         |
+| `Offset`                                                                    | `*int64`                                                                    | :heavy_minus_sign:                                                          | N/A                                                                         |

@@ -234,6 +234,13 @@ func main() {
 <details open>
 <summary>Available methods</summary>
 
+### [Approvals](docs/sdks/approvals/README.md)
+
+* [CreateApproval](docs/sdks/approvals/README.md#createapproval) - Submit a resource for approval
+* [ListApprovals](docs/sdks/approvals/README.md#listapprovals) - List approvals
+* [GetApproval](docs/sdks/approvals/README.md#getapproval) - Get an approval
+* [UpdateApproval](docs/sdks/approvals/README.md#updateapproval) - Update an approval (approve, reject, or cancel)
+
 ### [BillableMetrics](docs/sdks/billablemetrics/README.md)
 
 * [Create](docs/sdks/billablemetrics/README.md#create) - Create
@@ -242,6 +249,18 @@ func main() {
 * [Update](docs/sdks/billablemetrics/README.md#update) - Update
 * [Meter](docs/sdks/billablemetrics/README.md#meter) - Query Meter Usage
 * [ListEvents](docs/sdks/billablemetrics/README.md#listevents) - List Meter Events
+
+### [BillingSchedules](docs/sdks/billingschedules/README.md)
+
+* [ListBillingSchedules](docs/sdks/billingschedules/README.md#listbillingschedules) - List billing schedules
+* [CreateBillingSchedule](docs/sdks/billingschedules/README.md#createbillingschedule) - Create a billing schedule
+* [GetBillingSchedule](docs/sdks/billingschedules/README.md#getbillingschedule) - Get a billing schedule
+* [UpdateBillingSchedule](docs/sdks/billingschedules/README.md#updatebillingschedule) - Update a billing schedule
+* [DeleteBillingSchedule](docs/sdks/billingschedules/README.md#deletebillingschedule) - Delete a billing schedule
+* [ListScheduleIntervals](docs/sdks/billingschedules/README.md#listscheduleintervals) - List schedule intervals
+* [ReplaceScheduleIntervals](docs/sdks/billingschedules/README.md#replacescheduleintervals) - Replace schedule intervals
+* [ListScheduleInvoices](docs/sdks/billingschedules/README.md#listscheduleinvoices) - List staged invoices
+* [GenerateScheduleInvoices](docs/sdks/billingschedules/README.md#generatescheduleinvoices) - Generate staged invoices
 
 ### [Costs](docs/sdks/costs/README.md)
 
@@ -331,6 +350,18 @@ func main() {
 * [UpsertMerchantIntegration](docs/sdks/merchantintegrations/README.md#upsertmerchantintegration) - Upsert
 * [GetMerchantIntegration](docs/sdks/merchantintegrations/README.md#getmerchantintegration) - Get
 * [DisconnectMerchantIntegration](docs/sdks/merchantintegrations/README.md#disconnectmerchantintegration) - Disconnect
+
+### [Orders](docs/sdks/orders/README.md)
+
+* [CreateOrder](docs/sdks/orders/README.md#createorder) - Create an order
+* [ListOrders](docs/sdks/orders/README.md#listorders) - List orders
+* [GetOrder](docs/sdks/orders/README.md#getorder) - Get an order
+* [UpdateOrder](docs/sdks/orders/README.md#updateorder) - Update an order
+* [DeleteOrder](docs/sdks/orders/README.md#deleteorder) - Delete an order
+* [CreateOrderLineItem](docs/sdks/orders/README.md#createorderlineitem) - Add a line item
+* [UpdateOrderLineItem](docs/sdks/orders/README.md#updateorderlineitem) - Update a line item
+* [DeleteOrderLineItem](docs/sdks/orders/README.md#deleteorderlineitem) - Delete a line item
+* [CreateOrderApproval](docs/sdks/orders/README.md#createorderapproval) - Create an approval for the order
 
 ### [PaymentSessions](docs/sdks/paymentsessions/README.md)
 

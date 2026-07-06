@@ -1,0 +1,10 @@
+# UpdateOrderLineItemRequest
+
+
+## Fields
+
+| Field                                                                                          | Type                                                                                           | Required                                                                                       | Description                                                                                    |
+| ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `OrderID`                                                                                      | `string`                                                                                       | :heavy_check_mark:                                                                             | N/A                                                                                            |
+| `ID`                                                                                           | `string`                                                                                       | :heavy_check_mark:                                                                             | N/A                                                                                            |
+| `Body`                                                                                         | [components.UpdateOrderLineItemRequest](../../models/components/updateorderlineitemrequest.md) | :heavy_check_mark:                                                                             | N/A                                                                                            |
