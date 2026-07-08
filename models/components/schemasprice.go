@@ -33,30 +33,6 @@ func (e *SchemasPriceObject) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type SchemasPriceModel string
-
-const (
-	SchemasPriceModelStandard   SchemasPriceModel = "standard"
-	SchemasPriceModelDynamic    SchemasPriceModel = "dynamic"
-	SchemasPriceModelVolume     SchemasPriceModel = "volume"
-	SchemasPriceModelPercentage SchemasPriceModel = "percentage"
-)
-
-func (e SchemasPriceModel) ToPointer() *SchemasPriceModel {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *SchemasPriceModel) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "standard", "dynamic", "volume", "percentage":
-			return true
-		}
-	}
-	return false
-}
-
 type SchemasPricePaymentTerm string
 
 const (
@@ -88,16 +64,19 @@ type SchemasPrice struct {
 	BillableMetricID *string `json:"billableMetricId,omitzero"`
 	// The unique identifier for the fee referred to by this price. Present when price is linked to a fee.
 	FeeID *string `json:"feeId,omitzero"`
+	// Unique identifier for a pricing unit
+	PricingUnitID *string `json:"pricingUnitId,omitzero"`
 	// Unique identifier for an organization
 	MerchantID string `json:"merchantId"`
 	// ISO 8601 duration. 'P0D' for one-time, 'P1M' for monthly, 'P1Y' for yearly. Required for fees, optional for billable metrics. Defaults to plan's billingCadence if not specified.
 	BillingCadence     optionalnullable.OptionalNullable[string] `json:"billingCadence,omitzero"`
 	CreatedAt          time.Time                                 `json:"createdAt"`
 	InvoiceDisplayName string                                    `json:"invoiceDisplayName"`
-	Model              *SchemasPriceModel                        `json:"model,omitzero"`
-	PaymentTerm        SchemasPricePaymentTerm                   `json:"paymentTerm"`
-	Properties         PricePropertiesUnion                      `json:"properties"`
-	UpdatedAt          time.Time                                 `json:"updatedAt"`
+	// Pricing model of a price as returned by the API. Includes legacy models ('dynamic', 'volume', 'percentage') retained for existing prices; only 'standard' can be created (see PriceModelInput).
+	Model       *PriceModel             `json:"model,omitzero"`
+	PaymentTerm SchemasPricePaymentTerm `json:"paymentTerm"`
+	Properties  PricePropertiesUnion    `json:"properties"`
+	UpdatedAt   time.Time               `json:"updatedAt"`
 	// Features associated with this price
 	Features []PriceFeature `json:"features,omitzero"`
 	// When true, grants applied to a subscription will discount usage charged by this price. Only supported for standard metered prices.
@@ -145,6 +124,13 @@ func (s *SchemasPrice) GetFeeID() *string {
 	return s.FeeID
 }
 
+func (s *SchemasPrice) GetPricingUnitID() *string {
+	if s == nil {
+		return nil
+	}
+	return s.PricingUnitID
+}
+
 func (s *SchemasPrice) GetMerchantID() string {
 	if s == nil {
 		return ""
@@ -173,7 +159,7 @@ func (s *SchemasPrice) GetInvoiceDisplayName() string {
 	return s.InvoiceDisplayName
 }
 
-func (s *SchemasPrice) GetModel() *SchemasPriceModel {
+func (s *SchemasPrice) GetModel() *PriceModel {
 	if s == nil {
 		return nil
 	}

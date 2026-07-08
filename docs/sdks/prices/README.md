@@ -91,7 +91,7 @@ func main() {
 | Error Type                   | Status Code                  | Content Type                 |
 | ---------------------------- | ---------------------------- | ---------------------------- |
 | errors.BadRequest            | 400                          | application/json             |
-| errors.Error                 | 401, 403                     | application/json             |
+| errors.Error                 | 401, 403, 404                | application/json             |
 | errors.Error                 | 500                          | application/json             |
 | errors.PaygenticDefaultError | 4XX, 5XX                     | \*/\*                        |
 

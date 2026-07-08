@@ -100,7 +100,7 @@ func (e *CreatePlanTaxBehavior) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// BillingVersion - Billing engine version. 0 = legacy fee-schedule billing (Legacy), 1 = line-item billing with metered usage support (Standard).
+// BillingVersion - Billing engine version. Only 1 (Standard, line-item billing with metered usage support) is accepted for new plans; omitting the field defaults to 1. 0 (Legacy, fee-schedule billing) is rejected — it exists only on plans created before this restriction.
 type BillingVersion int64
 
 const (
@@ -156,8 +156,8 @@ type CreatePlanRequest struct {
 	RenewalReminderEnabled *bool `default:"true" json:"renewalReminderEnabled"`
 	// Number of days before renewal to send the reminder email
 	RenewalReminderDays *int64 `default:"3" json:"renewalReminderDays"`
-	// Billing engine version. 0 = legacy fee-schedule billing (Legacy), 1 = line-item billing with metered usage support (Standard).
-	BillingVersion *BillingVersion `default:"0" json:"billingVersion"`
+	// Billing engine version. Only 1 (Standard, line-item billing with metered usage support) is accepted for new plans; omitting the field defaults to 1. 0 (Legacy, fee-schedule billing) is rejected — it exists only on plans created before this restriction.
+	BillingVersion *BillingVersion `default:"1" json:"billingVersion"`
 	// ISO 8601 datetime reference point for billing period alignment. Must be in the past or present. When set, subscriptions created under this plan align their first billing period to the next recurrence of this anchor.
 	BillingAnchor optionalnullable.OptionalNullable[time.Time] `json:"billingAnchor,omitzero"`
 }

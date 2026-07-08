@@ -10,39 +10,6 @@ import (
 	"github.com/paygentic/sdk-go/optionalnullable"
 )
 
-// CreatePriceModel - Pricing calculation model. Required for billable metrics, optional for fees (defaults to 'standard').
-type CreatePriceModel string
-
-const (
-	CreatePriceModelStandard   CreatePriceModel = "standard"
-	CreatePriceModelDynamic    CreatePriceModel = "dynamic"
-	CreatePriceModelVolume     CreatePriceModel = "volume"
-	CreatePriceModelPercentage CreatePriceModel = "percentage"
-)
-
-func (e CreatePriceModel) ToPointer() *CreatePriceModel {
-	return &e
-}
-func (e *CreatePriceModel) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "standard":
-		fallthrough
-	case "dynamic":
-		fallthrough
-	case "volume":
-		fallthrough
-	case "percentage":
-		*e = CreatePriceModel(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for CreatePriceModel: %v", v)
-	}
-}
-
 // CreatePricePaymentTerm - Billing timing preference. For billable metrics: 'instant' (charges immediately) or 'in_arrears' (charges at period end). For fees: 'in_advance' (charges upfront) or 'in_arrears' (charges at period end).
 type CreatePricePaymentTerm string
 
@@ -78,8 +45,10 @@ type CreatePriceRequest struct {
 	BillableMetricID *string `json:"billableMetricId,omitzero"`
 	// The unique identifier for the fee referred to by this price. Either billableMetricId or feeId must be provided.
 	FeeID *string `json:"feeId,omitzero"`
-	// Pricing calculation model. Required for billable metrics, optional for fees (defaults to 'standard').
-	Model *CreatePriceModel `json:"model,omitzero"`
+	// Unique identifier for a pricing unit
+	PricingUnitID *string `json:"pricingUnitId,omitzero"`
+	// Pricing calculation model. Required for billable metrics, optional for fees (defaults to 'standard'). Only 'standard' is accepted; for percentage/revenue-share use 'standard' with a unit-price multiplier. Legacy prices using 'dynamic'/'volume'/'percentage' stay readable and billable but cannot be created.
+	Model *components.PriceModelInput `json:"model,omitzero"`
 	// Line item label shown on customer invoices. Sample values: 'Claude Token Consumption', 'Storage Usage (GB)', 'Inference API Calls', 'Image Generation Count', 'Training Compute Hours', 'Data Transfer (TB)'
 	InvoiceDisplayName string `json:"invoiceDisplayName"`
 	// Billing timing preference. For billable metrics: 'instant' (charges immediately) or 'in_arrears' (charges at period end). For fees: 'in_advance' (charges upfront) or 'in_arrears' (charges at period end).
@@ -119,7 +88,14 @@ func (c *CreatePriceRequest) GetFeeID() *string {
 	return c.FeeID
 }
 
-func (c *CreatePriceRequest) GetModel() *CreatePriceModel {
+func (c *CreatePriceRequest) GetPricingUnitID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PricingUnitID
+}
+
+func (c *CreatePriceRequest) GetModel() *components.PriceModelInput {
 	if c == nil {
 		return nil
 	}

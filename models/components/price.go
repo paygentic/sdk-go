@@ -33,21 +33,21 @@ func (e *PriceObject) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type PriceModel string
+type PriceModel1 string
 
 const (
-	PriceModelStandard   PriceModel = "standard"
-	PriceModelDynamic    PriceModel = "dynamic"
-	PriceModelVolume     PriceModel = "volume"
-	PriceModelPercentage PriceModel = "percentage"
+	PriceModel1Standard   PriceModel1 = "standard"
+	PriceModel1Dynamic    PriceModel1 = "dynamic"
+	PriceModel1Volume     PriceModel1 = "volume"
+	PriceModel1Percentage PriceModel1 = "percentage"
 )
 
-func (e PriceModel) ToPointer() *PriceModel {
+func (e PriceModel1) ToPointer() *PriceModel1 {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PriceModel) IsExact() bool {
+func (e *PriceModel1) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "standard", "dynamic", "volume", "percentage":
@@ -95,7 +95,7 @@ type Price struct {
 	Currency           *string                                   `json:"currency,omitzero"`
 	Description        *string                                   `json:"description,omitzero"`
 	InvoiceDisplayName string                                    `json:"invoiceDisplayName"`
-	Model              PriceModel                                `json:"model"`
+	Model              PriceModel1                               `json:"model"`
 	PaymentTerm        PricePaymentTerm                          `json:"paymentTerm"`
 	Properties         map[string]any                            `json:"properties"`
 	UnitAmount         *string                                   `json:"unitAmount,omitzero"`
@@ -189,9 +189,9 @@ func (p *Price) GetInvoiceDisplayName() string {
 	return p.InvoiceDisplayName
 }
 
-func (p *Price) GetModel() PriceModel {
+func (p *Price) GetModel() PriceModel1 {
 	if p == nil {
-		return PriceModel("")
+		return PriceModel1("")
 	}
 	return p.Model
 }

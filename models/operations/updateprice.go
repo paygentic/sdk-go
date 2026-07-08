@@ -10,39 +10,6 @@ import (
 	"github.com/paygentic/sdk-go/optionalnullable"
 )
 
-// UpdatePriceModel - The pricing model to be used, which can be standard, dynamic, volume-based, or percentage-based.
-type UpdatePriceModel string
-
-const (
-	UpdatePriceModelStandard   UpdatePriceModel = "standard"
-	UpdatePriceModelDynamic    UpdatePriceModel = "dynamic"
-	UpdatePriceModelVolume     UpdatePriceModel = "volume"
-	UpdatePriceModelPercentage UpdatePriceModel = "percentage"
-)
-
-func (e UpdatePriceModel) ToPointer() *UpdatePriceModel {
-	return &e
-}
-func (e *UpdatePriceModel) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "standard":
-		fallthrough
-	case "dynamic":
-		fallthrough
-	case "volume":
-		fallthrough
-	case "percentage":
-		*e = UpdatePriceModel(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for UpdatePriceModel: %v", v)
-	}
-}
-
 // UpdatePricePaymentTerm - Billing timing preference. For billable metrics: 'instant' (charges immediately) or 'in_arrears' (charges at period end). For fees: 'in_advance' (charges upfront) or 'in_arrears' (charges at period end).
 type UpdatePricePaymentTerm string
 
@@ -76,10 +43,12 @@ func (e *UpdatePricePaymentTerm) UnmarshalJSON(data []byte) error {
 type UpdatePriceRequestBody struct {
 	// Unique identifier for a billable metric
 	BillableMetricID *string `json:"billableMetricId,omitzero"`
+	// Denominate this metered price in a pricing unit (credits). Set to a pricing unit ID to draw down a credit pool, null to revert to real currency, or omit to leave unchanged.
+	PricingUnitID optionalnullable.OptionalNullable[string] `json:"pricingUnitId,omitzero"`
 	// Updated invoice line item label. Sample values: 'LLM Token Usage', 'Storage Charges', 'API Call Fees'
 	InvoiceDisplayName *string `json:"invoiceDisplayName,omitzero"`
-	// The pricing model to be used, which can be standard, dynamic, volume-based, or percentage-based.
-	Model      *UpdatePriceModel                `json:"model,omitzero"`
+	// The pricing model to set. Only 'standard' is accepted. Legacy 'dynamic'/'volume'/'percentage' prices can still be edited (other fields) but cannot be switched to those models. Percentage/revenue-share is expressed via 'standard' with a unit-price multiplier.
+	Model      *components.PriceModelInput      `json:"model,omitzero"`
 	Properties *components.PricePropertiesUnion `json:"properties,omitzero"`
 	// Billing timing preference. For billable metrics: 'instant' (charges immediately) or 'in_arrears' (charges at period end). For fees: 'in_advance' (charges upfront) or 'in_arrears' (charges at period end).
 	PaymentTerm *UpdatePricePaymentTerm `json:"paymentTerm,omitzero"`
@@ -111,6 +80,13 @@ func (u *UpdatePriceRequestBody) GetBillableMetricID() *string {
 	return u.BillableMetricID
 }
 
+func (u *UpdatePriceRequestBody) GetPricingUnitID() optionalnullable.OptionalNullable[string] {
+	if u == nil {
+		return nil
+	}
+	return u.PricingUnitID
+}
+
 func (u *UpdatePriceRequestBody) GetInvoiceDisplayName() *string {
 	if u == nil {
 		return nil
@@ -118,7 +94,7 @@ func (u *UpdatePriceRequestBody) GetInvoiceDisplayName() *string {
 	return u.InvoiceDisplayName
 }
 
-func (u *UpdatePriceRequestBody) GetModel() *UpdatePriceModel {
+func (u *UpdatePriceRequestBody) GetModel() *components.PriceModelInput {
 	if u == nil {
 		return nil
 	}

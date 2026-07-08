@@ -63,15 +63,17 @@ type MeteredEntitlementDetail struct {
 	Config map[string]any `json:"config"`
 	// When false (hard limit), access is blocked when balance is exhausted and overage is not charged on invoices. When true (soft limit), access continues past the grant and overage is charged at the per-unit rate.
 	IsSoftLimit bool `json:"isSoftLimit"`
-	// Remaining grant balance for the current period.
+	// Remaining balance for the current period. When `pricingUnitId` is set, this is expressed in that pricing unit's credits (a balance shared across every feature drawing the same unit); otherwise it is in the feature's native metered units.
 	Balance float64 `json:"balance"`
-	// Total usage consumed in the current billing period.
+	// Total usage consumed in the current billing period, in the same unit as `balance` (credits when `pricingUnitId` is set, otherwise native metered units). When `pricingUnitId` is set, this is the shared-pool aggregate across every feature drawing the same unit, not usage specific to this feature.
 	UsageInPeriod float64 `json:"usageInPeriod"`
-	// Amount of usage exceeding the granted balance.
+	// Amount of usage exceeding the balance, in the same unit as `balance` (credits when `pricingUnitId` is set, otherwise native metered units).
 	Overage float64 `json:"overage"`
-	// Start of the current usage period. Before the entitlement activates (the pre-activation "dark window", when the query time is earlier than `activeFrom`) this instead describes the pre-activation `[subscription start, activation)` window and may be `null` when there is no associated subscription.
+	// The pricing unit this feature is denominated in when it draws a credit pool. When set, `balance`/`usageInPeriod`/`overage` are in that unit's credits and reflect a balance shared across all features on the same unit. `null` for currency-denominated features (native metered units).
+	PricingUnitID *string `json:"pricingUnitId"`
+	// Start of the current usage period. These bounds describe this entitlement's own usage window (not the shared pool's), even for a pool-backed feature (`pricingUnitId` set) whose `balance` and `usageInPeriod` are shared-pool aggregates. Before the entitlement activates (the pre-activation "dark window", when the query time is earlier than `activeFrom`) this instead describes the pre-activation `[subscription start, activation)` window and may be `null` when there is no associated subscription.
 	CurrentPeriodStart *time.Time `json:"currentPeriodStart"`
-	// End of the current usage period. Before the entitlement activates (the pre-activation "dark window", when the query time is earlier than `activeFrom`) this instead holds `activeFrom` — the end of the pre-activation `[subscription start, activation)` window.
+	// End of the current usage period. These bounds describe this entitlement's own usage window (not the shared pool's), even for a pool-backed feature (`pricingUnitId` set) whose `balance` and `usageInPeriod` are shared-pool aggregates. Before the entitlement activates (the pre-activation "dark window", when the query time is earlier than `activeFrom`) this instead holds `activeFrom` — the end of the pre-activation `[subscription start, activation)` window.
 	CurrentPeriodEnd *time.Time `json:"currentPeriodEnd"`
 }
 
@@ -207,6 +209,13 @@ func (m *MeteredEntitlementDetail) GetOverage() float64 {
 		return 0.0
 	}
 	return m.Overage
+}
+
+func (m *MeteredEntitlementDetail) GetPricingUnitID() *string {
+	if m == nil {
+		return nil
+	}
+	return m.PricingUnitID
 }
 
 func (m *MeteredEntitlementDetail) GetCurrentPeriodStart() *time.Time {
