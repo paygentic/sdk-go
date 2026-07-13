@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/paygentic/sdk-go/internal/utils"
+	"github.com/paygentic/sdk-go/models/components"
 	"github.com/paygentic/sdk-go/optionalnullable"
 	"time"
 )
@@ -149,7 +150,7 @@ type CreatePlanRequest struct {
 	// Array of price IDs to associate with this plan
 	Prices []string `json:"prices,omitzero"`
 	// Unique identifier for a product
-	ProductID *string `json:"productId,omitzero"`
+	ProductID string `json:"productId"`
 	// Whether tax is added on top of the price (exclusive) or included in the price (inclusive)
 	TaxBehavior *CreatePlanTaxBehavior `default:"exclusive" json:"taxBehavior"`
 	// Whether to send renewal reminder emails to customers before their subscription renews
@@ -160,6 +161,8 @@ type CreatePlanRequest struct {
 	BillingVersion *BillingVersion `default:"1" json:"billingVersion"`
 	// ISO 8601 datetime reference point for billing period alignment. Must be in the past or present. When set, subscriptions created under this plan align their first billing period to the next recurrence of this anchor.
 	BillingAnchor optionalnullable.OptionalNullable[time.Time] `json:"billingAnchor,omitzero"`
+	// Credit-pool funding declarations for this plan. Each entry funds a distinct pricing unit's credit pool when a subscription to this plan activates: the allocated amount is minted as a credit grant on the customer's pool for that pricing unit, once at activation, or on a recurring basis only when that allocation explicitly sets recurrencePeriod. A plan may declare zero or more allocations; no two allocations on the same plan may target the same pricingUnitId.
+	CreditAllocations []components.PlanCreditAllocation `json:"creditAllocations,omitzero"`
 }
 
 func (c CreatePlanRequest) MarshalJSON() ([]byte, error) {
@@ -243,9 +246,9 @@ func (c *CreatePlanRequest) GetPrices() []string {
 	return c.Prices
 }
 
-func (c *CreatePlanRequest) GetProductID() *string {
+func (c *CreatePlanRequest) GetProductID() string {
 	if c == nil {
-		return nil
+		return ""
 	}
 	return c.ProductID
 }
@@ -283,4 +286,11 @@ func (c *CreatePlanRequest) GetBillingAnchor() optionalnullable.OptionalNullable
 		return nil
 	}
 	return c.BillingAnchor
+}
+
+func (c *CreatePlanRequest) GetCreditAllocations() []components.PlanCreditAllocation {
+	if c == nil {
+		return nil
+	}
+	return c.CreditAllocations
 }

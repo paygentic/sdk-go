@@ -34,8 +34,8 @@ func (e *InvoiceObject) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// LineItems - Line items (only present if expand=lineItems query parameter is provided)
-type LineItems struct {
+// InvoiceLineItems - Line items (only present if expand=lineItems query parameter is provided)
+type InvoiceLineItems struct {
 	// The invoice ID
 	InvoiceID string `json:"invoiceId"`
 	// Array of line items for this page
@@ -46,32 +46,32 @@ type LineItems struct {
 	TotalCount int64 `json:"totalCount"`
 }
 
-func (l *LineItems) GetInvoiceID() string {
-	if l == nil {
+func (i *InvoiceLineItems) GetInvoiceID() string {
+	if i == nil {
 		return ""
 	}
-	return l.InvoiceID
+	return i.InvoiceID
 }
 
-func (l *LineItems) GetLineItems() []InvoiceLineItem {
-	if l == nil {
+func (i *InvoiceLineItems) GetLineItems() []InvoiceLineItem {
+	if i == nil {
 		return []InvoiceLineItem{}
 	}
-	return l.LineItems
+	return i.LineItems
 }
 
-func (l *LineItems) GetNextPageToken() optionalnullable.OptionalNullable[string] {
-	if l == nil {
+func (i *InvoiceLineItems) GetNextPageToken() optionalnullable.OptionalNullable[string] {
+	if i == nil {
 		return nil
 	}
-	return l.NextPageToken
+	return i.NextPageToken
 }
 
-func (l *LineItems) GetTotalCount() int64 {
-	if l == nil {
+func (i *InvoiceLineItems) GetTotalCount() int64 {
+	if i == nil {
 		return 0
 	}
-	return l.TotalCount
+	return i.TotalCount
 }
 
 // InvoiceStatus - The current status of the invoice
@@ -212,7 +212,7 @@ type Invoice struct {
 	// Number of billing items (real-time for ACTIVE/CLOSING/CLOSED, cached otherwise)
 	ItemCount int64 `json:"itemCount"`
 	// Line items (only present if expand=lineItems query parameter is provided)
-	LineItems optionalnullable.OptionalNullable[LineItems] `json:"lineItems,omitzero"`
+	LineItems optionalnullable.OptionalNullable[InvoiceLineItems] `json:"lineItems,omitzero"`
 	// The merchant organization ID
 	MerchantID string `json:"merchantId"`
 	// Additional metadata including transition history
@@ -357,7 +357,7 @@ func (i *Invoice) GetItemCount() int64 {
 	return i.ItemCount
 }
 
-func (i *Invoice) GetLineItems() optionalnullable.OptionalNullable[LineItems] {
+func (i *Invoice) GetLineItems() optionalnullable.OptionalNullable[InvoiceLineItems] {
 	if i == nil {
 		return nil
 	}

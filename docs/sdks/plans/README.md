@@ -41,6 +41,7 @@ func main() {
         Currency: "Won",
         MerchantID: "<id>",
         Name: "<value>",
+        ProductID: "<id>",
     })
     if err != nil {
         log.Fatal(err)

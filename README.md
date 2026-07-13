@@ -439,6 +439,7 @@ func main() {
 * [UpdateSubscription](docs/sdks/subscriptions/README.md#updatesubscription) - Update
 * [GeneratePortalLink](docs/sdks/subscriptions/README.md#generateportallink) - Generate Portal Link
 * [Terminate](docs/sdks/subscriptions/README.md#terminate) - Terminate
+* [ReconcileSubscriptionFeatures](docs/sdks/subscriptions/README.md#reconcilesubscriptionfeatures) - Reconcile Features
 
 ### [TestClocks](docs/sdks/testclocks/README.md)
 

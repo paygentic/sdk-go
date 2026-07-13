@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/paygentic/sdk-go/internal/utils"
+	"github.com/paygentic/sdk-go/models/components"
 	"github.com/paygentic/sdk-go/optionalnullable"
 	"time"
 )
@@ -125,6 +126,8 @@ type UpdatePlanRequestBody struct {
 	RenewalReminderDays *int64 `json:"renewalReminderDays,omitzero"`
 	// ISO 8601 datetime reference point for billing period alignment. Must be in the past or present. Set to null to clear the anchor and revert to start-time-based anchoring.
 	BillingAnchor optionalnullable.OptionalNullable[time.Time] `json:"billingAnchor,omitzero"`
+	// Credit-pool funding declarations for this plan. Each entry funds a distinct pricing unit's credit pool when a subscription to this plan activates: the allocated amount is minted as a credit grant on the customer's pool for that pricing unit, once at activation, or on a recurring basis only when that allocation explicitly sets recurrencePeriod. A plan may declare zero or more allocations; no two allocations on the same plan may target the same pricingUnitId.
+	CreditAllocations []components.PlanCreditAllocation `json:"creditAllocations,omitzero"`
 }
 
 func (u UpdatePlanRequestBody) MarshalJSON() ([]byte, error) {
@@ -220,6 +223,13 @@ func (u *UpdatePlanRequestBody) GetBillingAnchor() optionalnullable.OptionalNull
 		return nil
 	}
 	return u.BillingAnchor
+}
+
+func (u *UpdatePlanRequestBody) GetCreditAllocations() []components.PlanCreditAllocation {
+	if u == nil {
+		return nil
+	}
+	return u.CreditAllocations
 }
 
 type UpdatePlanRequest struct {
