@@ -50,6 +50,8 @@ type MeterEvent struct {
 	Data map[string]any `json:"data"`
 	// Optional external identifier for cross-referencing with external systems. Alphanumeric characters, hyphens, and underscores only.
 	ExternalID *string `json:"externalId,omitzero"`
+	// The merchant's own customer identifier the event was reported with. Empty subject with an externalSubject means the event is not linked to a customer yet.
+	ExternalSubject *string `json:"externalSubject,omitzero"`
 }
 
 func (m MeterEvent) MarshalJSON() ([]byte, error) {
@@ -124,4 +126,11 @@ func (m *MeterEvent) GetExternalID() *string {
 		return nil
 	}
 	return m.ExternalID
+}
+
+func (m *MeterEvent) GetExternalSubject() *string {
+	if m == nil {
+		return nil
+	}
+	return m.ExternalSubject
 }

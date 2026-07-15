@@ -54,8 +54,12 @@ type GetBillableMetricMeterRequest struct {
 	WindowSize *GetBillableMetricMeterWindowSize `queryParam:"style=form,explode=true,name=windowSize"`
 	// JSON-encoded dimension filter (e.g. {"key":"value"})
 	FilterGroupBy *string `queryParam:"style=form,explode=true,name=filterGroupBy"`
-	// Comma-separated dimension keys
+	// Comma-separated dimension keys. Configure keys for the grouping on the metric. Only the "subject" grouping is supported by default.
 	GroupBy *string `queryParam:"style=form,explode=true,name=groupBy"`
+	// Cap groupedValues to the top-N by value (descending). With windowSize, restricts the windowed series to those top-N groups. Bounds the payload for high-cardinality groupings; groupCount reports the untruncated distinct-group count.
+	GroupLimit *int64 `queryParam:"style=form,explode=true,name=groupLimit"`
+	// Offset into the value-descending group ordering; requires groupLimit to page through grouped results. With windowSize set, pages the windowed series through the ranked groups (offset 0 yields the top-N).
+	GroupOffset *int64 `queryParam:"style=form,explode=true,name=groupOffset"`
 }
 
 func (g GetBillableMetricMeterRequest) MarshalJSON() ([]byte, error) {
@@ -116,4 +120,18 @@ func (g *GetBillableMetricMeterRequest) GetGroupBy() *string {
 		return nil
 	}
 	return g.GroupBy
+}
+
+func (g *GetBillableMetricMeterRequest) GetGroupLimit() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.GroupLimit
+}
+
+func (g *GetBillableMetricMeterRequest) GetGroupOffset() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.GroupOffset
 }

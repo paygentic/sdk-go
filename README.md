@@ -159,15 +159,17 @@ func main() {
 		paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
 	)
 
-	res, err := s.Events.Ingest(ctx, operations.IngestEventRequest{
-		Type:    "ai.inference",
-		Source:  "https://api.myapp.com",
-		Subject: "cus_abc123",
-		Data: map[string]any{
-			"tokens": 1500,
-			"model":  "gpt-4o",
+	res, err := s.Events.Ingest(ctx, operations.CreateIngestEventRequestIngestEventRequestBody1(
+		operations.IngestEventRequestBody1{
+			Type:    "ai.inference",
+			Source:  "https://api.myapp.com",
+			Subject: "cus_abc123",
+			Data: map[string]any{
+				"tokens": 1500,
+				"model":  "gpt-4o",
+			},
 		},
-	})
+	))
 	if err != nil {
 		log.Fatal(err)
 	}

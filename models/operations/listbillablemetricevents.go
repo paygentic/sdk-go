@@ -21,6 +21,8 @@ type ListBillableMetricEventsRequest struct {
 	Offset *int64 `default:"0" queryParam:"style=form,explode=true,name=offset"`
 	// Filter by external identifier. Alphanumeric characters, hyphens, and underscores only.
 	ExternalID *string `queryParam:"style=form,explode=true,name=externalId"`
+	// Filter by the merchant's own customer identifier the event was reported with.
+	ExternalSubject *string `queryParam:"style=form,explode=true,name=externalSubject"`
 }
 
 func (l ListBillableMetricEventsRequest) MarshalJSON() ([]byte, error) {
@@ -81,4 +83,11 @@ func (l *ListBillableMetricEventsRequest) GetExternalID() *string {
 		return nil
 	}
 	return l.ExternalID
+}
+
+func (l *ListBillableMetricEventsRequest) GetExternalSubject() *string {
+	if l == nil {
+		return nil
+	}
+	return l.ExternalSubject
 }

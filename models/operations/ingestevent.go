@@ -3,17 +3,21 @@
 package operations
 
 import (
+	"errors"
+	"fmt"
 	"github.com/paygentic/sdk-go/internal/utils"
 	"time"
 )
 
-type IngestEventRequest struct {
+type IngestEventRequestBody2 struct {
 	// CloudEvents type. Must match an eventType configured on a BillableMetric.
 	Type string `json:"type"`
 	// Event source URI identifying the application.
 	Source string `json:"source"`
-	// Customer or entity ID this event relates to.
-	Subject string `json:"subject"`
+	// Customer or entity ID this event relates to. Required unless externalSubject is provided.
+	Subject *string `json:"subject,omitzero"`
+	// Your own customer identifier, matched against the customer's externalId. Fallback for when the Paygentic customer ID is not known — prefer subject when it is. Events reported before the customer exists are linked retroactively once a customer with this externalId is created. Resolution is eventually consistent: after an externalId is removed or reassigned, events may resolve to the previous customer for up to one hour. If subject is also provided, subject takes precedence and externalSubject is recorded but not used for resolution.
+	ExternalSubject string `json:"externalSubject"`
 	// Organization/merchant ID. Defaults to the authenticated user's organization. Platform users can specify a different organization.
 	Namespace *string `json:"namespace,omitzero"`
 	// Event timestamp. Defaults to server time if not provided.
@@ -26,69 +30,266 @@ type IngestEventRequest struct {
 	Data map[string]any `json:"data"`
 }
 
-func (i IngestEventRequest) MarshalJSON() ([]byte, error) {
+func (i IngestEventRequestBody2) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *IngestEventRequest) UnmarshalJSON(data []byte) error {
+func (i *IngestEventRequestBody2) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *IngestEventRequest) GetType() string {
+func (i *IngestEventRequestBody2) GetType() string {
 	if i == nil {
 		return ""
 	}
 	return i.Type
 }
 
-func (i *IngestEventRequest) GetSource() string {
+func (i *IngestEventRequestBody2) GetSource() string {
 	if i == nil {
 		return ""
 	}
 	return i.Source
 }
 
-func (i *IngestEventRequest) GetSubject() string {
+func (i *IngestEventRequestBody2) GetSubject() *string {
 	if i == nil {
-		return ""
+		return nil
 	}
 	return i.Subject
 }
 
-func (i *IngestEventRequest) GetNamespace() *string {
+func (i *IngestEventRequestBody2) GetExternalSubject() string {
+	if i == nil {
+		return ""
+	}
+	return i.ExternalSubject
+}
+
+func (i *IngestEventRequestBody2) GetNamespace() *string {
 	if i == nil {
 		return nil
 	}
 	return i.Namespace
 }
 
-func (i *IngestEventRequest) GetTimestamp() *time.Time {
+func (i *IngestEventRequestBody2) GetTimestamp() *time.Time {
 	if i == nil {
 		return nil
 	}
 	return i.Timestamp
 }
 
-func (i *IngestEventRequest) GetIdempotencyKey() *string {
+func (i *IngestEventRequestBody2) GetIdempotencyKey() *string {
 	if i == nil {
 		return nil
 	}
 	return i.IdempotencyKey
 }
 
-func (i *IngestEventRequest) GetExternalID() *string {
+func (i *IngestEventRequestBody2) GetExternalID() *string {
 	if i == nil {
 		return nil
 	}
 	return i.ExternalID
 }
 
-func (i *IngestEventRequest) GetData() map[string]any {
+func (i *IngestEventRequestBody2) GetData() map[string]any {
 	if i == nil {
 		return map[string]any{}
 	}
 	return i.Data
+}
+
+// #region class-body-ingesteventrequestbody2
+// #endregion class-body-ingesteventrequestbody2
+
+type IngestEventRequestBody1 struct {
+	// CloudEvents type. Must match an eventType configured on a BillableMetric.
+	Type string `json:"type"`
+	// Event source URI identifying the application.
+	Source string `json:"source"`
+	// Customer or entity ID this event relates to. Required unless externalSubject is provided.
+	Subject string `json:"subject"`
+	// Your own customer identifier, matched against the customer's externalId. Fallback for when the Paygentic customer ID is not known — prefer subject when it is. Events reported before the customer exists are linked retroactively once a customer with this externalId is created. Resolution is eventually consistent: after an externalId is removed or reassigned, events may resolve to the previous customer for up to one hour. If subject is also provided, subject takes precedence and externalSubject is recorded but not used for resolution.
+	ExternalSubject *string `json:"externalSubject,omitzero"`
+	// Organization/merchant ID. Defaults to the authenticated user's organization. Platform users can specify a different organization.
+	Namespace *string `json:"namespace,omitzero"`
+	// Event timestamp. Defaults to server time if not provided.
+	Timestamp *time.Time `json:"timestamp,omitzero"`
+	// User-provided deduplication key. If not provided, a unique key is generated.
+	IdempotencyKey *string `json:"idempotencyKey,omitzero"`
+	// Optional external identifier for cross-referencing with external systems. Alphanumeric characters, hyphens, and underscores only.
+	ExternalID *string `json:"externalId,omitzero"`
+	// Event payload containing the metering data.
+	Data map[string]any `json:"data"`
+}
+
+func (i IngestEventRequestBody1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *IngestEventRequestBody1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *IngestEventRequestBody1) GetType() string {
+	if i == nil {
+		return ""
+	}
+	return i.Type
+}
+
+func (i *IngestEventRequestBody1) GetSource() string {
+	if i == nil {
+		return ""
+	}
+	return i.Source
+}
+
+func (i *IngestEventRequestBody1) GetSubject() string {
+	if i == nil {
+		return ""
+	}
+	return i.Subject
+}
+
+func (i *IngestEventRequestBody1) GetExternalSubject() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ExternalSubject
+}
+
+func (i *IngestEventRequestBody1) GetNamespace() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Namespace
+}
+
+func (i *IngestEventRequestBody1) GetTimestamp() *time.Time {
+	if i == nil {
+		return nil
+	}
+	return i.Timestamp
+}
+
+func (i *IngestEventRequestBody1) GetIdempotencyKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IdempotencyKey
+}
+
+func (i *IngestEventRequestBody1) GetExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ExternalID
+}
+
+func (i *IngestEventRequestBody1) GetData() map[string]any {
+	if i == nil {
+		return map[string]any{}
+	}
+	return i.Data
+}
+
+// #region class-body-ingesteventrequestbody1
+// #endregion class-body-ingesteventrequestbody1
+
+type IngestEventRequestType string
+
+const (
+	IngestEventRequestTypeIngestEventRequestBody1 IngestEventRequestType = "ingestEvent_RequestBody_1"
+	IngestEventRequestTypeIngestEventRequestBody2 IngestEventRequestType = "ingestEvent_RequestBody_2"
+)
+
+type IngestEventRequest struct {
+	IngestEventRequestBody1 *IngestEventRequestBody1 `queryParam:"inline" union:"member"`
+	IngestEventRequestBody2 *IngestEventRequestBody2 `queryParam:"inline" union:"member"`
+
+	Type IngestEventRequestType
+}
+
+func CreateIngestEventRequestIngestEventRequestBody1(ingestEventRequestBody1 IngestEventRequestBody1) IngestEventRequest {
+	typ := IngestEventRequestTypeIngestEventRequestBody1
+
+	return IngestEventRequest{
+		IngestEventRequestBody1: &ingestEventRequestBody1,
+		Type:                    typ,
+	}
+}
+
+func CreateIngestEventRequestIngestEventRequestBody2(ingestEventRequestBody2 IngestEventRequestBody2) IngestEventRequest {
+	typ := IngestEventRequestTypeIngestEventRequestBody2
+
+	return IngestEventRequest{
+		IngestEventRequestBody2: &ingestEventRequestBody2,
+		Type:                    typ,
+	}
+}
+
+func (u *IngestEventRequest) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var ingestEventRequestBody1 IngestEventRequestBody1 = IngestEventRequestBody1{}
+	if err := utils.UnmarshalJSON(data, &ingestEventRequestBody1, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  IngestEventRequestTypeIngestEventRequestBody1,
+			Value: &ingestEventRequestBody1,
+		})
+	}
+
+	var ingestEventRequestBody2 IngestEventRequestBody2 = IngestEventRequestBody2{}
+	if err := utils.UnmarshalJSON(data, &ingestEventRequestBody2, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  IngestEventRequestTypeIngestEventRequestBody2,
+			Value: &ingestEventRequestBody2,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for IngestEventRequest", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for IngestEventRequest", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(IngestEventRequestType)
+	switch best.Type {
+	case IngestEventRequestTypeIngestEventRequestBody1:
+		u.IngestEventRequestBody1 = best.Value.(*IngestEventRequestBody1)
+		return nil
+	case IngestEventRequestTypeIngestEventRequestBody2:
+		u.IngestEventRequestBody2 = best.Value.(*IngestEventRequestBody2)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for IngestEventRequest", string(data))
+}
+
+func (u IngestEventRequest) MarshalJSON() ([]byte, error) {
+	if u.IngestEventRequestBody1 != nil {
+		return utils.MarshalJSON(u.IngestEventRequestBody1, "", true)
+	}
+
+	if u.IngestEventRequestBody2 != nil {
+		return utils.MarshalJSON(u.IngestEventRequestBody2, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type IngestEventRequest: all fields are null")
 }

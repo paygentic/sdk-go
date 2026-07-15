@@ -9,87 +9,87 @@ import (
 	"time"
 )
 
-type RequestBody2 struct {
+type AdvanceTestClockRequestBody2 struct {
 	// ISO 8601 duration format indicating clock advancement distance. Sample values: 'P1M' moves forward one month, 'P7D' moves forward seven days, 'PT2H' moves forward two hours, 'P1Y2M3DT4H5M6S' moves forward one year, two months, three days, four hours, five minutes, and six seconds
 	AdvanceBy string `json:"advanceBy"`
 }
 
-func (r RequestBody2) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
+func (a AdvanceTestClockRequestBody2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
 }
 
-func (r *RequestBody2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+func (a *AdvanceTestClockRequestBody2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (r *RequestBody2) GetAdvanceBy() string {
-	if r == nil {
+func (a *AdvanceTestClockRequestBody2) GetAdvanceBy() string {
+	if a == nil {
 		return ""
 	}
-	return r.AdvanceBy
+	return a.AdvanceBy
 }
 
-// #region class-body-requestbody2
-// #endregion class-body-requestbody2
+// #region class-body-advancetestclockrequestbody2
+// #endregion class-body-advancetestclockrequestbody2
 
-type RequestBody1 struct {
+type AdvanceTestClockRequestBody1 struct {
 	// New absolute time for the test clock (must be forward in time)
 	CurrentTime time.Time `json:"currentTime"`
 }
 
-func (r RequestBody1) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
+func (a AdvanceTestClockRequestBody1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
 }
 
-func (r *RequestBody1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+func (a *AdvanceTestClockRequestBody1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (r *RequestBody1) GetCurrentTime() time.Time {
-	if r == nil {
+func (a *AdvanceTestClockRequestBody1) GetCurrentTime() time.Time {
+	if a == nil {
 		return time.Time{}
 	}
-	return r.CurrentTime
+	return a.CurrentTime
 }
 
-// #region class-body-requestbody1
-// #endregion class-body-requestbody1
+// #region class-body-advancetestclockrequestbody1
+// #endregion class-body-advancetestclockrequestbody1
 
 type AdvanceTestClockRequestBodyType string
 
 const (
-	AdvanceTestClockRequestBodyTypeRequestBody1 AdvanceTestClockRequestBodyType = "RequestBody_1"
-	AdvanceTestClockRequestBodyTypeRequestBody2 AdvanceTestClockRequestBodyType = "RequestBody_2"
+	AdvanceTestClockRequestBodyTypeAdvanceTestClockRequestBody1 AdvanceTestClockRequestBodyType = "advanceTestClock_RequestBody_1"
+	AdvanceTestClockRequestBodyTypeAdvanceTestClockRequestBody2 AdvanceTestClockRequestBodyType = "advanceTestClock_RequestBody_2"
 )
 
 type AdvanceTestClockRequestBody struct {
-	RequestBody1 *RequestBody1 `queryParam:"inline" union:"member"`
-	RequestBody2 *RequestBody2 `queryParam:"inline" union:"member"`
+	AdvanceTestClockRequestBody1 *AdvanceTestClockRequestBody1 `queryParam:"inline" union:"member"`
+	AdvanceTestClockRequestBody2 *AdvanceTestClockRequestBody2 `queryParam:"inline" union:"member"`
 
 	Type AdvanceTestClockRequestBodyType
 }
 
-func CreateAdvanceTestClockRequestBodyRequestBody1(requestBody1 RequestBody1) AdvanceTestClockRequestBody {
-	typ := AdvanceTestClockRequestBodyTypeRequestBody1
+func CreateAdvanceTestClockRequestBodyAdvanceTestClockRequestBody1(advanceTestClockRequestBody1 AdvanceTestClockRequestBody1) AdvanceTestClockRequestBody {
+	typ := AdvanceTestClockRequestBodyTypeAdvanceTestClockRequestBody1
 
 	return AdvanceTestClockRequestBody{
-		RequestBody1: &requestBody1,
-		Type:         typ,
+		AdvanceTestClockRequestBody1: &advanceTestClockRequestBody1,
+		Type:                         typ,
 	}
 }
 
-func CreateAdvanceTestClockRequestBodyRequestBody2(requestBody2 RequestBody2) AdvanceTestClockRequestBody {
-	typ := AdvanceTestClockRequestBodyTypeRequestBody2
+func CreateAdvanceTestClockRequestBodyAdvanceTestClockRequestBody2(advanceTestClockRequestBody2 AdvanceTestClockRequestBody2) AdvanceTestClockRequestBody {
+	typ := AdvanceTestClockRequestBodyTypeAdvanceTestClockRequestBody2
 
 	return AdvanceTestClockRequestBody{
-		RequestBody2: &requestBody2,
-		Type:         typ,
+		AdvanceTestClockRequestBody2: &advanceTestClockRequestBody2,
+		Type:                         typ,
 	}
 }
 
@@ -98,19 +98,19 @@ func (u *AdvanceTestClockRequestBody) UnmarshalJSON(data []byte) error {
 	var candidates []utils.UnionCandidate
 
 	// Collect all valid candidates
-	var requestBody1 RequestBody1 = RequestBody1{}
-	if err := utils.UnmarshalJSON(data, &requestBody1, "", true, nil); err == nil {
+	var advanceTestClockRequestBody1 AdvanceTestClockRequestBody1 = AdvanceTestClockRequestBody1{}
+	if err := utils.UnmarshalJSON(data, &advanceTestClockRequestBody1, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  AdvanceTestClockRequestBodyTypeRequestBody1,
-			Value: &requestBody1,
+			Type:  AdvanceTestClockRequestBodyTypeAdvanceTestClockRequestBody1,
+			Value: &advanceTestClockRequestBody1,
 		})
 	}
 
-	var requestBody2 RequestBody2 = RequestBody2{}
-	if err := utils.UnmarshalJSON(data, &requestBody2, "", true, nil); err == nil {
+	var advanceTestClockRequestBody2 AdvanceTestClockRequestBody2 = AdvanceTestClockRequestBody2{}
+	if err := utils.UnmarshalJSON(data, &advanceTestClockRequestBody2, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  AdvanceTestClockRequestBodyTypeRequestBody2,
-			Value: &requestBody2,
+			Type:  AdvanceTestClockRequestBodyTypeAdvanceTestClockRequestBody2,
+			Value: &advanceTestClockRequestBody2,
 		})
 	}
 
@@ -127,11 +127,11 @@ func (u *AdvanceTestClockRequestBody) UnmarshalJSON(data []byte) error {
 	// Set the union type and value based on the best candidate
 	u.Type = best.Type.(AdvanceTestClockRequestBodyType)
 	switch best.Type {
-	case AdvanceTestClockRequestBodyTypeRequestBody1:
-		u.RequestBody1 = best.Value.(*RequestBody1)
+	case AdvanceTestClockRequestBodyTypeAdvanceTestClockRequestBody1:
+		u.AdvanceTestClockRequestBody1 = best.Value.(*AdvanceTestClockRequestBody1)
 		return nil
-	case AdvanceTestClockRequestBodyTypeRequestBody2:
-		u.RequestBody2 = best.Value.(*RequestBody2)
+	case AdvanceTestClockRequestBodyTypeAdvanceTestClockRequestBody2:
+		u.AdvanceTestClockRequestBody2 = best.Value.(*AdvanceTestClockRequestBody2)
 		return nil
 	}
 
@@ -139,12 +139,12 @@ func (u *AdvanceTestClockRequestBody) UnmarshalJSON(data []byte) error {
 }
 
 func (u AdvanceTestClockRequestBody) MarshalJSON() ([]byte, error) {
-	if u.RequestBody1 != nil {
-		return utils.MarshalJSON(u.RequestBody1, "", true)
+	if u.AdvanceTestClockRequestBody1 != nil {
+		return utils.MarshalJSON(u.AdvanceTestClockRequestBody1, "", true)
 	}
 
-	if u.RequestBody2 != nil {
-		return utils.MarshalJSON(u.RequestBody2, "", true)
+	if u.AdvanceTestClockRequestBody2 != nil {
+		return utils.MarshalJSON(u.AdvanceTestClockRequestBody2, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type AdvanceTestClockRequestBody: all fields are null")

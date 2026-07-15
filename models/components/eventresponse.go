@@ -34,14 +34,17 @@ func (e *EventResponseObject) UnmarshalJSON(data []byte) error {
 
 type EventResponse struct {
 	// Server-generated event ID.
-	ID             *string              `json:"id,omitzero"`
-	Object         *EventResponseObject `default:"event" json:"object"`
-	Type           *string              `json:"type,omitzero"`
-	Source         *string              `json:"source,omitzero"`
-	Subject        *string              `json:"subject,omitzero"`
-	Namespace      *string              `json:"namespace,omitzero"`
-	Timestamp      *time.Time           `json:"timestamp,omitzero"`
-	IdempotencyKey *string              `json:"idempotencyKey,omitzero"`
+	ID     *string              `json:"id,omitzero"`
+	Object *EventResponseObject `default:"event" json:"object"`
+	Type   *string              `json:"type,omitzero"`
+	Source *string              `json:"source,omitzero"`
+	// Resolved customer ID. Absent when the event was reported with an externalSubject that does not match a customer yet.
+	Subject *string `json:"subject,omitzero"`
+	// The merchant's own customer identifier the event was reported with.
+	ExternalSubject *string    `json:"externalSubject,omitzero"`
+	Namespace       *string    `json:"namespace,omitzero"`
+	Timestamp       *time.Time `json:"timestamp,omitzero"`
+	IdempotencyKey  *string    `json:"idempotencyKey,omitzero"`
 	// Optional external identifier for cross-referencing with external systems. Alphanumeric characters, hyphens, and underscores only.
 	ExternalID *string `json:"externalId,omitzero"`
 }
@@ -90,6 +93,13 @@ func (e *EventResponse) GetSubject() *string {
 		return nil
 	}
 	return e.Subject
+}
+
+func (e *EventResponse) GetExternalSubject() *string {
+	if e == nil {
+		return nil
+	}
+	return e.ExternalSubject
 }
 
 func (e *EventResponse) GetNamespace() *string {

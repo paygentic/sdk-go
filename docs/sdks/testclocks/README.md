@@ -200,8 +200,8 @@ func main() {
         paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
     )
 
-    res, err := s.TestClocks.Advance(ctx, "<id>", operations.CreateAdvanceTestClockRequestBodyRequestBody1(
-        operations.RequestBody1{
+    res, err := s.TestClocks.Advance(ctx, "<id>", operations.CreateAdvanceTestClockRequestBodyAdvanceTestClockRequestBody1(
+        operations.AdvanceTestClockRequestBody1{
             CurrentTime: types.MustTimeFromString("2025-02-15T07:14:25.507Z"),
         },
     ))

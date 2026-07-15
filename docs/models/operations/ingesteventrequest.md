@@ -1,15 +1,29 @@
 # IngestEventRequest
 
 
-## Fields
+## Supported Types
 
-| Field                                                                                                                             | Type                                                                                                                              | Required                                                                                                                          | Description                                                                                                                       | Example                                                                                                                           |
-| --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| `Type`                                                                                                                            | `string`                                                                                                                          | :heavy_check_mark:                                                                                                                | CloudEvents type. Must match an eventType configured on a BillableMetric.                                                         | ai.inference                                                                                                                      |
-| `Source`                                                                                                                          | `string`                                                                                                                          | :heavy_check_mark:                                                                                                                | Event source URI identifying the application.                                                                                     | https://api.myapp.com                                                                                                             |
-| `Subject`                                                                                                                         | `string`                                                                                                                          | :heavy_check_mark:                                                                                                                | Customer or entity ID this event relates to.                                                                                      | cus_abc123                                                                                                                        |
-| `Namespace`                                                                                                                       | `*string`                                                                                                                         | :heavy_minus_sign:                                                                                                                | Organization/merchant ID. Defaults to the authenticated user's organization. Platform users can specify a different organization. |                                                                                                                                   |
-| `Timestamp`                                                                                                                       | [*time.Time](https://pkg.go.dev/time#Time)                                                                                        | :heavy_minus_sign:                                                                                                                | Event timestamp. Defaults to server time if not provided.                                                                         |                                                                                                                                   |
-| `IdempotencyKey`                                                                                                                  | `*string`                                                                                                                         | :heavy_minus_sign:                                                                                                                | User-provided deduplication key. If not provided, a unique key is generated.                                                      |                                                                                                                                   |
-| `ExternalID`                                                                                                                      | `*string`                                                                                                                         | :heavy_minus_sign:                                                                                                                | Optional external identifier for cross-referencing with external systems. Alphanumeric characters, hyphens, and underscores only. |                                                                                                                                   |
-| `Data`                                                                                                                            | map[string]`any`                                                                                                                  | :heavy_check_mark:                                                                                                                | Event payload containing the metering data.                                                                                       | {<br/>"tokens": 1500,<br/>"model": "gpt-4o"<br/>}                                                                                 |
+### IngestEventRequestBody1
+
+```go
+ingestEventRequest := operations.CreateIngestEventRequestIngestEventRequestBody1(operations.IngestEventRequestBody1{/* values here */})
+```
+
+### IngestEventRequestBody2
+
+```go
+ingestEventRequest := operations.CreateIngestEventRequestIngestEventRequestBody2(operations.IngestEventRequestBody2{/* values here */})
+```
+
+## Union Discrimination
+
+Use the `Type` field to determine which variant is active, then access the corresponding field:
+
+```go
+switch ingestEventRequest.Type {
+	case operations.IngestEventRequestTypeIngestEventRequestBody1:
+		// ingestEventRequest.IngestEventRequestBody1 is populated
+	case operations.IngestEventRequestTypeIngestEventRequestBody2:
+		// ingestEventRequest.IngestEventRequestBody2 is populated
+}
+```

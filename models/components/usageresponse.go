@@ -73,6 +73,8 @@ func (w *WindowedValue) GetValue() float64 {
 type GroupedValue struct {
 	GroupBy map[string]string `json:"groupBy"`
 	Value   float64           `json:"value"`
+	// Number of raw events in this group
+	EventCount *int64 `json:"eventCount,omitzero"`
 }
 
 func (g *GroupedValue) GetGroupBy() map[string]string {
@@ -89,16 +91,25 @@ func (g *GroupedValue) GetValue() float64 {
 	return g.Value
 }
 
+func (g *GroupedValue) GetEventCount() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.EventCount
+}
+
 type UsageResponse struct {
 	Object *UsageResponseObject `default:"meter" json:"object"`
 	// Unique identifier for a billable metric
 	BillableMetricID string `json:"billableMetricId"`
 	// Total aggregated value across the query window
 	TotalValue float64 `json:"totalValue"`
-	// Time-bucketed values. Only present when windowSize is specified.
+	// Time-bucketed values. Only present when windowSize is specified. When both windowSize and groupBy are set, windowedValues[i] is index-aligned with groupedValues[i] (same window and group).
 	WindowedValues []WindowedValue `json:"windowedValues,omitzero"`
-	// Dimension-grouped values. Only present when groupBy is specified.
+	// Dimension-grouped values. Only present when groupBy is specified. When both windowSize and groupBy are set, groupedValues[i] is index-aligned with windowedValues[i] (same window and group).
 	GroupedValues []GroupedValue `json:"groupedValues,omitzero"`
+	// Total distinct groups before groupLimit/groupOffset truncation. Only present when groupLimit is specified; use it to drive pagination totals.
+	GroupCount *int64 `json:"groupCount,omitzero"`
 }
 
 func (u UsageResponse) MarshalJSON() ([]byte, error) {
@@ -145,4 +156,11 @@ func (u *UsageResponse) GetGroupedValues() []GroupedValue {
 		return nil
 	}
 	return u.GroupedValues
+}
+
+func (u *UsageResponse) GetGroupCount() *int64 {
+	if u == nil {
+		return nil
+	}
+	return u.GroupCount
 }
