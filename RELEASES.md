@@ -239,3 +239,13 @@ Based on:
 - [go v0.3.2] .
 ### Releases
 - [Go v0.3.2] https://github.com/paygentic/sdk-go/releases/tag/v0.3.2 - .
+
+## 2026-07-17 15:56:08
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.790.2 (2.918.3) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [go v0.3.3] .
+### Releases
+- [Go v0.3.3] https://github.com/paygentic/sdk-go/releases/tag/v0.3.3 - .

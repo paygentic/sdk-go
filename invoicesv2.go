@@ -1084,7 +1084,7 @@ func (s *InvoicesV2) Get(ctx context.Context, id string, expand *string, lineIte
 }
 
 // GetLineItems - Get Line Items
-// Get paginated line items for an invoice from the analytics service
+// Get paginated line items for an invoice
 func (s *InvoicesV2) GetLineItems(ctx context.Context, id string, limit *int64, pageToken *string, opts ...operations.Option) (*components.InvoiceLineItemsResponse, error) {
 	request := operations.GetInvoiceLineItemsRequest{
 		ID:        id,

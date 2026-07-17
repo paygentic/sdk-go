@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 5f9f8092-429e-454b-8c55-a2d2d1508328
 management:
-  docChecksum: f7720fe20c1ca9f421ab82eb3e7760a6
+  docChecksum: 8a2c1ed688614f424a202fb58d30dd56
   docVersion: 0.1.0
-  speakeasyVersion: 1.790.1
-  generationVersion: 2.918.1
-  releaseVersion: 0.3.2
-  configChecksum: a6fb78372264f60abad848bc9f476ec2
+  speakeasyVersion: 1.790.2
+  generationVersion: 2.918.3
+  releaseVersion: 0.3.3
+  configChecksum: af62d1cfa90f77e4b883231aba781831
   repoURL: https://github.com/paygentic/sdk-go.git
   installationURL: https://github.com/paygentic/sdk-go
 persistentEdits:
-  generation_id: 294bbf59-9482-4d9c-94b4-00b91cbfdba4
-  pristine_commit_hash: 02c90a298688c881e3d698015674828e417cad89
-  pristine_tree_hash: e20e811867a0084ac84d590792e389d3678f1505
+  generation_id: 107d1e66-8d2c-4114-ba86-7d44bc988771
+  pristine_commit_hash: 44177209f320b65400937e5c3cad96d385f37ebc
+  pristine_tree_hash: 2003016c5fb2c5f2578c021b08b123b507b20fce
 features:
   go:
     additionalDependencies: 0.1.0
@@ -61,8 +61,8 @@ trackedFiles:
     pristine_git_object: d0855dc266a1838082f8ac4aca63bbaa304341ab
   client.go:
     id: d633516feaf9
-    last_write_checksum: sha1:3fa78948fbbc8a8ddfda5c3b8f8795e5b49893ca
-    pristine_git_object: 667f97b973872540f3286c232c751e2a95e539e6
+    last_write_checksum: sha1:9c42d753d7c5380632ff16af8448fcec929939a3
+    pristine_git_object: 44a6e761cc5626d0617b46cf4a50b6f0ea109948
   costs.go:
     id: 247b6e6ecaf3
     last_write_checksum: sha1:6a0c8cf65c575073eba23dfb3b2f8e5044013500
@@ -2285,8 +2285,8 @@ trackedFiles:
     pristine_git_object: 74ece990ad6cefecf549b1b3059d0f656f7b90af
   docs/sdks/invoicesv2/README.md:
     id: 671851b727bc
-    last_write_checksum: sha1:c6715bd7a8093cc998a764b45518a73aad335748
-    pristine_git_object: 38159680f33b9f75355eb4ecfb42accc69696aad
+    last_write_checksum: sha1:f00abd732a816361781c102e0f547e75f7450ea3
+    pristine_git_object: 902698ae27a50bc7d0ad7d4344e1d95945de775e
   docs/sdks/items/README.md:
     id: 88a5da5379a5
     last_write_checksum: sha1:49aeb6ff22f180c097d92f27d97e5cf9f5e8f32c
@@ -2449,8 +2449,8 @@ trackedFiles:
     pristine_git_object: b32a14db51857aafab25498ba32fa2905c92b5d8
   invoicesv2.go:
     id: ade02844ebc6
-    last_write_checksum: sha1:bf57971997550f14c1849192797f4bc54a700d75
-    pristine_git_object: eb705efe366f7bc494949bb04870271a01c92985
+    last_write_checksum: sha1:6b3b1844ce9601a0f5afed7337ef1bfdf9db99a1
+    pristine_git_object: e83737b8a243042cf8f6ee9711cd70870b4042a0
   items.go:
     id: 441e3853c293
     last_write_checksum: sha1:b4e3ad97e6399a9daa33fa63ce9c7eebb6467986
@@ -5860,4 +5860,3 @@ generatedTests:
   getApproval: "2026-07-06T12:04:30Z"
   updateApproval: "2026-07-06T12:04:30Z"
   reconcileSubscriptionFeatures: "2026-07-13T08:37:43Z"
-releaseNotes: "## Go SDK Changes:\n* `Client.Events.Ingest()`: \n  *  `request.Request` **Changed** (Breaking ⚠️)\n  *  `response.ExternalSubject` **Added**\n* `Client.BillableMetrics.Meter()`: \n  *  `request.Request` **Changed**\n  *  `response` **Changed**\n* `Client.BillableMetrics.ListEvents()`: \n  *  `request.Request.ExternalSubject` **Added**\n  *  `response.Events[].ExternalSubject` **Added**\n"
