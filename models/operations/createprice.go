@@ -10,11 +10,10 @@ import (
 	"github.com/paygentic/sdk-go/optionalnullable"
 )
 
-// CreatePricePaymentTerm - Billing timing preference. For billable metrics: 'instant' (charges immediately) or 'in_arrears' (charges at period end). For fees: 'in_advance' (charges upfront) or 'in_arrears' (charges at period end).
+// CreatePricePaymentTerm - Billing timing preference: 'in_advance' (prepaid — charged upfront or drawn from a prepaid commitment) or 'in_arrears' (charged at period end).
 type CreatePricePaymentTerm string
 
 const (
-	CreatePricePaymentTermInstant   CreatePricePaymentTerm = "instant"
 	CreatePricePaymentTermInArrears CreatePricePaymentTerm = "in_arrears"
 	CreatePricePaymentTermInAdvance CreatePricePaymentTerm = "in_advance"
 )
@@ -28,8 +27,6 @@ func (e *CreatePricePaymentTerm) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	switch v {
-	case "instant":
-		fallthrough
 	case "in_arrears":
 		fallthrough
 	case "in_advance":
@@ -51,7 +48,7 @@ type CreatePriceRequest struct {
 	Model *components.PriceModelInput `json:"model,omitzero"`
 	// Line item label shown on customer invoices. Sample values: 'Claude Token Consumption', 'Storage Usage (GB)', 'Inference API Calls', 'Image Generation Count', 'Training Compute Hours', 'Data Transfer (TB)'
 	InvoiceDisplayName string `json:"invoiceDisplayName"`
-	// Billing timing preference. For billable metrics: 'instant' (charges immediately) or 'in_arrears' (charges at period end). For fees: 'in_advance' (charges upfront) or 'in_arrears' (charges at period end).
+	// Billing timing preference: 'in_advance' (prepaid — charged upfront or drawn from a prepaid commitment) or 'in_arrears' (charged at period end).
 	PaymentTerm CreatePricePaymentTerm `json:"paymentTerm"`
 	// ISO 8601 duration for recurring charges (e.g., 'P1M' for monthly, 'P1Y' for yearly) or 'P0D' for one-time charges. Required for fees, optional for billable metrics. Sample values: 'P0D' for one-time, 'P1M' for monthly recurring, 'P1Y' for yearly recurring
 	BillingCadence optionalnullable.OptionalNullable[string] `json:"billingCadence,omitzero"`

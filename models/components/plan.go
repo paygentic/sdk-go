@@ -59,7 +59,7 @@ func (e *BillingCadence) IsExact() bool {
 
 type PlanPaymentTerm struct {
 	InArrears *bool `json:"in_arrears,omitzero"`
-	Instant   *bool `json:"instant,omitzero"`
+	InAdvance *bool `json:"in_advance,omitzero"`
 }
 
 func (p *PlanPaymentTerm) GetInArrears() *bool {
@@ -69,11 +69,11 @@ func (p *PlanPaymentTerm) GetInArrears() *bool {
 	return p.InArrears
 }
 
-func (p *PlanPaymentTerm) GetInstant() *bool {
+func (p *PlanPaymentTerm) GetInAdvance() *bool {
 	if p == nil {
 		return nil
 	}
-	return p.Instant
+	return p.InAdvance
 }
 
 // TaxBehavior - Whether tax is added on top of the price (exclusive) or included in the price (inclusive)

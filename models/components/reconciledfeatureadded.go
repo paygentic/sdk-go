@@ -5,7 +5,7 @@ package components
 type ReconciledFeatureAdded struct {
 	FeatureID  string `json:"featureId"`
 	FeatureKey string `json:"featureKey"`
-	// False when this feature's price never produces a recurring line item (an instant price, a credit-denominated price, or an already-elapsed one-time charge) — the feature is entitled but not billed by this reconciliation.
+	// False when this feature's price never produces a recurring line item (a credit-denominated price, or an already-elapsed one-time charge) — the feature is entitled but not billed by this reconciliation.
 	Billed bool `json:"billed"`
 }
 

@@ -11,7 +11,6 @@ A `Fee` defines a recurring or one-time charge tied to a `Product`. Fees are lin
 * [Get](#get) - Get
 * [Update](#update) - Update
 * [Delete](#delete) - Delete
-* [GetPrice](#getprice) - Get Fee Price
 
 ## Create
 
@@ -292,58 +291,3 @@ func main() {
 | errors.DeleteFeeConflictError | 409                           | application/json              |
 | errors.Error                  | 500                           | application/json              |
 | errors.PaygenticDefaultError  | 4XX, 5XX                      | \*/\*                         |
-
-## GetPrice
-
-Get the price for a fee in the context of a subscription. This returns the price configured for the fee in the subscription's plan, including the tax rate.
-
-### Example Usage
-
-<!-- UsageSnippet language="go" operationID="getFeePrice" method="get" path="/v0/fees/{id}/price/{subscriptionId}" -->
-```go
-package main
-
-import(
-	"context"
-	"os"
-	paygentic "github.com/paygentic/sdk-go"
-	"log"
-)
-
-func main() {
-    ctx := context.Background()
-
-    s := paygentic.New(
-        paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
-    )
-
-    res, err := s.Fees.GetPrice(ctx, "<id>", "<id>")
-    if err != nil {
-        log.Fatal(err)
-    }
-    if res != nil {
-        // handle response
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `id`                                                     | `string`                                                 | :heavy_check_mark:                                       | The unique identifier of the fee.                        |
-| `subscriptionID`                                         | `string`                                                 | :heavy_check_mark:                                       | The unique identifier of the subscription.               |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
-
-### Response
-
-**[*components.FeePrice](../../models/components/feeprice.md), error**
-
-### Errors
-
-| Error Type                   | Status Code                  | Content Type                 |
-| ---------------------------- | ---------------------------- | ---------------------------- |
-| errors.Error                 | 401, 404                     | application/json             |
-| errors.Error                 | 500                          | application/json             |
-| errors.PaygenticDefaultError | 4XX, 5XX                     | \*/\*                        |

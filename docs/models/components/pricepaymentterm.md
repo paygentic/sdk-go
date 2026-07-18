@@ -7,7 +7,7 @@ import (
 	"github.com/paygentic/sdk-go/models/components"
 )
 
-value := components.PricePaymentTermInstant
+value := components.PricePaymentTermInArrears
 
 // Open enum: custom values can be created with a direct type cast
 custom := components.PricePaymentTerm("custom_value")
@@ -18,6 +18,5 @@ custom := components.PricePaymentTerm("custom_value")
 
 | Name                        | Value                       |
 | --------------------------- | --------------------------- |
-| `PricePaymentTermInstant`   | instant                     |
 | `PricePaymentTermInArrears` | in_arrears                  |
 | `PricePaymentTermInAdvance` | in_advance                  |

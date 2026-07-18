@@ -1,6 +1,6 @@
 # UpdatePricePaymentTerm
 
-Billing timing preference. For billable metrics: 'instant' (charges immediately) or 'in_arrears' (charges at period end). For fees: 'in_advance' (charges upfront) or 'in_arrears' (charges at period end).
+Billing timing preference: 'in_advance' (prepaid — charged upfront or drawn from a prepaid commitment) or 'in_arrears' (charged at period end).
 
 ## Example Usage
 
@@ -9,7 +9,7 @@ import (
 	"github.com/paygentic/sdk-go/models/operations"
 )
 
-value := operations.UpdatePricePaymentTermInstant
+value := operations.UpdatePricePaymentTermInArrears
 ```
 
 
@@ -17,6 +17,5 @@ value := operations.UpdatePricePaymentTermInstant
 
 | Name                              | Value                             |
 | --------------------------------- | --------------------------------- |
-| `UpdatePricePaymentTermInstant`   | instant                           |
 | `UpdatePricePaymentTermInArrears` | in_arrears                        |
 | `UpdatePricePaymentTermInAdvance` | in_advance                        |

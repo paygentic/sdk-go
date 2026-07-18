@@ -10,11 +10,10 @@ import (
 	"github.com/paygentic/sdk-go/optionalnullable"
 )
 
-// UpdatePricePaymentTerm - Billing timing preference. For billable metrics: 'instant' (charges immediately) or 'in_arrears' (charges at period end). For fees: 'in_advance' (charges upfront) or 'in_arrears' (charges at period end).
+// UpdatePricePaymentTerm - Billing timing preference: 'in_advance' (prepaid — charged upfront or drawn from a prepaid commitment) or 'in_arrears' (charged at period end).
 type UpdatePricePaymentTerm string
 
 const (
-	UpdatePricePaymentTermInstant   UpdatePricePaymentTerm = "instant"
 	UpdatePricePaymentTermInArrears UpdatePricePaymentTerm = "in_arrears"
 	UpdatePricePaymentTermInAdvance UpdatePricePaymentTerm = "in_advance"
 )
@@ -28,8 +27,6 @@ func (e *UpdatePricePaymentTerm) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	switch v {
-	case "instant":
-		fallthrough
 	case "in_arrears":
 		fallthrough
 	case "in_advance":
@@ -50,7 +47,7 @@ type UpdatePriceRequestBody struct {
 	// The pricing model to set. Only 'standard' is accepted. Legacy 'dynamic'/'volume'/'percentage' prices can still be edited (other fields) but cannot be switched to those models. Percentage/revenue-share is expressed via 'standard' with a unit-price multiplier.
 	Model      *components.PriceModelInput      `json:"model,omitzero"`
 	Properties *components.PricePropertiesUnion `json:"properties,omitzero"`
-	// Billing timing preference. For billable metrics: 'instant' (charges immediately) or 'in_arrears' (charges at period end). For fees: 'in_advance' (charges upfront) or 'in_arrears' (charges at period end).
+	// Billing timing preference: 'in_advance' (prepaid — charged upfront or drawn from a prepaid commitment) or 'in_arrears' (charged at period end).
 	PaymentTerm *UpdatePricePaymentTerm `json:"paymentTerm,omitzero"`
 	// ISO 8601 duration for recurring fees (e.g., 'P1M' for monthly, 'P1Y' for yearly, or 'P0D' for one-time)
 	BillingCadence optionalnullable.OptionalNullable[string] `json:"billingCadence,omitzero"`

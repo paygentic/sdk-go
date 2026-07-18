@@ -325,7 +325,6 @@ func main() {
 * [Get](docs/sdks/fees/README.md#get) - Get
 * [Update](docs/sdks/fees/README.md#update) - Update
 * [Delete](docs/sdks/fees/README.md#delete) - Delete
-* [GetPrice](docs/sdks/fees/README.md#getprice) - Get Fee Price
 
 ### [InvoicesV2](docs/sdks/invoicesv2/README.md)
 

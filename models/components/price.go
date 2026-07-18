@@ -33,21 +33,21 @@ func (e *PriceObject) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type PriceModel1 string
+type Model string
 
 const (
-	PriceModel1Standard   PriceModel1 = "standard"
-	PriceModel1Dynamic    PriceModel1 = "dynamic"
-	PriceModel1Volume     PriceModel1 = "volume"
-	PriceModel1Percentage PriceModel1 = "percentage"
+	ModelStandard   Model = "standard"
+	ModelDynamic    Model = "dynamic"
+	ModelVolume     Model = "volume"
+	ModelPercentage Model = "percentage"
 )
 
-func (e PriceModel1) ToPointer() *PriceModel1 {
+func (e Model) ToPointer() *Model {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PriceModel1) IsExact() bool {
+func (e *Model) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "standard", "dynamic", "volume", "percentage":
@@ -60,7 +60,6 @@ func (e *PriceModel1) IsExact() bool {
 type PricePaymentTerm string
 
 const (
-	PricePaymentTermInstant   PricePaymentTerm = "instant"
 	PricePaymentTermInArrears PricePaymentTerm = "in_arrears"
 	PricePaymentTermInAdvance PricePaymentTerm = "in_advance"
 )
@@ -73,7 +72,7 @@ func (e PricePaymentTerm) ToPointer() *PricePaymentTerm {
 func (e *PricePaymentTerm) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "instant", "in_arrears", "in_advance":
+		case "in_arrears", "in_advance":
 			return true
 		}
 	}
@@ -95,7 +94,7 @@ type Price struct {
 	Currency           *string                                   `json:"currency,omitzero"`
 	Description        *string                                   `json:"description,omitzero"`
 	InvoiceDisplayName string                                    `json:"invoiceDisplayName"`
-	Model              PriceModel1                               `json:"model"`
+	Model              Model                                     `json:"model"`
 	PaymentTerm        PricePaymentTerm                          `json:"paymentTerm"`
 	Properties         map[string]any                            `json:"properties"`
 	UnitAmount         *string                                   `json:"unitAmount,omitzero"`
@@ -189,9 +188,9 @@ func (p *Price) GetInvoiceDisplayName() string {
 	return p.InvoiceDisplayName
 }
 
-func (p *Price) GetModel() PriceModel1 {
+func (p *Price) GetModel() Model {
 	if p == nil {
-		return PriceModel1("")
+		return Model("")
 	}
 	return p.Model
 }

@@ -40,7 +40,7 @@ func main() {
 
     res, err := s.Prices.Create(ctx, operations.CreatePriceRequest{
         InvoiceDisplayName: "<value>",
-        PaymentTerm: operations.CreatePricePaymentTermInstant,
+        PaymentTerm: operations.CreatePricePaymentTermInArrears,
         Properties: components.CreatePricePropertiesUnionPriceProperties3(
             components.PriceProperties3{
                 Default: "<value>",
