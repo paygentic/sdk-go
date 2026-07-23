@@ -11,6 +11,7 @@ A `Plan` links a collection of `Prices` to a `Product`. It functions as a pricin
 * [ListAvailable](#listavailable) - List Available Plans
 * [Get](#get) - Get
 * [Update](#update) - Update
+* [ListPlanVersions](#listplanversions) - List versions
 
 ## Create
 
@@ -291,6 +292,63 @@ func main() {
 ### Response
 
 **[*components.Plan](../../models/components/plan.md), error**
+
+### Errors
+
+| Error Type                   | Status Code                  | Content Type                 |
+| ---------------------------- | ---------------------------- | ---------------------------- |
+| errors.BadRequest            | 400                          | application/json             |
+| errors.Error                 | 401, 403, 404                | application/json             |
+| errors.Error                 | 500                          | application/json             |
+| errors.PaygenticDefaultError | 4XX, 5XX                     | \*/\*                        |
+
+## ListPlanVersions
+
+List the versions of a plan, newest first. Only accounts that can manage this plan may list its versions; versions can expose in-progress pricing, so read-only access is not sufficient.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="listPlanVersions" method="get" path="/v0/plans/{id}/versions" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	paygentic "github.com/paygentic/sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := paygentic.New(
+        paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
+    )
+
+    res, err := s.Plans.ListPlanVersions(ctx, "<id>", paygentic.Pointer[int64](10), paygentic.Pointer[int64](0))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `id`                                                     | `string`                                                 | :heavy_check_mark:                                       | N/A                                                      |
+| `limit`                                                  | `*int64`                                                 | :heavy_minus_sign:                                       | Maximum number of versions to return                     |
+| `offset`                                                 | `*int64`                                                 | :heavy_minus_sign:                                       | Number of versions to skip                               |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
+
+### Response
+
+**[*operations.ListPlanVersionsResponse](../../models/operations/listplanversionsresponse.md), error**
 
 ### Errors
 

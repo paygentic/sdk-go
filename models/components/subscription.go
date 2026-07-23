@@ -491,6 +491,10 @@ type Subscription struct {
 	// Payment session details when upfront payment is required, or confirmation of a zero-amount paid invoice
 	Payment *PaymentUnion `json:"payment,omitzero"`
 	PlanID  string        `json:"planId"`
+	// The plan version pinned to this subscription at creation.
+	PlanVersionID *string `json:"planVersionId,omitzero"`
+	// The version number of the plan version referenced by planVersionId, as of subscription creation.
+	VersionNumber *int64 `json:"versionNumber,omitzero"`
 	// @deprecated Use minimumAccountBalance instead. Minimum required wallet balance in atomic units. Sample values: '200000000000' equals $200.00 minimum, '1000000000000' equals $1000.00 minimum
 	PrefundAmount *string `json:"prefundAmount,omitzero"`
 	// Minimum wallet balance requirement in nanodollars. Can be '0' to disable. The system calculates the difference between this minimum and the customer's current balance, charging only what's needed to reach the minimum. Note: If the calculated charge amount is below payment processor minimums (typically $1.00), the actual charged amount may be automatically adjusted upward to meet the minimum requirement. Sample values: '200000000000' equals $200.00 minimum, '1000000000000' equals $1000.00 minimum
@@ -635,6 +639,20 @@ func (s *Subscription) GetPlanID() string {
 		return ""
 	}
 	return s.PlanID
+}
+
+func (s *Subscription) GetPlanVersionID() *string {
+	if s == nil {
+		return nil
+	}
+	return s.PlanVersionID
+}
+
+func (s *Subscription) GetVersionNumber() *int64 {
+	if s == nil {
+		return nil
+	}
+	return s.VersionNumber
 }
 
 func (s *Subscription) GetPrefundAmount() *string {

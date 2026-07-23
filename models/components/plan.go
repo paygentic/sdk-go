@@ -140,6 +140,8 @@ type Plan struct {
 	BillingAnchor optionalnullable.OptionalNullable[time.Time] `json:"billingAnchor,omitzero"`
 	// Credit-pool funding declarations for this plan. Each entry funds a distinct pricing unit's credit pool when a subscription to this plan activates: the allocated amount is minted as a credit grant on the customer's pool for that pricing unit, once at activation, or on a recurring basis only when that allocation explicitly sets recurrencePeriod. A plan may declare zero or more allocations; no two allocations on the same plan target the same pricingUnitId.
 	CreditAllocations []PlanCreditAllocation `json:"creditAllocations,omitzero"`
+	// Unique identifier for a plan version
+	DefaultVersionID *string `json:"defaultVersionId,omitzero"`
 }
 
 func (p Plan) MarshalJSON() ([]byte, error) {
@@ -319,4 +321,11 @@ func (p *Plan) GetCreditAllocations() []PlanCreditAllocation {
 		return nil
 	}
 	return p.CreditAllocations
+}
+
+func (p *Plan) GetDefaultVersionID() *string {
+	if p == nil {
+		return nil
+	}
+	return p.DefaultVersionID
 }

@@ -381,6 +381,7 @@ func main() {
 * [ListAvailable](docs/sdks/plans/README.md#listavailable) - List Available Plans
 * [Get](docs/sdks/plans/README.md#get) - Get
 * [Update](docs/sdks/plans/README.md#update) - Update
+* [ListPlanVersions](docs/sdks/plans/README.md#listplanversions) - List versions
 
 ### [Prices](docs/sdks/prices/README.md)
 
