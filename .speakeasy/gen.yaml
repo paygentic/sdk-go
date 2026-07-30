@@ -31,7 +31,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 go:
-  version: 0.3.5
+  version: 0.4.0
   additionalDependencies: {}
   allowUnknownFieldsInWeakUnions: false
   baseErrorName: ClientError
@@ -45,6 +45,7 @@ go:
   forwardCompatibleEnumsByDefault: true
   forwardCompatibleUnionsByDefault: tagged-and-untagged
   generateExamples: true
+  idiomaticMethodCollisionNames: false
   imports:
     option: openapi
     paths:
@@ -61,10 +62,12 @@ go:
   modulePath: github.com/paygentic/sdk-go
   multipartArrayFormat: standard
   nullableOptionalWrapper: true
+  optionalMethodArguments: pointers
   outputModelSuffix: output
   preApplyUnionDiscriminators: true
   respectRequiredFields: false
   respectTitlesForPrimitiveUnionMembers: true
   responseFormat: flat
   sdkPackageName: paygentic
+  unionGenerics: false
   unionStrategy: populated-fields

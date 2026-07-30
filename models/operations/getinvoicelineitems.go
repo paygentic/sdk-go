@@ -11,7 +11,7 @@ type GetInvoiceLineItemsRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// Maximum number of line items to return
 	Limit *int64 `default:"100" queryParam:"style=form,explode=true,name=limit"`
-	// Token for pagination to fetch the next page of results
+	// Opaque pagination token to fetch the next page of results, taken from a previous response's nextPageToken. Do not construct or parse this value.
 	PageToken *string `queryParam:"style=form,explode=true,name=pageToken"`
 }
 

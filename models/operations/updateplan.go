@@ -128,6 +128,8 @@ type UpdatePlanRequestBody struct {
 	BillingAnchor optionalnullable.OptionalNullable[time.Time] `json:"billingAnchor,omitzero"`
 	// Credit-pool funding declarations for this plan. Each entry funds a distinct pricing unit's credit pool when a subscription to this plan activates: the allocated amount is minted as a credit grant on the customer's pool for that pricing unit, once at activation, or on a recurring basis only when that allocation explicitly sets recurrencePeriod. A plan may declare zero or more allocations; no two allocations on the same plan may target the same pricingUnitId.
 	CreditAllocations []components.PlanCreditAllocation `json:"creditAllocations,omitzero"`
+	// Governs price identity when a price is replaced by minting a new plan version and making it default. When true (default), replacing a price at make-default keeps the original price id live (its value changes) and the superseded value is preserved under a new id. When false, the replacement price's id goes live instead and the superseded value stays under the original id. Has no effect on this request's own prices field: prices carried over keep their ids, but swapping one price for another there moves the plan to the new price's id rather than keeping the original live.
+	StablePriceIds *bool `json:"stablePriceIds,omitzero"`
 }
 
 func (u UpdatePlanRequestBody) MarshalJSON() ([]byte, error) {
@@ -230,6 +232,13 @@ func (u *UpdatePlanRequestBody) GetCreditAllocations() []components.PlanCreditAl
 		return nil
 	}
 	return u.CreditAllocations
+}
+
+func (u *UpdatePlanRequestBody) GetStablePriceIds() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.StablePriceIds
 }
 
 type UpdatePlanRequest struct {

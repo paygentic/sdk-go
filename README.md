@@ -382,6 +382,9 @@ func main() {
 * [Get](docs/sdks/plans/README.md#get) - Get
 * [Update](docs/sdks/plans/README.md#update) - Update
 * [ListPlanVersions](docs/sdks/plans/README.md#listplanversions) - List versions
+* [MintPlanVersion](docs/sdks/plans/README.md#mintplanversion) - Mint a plan version
+* [GetPlanVersion](docs/sdks/plans/README.md#getplanversion) - Get a version
+* [TransitionPlanVersion](docs/sdks/plans/README.md#transitionplanversion) - Set the default version
 
 ### [Prices](docs/sdks/prices/README.md)
 

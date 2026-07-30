@@ -142,6 +142,8 @@ type Plan struct {
 	CreditAllocations []PlanCreditAllocation `json:"creditAllocations,omitzero"`
 	// Unique identifier for a plan version
 	DefaultVersionID *string `json:"defaultVersionId,omitzero"`
+	// Governs price identity when a price on this plan's default version is replaced. When true (default), replacing a price at make-default keeps the original price id live (its value changes) and the superseded value is preserved under a new id. When false, the replacement price's id goes live instead and the superseded value stays under the original id.
+	StablePriceIds *bool `default:"true" json:"stablePriceIds"`
 }
 
 func (p Plan) MarshalJSON() ([]byte, error) {
@@ -328,4 +330,11 @@ func (p *Plan) GetDefaultVersionID() *string {
 		return nil
 	}
 	return p.DefaultVersionID
+}
+
+func (p *Plan) GetStablePriceIds() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.StablePriceIds
 }

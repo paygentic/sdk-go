@@ -99,15 +99,16 @@ type ScheduleInterval struct {
 	BaseQuantity        string                               `json:"baseQuantity"`
 	QuantityTransitions []ScheduleIntervalQuantityTransition `json:"quantityTransitions"`
 	// ISO-8601 duration or 'one_off'
-	BillingCadence string                                            `json:"billingCadence"`
-	BillingMode    ScheduleIntervalBillingMode                       `json:"billingMode"`
-	BillDate       optionalnullable.OptionalNullable[time.Time]      `json:"billDate,omitzero"`
-	StartDate      time.Time                                         `json:"startDate"`
-	EndDate        time.Time                                         `json:"endDate"`
-	UsageFilter    optionalnullable.OptionalNullable[map[string]any] `json:"usageFilter,omitzero"`
-	Metadata       map[string]any                                    `json:"metadata"`
-	CreatedAt      time.Time                                         `json:"createdAt"`
-	UpdatedAt      time.Time                                         `json:"updatedAt"`
+	BillingCadence string                                       `json:"billingCadence"`
+	BillingMode    ScheduleIntervalBillingMode                  `json:"billingMode"`
+	BillDate       optionalnullable.OptionalNullable[time.Time] `json:"billDate,omitzero"`
+	StartDate      time.Time                                    `json:"startDate"`
+	// Null for an open-ended subscription-owned interval; order-owned intervals always have a concrete end.
+	EndDate     *time.Time                                        `json:"endDate"`
+	UsageFilter optionalnullable.OptionalNullable[map[string]any] `json:"usageFilter,omitzero"`
+	Metadata    map[string]any                                    `json:"metadata"`
+	CreatedAt   time.Time                                         `json:"createdAt"`
+	UpdatedAt   time.Time                                         `json:"updatedAt"`
 }
 
 func (s ScheduleInterval) MarshalJSON() ([]byte, error) {
@@ -219,9 +220,9 @@ func (s *ScheduleInterval) GetStartDate() time.Time {
 	return s.StartDate
 }
 
-func (s *ScheduleInterval) GetEndDate() time.Time {
+func (s *ScheduleInterval) GetEndDate() *time.Time {
 	if s == nil {
-		return time.Time{}
+		return nil
 	}
 	return s.EndDate
 }

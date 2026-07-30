@@ -129,14 +129,15 @@ func (e *SchemasBillingSchedulePeriodPreset) IsExact() bool {
 }
 
 type SchemasBillingSchedule struct {
-	ID                  string                                       `json:"id"`
-	Object              SchemasBillingScheduleObject                 `json:"object"`
-	OrderID             optionalnullable.OptionalNullable[string]    `json:"orderId,omitzero"`
-	SubscriptionID      optionalnullable.OptionalNullable[string]    `json:"subscriptionId,omitzero"`
-	MerchantID          string                                       `json:"merchantId"`
-	Status              SchemasBillingScheduleStatus                 `json:"status"`
-	StartDate           time.Time                                    `json:"startDate"`
-	EndDate             time.Time                                    `json:"endDate"`
+	ID             string                                    `json:"id"`
+	Object         SchemasBillingScheduleObject              `json:"object"`
+	OrderID        optionalnullable.OptionalNullable[string] `json:"orderId,omitzero"`
+	SubscriptionID optionalnullable.OptionalNullable[string] `json:"subscriptionId,omitzero"`
+	MerchantID     string                                    `json:"merchantId"`
+	Status         SchemasBillingScheduleStatus              `json:"status"`
+	StartDate      time.Time                                 `json:"startDate"`
+	// Null for an open-ended subscription-owned schedule; order-owned schedules always have a concrete end.
+	EndDate             *time.Time                                   `json:"endDate"`
 	BillingAnchor       time.Time                                    `json:"billingAnchor"`
 	AlignmentPolicy     SchemasBillingScheduleAlignmentPolicy        `json:"alignmentPolicy"`
 	ProrationPolicy     SchemasBillingScheduleProrationPolicy        `json:"prorationPolicy"`
@@ -209,9 +210,9 @@ func (s *SchemasBillingSchedule) GetStartDate() time.Time {
 	return s.StartDate
 }
 
-func (s *SchemasBillingSchedule) GetEndDate() time.Time {
+func (s *SchemasBillingSchedule) GetEndDate() *time.Time {
 	if s == nil {
-		return time.Time{}
+		return nil
 	}
 	return s.EndDate
 }

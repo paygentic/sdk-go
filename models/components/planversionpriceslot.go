@@ -10,44 +10,44 @@ import (
 	"time"
 )
 
-type PriceObject string
+type PlanVersionPriceSlotObject string
 
 const (
-	PriceObjectPrice PriceObject = "price"
+	PlanVersionPriceSlotObjectPrice PlanVersionPriceSlotObject = "price"
 )
 
-func (e PriceObject) ToPointer() *PriceObject {
+func (e PlanVersionPriceSlotObject) ToPointer() *PlanVersionPriceSlotObject {
 	return &e
 }
-func (e *PriceObject) UnmarshalJSON(data []byte) error {
+func (e *PlanVersionPriceSlotObject) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "price":
-		*e = PriceObject(v)
+		*e = PlanVersionPriceSlotObject(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for PriceObject: %v", v)
+		return fmt.Errorf("invalid value for PlanVersionPriceSlotObject: %v", v)
 	}
 }
 
-type PriceModel1 string
+type PlanVersionPriceSlotModel string
 
 const (
-	PriceModel1Standard   PriceModel1 = "standard"
-	PriceModel1Dynamic    PriceModel1 = "dynamic"
-	PriceModel1Volume     PriceModel1 = "volume"
-	PriceModel1Percentage PriceModel1 = "percentage"
+	PlanVersionPriceSlotModelStandard   PlanVersionPriceSlotModel = "standard"
+	PlanVersionPriceSlotModelDynamic    PlanVersionPriceSlotModel = "dynamic"
+	PlanVersionPriceSlotModelVolume     PlanVersionPriceSlotModel = "volume"
+	PlanVersionPriceSlotModelPercentage PlanVersionPriceSlotModel = "percentage"
 )
 
-func (e PriceModel1) ToPointer() *PriceModel1 {
+func (e PlanVersionPriceSlotModel) ToPointer() *PlanVersionPriceSlotModel {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PriceModel1) IsExact() bool {
+func (e *PlanVersionPriceSlotModel) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "standard", "dynamic", "volume", "percentage":
@@ -57,19 +57,19 @@ func (e *PriceModel1) IsExact() bool {
 	return false
 }
 
-type PricePaymentTerm string
+type PlanVersionPriceSlotPaymentTerm string
 
 const (
-	PricePaymentTermInArrears PricePaymentTerm = "in_arrears"
-	PricePaymentTermInAdvance PricePaymentTerm = "in_advance"
+	PlanVersionPriceSlotPaymentTermInArrears PlanVersionPriceSlotPaymentTerm = "in_arrears"
+	PlanVersionPriceSlotPaymentTermInAdvance PlanVersionPriceSlotPaymentTerm = "in_advance"
 )
 
-func (e PricePaymentTerm) ToPointer() *PricePaymentTerm {
+func (e PlanVersionPriceSlotPaymentTerm) ToPointer() *PlanVersionPriceSlotPaymentTerm {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PricePaymentTerm) IsExact() bool {
+func (e *PlanVersionPriceSlotPaymentTerm) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "in_arrears", "in_advance":
@@ -79,10 +79,11 @@ func (e *PricePaymentTerm) IsExact() bool {
 	return false
 }
 
-type Price struct {
+// PlanVersionPriceSlot - One price slot on a plan version. Every `Price` field is present, plus `priceDeleted` layered on top.
+type PlanVersionPriceSlot struct {
 	// Unique identifier for a price
-	ID     string       `json:"id"`
-	Object *PriceObject `default:"price" json:"object"`
+	ID     string                      `json:"id"`
+	Object *PlanVersionPriceSlotObject `default:"price" json:"object"`
 	// Unique identifier for an organization
 	MerchantID       string  `json:"merchantId"`
 	BillableMetricID *string `json:"billableMetricId,omitzero"`
@@ -94,8 +95,8 @@ type Price struct {
 	Currency           *string                                   `json:"currency,omitzero"`
 	Description        *string                                   `json:"description,omitzero"`
 	InvoiceDisplayName string                                    `json:"invoiceDisplayName"`
-	Model              PriceModel1                               `json:"model"`
-	PaymentTerm        PricePaymentTerm                          `json:"paymentTerm"`
+	Model              PlanVersionPriceSlotModel                 `json:"model"`
+	PaymentTerm        PlanVersionPriceSlotPaymentTerm           `json:"paymentTerm"`
 	Properties         map[string]any                            `json:"properties"`
 	UnitAmount         *string                                   `json:"unitAmount,omitzero"`
 	UpdatedAt          time.Time                                 `json:"updatedAt"`
@@ -105,141 +106,150 @@ type Price struct {
 	GrantDiscountEnabled *bool `default:"false" json:"grantDiscountEnabled"`
 	// Quantity used when generating invoice line items for this price. Total per period = quantity × unitPrice. Only supported for fee prices; metered prices derive quantity from usage. Defaults to 1.
 	Quantity *int64 `default:"1" json:"quantity"`
+	// True when the underlying price this slot references has been soft-deleted. The slot can still be removed or replaced to repair the draft; it cannot be published while any slot remains dead.
+	PriceDeleted bool `json:"priceDeleted"`
 }
 
-func (p Price) MarshalJSON() ([]byte, error) {
+func (p PlanVersionPriceSlot) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(p, "", false)
 }
 
-func (p *Price) UnmarshalJSON(data []byte) error {
+func (p *PlanVersionPriceSlot) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *Price) GetID() string {
+func (p *PlanVersionPriceSlot) GetID() string {
 	if p == nil {
 		return ""
 	}
 	return p.ID
 }
 
-func (p *Price) GetObject() *PriceObject {
+func (p *PlanVersionPriceSlot) GetObject() *PlanVersionPriceSlotObject {
 	if p == nil {
 		return nil
 	}
 	return p.Object
 }
 
-func (p *Price) GetMerchantID() string {
+func (p *PlanVersionPriceSlot) GetMerchantID() string {
 	if p == nil {
 		return ""
 	}
 	return p.MerchantID
 }
 
-func (p *Price) GetBillableMetricID() *string {
+func (p *PlanVersionPriceSlot) GetBillableMetricID() *string {
 	if p == nil {
 		return nil
 	}
 	return p.BillableMetricID
 }
 
-func (p *Price) GetFeeID() *string {
+func (p *PlanVersionPriceSlot) GetFeeID() *string {
 	if p == nil {
 		return nil
 	}
 	return p.FeeID
 }
 
-func (p *Price) GetBillingCadence() optionalnullable.OptionalNullable[string] {
+func (p *PlanVersionPriceSlot) GetBillingCadence() optionalnullable.OptionalNullable[string] {
 	if p == nil {
 		return nil
 	}
 	return p.BillingCadence
 }
 
-func (p *Price) GetCreatedAt() time.Time {
+func (p *PlanVersionPriceSlot) GetCreatedAt() time.Time {
 	if p == nil {
 		return time.Time{}
 	}
 	return p.CreatedAt
 }
 
-func (p *Price) GetCurrency() *string {
+func (p *PlanVersionPriceSlot) GetCurrency() *string {
 	if p == nil {
 		return nil
 	}
 	return p.Currency
 }
 
-func (p *Price) GetDescription() *string {
+func (p *PlanVersionPriceSlot) GetDescription() *string {
 	if p == nil {
 		return nil
 	}
 	return p.Description
 }
 
-func (p *Price) GetInvoiceDisplayName() string {
+func (p *PlanVersionPriceSlot) GetInvoiceDisplayName() string {
 	if p == nil {
 		return ""
 	}
 	return p.InvoiceDisplayName
 }
 
-func (p *Price) GetModel() PriceModel1 {
+func (p *PlanVersionPriceSlot) GetModel() PlanVersionPriceSlotModel {
 	if p == nil {
-		return PriceModel1("")
+		return PlanVersionPriceSlotModel("")
 	}
 	return p.Model
 }
 
-func (p *Price) GetPaymentTerm() PricePaymentTerm {
+func (p *PlanVersionPriceSlot) GetPaymentTerm() PlanVersionPriceSlotPaymentTerm {
 	if p == nil {
-		return PricePaymentTerm("")
+		return PlanVersionPriceSlotPaymentTerm("")
 	}
 	return p.PaymentTerm
 }
 
-func (p *Price) GetProperties() map[string]any {
+func (p *PlanVersionPriceSlot) GetProperties() map[string]any {
 	if p == nil {
 		return map[string]any{}
 	}
 	return p.Properties
 }
 
-func (p *Price) GetUnitAmount() *string {
+func (p *PlanVersionPriceSlot) GetUnitAmount() *string {
 	if p == nil {
 		return nil
 	}
 	return p.UnitAmount
 }
 
-func (p *Price) GetUpdatedAt() time.Time {
+func (p *PlanVersionPriceSlot) GetUpdatedAt() time.Time {
 	if p == nil {
 		return time.Time{}
 	}
 	return p.UpdatedAt
 }
 
-func (p *Price) GetFeatures() []PriceFeature {
+func (p *PlanVersionPriceSlot) GetFeatures() []PriceFeature {
 	if p == nil {
 		return nil
 	}
 	return p.Features
 }
 
-func (p *Price) GetGrantDiscountEnabled() *bool {
+func (p *PlanVersionPriceSlot) GetGrantDiscountEnabled() *bool {
 	if p == nil {
 		return nil
 	}
 	return p.GrantDiscountEnabled
 }
 
-func (p *Price) GetQuantity() *int64 {
+func (p *PlanVersionPriceSlot) GetQuantity() *int64 {
 	if p == nil {
 		return nil
 	}
 	return p.Quantity
+}
+
+func (p *PlanVersionPriceSlot) GetPriceDeleted() bool {
+	if p == nil {
+		return false
+	}
+	return p.PriceDeleted
 }

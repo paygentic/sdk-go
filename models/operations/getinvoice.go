@@ -13,7 +13,7 @@ type GetInvoiceRequest struct {
 	Expand *string `queryParam:"style=form,explode=true,name=expand"`
 	// Page size for line items when expand=lineItems
 	LineItemsLimit *int64 `default:"100" queryParam:"style=form,explode=true,name=lineItemsLimit"`
-	// Pagination token for line items when expand=lineItems
+	// Opaque pagination token for line items when expand=lineItems, taken from a previous response's nextPageToken. Do not construct or parse this value.
 	LineItemsPageToken *string `queryParam:"style=form,explode=true,name=lineItemsPageToken"`
 }
 

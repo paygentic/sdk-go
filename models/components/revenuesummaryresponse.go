@@ -15,7 +15,11 @@ type RevenueSummaryResponse struct {
 	// Gross total of non-voided refunds (credit notes) issued in the period, in dollars. Already subtracted from netRevenue and invoice totals. Omitted when groupBy=currency is active.
 	TotalRefunds *string `json:"totalRefunds,omitzero"`
 	// Number of non-voided refunds (credit notes) issued in the period. Omitted when groupBy=currency is active.
-	RefundCount *float64        `json:"refundCount,omitzero"`
+	RefundCount *float64 `json:"refundCount,omitzero"`
+	// Gross total of usage-scaled rebates (negative metered line items) on invoices issued in the period, in dollars. Already netted into issued invoice grandTotals, so surfaced here for visibility. Omitted when groupBy=currency is active.
+	TotalRebates *string `json:"totalRebates,omitzero"`
+	// Number of rebate line items on invoices issued in the period. Omitted when groupBy=currency is active.
+	RebateCount *float64        `json:"rebateCount,omitzero"`
 	Invoices    *InvoiceSummary `json:"invoices,omitzero"`
 	Payments    *PaymentSummary `json:"payments,omitzero"`
 	// Time-bucketed revenue trend data. Omitted when groupBy=currency is active.
@@ -60,6 +64,20 @@ func (r *RevenueSummaryResponse) GetRefundCount() *float64 {
 		return nil
 	}
 	return r.RefundCount
+}
+
+func (r *RevenueSummaryResponse) GetTotalRebates() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TotalRebates
+}
+
+func (r *RevenueSummaryResponse) GetRebateCount() *float64 {
+	if r == nil {
+		return nil
+	}
+	return r.RebateCount
 }
 
 func (r *RevenueSummaryResponse) GetInvoices() *InvoiceSummary {

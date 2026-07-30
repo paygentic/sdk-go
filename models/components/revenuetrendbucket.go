@@ -16,6 +16,8 @@ type RevenueTrendBucket struct {
 	WrittenOffInvoices string `json:"writtenOffInvoices"`
 	// Revenue from completed payments in dollars for this bucket
 	CompletedPayments string `json:"completedPayments"`
+	// Gross magnitude of usage-scaled rebates (negative metered line items) on invoices issued in this bucket, in dollars. Netted into issuedInvoices; surfaced here for visibility.
+	Rebates string `json:"rebates"`
 	// Per-group trend entries (present when groupBy=plan or groupBy=customer)
 	GroupBreakdown []GroupTrendEntry `json:"groupBreakdown,omitzero"`
 }
@@ -57,6 +59,13 @@ func (r *RevenueTrendBucket) GetCompletedPayments() string {
 		return ""
 	}
 	return r.CompletedPayments
+}
+
+func (r *RevenueTrendBucket) GetRebates() string {
+	if r == nil {
+		return ""
+	}
+	return r.Rebates
 }
 
 func (r *RevenueTrendBucket) GetGroupBreakdown() []GroupTrendEntry {

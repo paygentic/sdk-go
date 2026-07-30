@@ -12,6 +12,9 @@ A `Plan` links a collection of `Prices` to a `Product`. It functions as a pricin
 * [Get](#get) - Get
 * [Update](#update) - Update
 * [ListPlanVersions](#listplanversions) - List versions
+* [MintPlanVersion](#mintplanversion) - Mint a plan version
+* [GetPlanVersion](#getplanversion) - Get a version
+* [TransitionPlanVersion](#transitionplanversion) - Set the default version
 
 ## Create
 
@@ -298,7 +301,7 @@ func main() {
 | Error Type                   | Status Code                  | Content Type                 |
 | ---------------------------- | ---------------------------- | ---------------------------- |
 | errors.BadRequest            | 400                          | application/json             |
-| errors.Error                 | 401, 403, 404                | application/json             |
+| errors.Error                 | 401, 403, 404, 409           | application/json             |
 | errors.Error                 | 500                          | application/json             |
 | errors.PaygenticDefaultError | 4XX, 5XX                     | \*/\*                        |
 
@@ -356,5 +359,176 @@ func main() {
 | ---------------------------- | ---------------------------- | ---------------------------- |
 | errors.BadRequest            | 400                          | application/json             |
 | errors.Error                 | 401, 403, 404                | application/json             |
+| errors.Error                 | 500                          | application/json             |
+| errors.PaygenticDefaultError | 4XX, 5XX                     | \*/\*                        |
+
+## MintPlanVersion
+
+Mint a new plan version from a price diff and make it the version the plan bills from, in one step. The diff references existing prices by id: create prices beforehand with POST /prices, then add, remove, or replace them here. To return to an earlier price set, make that version the default with a PATCH on the version.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="mintPlanVersion" method="post" path="/v0/plans/{id}/versions" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	paygentic "github.com/paygentic/sdk-go"
+	"github.com/paygentic/sdk-go/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := paygentic.New(
+        paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
+    )
+
+    res, err := s.Plans.MintPlanVersion(ctx, "<id>", components.MintPlanVersionRequest{})
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                              | Type                                                                                   | Required                                                                               | Description                                                                            |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `ctx`                                                                                  | [context.Context](https://pkg.go.dev/context#Context)                                  | :heavy_check_mark:                                                                     | The context to use for the request.                                                    |
+| `id`                                                                                   | `string`                                                                               | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `body`                                                                                 | [components.MintPlanVersionRequest](../../models/components/mintplanversionrequest.md) | :heavy_check_mark:                                                                     | N/A                                                                                    |
+| `opts`                                                                                 | [][operations.Option](../../models/operations/option.md)                               | :heavy_minus_sign:                                                                     | The options for this request.                                                          |
+
+### Response
+
+**[*components.PlanVersion](../../models/components/planversion.md), error**
+
+### Errors
+
+| Error Type                   | Status Code                  | Content Type                 |
+| ---------------------------- | ---------------------------- | ---------------------------- |
+| errors.BadRequest            | 400                          | application/json             |
+| errors.Error                 | 401, 403, 404, 409           | application/json             |
+| errors.Error                 | 500                          | application/json             |
+| errors.PaygenticDefaultError | 4XX, 5XX                     | \*/\*                        |
+
+## GetPlanVersion
+
+Get a single plan version, including its price slots. Only accounts that can manage this plan may read its versions; versions can expose in-progress pricing, so read-only access is not sufficient.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="getPlanVersion" method="get" path="/v0/plans/{id}/versions/{versionNumber}" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	paygentic "github.com/paygentic/sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := paygentic.New(
+        paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
+    )
+
+    res, err := s.Plans.GetPlanVersion(ctx, "<id>", 541574)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `id`                                                     | `string`                                                 | :heavy_check_mark:                                       | N/A                                                      |
+| `versionNumber`                                          | `int64`                                                  | :heavy_check_mark:                                       | The version number within the plan (1-based).            |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
+
+### Response
+
+**[*components.PlanVersion](../../models/components/planversion.md), error**
+
+### Errors
+
+| Error Type                   | Status Code                  | Content Type                 |
+| ---------------------------- | ---------------------------- | ---------------------------- |
+| errors.BadRequest            | 400                          | application/json             |
+| errors.Error                 | 401, 403, 404                | application/json             |
+| errors.Error                 | 500                          | application/json             |
+| errors.PaygenticDefaultError | 4XX, 5XX                     | \*/\*                        |
+
+## TransitionPlanVersion
+
+Point the plan's default at this version, so its floating subscriptions bill from it. Any version may become default, in either direction — this is how you roll a plan back to (or forward to) an earlier price set. Idempotent when the version is already the default.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="transitionPlanVersion" method="patch" path="/v0/plans/{id}/versions/{versionNumber}" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	paygentic "github.com/paygentic/sdk-go"
+	"github.com/paygentic/sdk-go/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := paygentic.New(
+        paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
+    )
+
+    res, err := s.Plans.TransitionPlanVersion(ctx, "<id>", 414716, components.TransitionPlanVersionRequest{})
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                          | Type                                                                                               | Required                                                                                           | Description                                                                                        |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                              | [context.Context](https://pkg.go.dev/context#Context)                                              | :heavy_check_mark:                                                                                 | The context to use for the request.                                                                |
+| `id`                                                                                               | `string`                                                                                           | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `versionNumber`                                                                                    | `int64`                                                                                            | :heavy_check_mark:                                                                                 | The version number within the plan (1-based).                                                      |
+| `body`                                                                                             | [components.TransitionPlanVersionRequest](../../models/components/transitionplanversionrequest.md) | :heavy_check_mark:                                                                                 | N/A                                                                                                |
+| `opts`                                                                                             | [][operations.Option](../../models/operations/option.md)                                           | :heavy_minus_sign:                                                                                 | The options for this request.                                                                      |
+
+### Response
+
+**[*components.PlanVersion](../../models/components/planversion.md), error**
+
+### Errors
+
+| Error Type                   | Status Code                  | Content Type                 |
+| ---------------------------- | ---------------------------- | ---------------------------- |
+| errors.BadRequest            | 400                          | application/json             |
+| errors.Error                 | 401, 403, 404, 409           | application/json             |
 | errors.Error                 | 500                          | application/json             |
 | errors.PaygenticDefaultError | 4XX, 5XX                     | \*/\*                        |
