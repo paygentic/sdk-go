@@ -33,14 +33,19 @@ func (e *ItemObject) UnmarshalJSON(data []byte) error {
 }
 
 type Item struct {
+	// Unique identifier for an item
 	ID                 string              `json:"id"`
 	Object             *ItemObject         `default:"item" json:"object"`
 	MerchantID         string              `json:"merchantId"`
 	Name               string              `json:"name"`
 	Metadata           map[string]any      `json:"metadata"`
 	ExternalReferences []ExternalReference `json:"externalReferences"`
-	CreatedAt          time.Time           `json:"createdAt"`
-	UpdatedAt          time.Time           `json:"updatedAt"`
+	// The product this item belongs to.
+	CatalogID *string `json:"catalogId"`
+	// When this item was retired from the catalog. Null while active.
+	ArchivedAt *time.Time `json:"archivedAt"`
+	CreatedAt  time.Time  `json:"createdAt"`
+	UpdatedAt  time.Time  `json:"updatedAt"`
 }
 
 func (i Item) MarshalJSON() ([]byte, error) {
@@ -94,6 +99,20 @@ func (i *Item) GetExternalReferences() []ExternalReference {
 		return []ExternalReference{}
 	}
 	return i.ExternalReferences
+}
+
+func (i *Item) GetCatalogID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CatalogID
+}
+
+func (i *Item) GetArchivedAt() *time.Time {
+	if i == nil {
+		return nil
+	}
+	return i.ArchivedAt
 }
 
 func (i *Item) GetCreatedAt() time.Time {

@@ -71,7 +71,9 @@ type BillableMetric struct {
 	MerchantID string `json:"merchantId"`
 	Name       string `json:"name"`
 	// Unique identifier for a product
-	ProductID     string                                               `json:"productId"`
+	ProductID string `json:"productId"`
+	// The item this metric is tagged with, or null when untagged. Used to map this metric's invoice lines to an external accounting/tax identity.
+	ItemID        *string                                              `json:"itemId"`
 	Unit          string                                               `json:"unit"`
 	UpdatedAt     time.Time                                            `json:"updatedAt"`
 	EventType     optionalnullable.OptionalNullable[string]            `json:"eventType,omitzero"`
@@ -145,6 +147,13 @@ func (b *BillableMetric) GetProductID() string {
 		return ""
 	}
 	return b.ProductID
+}
+
+func (b *BillableMetric) GetItemID() *string {
+	if b == nil {
+		return nil
+	}
+	return b.ItemID
 }
 
 func (b *BillableMetric) GetUnit() string {

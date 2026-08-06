@@ -27,7 +27,7 @@ func (r *ReplacePrice) GetWithPriceID() string {
 	return r.WithPriceID
 }
 
-// MintPlanVersionRequest - A reference-by-id price diff applied to the prices of the plan's current version. Every id references an existing price created via POST /prices; inline price definitions are not accepted. An empty body copies the current prices into the new version unchanged. A version must carry at least one price, so a diff that would leave none is rejected.
+// MintPlanVersionRequest - A reference-by-id price diff applied to the prices of the plan's current version. Every id references an existing price created via POST /prices; inline price definitions are not accepted. A mint must carry at least one price change, so an empty body is rejected. A version must carry at least one price, so a diff that would leave none is rejected.
 type MintPlanVersionRequest struct {
 	// Prices to add to the version. Each must not already be on the plan's current version.
 	AddPrices []string `json:"addPrices,omitzero"`

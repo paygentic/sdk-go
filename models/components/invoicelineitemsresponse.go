@@ -3,6 +3,7 @@
 package components
 
 import (
+	"github.com/paygentic/sdk-go/internal/utils"
 	"github.com/paygentic/sdk-go/optionalnullable"
 )
 
@@ -11,10 +12,23 @@ type InvoiceLineItemsResponse struct {
 	InvoiceID string `json:"invoiceId"`
 	// Array of line items for this page
 	LineItems []InvoiceLineItem `json:"lineItems"`
+	// Items the returned lines were tagged with, each appearing once, ordered by id. Only present when expand=items is requested. Scoped to the lines in THIS response, not the whole invoice — combine the collections across pages for an invoice-wide set. Join a line to its entry via the line's itemId. A line whose itemId has no entry here is a data-integrity fault — the tag points at an item that no longer resolves for this merchant. It is not the same as an untagged line and must not be counted as unmapped; report it.
+	Items []ResolvedItem `json:"items,omitzero"`
 	// Token for fetching the next page, null if no more pages
 	NextPageToken optionalnullable.OptionalNullable[string] `json:"nextPageToken,omitzero"`
 	// Total number of line items across all pages
 	TotalCount int64 `json:"totalCount"`
+}
+
+func (i InvoiceLineItemsResponse) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InvoiceLineItemsResponse) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (i *InvoiceLineItemsResponse) GetInvoiceID() string {
@@ -29,6 +43,13 @@ func (i *InvoiceLineItemsResponse) GetLineItems() []InvoiceLineItem {
 		return []InvoiceLineItem{}
 	}
 	return i.LineItems
+}
+
+func (i *InvoiceLineItemsResponse) GetItems() []ResolvedItem {
+	if i == nil {
+		return nil
+	}
+	return i.Items
 }
 
 func (i *InvoiceLineItemsResponse) GetNextPageToken() optionalnullable.OptionalNullable[string] {

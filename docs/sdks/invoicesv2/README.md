@@ -202,6 +202,7 @@ import(
 	"context"
 	"os"
 	paygentic "github.com/paygentic/sdk-go"
+	"github.com/paygentic/sdk-go/models/operations"
 	"log"
 )
 
@@ -212,7 +213,9 @@ func main() {
         paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
     )
 
-    res, err := s.InvoicesV2.Get(ctx, "<id>", nil, paygentic.Pointer[int64](100), nil)
+    res, err := s.InvoicesV2.Get(ctx, operations.GetInvoiceRequest{
+        ID: "<id>",
+    })
     if err != nil {
         log.Fatal(err)
     }
@@ -224,14 +227,11 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                                                                                           | Type                                                                                                                                                | Required                                                                                                                                            | Description                                                                                                                                         |
-| --------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ctx`                                                                                                                                               | [context.Context](https://pkg.go.dev/context#Context)                                                                                               | :heavy_check_mark:                                                                                                                                  | The context to use for the request.                                                                                                                 |
-| `id`                                                                                                                                                | `string`                                                                                                                                            | :heavy_check_mark:                                                                                                                                  | The invoice ID                                                                                                                                      |
-| `expand`                                                                                                                                            | `*string`                                                                                                                                           | :heavy_minus_sign:                                                                                                                                  | Comma-separated list of fields to expand. Currently supports: lineItems                                                                             |
-| `lineItemsLimit`                                                                                                                                    | `*int64`                                                                                                                                            | :heavy_minus_sign:                                                                                                                                  | Page size for line items when expand=lineItems                                                                                                      |
-| `lineItemsPageToken`                                                                                                                                | `*string`                                                                                                                                           | :heavy_minus_sign:                                                                                                                                  | Opaque pagination token for line items when expand=lineItems, taken from a previous response's nextPageToken. Do not construct or parse this value. |
-| `opts`                                                                                                                                              | [][operations.Option](../../models/operations/option.md)                                                                                            | :heavy_minus_sign:                                                                                                                                  | The options for this request.                                                                                                                       |
+| Parameter                                                                    | Type                                                                         | Required                                                                     | Description                                                                  |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `ctx`                                                                        | [context.Context](https://pkg.go.dev/context#Context)                        | :heavy_check_mark:                                                           | The context to use for the request.                                          |
+| `request`                                                                    | [operations.GetInvoiceRequest](../../models/operations/getinvoicerequest.md) | :heavy_check_mark:                                                           | The request object to use for the request.                                   |
+| `opts`                                                                       | [][operations.Option](../../models/operations/option.md)                     | :heavy_minus_sign:                                                           | The options for this request.                                                |
 
 ### Response
 
@@ -260,6 +260,7 @@ import(
 	"context"
 	"os"
 	paygentic "github.com/paygentic/sdk-go"
+	"github.com/paygentic/sdk-go/models/operations"
 	"log"
 )
 
@@ -270,7 +271,9 @@ func main() {
         paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
     )
 
-    res, err := s.InvoicesV2.GetLineItems(ctx, "<id>", paygentic.Pointer[int64](100), nil)
+    res, err := s.InvoicesV2.GetLineItems(ctx, operations.GetInvoiceLineItemsRequest{
+        ID: "<id>",
+    })
     if err != nil {
         log.Fatal(err)
     }
@@ -282,13 +285,11 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                                                                                        | Type                                                                                                                                             | Required                                                                                                                                         | Description                                                                                                                                      |
-| ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `ctx`                                                                                                                                            | [context.Context](https://pkg.go.dev/context#Context)                                                                                            | :heavy_check_mark:                                                                                                                               | The context to use for the request.                                                                                                              |
-| `id`                                                                                                                                             | `string`                                                                                                                                         | :heavy_check_mark:                                                                                                                               | The invoice ID                                                                                                                                   |
-| `limit`                                                                                                                                          | `*int64`                                                                                                                                         | :heavy_minus_sign:                                                                                                                               | Maximum number of line items to return                                                                                                           |
-| `pageToken`                                                                                                                                      | `*string`                                                                                                                                        | :heavy_minus_sign:                                                                                                                               | Opaque pagination token to fetch the next page of results, taken from a previous response's nextPageToken. Do not construct or parse this value. |
-| `opts`                                                                                                                                           | [][operations.Option](../../models/operations/option.md)                                                                                         | :heavy_minus_sign:                                                                                                                               | The options for this request.                                                                                                                    |
+| Parameter                                                                                      | Type                                                                                           | Required                                                                                       | Description                                                                                    |
+| ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                          | [context.Context](https://pkg.go.dev/context#Context)                                          | :heavy_check_mark:                                                                             | The context to use for the request.                                                            |
+| `request`                                                                                      | [operations.GetInvoiceLineItemsRequest](../../models/operations/getinvoicelineitemsrequest.md) | :heavy_check_mark:                                                                             | The request object to use for the request.                                                     |
+| `opts`                                                                                         | [][operations.Option](../../models/operations/option.md)                                       | :heavy_minus_sign:                                                                             | The options for this request.                                                                  |
 
 ### Response
 

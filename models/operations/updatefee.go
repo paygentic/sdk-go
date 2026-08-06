@@ -2,11 +2,17 @@
 
 package operations
 
+import (
+	"github.com/paygentic/sdk-go/optionalnullable"
+)
+
 type UpdateFeeRequestBody struct {
 	// Revised explanation of what the fee represents.
 	Description *string `json:"description,omitzero"`
 	// Updated label for the fee.
 	Name *string `json:"name,omitzero"`
+	// Optional item tag, used to map this fee's invoice lines to an external accounting/tax identity. Send a new id to re-tag — `productId` is re-derived from that item's catalog, and an archived item is rejected. Send `null` to untag.
+	ItemID optionalnullable.OptionalNullable[string] `json:"itemId,omitzero"`
 }
 
 func (u *UpdateFeeRequestBody) GetDescription() *string {
@@ -21,6 +27,13 @@ func (u *UpdateFeeRequestBody) GetName() *string {
 		return nil
 	}
 	return u.Name
+}
+
+func (u *UpdateFeeRequestBody) GetItemID() optionalnullable.OptionalNullable[string] {
+	if u == nil {
+		return nil
+	}
+	return u.ItemID
 }
 
 type UpdateFeeRequest struct {

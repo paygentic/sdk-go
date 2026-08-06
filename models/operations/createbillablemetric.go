@@ -61,7 +61,9 @@ type CreateBillableMetricRequest struct {
 	// Human-readable label identifying what this metric measures. Sample values: 'Claude Tokens', 'Storage Capacity', 'Model Inference Calls', 'Generated Images', 'Training Compute Hours', 'Data Transfer Volume'
 	Name string `json:"name"`
 	// Unique identifier for a product
-	ProductID string `json:"productId"`
+	ProductID *string `json:"productId,omitzero"`
+	// Unique identifier for an item
+	ItemID *string `json:"itemId,omitzero"`
 	// Measurement unit used when aggregating this metric's values. Common examples: 'tokens', 'GB', 'calls', 'images', 'hours', 'TB', 'queries', 'requests'
 	Unit string `json:"unit"`
 	// CloudEvents type for meter routing. Links this billable metric to the metering service.
@@ -113,11 +115,18 @@ func (c *CreateBillableMetricRequest) GetName() string {
 	return c.Name
 }
 
-func (c *CreateBillableMetricRequest) GetProductID() string {
+func (c *CreateBillableMetricRequest) GetProductID() *string {
 	if c == nil {
-		return ""
+		return nil
 	}
 	return c.ProductID
+}
+
+func (c *CreateBillableMetricRequest) GetItemID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ItemID
 }
 
 func (c *CreateBillableMetricRequest) GetUnit() string {

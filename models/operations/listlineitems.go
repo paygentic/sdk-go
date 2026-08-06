@@ -42,6 +42,10 @@ type ListLineItemsRequest struct {
 	Status *ListLineItemsStatus `queryParam:"style=form,explode=true,name=status"`
 	// Filter by invoice ID. When provided without subscriptionId, returns all line items for that invoice. At least one of subscriptionId or invoiceId must be provided.
 	InvoiceID *string `queryParam:"style=form,explode=true,name=invoiceId"`
+	// Comma-separated list of fields to expand. Supports: items — resolves each returned line's item and that item's external accounting codes into an `items` collection, so a line can be translated to a GL/SKU code without a second call.
+	Expand *string `queryParam:"style=form,explode=true,name=expand"`
+	// Narrows which external references are returned per item when expand=items. Matched exactly against the provider stored on the reference (e.g. accountsiq); there is no allowlist of known providers, but the value must satisfy the same format every stored provider does, so a malformed one is rejected rather than answered with an empty result that reads as "nothing is mapped". It never removes lines or items: an item with no reference for this provider comes back with an empty list, so unmapped SKUs stay visible. Ignored when the items expansion is not requested.
+	Provider *string `queryParam:"style=form,explode=true,name=provider"`
 	// Maximum number of line items to return
 	Limit *int64 `default:"100" queryParam:"style=form,explode=true,name=limit"`
 	// Number of line items to skip for pagination
@@ -78,6 +82,20 @@ func (l *ListLineItemsRequest) GetInvoiceID() *string {
 		return nil
 	}
 	return l.InvoiceID
+}
+
+func (l *ListLineItemsRequest) GetExpand() *string {
+	if l == nil {
+		return nil
+	}
+	return l.Expand
+}
+
+func (l *ListLineItemsRequest) GetProvider() *string {
+	if l == nil {
+		return nil
+	}
+	return l.Provider
 }
 
 func (l *ListLineItemsRequest) GetLimit() *int64 {

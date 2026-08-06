@@ -40,7 +40,9 @@ type Fee struct {
 	// Unique identifier for an organization
 	MerchantID string `json:"merchantId"`
 	// Unique identifier for a product
-	ProductID string    `json:"productId"`
+	ProductID string `json:"productId"`
+	// The item this fee is tagged with, or null when untagged. Used to map this fee's invoice lines to an external accounting/tax identity.
+	ItemID    *string   `json:"itemId"`
 	CreatedAt time.Time `json:"createdAt"`
 	UpdatedAt time.Time `json:"updatedAt"`
 }
@@ -96,6 +98,13 @@ func (f *Fee) GetProductID() string {
 		return ""
 	}
 	return f.ProductID
+}
+
+func (f *Fee) GetItemID() *string {
+	if f == nil {
+		return nil
+	}
+	return f.ItemID
 }
 
 func (f *Fee) GetCreatedAt() time.Time {

@@ -495,9 +495,13 @@ type Subscription struct {
 	PlanVersionID *string `json:"planVersionId,omitzero"`
 	// The version number of the plan version referenced by planVersionId, as of subscription creation.
 	VersionNumber *int64 `json:"versionNumber,omitzero"`
-	// @deprecated Use minimumAccountBalance instead. Minimum required wallet balance in atomic units. Sample values: '200000000000' equals $200.00 minimum, '1000000000000' equals $1000.00 minimum
+	// Deprecated. Legacy-only, not populated for new subscriptions.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	PrefundAmount *string `json:"prefundAmount,omitzero"`
-	// Minimum wallet balance requirement in nanodollars. Can be '0' to disable. The system calculates the difference between this minimum and the customer's current balance, charging only what's needed to reach the minimum. Note: If the calculated charge amount is below payment processor minimums (typically $1.00), the actual charged amount may be automatically adjusted upward to meet the minimum requirement. Sample values: '200000000000' equals $200.00 minimum, '1000000000000' equals $1000.00 minimum
+	// Deprecated. Legacy-only, not populated for new subscriptions.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	MinimumAccountBalance *string                `json:"minimumAccountBalance,omitzero"`
 	StartedAt             time.Time              `json:"startedAt"`
 	Status                SubscriptionStatusEnum `json:"status"`
@@ -509,7 +513,9 @@ type Subscription struct {
 	// Test clock ID if this subscription is attached to a test clock. Only present in non-production environments.
 	TestClockID *string   `json:"testClockId,omitzero"`
 	UpdatedAt   time.Time `json:"updatedAt"`
-	// Optional (virtual) wallet ID for the subscription
+	// Deprecated. Legacy-only, not populated for new subscriptions.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	WalletID *string `json:"walletId,omitzero"`
 	// Whether renewal reminder emails are enabled for this subscription. Null means use plan default.
 	RenewalReminderEnabled optionalnullable.OptionalNullable[bool] `json:"renewalReminderEnabled,omitzero"`

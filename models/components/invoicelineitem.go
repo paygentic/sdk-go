@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"github.com/paygentic/sdk-go/optionalnullable"
+)
+
 // EventType - Type of event: 'usage' for billable metric events, 'fee' for fee events, 'discount' for grant discount line items (subtotal/total are negative, representing a credit)
 type EventType string
 
@@ -58,6 +62,10 @@ type InvoiceLineItem struct {
 	EventSourceID string `json:"eventSourceId"`
 	// HOTFIX: Mirrors eventSourceId for backward compatibility
 	BillableMetricID string `json:"billableMetricId"`
+	// Item the line's charge was tagged with, recorded when the line was generated and not re-resolved on read. A discount line carries the same item as the charge it offsets. `null` means the charge carried no tag at that moment, the line predates item stamping, or the line has no originating charge (a grant-credit purchase) — it is an expected value, not an error. Use `priceId` to tell those cases apart.
+	ItemID optionalnullable.OptionalNullable[string] `json:"itemId,omitzero"`
+	// The price this line was generated from, or `null` when the line has no originating charge. With `itemId` it says whether a missing tag is fixable: `priceId` set and `itemId` null means the charge was simply untagged, which tagging it and restamping resolves; both null means the line records a grant-credit purchase, which is deferred revenue and is never tagged. Any measure of outstanding mapping work must exclude the latter or it can never reach zero.
+	PriceID optionalnullable.OptionalNullable[string] `json:"priceId,omitzero"`
 	// Display name for this line item on invoices
 	InvoiceDisplayName string `json:"invoiceDisplayName"`
 	// Type of line item: 'charge' for regular billing, 'refund' for refunded items (amounts are negated)
@@ -110,6 +118,20 @@ func (i *InvoiceLineItem) GetBillableMetricID() string {
 		return ""
 	}
 	return i.BillableMetricID
+}
+
+func (i *InvoiceLineItem) GetItemID() optionalnullable.OptionalNullable[string] {
+	if i == nil {
+		return nil
+	}
+	return i.ItemID
+}
+
+func (i *InvoiceLineItem) GetPriceID() optionalnullable.OptionalNullable[string] {
+	if i == nil {
+		return nil
+	}
+	return i.PriceID
 }
 
 func (i *InvoiceLineItem) GetInvoiceDisplayName() string {

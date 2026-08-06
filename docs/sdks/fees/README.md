@@ -41,7 +41,6 @@ func main() {
         Name: "<value>",
         Description: "obnoxiously boldly that fort as minus bob adventurously",
         MerchantID: "<id>",
-        ProductID: "<id>",
     })
     if err != nil {
         log.Fatal(err)

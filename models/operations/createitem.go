@@ -10,6 +10,8 @@ type CreateItemRequest struct {
 	MerchantID string `json:"merchantId"`
 	// Canonical sellable name for the Item
 	Name string `json:"name"`
+	// Unique identifier for a product
+	CatalogID *string `json:"catalogId,omitzero"`
 	// Optional key-value metadata
 	Metadata map[string]any `json:"metadata,omitzero"`
 }
@@ -37,6 +39,13 @@ func (c *CreateItemRequest) GetName() string {
 		return ""
 	}
 	return c.Name
+}
+
+func (c *CreateItemRequest) GetCatalogID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.CatalogID
 }
 
 func (c *CreateItemRequest) GetMetadata() map[string]any {

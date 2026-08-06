@@ -4,10 +4,15 @@ package operations
 
 import (
 	"github.com/paygentic/sdk-go/internal/utils"
+	"github.com/paygentic/sdk-go/optionalnullable"
 )
 
 type UpdateItemRequestBody struct {
-	Name     *string        `json:"name,omitzero"`
+	Name *string `json:"name,omitzero"`
+	// The product this item belongs to.
+	CatalogID optionalnullable.OptionalNullable[string] `json:"catalogId,omitzero"`
+	// Set to true to retire this item from your catalog, or false to restore it. Archived items remain readable and continue to resolve on historical invoices.
+	Archived *bool          `json:"archived,omitzero"`
 	Metadata map[string]any `json:"metadata,omitzero"`
 }
 
@@ -27,6 +32,20 @@ func (u *UpdateItemRequestBody) GetName() *string {
 		return nil
 	}
 	return u.Name
+}
+
+func (u *UpdateItemRequestBody) GetCatalogID() optionalnullable.OptionalNullable[string] {
+	if u == nil {
+		return nil
+	}
+	return u.CatalogID
+}
+
+func (u *UpdateItemRequestBody) GetArchived() *bool {
+	if u == nil {
+		return nil
+	}
+	return u.Archived
 }
 
 func (u *UpdateItemRequestBody) GetMetadata() map[string]any {

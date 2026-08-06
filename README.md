@@ -216,7 +216,7 @@ func main() {
 		Description: "Tracks total tokens consumed per API call.",
 		MerchantID:  "org_YS8jkP59V71TdUvj",
 		Name:        "Token Counter",
-		ProductID:   "prod_abc123",
+		ProductID:   paygentic.Pointer("prod_abc123"),
 		Unit:        "tokens",
 	})
 	if err != nil {
@@ -493,7 +493,7 @@ func main() {
 		Description: "Tracks total tokens consumed per API call.",
 		MerchantID:  "org_YS8jkP59V71TdUvj",
 		Name:        "Token Counter",
-		ProductID:   "prod_abc123",
+		ProductID:   paygentic.Pointer("prod_abc123"),
 		Unit:        "tokens",
 	}, operations.WithRetries(
 		retry.Config{
@@ -552,7 +552,7 @@ func main() {
 		Description: "Tracks total tokens consumed per API call.",
 		MerchantID:  "org_YS8jkP59V71TdUvj",
 		Name:        "Token Counter",
-		ProductID:   "prod_abc123",
+		ProductID:   paygentic.Pointer("prod_abc123"),
 		Unit:        "tokens",
 	})
 	if err != nil {
@@ -609,7 +609,7 @@ func main() {
 		Description: "Tracks total tokens consumed per API call.",
 		MerchantID:  "org_YS8jkP59V71TdUvj",
 		Name:        "Token Counter",
-		ProductID:   "prod_abc123",
+		ProductID:   paygentic.Pointer("prod_abc123"),
 		Unit:        "tokens",
 	})
 	if err != nil {
@@ -681,7 +681,7 @@ func main() {
 		Description: "Tracks total tokens consumed per API call.",
 		MerchantID:  "org_YS8jkP59V71TdUvj",
 		Name:        "Token Counter",
-		ProductID:   "prod_abc123",
+		ProductID:   paygentic.Pointer("prod_abc123"),
 		Unit:        "tokens",
 	})
 	if err != nil {
@@ -721,7 +721,7 @@ func main() {
 		Description: "Tracks total tokens consumed per API call.",
 		MerchantID:  "org_YS8jkP59V71TdUvj",
 		Name:        "Token Counter",
-		ProductID:   "prod_abc123",
+		ProductID:   paygentic.Pointer("prod_abc123"),
 		Unit:        "tokens",
 	})
 	if err != nil {

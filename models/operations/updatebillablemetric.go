@@ -15,6 +15,8 @@ type UpdateBillableMetricRequestBody struct {
 	Name *string `json:"name,omitzero"`
 	// Updated measurement unit. Common examples: 'tokens', 'GB', 'requests', 'items', 'hours'
 	Unit *string `json:"unit,omitzero"`
+	// Optional item tag, used to map this metric's invoice lines to an external accounting/tax identity. Send a new id to re-tag — `productId` is re-derived from that item's catalog, and an archived item is rejected. Send `null` to untag.
+	ItemID optionalnullable.OptionalNullable[string] `json:"itemId,omitzero"`
 	// CloudEvents type for meter routing.
 	EventType optionalnullable.OptionalNullable[string] `json:"eventType,omitzero"`
 	// JSONPath to extract a numeric value from event data. Must start with `$.` (example: `$.amount` or `$.payload.bytes`).
@@ -55,6 +57,13 @@ func (u *UpdateBillableMetricRequestBody) GetUnit() *string {
 		return nil
 	}
 	return u.Unit
+}
+
+func (u *UpdateBillableMetricRequestBody) GetItemID() optionalnullable.OptionalNullable[string] {
+	if u == nil {
+		return nil
+	}
+	return u.ItemID
 }
 
 func (u *UpdateBillableMetricRequestBody) GetEventType() optionalnullable.OptionalNullable[string] {

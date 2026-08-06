@@ -10,7 +10,9 @@ type CreateFeeRequest struct {
 	// Unique identifier for an organization
 	MerchantID string `json:"merchantId"`
 	// Unique identifier for a product
-	ProductID string `json:"productId"`
+	ProductID *string `json:"productId,omitzero"`
+	// Unique identifier for an item
+	ItemID *string `json:"itemId,omitzero"`
 }
 
 func (c *CreateFeeRequest) GetName() string {
@@ -34,9 +36,16 @@ func (c *CreateFeeRequest) GetMerchantID() string {
 	return c.MerchantID
 }
 
-func (c *CreateFeeRequest) GetProductID() string {
+func (c *CreateFeeRequest) GetProductID() *string {
 	if c == nil {
-		return ""
+		return nil
 	}
 	return c.ProductID
+}
+
+func (c *CreateFeeRequest) GetItemID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ItemID
 }

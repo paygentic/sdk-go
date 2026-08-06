@@ -10,6 +10,8 @@ import (
 type ListItemsRequest struct {
 	// Filter items by merchant organization id
 	MerchantID *string `queryParam:"style=form,explode=true,name=merchantId"`
+	// Filter items by the product they are filed under
+	CatalogID *string `queryParam:"style=form,explode=true,name=catalogId"`
 	// Provider whose external code to resolve (e.g. `salesforce`, `netsuite`). Must be supplied together with `externalId`.
 	Provider *string `queryParam:"style=form,explode=true,name=provider"`
 	// Resolve every live Item mapped to this `(provider, externalId)` — the canonical primary plus any non-primary aliases. The primary Item is returned first and is identifiable by its matching reference's `isPrimary: true`. Empty list on no match. Must be supplied together with `provider`.
@@ -18,6 +20,8 @@ type ListItemsRequest struct {
 	Limit *int64 `default:"50" queryParam:"style=form,explode=true,name=limit"`
 	// Zero-based offset for pagination. In resolution mode this paginates the de-duplicated resolved Item set.
 	Offset *int64 `default:"0" queryParam:"style=form,explode=true,name=offset"`
+	// Include archived items in the results. By default, archived items are omitted. This is ignored when resolving by `provider` and `externalId`, which always returns the matching item regardless of archived status.
+	IncludeArchived *bool `default:"false" queryParam:"style=form,explode=true,name=includeArchived"`
 }
 
 func (l ListItemsRequest) MarshalJSON() ([]byte, error) {
@@ -36,6 +40,13 @@ func (l *ListItemsRequest) GetMerchantID() *string {
 		return nil
 	}
 	return l.MerchantID
+}
+
+func (l *ListItemsRequest) GetCatalogID() *string {
+	if l == nil {
+		return nil
+	}
+	return l.CatalogID
 }
 
 func (l *ListItemsRequest) GetProvider() *string {
@@ -64,6 +75,13 @@ func (l *ListItemsRequest) GetOffset() *int64 {
 		return nil
 	}
 	return l.Offset
+}
+
+func (l *ListItemsRequest) GetIncludeArchived() *bool {
+	if l == nil {
+		return nil
+	}
+	return l.IncludeArchived
 }
 
 // ListItemsResponse - List of items

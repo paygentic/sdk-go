@@ -49,7 +49,9 @@ type UpdateSubscriptionRequestBody struct {
 	AutoCharge *bool `json:"autoCharge,omitzero"`
 	// When true, forces tax rate to 0%.
 	TaxExempt *bool `json:"taxExempt,omitzero"`
-	// Minimum wallet balance requirement in decimal dollars (e.g., '100.00'). Can be set to '0' to disable. Maximum allowed is $5,000. Contact support for higher limits. Note: If the calculated charge amount at renewal is below payment processor minimums (typically $1.00), it will be automatically adjusted upward to meet the minimum requirement. Changes apply at next renewal.
+	// Deprecated. This field is ignored and has no effect.
+	//
+	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
 	MinimumAccountBalance *string `json:"minimumAccountBalance,omitzero"`
 	// Override plan setting for renewal reminder emails. Set to true to enable, false to disable, or null to use plan default.
 	RenewalReminderEnabled optionalnullable.OptionalNullable[bool] `json:"renewalReminderEnabled,omitzero"`

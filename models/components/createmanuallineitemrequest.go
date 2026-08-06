@@ -31,6 +31,8 @@ type CreateManualLineItemRequest struct {
 	PeriodEnd optionalnullable.OptionalNullable[time.Time] `json:"periodEnd,omitzero"`
 	// Optional caller-provided idempotency key. Auto-generated if not provided.
 	IdempotencyKey optionalnullable.OptionalNullable[string] `json:"idempotencyKey,omitzero"`
+	// Optional item to tag this line with, for accounting/GL mapping. Must belong to the caller's merchant and must not be archived. A manual line has no price, so it is never reached by a later restamp — supplying it here is the only opportunity to tag it.
+	ItemID optionalnullable.OptionalNullable[string] `json:"itemId,omitzero"`
 }
 
 func (c CreateManualLineItemRequest) MarshalJSON() ([]byte, error) {
@@ -119,4 +121,11 @@ func (c *CreateManualLineItemRequest) GetIdempotencyKey() optionalnullable.Optio
 		return nil
 	}
 	return c.IdempotencyKey
+}
+
+func (c *CreateManualLineItemRequest) GetItemID() optionalnullable.OptionalNullable[string] {
+	if c == nil {
+		return nil
+	}
+	return c.ItemID
 }

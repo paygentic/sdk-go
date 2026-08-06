@@ -56,7 +56,7 @@ func (e *LineItemStatus) IsExact() bool {
 	return false
 }
 
-// LineItemPaymentTerm - Payment term for fee items. Null for metered/manual lines
+// LineItemPaymentTerm - Payment term for fee items. Null for metered/manual lines. `null` is listed in the enum as well as via `nullable` because OpenAPI 3.0 validators check the enum independently — `nullable: true` alone does not admit it, and createLineItem (which always returns null here) was emitting a schema-violating body.
 type LineItemPaymentTerm string
 
 const (
@@ -86,8 +86,10 @@ type LineItem struct {
 	SubscriptionID string `json:"subscriptionId"`
 	// The customer ID that owns this line item
 	CustomerID string `json:"customerId"`
-	// The price ID associated with this line item
+	// The price this line was generated from, or `null` when the line has no originating charge. With `itemId` it says whether a missing tag is fixable: `priceId` set and `itemId` null means the charge was simply untagged, which tagging it and restamping resolves; both null means the line records a grant-credit purchase, which is deferred revenue and is never tagged. Any measure of outstanding mapping work must exclude the latter or it can never reach zero.
 	PriceID optionalnullable.OptionalNullable[string] `json:"priceId,omitzero"`
+	// Item the line's charge was tagged with, recorded when the line was generated and not re-resolved on read. `null` means the charge carried no tag at that moment, the line predates item stamping, or the line has no originating charge (a grant-credit purchase) — it is an expected value, not an error. Use `priceId` to tell those cases apart.
+	ItemID optionalnullable.OptionalNullable[string] `json:"itemId,omitzero"`
 	// The invoice ID if this item has been invoiced
 	InvoiceID optionalnullable.OptionalNullable[string] `json:"invoiceId,omitzero"`
 	// The type of line item. 'discount' line items represent grant discounts with negative subtotal/total amounts.
@@ -114,7 +116,7 @@ type LineItem struct {
 	UnitPrice string `json:"unitPrice"`
 	// Raw metered usage. Null for fee/manual lines
 	MeteredQuantity optionalnullable.OptionalNullable[string] `json:"meteredQuantity,omitzero"`
-	// Payment term for fee items. Null for metered/manual lines
+	// Payment term for fee items. Null for metered/manual lines. `null` is listed in the enum as well as via `nullable` because OpenAPI 3.0 validators check the enum independently — `nullable: true` alone does not admit it, and createLineItem (which always returns null here) was emitting a schema-violating body.
 	PaymentTerm optionalnullable.OptionalNullable[LineItemPaymentTerm] `json:"paymentTerm,omitzero"`
 	// quantity × unitPrice, before discounts and taxes. For prorated lines, may differ from `quantity × unitPrice` by display precision; subtotal is the authoritative billed amount. Defaults to '0.00' when not yet calculated.
 	Subtotal *string `json:"subtotal,omitzero"`
@@ -169,6 +171,13 @@ func (l *LineItem) GetPriceID() optionalnullable.OptionalNullable[string] {
 		return nil
 	}
 	return l.PriceID
+}
+
+func (l *LineItem) GetItemID() optionalnullable.OptionalNullable[string] {
+	if l == nil {
+		return nil
+	}
+	return l.ItemID
 }
 
 func (l *LineItem) GetInvoiceID() optionalnullable.OptionalNullable[string] {

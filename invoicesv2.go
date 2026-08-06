@@ -832,14 +832,7 @@ func (s *InvoicesV2) CreateLineItem(ctx context.Context, body components.CreateM
 
 // Get
 // Retrieve a single invoice with real-time aggregates (for ACTIVE/CLOSING/CLOSED) or cached aggregates (for finalized invoices). Optionally include line items with expand=lineItems.
-func (s *InvoicesV2) Get(ctx context.Context, id string, expand *string, lineItemsLimit *int64, lineItemsPageToken *string, opts ...operations.Option) (*components.Invoice, error) {
-	request := operations.GetInvoiceRequest{
-		ID:                 id,
-		Expand:             expand,
-		LineItemsLimit:     lineItemsLimit,
-		LineItemsPageToken: lineItemsPageToken,
-	}
-
+func (s *InvoicesV2) Get(ctx context.Context, request operations.GetInvoiceRequest, opts ...operations.Option) (*components.Invoice, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -1106,13 +1099,7 @@ func (s *InvoicesV2) Get(ctx context.Context, id string, expand *string, lineIte
 
 // GetLineItems - Get Line Items
 // Get paginated line items for an invoice
-func (s *InvoicesV2) GetLineItems(ctx context.Context, id string, limit *int64, pageToken *string, opts ...operations.Option) (*components.InvoiceLineItemsResponse, error) {
-	request := operations.GetInvoiceLineItemsRequest{
-		ID:        id,
-		Limit:     limit,
-		PageToken: pageToken,
-	}
-
+func (s *InvoicesV2) GetLineItems(ctx context.Context, request operations.GetInvoiceLineItemsRequest, opts ...operations.Option) (*components.InvoiceLineItemsResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
