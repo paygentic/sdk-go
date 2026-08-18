@@ -2,6 +2,10 @@
 
 package operations
 
+import (
+	"github.com/paygentic/sdk-go/internal/utils"
+)
+
 type DeletePriceRequest struct {
 	// The unique identifier of the price
 	ID string `pathParam:"style=simple,explode=false,name=id"`
@@ -12,4 +16,110 @@ func (d *DeletePriceRequest) GetID() string {
 		return ""
 	}
 	return d.ID
+}
+
+type DeletePriceItem struct {
+	ID             *string `json:"id,omitzero"`
+	Name           *string `json:"name,omitzero"`
+	VersionNumber  *int64  `json:"versionNumber,omitzero"`
+	VersionNumbers []int64 `json:"versionNumbers,omitzero"`
+}
+
+func (d DeletePriceItem) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DeletePriceItem) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (d *DeletePriceItem) GetID() *string {
+	if d == nil {
+		return nil
+	}
+	return d.ID
+}
+
+func (d *DeletePriceItem) GetName() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Name
+}
+
+func (d *DeletePriceItem) GetVersionNumber() *int64 {
+	if d == nil {
+		return nil
+	}
+	return d.VersionNumber
+}
+
+func (d *DeletePriceItem) GetVersionNumbers() []int64 {
+	if d == nil {
+		return nil
+	}
+	return d.VersionNumbers
+}
+
+type DeletePriceBlocker struct {
+	Type  *string           `json:"type,omitzero"`
+	Count *int64            `json:"count,omitzero"`
+	Items []DeletePriceItem `json:"items,omitzero"`
+}
+
+func (d DeletePriceBlocker) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DeletePriceBlocker) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (d *DeletePriceBlocker) GetType() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Type
+}
+
+func (d *DeletePriceBlocker) GetCount() *int64 {
+	if d == nil {
+		return nil
+	}
+	return d.Count
+}
+
+func (d *DeletePriceBlocker) GetItems() []DeletePriceItem {
+	if d == nil {
+		return nil
+	}
+	return d.Items
+}
+
+type DeletePriceDetails struct {
+	Blockers []DeletePriceBlocker `json:"blockers,omitzero"`
+}
+
+func (d DeletePriceDetails) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DeletePriceDetails) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (d *DeletePriceDetails) GetBlockers() []DeletePriceBlocker {
+	if d == nil {
+		return nil
+	}
+	return d.Blockers
 }

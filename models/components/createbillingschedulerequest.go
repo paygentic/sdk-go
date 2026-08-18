@@ -104,7 +104,8 @@ func (e *CreateBillingScheduleRequestPeriodPreset) UnmarshalJSON(data []byte) er
 }
 
 type CreateBillingScheduleRequest struct {
-	OrderID             *string                                      `json:"orderId,omitzero"`
+	OrderID *string `json:"orderId,omitzero"`
+	// Not supported for creating a billing schedule. Use orderId — every billing schedule belongs to an order.
 	SubscriptionID      *string                                      `json:"subscriptionId,omitzero"`
 	StartDate           time.Time                                    `json:"startDate"`
 	EndDate             time.Time                                    `json:"endDate"`

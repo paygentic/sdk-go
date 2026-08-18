@@ -94,6 +94,29 @@ func (i *InvoiceLineItems) GetTotalCount() int64 {
 	return i.TotalCount
 }
 
+// PdfSource - Who produced the document at pdfUrl, or null when there is none. `paygentic` means pdfUrl is this API's download endpoint and the request must carry your API key; `tax_provider` means it is the provider's own link, which opens directly in a browser.
+type PdfSource string
+
+const (
+	PdfSourcePaygentic   PdfSource = "paygentic"
+	PdfSourceTaxProvider PdfSource = "tax_provider"
+)
+
+func (e PdfSource) ToPointer() *PdfSource {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *PdfSource) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "paygentic", "tax_provider":
+			return true
+		}
+	}
+	return false
+}
+
 // InvoiceStatus - The current status of the invoice
 type InvoiceStatus string
 
@@ -247,8 +270,10 @@ type Invoice struct {
 	DueAt optionalnullable.OptionalNullable[time.Time] `json:"dueAt,omitzero"`
 	// Payment URL for completing payment (only present when status is ISSUED and unpaidAmount > 0)
 	PaymentURL optionalnullable.OptionalNullable[string] `json:"paymentUrl,omitzero"`
-	// Direct PDF download link for tax invoice
+	// Link to the invoice document, or null when there is none. For Paygentic-rendered documents this is GET /v2/invoices/{id}/pdf, which requires authentication; for documents supplied by the tax provider it is the provider's own direct link. The URL is stable and does not expire. Branch on pdfSource rather than on the shape of this URL.
 	PdfURL optionalnullable.OptionalNullable[string] `json:"pdfUrl,omitzero"`
+	// Who produced the document at pdfUrl, or null when there is none. `paygentic` means pdfUrl is this API's download endpoint and the request must carry your API key; `tax_provider` means it is the provider's own link, which opens directly in a browser.
+	PdfSource optionalnullable.OptionalNullable[PdfSource] `json:"pdfSource,omitzero"`
 	// The end of the billing period
 	PeriodEnd time.Time `json:"periodEnd"`
 	// The start of the billing period
@@ -438,6 +463,13 @@ func (i *Invoice) GetPdfURL() optionalnullable.OptionalNullable[string] {
 		return nil
 	}
 	return i.PdfURL
+}
+
+func (i *Invoice) GetPdfSource() optionalnullable.OptionalNullable[PdfSource] {
+	if i == nil {
+		return nil
+	}
+	return i.PdfSource
 }
 
 func (i *Invoice) GetPeriodEnd() time.Time {

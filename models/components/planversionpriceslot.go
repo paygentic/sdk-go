@@ -106,7 +106,7 @@ type PlanVersionPriceSlot struct {
 	GrantDiscountEnabled *bool `default:"false" json:"grantDiscountEnabled"`
 	// Quantity used when generating invoice line items for this price. Total per period = quantity × unitPrice. Only supported for fee prices; metered prices derive quantity from usage. Defaults to 1.
 	Quantity *int64 `default:"1" json:"quantity"`
-	// True when the underlying price this slot references has been soft-deleted. The slot can still be removed or replaced to repair the draft; it cannot be published while any slot remains dead.
+	// True when the underlying price this slot references has been soft-deleted.
 	PriceDeleted bool `json:"priceDeleted"`
 }
 

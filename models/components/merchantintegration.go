@@ -39,8 +39,14 @@ type MerchantIntegration struct {
 	Object *MerchantIntegrationObject `default:"merchantIntegration" json:"object"`
 	// Unique identifier for an organization
 	MerchantID string `json:"merchantId"`
-	// External provider a merchant can connect at the tenant level
+	// External provider a merchant can connect at the tenant level. `netsuite` and `accountsiq` are returned on reads wherever a connection exists, but connecting them is accepted only in local and development environments; elsewhere the connect request is refused with 404.
 	Provider MerchantIntegrationProvider `json:"provider"`
+	// What this provider does with an item's external codes.
+	//
+	// Two independent capabilities, not one direction: the behaviours are not alternatives. An integration can resolve an incoming item code *and* be sent a selected one on a different path, so a single `inbound`/`outbound` value would have to misdescribe it or forbid one of its operations.
+	//
+	// A capability that is not declared is unavailable rather than inferred. Declaring one does not make a provider connectable — that still requires its credentials and connection lifecycle.
+	Capabilities MappingCapabilities `json:"capabilities"`
 	// Ampersand installation id.
 	ExternalID *string `json:"externalId"`
 	// Connection lifecycle state. Live Ampersand health is separate and not stored here.
@@ -90,6 +96,13 @@ func (m *MerchantIntegration) GetProvider() MerchantIntegrationProvider {
 		return MerchantIntegrationProvider("")
 	}
 	return m.Provider
+}
+
+func (m *MerchantIntegration) GetCapabilities() MappingCapabilities {
+	if m == nil {
+		return MappingCapabilities{}
+	}
+	return m.Capabilities
 }
 
 func (m *MerchantIntegration) GetExternalID() *string {

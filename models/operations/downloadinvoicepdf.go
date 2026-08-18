@@ -2,12 +2,12 @@
 
 package operations
 
-type DeleteItemRequest struct {
-	// The unique identifier of the item
+type DownloadInvoicePdfRequest struct {
+	// The invoice ID
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
-func (d *DeleteItemRequest) GetID() string {
+func (d *DownloadInvoicePdfRequest) GetID() string {
 	if d == nil {
 		return ""
 	}

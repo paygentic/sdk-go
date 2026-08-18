@@ -11,6 +11,7 @@ Invoice V2 operations supporting billing cycles organized by time periods. Warni
 * [CreateLineItem](#createlineitem) - Create Manual Line Item
 * [Get](#get) - Get
 * [GetLineItems](#getlineitems) - Get Line Items
+* [DownloadInvoicePdf](#downloadinvoicepdf) - Download Invoice PDF
 * [CreateInvoiceRefund](#createinvoicerefund) - Refund Invoice
 * [ListInvoiceRefunds](#listinvoicerefunds) - List Invoice Refunds
 * [VoidInvoiceRefund](#voidinvoicerefund) - Void Invoice Refund
@@ -301,6 +302,60 @@ func main() {
 | ---------------------------- | ---------------------------- | ---------------------------- |
 | errors.BadRequest            | 400                          | application/json             |
 | errors.Error                 | 403, 404                     | application/json             |
+| errors.Error                 | 500                          | application/json             |
+| errors.PaygenticDefaultError | 4XX, 5XX                     | \*/\*                        |
+
+## DownloadInvoicePdf
+
+Downloads the Paygentic-rendered invoice document. The caller must be authenticated and entitled to the invoice; the stored document is streamed back, so no storage URL is ever handed out. Returns 404 when the invoice's document is the tax provider's rather than ours — in that case the invoice resource reports pdfSource `tax_provider` and its pdfUrl points at the provider's link instead.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="downloadInvoicePdf" method="get" path="/v2/invoices/{id}/pdf" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	paygentic "github.com/paygentic/sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := paygentic.New(
+        paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
+    )
+
+    res, err := s.InvoicesV2.DownloadInvoicePdf(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `id`                                                     | `string`                                                 | :heavy_check_mark:                                       | The invoice ID                                           |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
+
+### Response
+
+**[io.ReadCloser](../../.md), error**
+
+### Errors
+
+| Error Type                   | Status Code                  | Content Type                 |
+| ---------------------------- | ---------------------------- | ---------------------------- |
+| errors.Error                 | 401, 403, 404                | application/json             |
 | errors.Error                 | 500                          | application/json             |
 | errors.PaygenticDefaultError | 4XX, 5XX                     | \*/\*                        |
 

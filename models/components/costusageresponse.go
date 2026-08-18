@@ -138,6 +138,8 @@ type CostUsageResponse struct {
 	Currency string                `json:"currency"`
 	// CloudEvents type for metered costs.
 	EventType *string `json:"eventType,omitzero"`
+	// Unit label for metered costs (e.g. 'token', 'request'). Absent when the cost defines no unit.
+	Unit *string `json:"unit,omitzero"`
 	// Total cost for the query window. Null if usage data could not be computed.
 	TotalCost *float64 `json:"totalCost"`
 	// Total usage quantity (metered costs only). Null when usage was not computed.
@@ -199,6 +201,13 @@ func (c *CostUsageResponse) GetEventType() *string {
 		return nil
 	}
 	return c.EventType
+}
+
+func (c *CostUsageResponse) GetUnit() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Unit
 }
 
 func (c *CostUsageResponse) GetTotalCost() *float64 {

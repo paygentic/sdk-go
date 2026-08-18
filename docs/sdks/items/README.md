@@ -10,7 +10,6 @@ An `Item` is the canonical "thing you sell" that external-system mappings point 
 * [ListItems](#listitems) - List
 * [GetItem](#getitem) - Get
 * [UpdateItem](#updateitem) - Update
-* [DeleteItem](#deleteitem) - Delete
 
 ## CreateItem
 
@@ -228,58 +227,6 @@ func main() {
 ### Response
 
 **[*components.Item](../../models/components/item.md), error**
-
-### Errors
-
-| Error Type                   | Status Code                  | Content Type                 |
-| ---------------------------- | ---------------------------- | ---------------------------- |
-| errors.BadRequest            | 400                          | application/json             |
-| errors.Error                 | 401, 403, 404                | application/json             |
-| errors.Error                 | 500                          | application/json             |
-| errors.PaygenticDefaultError | 4XX, 5XX                     | \*/\*                        |
-
-## DeleteItem
-
-Delete
-
-### Example Usage
-
-<!-- UsageSnippet language="go" operationID="deleteItem" method="delete" path="/v0/items/{id}" -->
-```go
-package main
-
-import(
-	"context"
-	"os"
-	paygentic "github.com/paygentic/sdk-go"
-	"log"
-)
-
-func main() {
-    ctx := context.Background()
-
-    s := paygentic.New(
-        paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
-    )
-
-    err := s.Items.DeleteItem(ctx, "<id>")
-    if err != nil {
-        log.Fatal(err)
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `id`                                                     | `string`                                                 | :heavy_check_mark:                                       | The unique identifier of the item                        |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
-
-### Response
-
-**error**
 
 ### Errors
 

@@ -88,6 +88,7 @@ import(
 	"context"
 	"os"
 	paygentic "github.com/paygentic/sdk-go"
+	"github.com/paygentic/sdk-go/models/operations"
 	"log"
 )
 
@@ -98,7 +99,9 @@ func main() {
         paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
     )
 
-    res, err := s.BillableMetrics.List(ctx, "<id>", paygentic.Pointer[int64](10), paygentic.Pointer[int64](0), nil)
+    res, err := s.BillableMetrics.List(ctx, operations.ListBillableMetricsRequest{
+        MerchantID: "<id>",
+    })
     if err != nil {
         log.Fatal(err)
     }
@@ -110,14 +113,11 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `merchantID`                                             | `string`                                                 | :heavy_check_mark:                                       | Filter billable metrics by merchant organization ID.     |
-| `limit`                                                  | `*int64`                                                 | :heavy_minus_sign:                                       | Number of billable metrics to return.                    |
-| `offset`                                                 | `*int64`                                                 | :heavy_minus_sign:                                       | Number of billable metrics to skip.                      |
-| `productID`                                              | `*string`                                                | :heavy_minus_sign:                                       | Filter billable metrics by product ID.                   |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
+| Parameter                                                                                      | Type                                                                                           | Required                                                                                       | Description                                                                                    |
+| ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                          | [context.Context](https://pkg.go.dev/context#Context)                                          | :heavy_check_mark:                                                                             | The context to use for the request.                                                            |
+| `request`                                                                                      | [operations.ListBillableMetricsRequest](../../models/operations/listbillablemetricsrequest.md) | :heavy_check_mark:                                                                             | The request object to use for the request.                                                     |
+| `opts`                                                                                         | [][operations.Option](../../models/operations/option.md)                                       | :heavy_minus_sign:                                                                             | The options for this request.                                                                  |
 
 ### Response
 
@@ -237,7 +237,8 @@ func main() {
 
 | Error Type                   | Status Code                  | Content Type                 |
 | ---------------------------- | ---------------------------- | ---------------------------- |
-| errors.Error                 | 403, 404                     | application/json             |
+| errors.BadRequest            | 400                          | application/json             |
+| errors.Error                 | 403, 404, 409                | application/json             |
 | errors.Error                 | 500                          | application/json             |
 | errors.PaygenticDefaultError | 4XX, 5XX                     | \*/\*                        |
 

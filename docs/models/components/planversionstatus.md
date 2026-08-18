@@ -9,7 +9,7 @@ import (
 	"github.com/paygentic/sdk-go/models/components"
 )
 
-value := components.PlanVersionStatusDraft
+value := components.PlanVersionStatusPublished
 
 // Open enum: custom values can be created with a direct type cast
 custom := components.PlanVersionStatus("custom_value")
@@ -20,6 +20,5 @@ custom := components.PlanVersionStatus("custom_value")
 
 | Name                         | Value                        |
 | ---------------------------- | ---------------------------- |
-| `PlanVersionStatusDraft`     | draft                        |
 | `PlanVersionStatusPublished` | published                    |
 | `PlanVersionStatusArchived`  | archived                     |

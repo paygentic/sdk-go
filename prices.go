@@ -304,9 +304,10 @@ func (s *Prices) Create(ctx context.Context, request operations.CreatePriceReque
 }
 
 // List
-func (s *Prices) List(ctx context.Context, billableMetricID *string, limit *int64, offset *int64, opts ...operations.Option) (*operations.ListPricesResponse, error) {
+func (s *Prices) List(ctx context.Context, billableMetricID *string, merchantID *string, limit *int64, offset *int64, opts ...operations.Option) (*operations.ListPricesResponse, error) {
 	request := operations.ListPricesRequest{
 		BillableMetricID: billableMetricID,
+		MerchantID:       merchantID,
 		Limit:            limit,
 		Offset:           offset,
 	}
@@ -510,6 +511,8 @@ func (s *Prices) List(ctx context.Context, billableMetricID *string, limit *int6
 	case httpRes.StatusCode == 401:
 		fallthrough
 	case httpRes.StatusCode == 403:
+		fallthrough
+	case httpRes.StatusCode == 404:
 		switch {
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -1311,6 +1314,27 @@ func (s *Prices) Delete(ctx context.Context, id string, opts ...operations.Optio
 			}
 
 			var out errors.Error
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return err
+			}
+
+			return &out
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return err
+			}
+			return errors.NewPaygenticDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 409:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return err
+			}
+
+			var out errors.DeletePriceConflictError
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return err
 			}

@@ -302,14 +302,7 @@ func (s *BillableMetrics) Create(ctx context.Context, request operations.CreateB
 }
 
 // List
-func (s *BillableMetrics) List(ctx context.Context, merchantID string, limit *int64, offset *int64, productID *string, opts ...operations.Option) (*operations.ListBillableMetricsResponse, error) {
-	request := operations.ListBillableMetricsRequest{
-		MerchantID: merchantID,
-		Limit:      limit,
-		Offset:     offset,
-		ProductID:  productID,
-	}
-
+func (s *BillableMetrics) List(ctx context.Context, request operations.ListBillableMetricsRequest, opts ...operations.Option) (*operations.ListBillableMetricsResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -983,9 +976,32 @@ func (s *BillableMetrics) Update(ctx context.Context, id string, body operations
 			}
 			return nil, errors.NewPaygenticDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
+	case httpRes.StatusCode == 400:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out errors.BadRequest
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			return nil, &out
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, errors.NewPaygenticDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
 	case httpRes.StatusCode == 403:
 		fallthrough
 	case httpRes.StatusCode == 404:
+		fallthrough
+	case httpRes.StatusCode == 409:
 		switch {
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
 			rawBody, err := utils.ConsumeRawBody(httpRes)

@@ -10,6 +10,8 @@ import (
 type ListPricesRequest struct {
 	// Filter prices by billable metric ID
 	BillableMetricID *string `queryParam:"style=form,explode=true,name=billableMetricId"`
+	// Filter prices by merchant organization ID. Matches prices reached via either a billable metric or a fee belonging to that merchant. Unlike the unfiltered listing, this includes prices whose billable metric or fee has been deleted — deleting a parent does not delete its prices, and they can still bill. Returns 404 if the merchant does not exist.
+	MerchantID *string `queryParam:"style=form,explode=true,name=merchantId"`
 	// Number of prices to return
 	Limit *int64 `default:"10" queryParam:"style=form,explode=true,name=limit"`
 	// Number of prices to skip
@@ -32,6 +34,13 @@ func (l *ListPricesRequest) GetBillableMetricID() *string {
 		return nil
 	}
 	return l.BillableMetricID
+}
+
+func (l *ListPricesRequest) GetMerchantID() *string {
+	if l == nil {
+		return nil
+	}
+	return l.MerchantID
 }
 
 func (l *ListPricesRequest) GetLimit() *int64 {

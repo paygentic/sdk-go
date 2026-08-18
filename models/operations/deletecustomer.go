@@ -67,29 +67,29 @@ func (e *DeleteCustomerType) IsExact() bool {
 	return false
 }
 
-type Item struct {
+type DeleteCustomerItem struct {
 	ID     *string `json:"id,omitzero"`
 	Status *string `json:"status,omitzero"`
 }
 
-func (i *Item) GetID() *string {
-	if i == nil {
+func (d *DeleteCustomerItem) GetID() *string {
+	if d == nil {
 		return nil
 	}
-	return i.ID
+	return d.ID
 }
 
-func (i *Item) GetStatus() *string {
-	if i == nil {
+func (d *DeleteCustomerItem) GetStatus() *string {
+	if d == nil {
 		return nil
 	}
-	return i.Status
+	return d.Status
 }
 
 type DeleteCustomerBlocker struct {
-	Type  DeleteCustomerType `json:"type"`
-	Count int64              `json:"count"`
-	Items []Item             `json:"items"`
+	Type  DeleteCustomerType   `json:"type"`
+	Count int64                `json:"count"`
+	Items []DeleteCustomerItem `json:"items"`
 }
 
 func (d *DeleteCustomerBlocker) GetType() DeleteCustomerType {
@@ -106,9 +106,9 @@ func (d *DeleteCustomerBlocker) GetCount() int64 {
 	return d.Count
 }
 
-func (d *DeleteCustomerBlocker) GetItems() []Item {
+func (d *DeleteCustomerBlocker) GetItems() []DeleteCustomerItem {
 	if d == nil {
-		return []Item{}
+		return []DeleteCustomerItem{}
 	}
 	return d.Items
 }

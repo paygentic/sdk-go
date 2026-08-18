@@ -36,7 +36,6 @@ func (e *PlanVersionSummaryObject) UnmarshalJSON(data []byte) error {
 type PlanVersionSummaryStatus string
 
 const (
-	PlanVersionSummaryStatusDraft     PlanVersionSummaryStatus = "draft"
 	PlanVersionSummaryStatusPublished PlanVersionSummaryStatus = "published"
 	PlanVersionSummaryStatusArchived  PlanVersionSummaryStatus = "archived"
 )
@@ -49,7 +48,7 @@ func (e PlanVersionSummaryStatus) ToPointer() *PlanVersionSummaryStatus {
 func (e *PlanVersionSummaryStatus) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "draft", "published", "archived":
+		case "published", "archived":
 			return true
 		}
 	}
@@ -64,7 +63,7 @@ type PlanVersionSummary struct {
 	VersionNumber int64 `json:"versionNumber"`
 	// Lifecycle status of the version.
 	Status PlanVersionSummaryStatus `json:"status"`
-	// When this version was published. Absent for draft versions.
+	// When this version was published.
 	PublishedAt *time.Time `json:"publishedAt,omitzero"`
 	// Whether this version is the plan's current default (live) version.
 	IsDefault bool `json:"isDefault"`

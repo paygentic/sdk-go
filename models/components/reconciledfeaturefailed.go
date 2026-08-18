@@ -2,12 +2,13 @@
 
 package components
 
-// Reason - Coded failure reason. `grant_mint_failed` means the entitlement was created but its initial metered grant could not be minted; re-running this reconciliation retries the mint.
+// Reason - Coded failure reason. `entitlement_failed` means the entitlement itself could not be created. `grant_mint_failed` means the entitlement was created but its initial metered grant could not be minted; re-running this reconciliation retries the mint. `reset_cycle_misaligned` means the feature grants a credit discount on a reset cycle that is not the window it would be billed on, so re-running cannot succeed until the plan or the price is corrected.
 type Reason string
 
 const (
-	ReasonEntitlementFailed Reason = "entitlement_failed"
-	ReasonGrantMintFailed   Reason = "grant_mint_failed"
+	ReasonEntitlementFailed    Reason = "entitlement_failed"
+	ReasonGrantMintFailed      Reason = "grant_mint_failed"
+	ReasonResetCycleMisaligned Reason = "reset_cycle_misaligned"
 )
 
 func (e Reason) ToPointer() *Reason {
@@ -18,7 +19,7 @@ func (e Reason) ToPointer() *Reason {
 func (e *Reason) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "entitlement_failed", "grant_mint_failed":
+		case "entitlement_failed", "grant_mint_failed", "reset_cycle_misaligned":
 			return true
 		}
 	}
@@ -28,7 +29,7 @@ func (e *Reason) IsExact() bool {
 type ReconciledFeatureFailed struct {
 	FeatureID  string `json:"featureId"`
 	FeatureKey string `json:"featureKey"`
-	// Coded failure reason. `grant_mint_failed` means the entitlement was created but its initial metered grant could not be minted; re-running this reconciliation retries the mint.
+	// Coded failure reason. `entitlement_failed` means the entitlement itself could not be created. `grant_mint_failed` means the entitlement was created but its initial metered grant could not be minted; re-running this reconciliation retries the mint. `reset_cycle_misaligned` means the feature grants a credit discount on a reset cycle that is not the window it would be billed on, so re-running cannot succeed until the plan or the price is corrected.
 	Reason Reason `json:"reason"`
 }
 

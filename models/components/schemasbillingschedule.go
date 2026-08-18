@@ -136,7 +136,7 @@ type SchemasBillingSchedule struct {
 	MerchantID     string                                    `json:"merchantId"`
 	Status         SchemasBillingScheduleStatus              `json:"status"`
 	StartDate      time.Time                                 `json:"startDate"`
-	// Null for an open-ended subscription-owned schedule; order-owned schedules always have a concrete end.
+	// The schedule's end date. Always present.
 	EndDate             *time.Time                                   `json:"endDate"`
 	BillingAnchor       time.Time                                    `json:"billingAnchor"`
 	AlignmentPolicy     SchemasBillingScheduleAlignmentPolicy        `json:"alignmentPolicy"`

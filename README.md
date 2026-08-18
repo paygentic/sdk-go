@@ -333,6 +333,7 @@ func main() {
 * [CreateLineItem](docs/sdks/invoicesv2/README.md#createlineitem) - Create Manual Line Item
 * [Get](docs/sdks/invoicesv2/README.md#get) - Get
 * [GetLineItems](docs/sdks/invoicesv2/README.md#getlineitems) - Get Line Items
+* [DownloadInvoicePdf](docs/sdks/invoicesv2/README.md#downloadinvoicepdf) - Download Invoice PDF
 * [CreateInvoiceRefund](docs/sdks/invoicesv2/README.md#createinvoicerefund) - Refund Invoice
 * [ListInvoiceRefunds](docs/sdks/invoicesv2/README.md#listinvoicerefunds) - List Invoice Refunds
 * [VoidInvoiceRefund](docs/sdks/invoicesv2/README.md#voidinvoicerefund) - Void Invoice Refund
@@ -343,7 +344,6 @@ func main() {
 * [ListItems](docs/sdks/items/README.md#listitems) - List
 * [GetItem](docs/sdks/items/README.md#getitem) - Get
 * [UpdateItem](docs/sdks/items/README.md#updateitem) - Update
-* [DeleteItem](docs/sdks/items/README.md#deleteitem) - Delete
 
 ### [MerchantIntegrations](docs/sdks/merchantintegrations/README.md)
 

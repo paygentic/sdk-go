@@ -36,7 +36,6 @@ func (e *PlanVersionObject) UnmarshalJSON(data []byte) error {
 type PlanVersionStatus string
 
 const (
-	PlanVersionStatusDraft     PlanVersionStatus = "draft"
 	PlanVersionStatusPublished PlanVersionStatus = "published"
 	PlanVersionStatusArchived  PlanVersionStatus = "archived"
 )
@@ -49,14 +48,14 @@ func (e PlanVersionStatus) ToPointer() *PlanVersionStatus {
 func (e *PlanVersionStatus) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "draft", "published", "archived":
+		case "published", "archived":
 			return true
 		}
 	}
 	return false
 }
 
-// PlanVersion - A single plan version, including its price slots. Extends the list summary with the version's prices for draft review.
+// PlanVersion - A single plan version, including its price slots. Extends the list summary with the version's prices.
 type PlanVersion struct {
 	// Unique identifier for a plan version
 	ID     string            `json:"id"`
@@ -65,7 +64,7 @@ type PlanVersion struct {
 	VersionNumber int64 `json:"versionNumber"`
 	// Lifecycle status of the version.
 	Status PlanVersionStatus `json:"status"`
-	// When this version was published. Absent for draft versions.
+	// When this version was published.
 	PublishedAt *time.Time `json:"publishedAt,omitzero"`
 	// Whether this version is the plan's current default (live) version.
 	IsDefault bool `json:"isDefault"`
@@ -73,7 +72,7 @@ type PlanVersion struct {
 	SubscriptionCount int64 `json:"subscriptionCount"`
 	// Unique identifier for a plan version
 	BasedOnVersionID *string `json:"basedOnVersionId,omitzero"`
-	// When this version was last modified. Optimistic-concurrency token: read this value and echo it back as an `If-Match` header on a draft-price-mutation request to reject the write (412) if the draft changed since this read.
+	// When this version was last modified.
 	UpdatedAt time.Time `json:"updatedAt"`
 	// The price slots that make up this version.
 	Prices []PlanVersionPriceSlot `json:"prices"`

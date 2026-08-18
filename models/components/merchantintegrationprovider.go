@@ -2,31 +2,26 @@
 
 package components
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
-// MerchantIntegrationProvider - External provider a merchant can connect at the tenant level
+// MerchantIntegrationProvider - External provider a merchant can connect at the tenant level. `netsuite` and `accountsiq` are returned on reads wherever a connection exists, but connecting them is accepted only in local and development environments; elsewhere the connect request is refused with 404.
 type MerchantIntegrationProvider string
 
 const (
 	MerchantIntegrationProviderSalesforce MerchantIntegrationProvider = "salesforce"
+	MerchantIntegrationProviderNetsuite   MerchantIntegrationProvider = "netsuite"
+	MerchantIntegrationProviderAccountsiq MerchantIntegrationProvider = "accountsiq"
 )
 
 func (e MerchantIntegrationProvider) ToPointer() *MerchantIntegrationProvider {
 	return &e
 }
-func (e *MerchantIntegrationProvider) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *MerchantIntegrationProvider) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "salesforce", "netsuite", "accountsiq":
+			return true
+		}
 	}
-	switch v {
-	case "salesforce":
-		*e = MerchantIntegrationProvider(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for MerchantIntegrationProvider: %v", v)
-	}
+	return false
 }

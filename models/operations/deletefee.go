@@ -18,9 +18,40 @@ func (d *DeleteFeeRequest) GetID() string {
 	return d.ID
 }
 
+type DeleteFeeItem struct {
+	ID                 *string `json:"id,omitzero"`
+	InvoiceDisplayName *string `json:"invoiceDisplayName,omitzero"`
+}
+
+func (d *DeleteFeeItem) GetID() *string {
+	if d == nil {
+		return nil
+	}
+	return d.ID
+}
+
+func (d *DeleteFeeItem) GetInvoiceDisplayName() *string {
+	if d == nil {
+		return nil
+	}
+	return d.InvoiceDisplayName
+}
+
 type DeleteFeeBlocker struct {
-	Type  *string `json:"type,omitzero"`
-	Count *int64  `json:"count,omitzero"`
+	Type  *string         `json:"type,omitzero"`
+	Count *int64          `json:"count,omitzero"`
+	Items []DeleteFeeItem `json:"items,omitzero"`
+}
+
+func (d DeleteFeeBlocker) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DeleteFeeBlocker) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (d *DeleteFeeBlocker) GetType() *string {
@@ -35,6 +66,13 @@ func (d *DeleteFeeBlocker) GetCount() *int64 {
 		return nil
 	}
 	return d.Count
+}
+
+func (d *DeleteFeeBlocker) GetItems() []DeleteFeeItem {
+	if d == nil {
+		return nil
+	}
+	return d.Items
 }
 
 type DeleteFeeDetails struct {

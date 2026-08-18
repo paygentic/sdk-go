@@ -16,6 +16,8 @@ type ListFeesRequest struct {
 	MerchantID string `queryParam:"style=form,explode=true,name=merchantId"`
 	// Number of fees to skip.
 	Offset *int64 `default:"0" queryParam:"style=form,explode=true,name=offset"`
+	// Filter to the charges tagged with this item. Lets a surface that needs only one item's charges read exactly those, rather than reading the whole product's and filtering — which makes its completeness a function of how large the product is.
+	ItemID *string `queryParam:"style=form,explode=true,name=itemId"`
 	// Filter fees by product ID.
 	ProductID *string `queryParam:"style=form,explode=true,name=productId"`
 }
@@ -50,6 +52,13 @@ func (l *ListFeesRequest) GetOffset() *int64 {
 		return nil
 	}
 	return l.Offset
+}
+
+func (l *ListFeesRequest) GetItemID() *string {
+	if l == nil {
+		return nil
+	}
+	return l.ItemID
 }
 
 func (l *ListFeesRequest) GetProductID() *string {
