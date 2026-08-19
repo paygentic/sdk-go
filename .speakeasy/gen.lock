@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 5f9f8092-429e-454b-8c55-a2d2d1508328
 management:
-  docChecksum: cb0a72e9762255f1a5ecffe5b16b53ca
+  docChecksum: 2305f519c14b20a67613b658c3b06b9d
   docVersion: 0.1.0
-  speakeasyVersion: 1.794.1
+  speakeasyVersion: 1.795.0
   generationVersion: 2.931.0
-  releaseVersion: 0.5.0
-  configChecksum: 2a18cd73de0abd022c5582e5ea7e38a7
+  releaseVersion: 0.5.1
+  configChecksum: 2c24b614a422fdc7282a1661add32f96
   repoURL: https://github.com/paygentic/sdk-go.git
   installationURL: https://github.com/paygentic/sdk-go
 persistentEdits:
-  generation_id: db8d0821-e041-480e-96ca-f8c57a582363
-  pristine_commit_hash: 03ed856b7b0f9a7f02ea691035cab1fc7e276a9f
-  pristine_tree_hash: 25903560e70f0b57cefb523b6653f53588d4ae06
+  generation_id: 07549722-4e01-4153-9a12-6e74cb4b9f71
+  pristine_commit_hash: 58d5f34e06e3d1790eb62d78b2a0d52563c659d0
+  pristine_tree_hash: 28c04ee7592d936b3a7eb0f7a6241e8b6fb597b1
 features:
   go:
     additionalDependencies: 0.1.0
@@ -62,8 +62,8 @@ trackedFiles:
     pristine_git_object: d0855dc266a1838082f8ac4aca63bbaa304341ab
   client.go:
     id: d633516feaf9
-    last_write_checksum: sha1:37240ddde3d8c9f248227d410e3062bc2d186834
-    pristine_git_object: 58fe634e47cc28dc99edec5f24dccbc725a575a3
+    last_write_checksum: sha1:d861e4ef660badeb3a6e4dd4b745d410105597d7
+    pristine_git_object: 034691ecb5b753e7749b9b186168460423a6d9a6
   costs.go:
     id: 247b6e6ecaf3
     last_write_checksum: sha1:6a0c8cf65c575073eba23dfb3b2f8e5044013500
@@ -2470,8 +2470,8 @@ trackedFiles:
     pristine_git_object: 4f9c31f06acf5a68f14bf27356b01cdf3dbff978
   go.mod:
     id: c47645c391ad
-    last_write_checksum: sha1:60f9c7c87c36612864e547ba0c277cd2ed1dabea
-    pristine_git_object: e8f004a9de54998840b8cee706ab60a05666bb6d
+    last_write_checksum: sha1:6e01bfeadcd7a69505d91b2b61e3fc3987aff905
+    pristine_git_object: 615ee7ae37171a0fd539a284b12dc2bdd0fb195b
   grants.go:
     id: aa31b6a54c14
     last_write_checksum: sha1:d7134d299cb293a5380131a688d4bd5a47213788
@@ -6084,4 +6084,3 @@ generatedTests:
   getPlanVersion: "2026-07-30T16:01:26Z"
   transitionPlanVersion: "2026-07-30T16:01:26Z"
   downloadInvoicePdf: "2026-08-18T13:02:38Z"
-releaseNotes: "## Go SDK Changes:\n* `Client.Plans.TransitionPlanVersion()`:  `response.Status.Enum(draft)` **Removed** (Breaking ⚠️)\n* `Client.MerchantIntegrations.DisconnectMerchantIntegration()`:  `response` **Changed** (Breaking ⚠️)\n* `Client.BillableMetrics.List()`:  `request` **Changed** (Breaking ⚠️)\n* `Client.MerchantIntegrations.GetMerchantIntegration()`:  `response` **Changed** (Breaking ⚠️)\n* `Client.Fees.List()`:  `request` **Changed** (Breaking ⚠️)\n* `Client.MerchantIntegrations.UpsertMerchantIntegration()`: \n  *  `request.Request.Provider` **Changed**\n  *  `response` **Changed** (Breaking ⚠️)\n* `Client.MerchantIntegrations.ListMerchantIntegrations()`: \n  *  `request.Provider` **Changed**\n  *  `response.Data[]` **Changed** (Breaking ⚠️)\n* `Client.Plans.ListPlanVersions()`:  `response.Data[].Status.Enum(draft)` **Removed** (Breaking ⚠️)\n* `Client.Plans.MintPlanVersion()`:  `response.Status.Enum(draft)` **Removed** (Breaking ⚠️)\n* `Client.Plans.GetPlanVersion()`:  `response.Status.Enum(draft)` **Removed** (Breaking ⚠️)\n* `Client.Fees.Update()`:  `error` **Changed**\n* `Client.Prices.List()`: \n  *  `request.MerchantId` **Added**\n  *  `error.status[404]` **Added**\n* `Client.Prices.Delete()`:  `error.status[409]` **Added**\n* `Client.Subscriptions.ReconcileSubscriptionFeatures()`:  `response.Features.Failed[].Reason.Enum(resetCycleMisaligned)` **Added**\n* `Client.InvoicesV2.List()`:  `response.Data[].PdfSource` **Added**\n* `Client.InvoicesV2.Get()`:  `response.PdfSource` **Added**\n* `Client.Costs.GetCostSummary()`:  `response.Unit` **Added**\n* `Client.ExternalReferences.CreateExternalReference()`:  `request.Request` **Changed**\n* `Client.Fees.Delete()`:  `error.Details.Blockers[].Items` **Added**\n* `Client.InvoicesV2.DownloadInvoicePdf()`: **Added**\n* `Client.BillableMetrics.Update()`:  `error` **Changed**\n* `Client.Items.DeleteItem()`: **Removed** (Breaking ⚠️)\n"
