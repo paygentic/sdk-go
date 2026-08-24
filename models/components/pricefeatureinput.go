@@ -9,7 +9,7 @@ import (
 type PriceFeatureInput struct {
 	// The feature to associate with this price
 	FeatureID string `json:"featureId"`
-	// Template for entitlement values when this feature is provisioned
+	// Template for entitlement values when this feature is provisioned. Omit the field to attach the feature without declaring an allowance. An explicit empty object declares an allowance with default values.
 	EntitlementTemplate map[string]any `json:"entitlementTemplate,omitzero"`
 }
 

@@ -57,8 +57,9 @@ func (p *PriceFeatureFeature) GetType() *PriceFeatureType {
 }
 
 type PriceFeature struct {
-	ID                  string               `json:"id"`
-	FeatureID           string               `json:"featureId"`
+	ID        string `json:"id"`
+	FeatureID string `json:"featureId"`
+	// The allowance this price declares for the feature. An empty object where the price attaches the feature without declaring one.
 	EntitlementTemplate map[string]any       `json:"entitlementTemplate"`
 	Feature             *PriceFeatureFeature `json:"feature,omitzero"`
 }

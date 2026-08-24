@@ -8,14 +8,15 @@ import (
 	"time"
 )
 
-// LineItemType - The type of line item. 'discount' line items represent grant discounts with negative subtotal/total amounts.
+// LineItemType - The type of line item. 'discount' and 'adjustment' line items have negative subtotal/total amounts: 'discount' is a grant discount, 'adjustment' is a discount agreed on the subscription.
 type LineItemType string
 
 const (
-	LineItemTypeFee      LineItemType = "fee"
-	LineItemTypeMetered  LineItemType = "metered"
-	LineItemTypeManual   LineItemType = "manual"
-	LineItemTypeDiscount LineItemType = "discount"
+	LineItemTypeFee        LineItemType = "fee"
+	LineItemTypeMetered    LineItemType = "metered"
+	LineItemTypeManual     LineItemType = "manual"
+	LineItemTypeDiscount   LineItemType = "discount"
+	LineItemTypeAdjustment LineItemType = "adjustment"
 )
 
 func (e LineItemType) ToPointer() *LineItemType {
@@ -26,7 +27,7 @@ func (e LineItemType) ToPointer() *LineItemType {
 func (e *LineItemType) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "fee", "metered", "manual", "discount":
+		case "fee", "metered", "manual", "discount", "adjustment":
 			return true
 		}
 	}
@@ -92,7 +93,7 @@ type LineItem struct {
 	ItemID optionalnullable.OptionalNullable[string] `json:"itemId,omitzero"`
 	// The invoice ID if this item has been invoiced
 	InvoiceID optionalnullable.OptionalNullable[string] `json:"invoiceId,omitzero"`
-	// The type of line item. 'discount' line items represent grant discounts with negative subtotal/total amounts.
+	// The type of line item. 'discount' and 'adjustment' line items have negative subtotal/total amounts: 'discount' is a grant discount, 'adjustment' is a discount agreed on the subscription.
 	Type LineItemType `json:"type"`
 	// Whether this item is pending or already on an invoice
 	Status LineItemStatus `json:"status"`
