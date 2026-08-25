@@ -117,6 +117,32 @@ func (e *PdfSource) IsExact() bool {
 	return false
 }
 
+// DocumentWithheldReason - Why no Paygentic-rendered document exists for this invoice, or null when none was withheld. A tax-registered merchant's document is a compliance artefact, so it is withheld unless the recorded tax reconciles with the provider exactly and the registered issuer identity is complete. Non-null therefore always accompanies pdfSource `tax_provider` or null, and never `paygentic`. Use it to tell a withheld document apart from an invoice the tax provider serves by design — both report pdfSource `tax_provider`, but only a withheld one can be repaired by POST /v2/invoices/{id}/generate-pdf. `tax_unreconciled`: the provider's tax figure was never recorded against this invoice. `issuer_identity_incomplete`: the registered legal name, tax ID or address could not be read. `tax_component_unpriceable`: a recorded tax component carried no presentable amount. `ledger_mismatch`: the recorded tax figures and the invoice's own totals disagree. `tax_provider_disagrees`: the provider re-read its filing and reported a different tax to the one this invoice was charged — terminal, because correcting an issued invoice is a credit note's job, so retrying the repair cannot clear it. New values may be added, so treat an unrecognised one as withheld rather than failing.
+type DocumentWithheldReason string
+
+const (
+	DocumentWithheldReasonTaxUnreconciled          DocumentWithheldReason = "tax_unreconciled"
+	DocumentWithheldReasonIssuerIdentityIncomplete DocumentWithheldReason = "issuer_identity_incomplete"
+	DocumentWithheldReasonTaxComponentUnpriceable  DocumentWithheldReason = "tax_component_unpriceable"
+	DocumentWithheldReasonLedgerMismatch           DocumentWithheldReason = "ledger_mismatch"
+	DocumentWithheldReasonTaxProviderDisagrees     DocumentWithheldReason = "tax_provider_disagrees"
+)
+
+func (e DocumentWithheldReason) ToPointer() *DocumentWithheldReason {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *DocumentWithheldReason) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "tax_unreconciled", "issuer_identity_incomplete", "tax_component_unpriceable", "ledger_mismatch", "tax_provider_disagrees":
+			return true
+		}
+	}
+	return false
+}
+
 // InvoiceStatus - The current status of the invoice
 type InvoiceStatus string
 
@@ -274,6 +300,8 @@ type Invoice struct {
 	PdfURL optionalnullable.OptionalNullable[string] `json:"pdfUrl,omitzero"`
 	// Who produced the document at pdfUrl, or null when there is none. `paygentic` means pdfUrl is this API's download endpoint and the request must carry your API key; `tax_provider` means it is the provider's own link, which opens directly in a browser.
 	PdfSource optionalnullable.OptionalNullable[PdfSource] `json:"pdfSource,omitzero"`
+	// Why no Paygentic-rendered document exists for this invoice, or null when none was withheld. A tax-registered merchant's document is a compliance artefact, so it is withheld unless the recorded tax reconciles with the provider exactly and the registered issuer identity is complete. Non-null therefore always accompanies pdfSource `tax_provider` or null, and never `paygentic`. Use it to tell a withheld document apart from an invoice the tax provider serves by design — both report pdfSource `tax_provider`, but only a withheld one can be repaired by POST /v2/invoices/{id}/generate-pdf. `tax_unreconciled`: the provider's tax figure was never recorded against this invoice. `issuer_identity_incomplete`: the registered legal name, tax ID or address could not be read. `tax_component_unpriceable`: a recorded tax component carried no presentable amount. `ledger_mismatch`: the recorded tax figures and the invoice's own totals disagree. `tax_provider_disagrees`: the provider re-read its filing and reported a different tax to the one this invoice was charged — terminal, because correcting an issued invoice is a credit note's job, so retrying the repair cannot clear it. New values may be added, so treat an unrecognised one as withheld rather than failing.
+	DocumentWithheldReason optionalnullable.OptionalNullable[DocumentWithheldReason] `json:"documentWithheldReason,omitzero"`
 	// The end of the billing period
 	PeriodEnd time.Time `json:"periodEnd"`
 	// The start of the billing period
@@ -470,6 +498,13 @@ func (i *Invoice) GetPdfSource() optionalnullable.OptionalNullable[PdfSource] {
 		return nil
 	}
 	return i.PdfSource
+}
+
+func (i *Invoice) GetDocumentWithheldReason() optionalnullable.OptionalNullable[DocumentWithheldReason] {
+	if i == nil {
+		return nil
+	}
+	return i.DocumentWithheldReason
 }
 
 func (i *Invoice) GetPeriodEnd() time.Time {
