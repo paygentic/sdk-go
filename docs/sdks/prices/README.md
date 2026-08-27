@@ -41,15 +41,10 @@ func main() {
     res, err := s.Prices.Create(ctx, operations.CreatePriceRequest{
         InvoiceDisplayName: "<value>",
         PaymentTerm: operations.CreatePricePaymentTermInArrears,
-        Properties: components.CreatePricePropertiesUnionPriceProperties3(
-            components.PriceProperties3{
-                Default: "<value>",
-                Parameters: components.Parameters{
-                    Function: components.FunctionLinear,
-                    Gradient: "<value>",
-                    Max: "<value>",
-                    Min: "<value>",
-                },
+        Properties: components.CreatePricePropertiesDynamicPriceProperties(
+            components.DynamicPriceProperties{
+                MaxPrice: "<value>",
+                MinPrice: "<value>",
             },
         ),
     })
@@ -58,14 +53,14 @@ func main() {
     }
     if res != nil {
         switch res.Properties.Type {
-            case components.PricePropertiesUnionTypePriceProperties1:
-                // res.Properties.PriceProperties1 is populated
-            case components.PricePropertiesUnionTypePriceProperties2:
-                // res.Properties.PriceProperties2 is populated
-            case components.PricePropertiesUnionTypePriceProperties3:
-                // res.Properties.PriceProperties3 is populated
-            case components.PricePropertiesUnionTypePriceProperties4:
-                // res.Properties.PriceProperties4 is populated
+            case components.PricePropertiesTypeStandardPriceProperties:
+                // res.Properties.StandardPriceProperties is populated
+            case components.PricePropertiesTypeDynamicPriceProperties:
+                // res.Properties.DynamicPriceProperties is populated
+            case components.PricePropertiesTypeVolumePriceProperties:
+                // res.Properties.VolumePriceProperties is populated
+            case components.PricePropertiesTypePercentagePriceProperties:
+                // res.Properties.PercentagePriceProperties is populated
             default:
                 // Unknown type - use res.Properties.GetUnknownRaw() for raw JSON
         }
@@ -184,14 +179,14 @@ func main() {
     }
     if res != nil {
         switch res.Properties.Type {
-            case components.PricePropertiesUnionTypePriceProperties1:
-                // res.Properties.PriceProperties1 is populated
-            case components.PricePropertiesUnionTypePriceProperties2:
-                // res.Properties.PriceProperties2 is populated
-            case components.PricePropertiesUnionTypePriceProperties3:
-                // res.Properties.PriceProperties3 is populated
-            case components.PricePropertiesUnionTypePriceProperties4:
-                // res.Properties.PriceProperties4 is populated
+            case components.PricePropertiesTypeStandardPriceProperties:
+                // res.Properties.StandardPriceProperties is populated
+            case components.PricePropertiesTypeDynamicPriceProperties:
+                // res.Properties.DynamicPriceProperties is populated
+            case components.PricePropertiesTypeVolumePriceProperties:
+                // res.Properties.VolumePriceProperties is populated
+            case components.PricePropertiesTypePercentagePriceProperties:
+                // res.Properties.PercentagePriceProperties is populated
             default:
                 // Unknown type - use res.Properties.GetUnknownRaw() for raw JSON
         }
@@ -253,14 +248,14 @@ func main() {
     }
     if res != nil {
         switch res.Properties.Type {
-            case components.PricePropertiesUnionTypePriceProperties1:
-                // res.Properties.PriceProperties1 is populated
-            case components.PricePropertiesUnionTypePriceProperties2:
-                // res.Properties.PriceProperties2 is populated
-            case components.PricePropertiesUnionTypePriceProperties3:
-                // res.Properties.PriceProperties3 is populated
-            case components.PricePropertiesUnionTypePriceProperties4:
-                // res.Properties.PriceProperties4 is populated
+            case components.PricePropertiesTypeStandardPriceProperties:
+                // res.Properties.StandardPriceProperties is populated
+            case components.PricePropertiesTypeDynamicPriceProperties:
+                // res.Properties.DynamicPriceProperties is populated
+            case components.PricePropertiesTypeVolumePriceProperties:
+                // res.Properties.VolumePriceProperties is populated
+            case components.PricePropertiesTypePercentagePriceProperties:
+                // res.Properties.PercentagePriceProperties is populated
             default:
                 // Unknown type - use res.Properties.GetUnknownRaw() for raw JSON
         }
@@ -284,12 +279,13 @@ func main() {
 
 ### Errors
 
-| Error Type                   | Status Code                  | Content Type                 |
-| ---------------------------- | ---------------------------- | ---------------------------- |
-| errors.BadRequest            | 400                          | application/json             |
-| errors.Error                 | 401, 403, 404                | application/json             |
-| errors.Error                 | 500                          | application/json             |
-| errors.PaygenticDefaultError | 4XX, 5XX                     | \*/\*                        |
+| Error Type                      | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| errors.BadRequest               | 400                             | application/json                |
+| errors.Error                    | 401, 403, 404                   | application/json                |
+| errors.UpdatePriceConflictError | 409                             | application/json                |
+| errors.Error                    | 500                             | application/json                |
+| errors.PaygenticDefaultError    | 4XX, 5XX                        | \*/\*                           |
 
 ## Delete
 

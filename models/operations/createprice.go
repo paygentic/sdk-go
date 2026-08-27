@@ -52,7 +52,7 @@ type CreatePriceRequest struct {
 	PaymentTerm CreatePricePaymentTerm `json:"paymentTerm"`
 	// ISO 8601 duration for recurring charges (e.g., 'P1M' for monthly, 'P1Y' for yearly) or 'P0D' for one-time charges. Required for fees, optional for billable metrics. Sample values: 'P0D' for one-time, 'P1M' for monthly recurring, 'P1Y' for yearly recurring
 	BillingCadence optionalnullable.OptionalNullable[string] `json:"billingCadence,omitzero"`
-	Properties     components.PricePropertiesUnion           `json:"properties"`
+	Properties     components.PriceProperties                `json:"properties"`
 	Feature        *components.PriceFeatureInput             `json:"feature,omitzero"`
 	// When true, grants applied to a subscription will discount usage charged by this price. Only supported for standard metered prices.
 	GrantDiscountEnabled *bool `default:"false" json:"grantDiscountEnabled"`
@@ -120,9 +120,9 @@ func (c *CreatePriceRequest) GetBillingCadence() optionalnullable.OptionalNullab
 	return c.BillingCadence
 }
 
-func (c *CreatePriceRequest) GetProperties() components.PricePropertiesUnion {
+func (c *CreatePriceRequest) GetProperties() components.PriceProperties {
 	if c == nil {
-		return components.PricePropertiesUnion{}
+		return components.PriceProperties{}
 	}
 	return c.Properties
 }

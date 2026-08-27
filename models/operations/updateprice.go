@@ -45,8 +45,8 @@ type UpdatePriceRequestBody struct {
 	// Updated invoice line item label. Sample values: 'LLM Token Usage', 'Storage Charges', 'API Call Fees'
 	InvoiceDisplayName *string `json:"invoiceDisplayName,omitzero"`
 	// The pricing model to set. Only 'standard' is accepted. Legacy 'dynamic'/'volume'/'percentage' prices can still be edited (other fields) but cannot be switched to those models. Percentage/revenue-share is expressed via 'standard' with a unit-price multiplier.
-	Model      *components.PriceModelInput      `json:"model,omitzero"`
-	Properties *components.PricePropertiesUnion `json:"properties,omitzero"`
+	Model      *components.PriceModelInput `json:"model,omitzero"`
+	Properties *components.PriceProperties `json:"properties,omitzero"`
 	// Billing timing preference: 'in_advance' (prepaid — charged upfront or drawn from a prepaid commitment) or 'in_arrears' (charged at period end).
 	PaymentTerm *UpdatePricePaymentTerm `json:"paymentTerm,omitzero"`
 	// ISO 8601 duration for recurring fees (e.g., 'P1M' for monthly, 'P1Y' for yearly, or 'P0D' for one-time)
@@ -98,7 +98,7 @@ func (u *UpdatePriceRequestBody) GetModel() *components.PriceModelInput {
 	return u.Model
 }
 
-func (u *UpdatePriceRequestBody) GetProperties() *components.PricePropertiesUnion {
+func (u *UpdatePriceRequestBody) GetProperties() *components.PriceProperties {
 	if u == nil {
 		return nil
 	}
@@ -158,4 +158,42 @@ func (u *UpdatePriceRequest) GetBody() UpdatePriceRequestBody {
 		return UpdatePriceRequestBody{}
 	}
 	return u.Body
+}
+
+type UpdatePriceDetails struct {
+	PriceID           *string  `json:"priceId,omitzero"`
+	Fields            []string `json:"fields,omitzero"`
+	SubscriptionCount *int64   `json:"subscriptionCount,omitzero"`
+}
+
+func (u UpdatePriceDetails) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(u, "", false)
+}
+
+func (u *UpdatePriceDetails) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &u, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *UpdatePriceDetails) GetPriceID() *string {
+	if u == nil {
+		return nil
+	}
+	return u.PriceID
+}
+
+func (u *UpdatePriceDetails) GetFields() []string {
+	if u == nil {
+		return nil
+	}
+	return u.Fields
+}
+
+func (u *UpdatePriceDetails) GetSubscriptionCount() *int64 {
+	if u == nil {
+		return nil
+	}
+	return u.SubscriptionCount
 }

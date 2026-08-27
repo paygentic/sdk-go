@@ -74,7 +74,7 @@ type SchemasPrice struct {
 	// Pricing model of a price as returned by the API. Includes legacy models ('dynamic', 'volume', 'percentage') retained for existing prices; only 'standard' can be created (see PriceModelInput).
 	Model       *PriceModel             `json:"model,omitzero"`
 	PaymentTerm SchemasPricePaymentTerm `json:"paymentTerm"`
-	Properties  PricePropertiesUnion    `json:"properties"`
+	Properties  PriceProperties         `json:"properties"`
 	UpdatedAt   time.Time               `json:"updatedAt"`
 	// Features associated with this price
 	Features []PriceFeature `json:"features,omitzero"`
@@ -172,9 +172,9 @@ func (s *SchemasPrice) GetPaymentTerm() SchemasPricePaymentTerm {
 	return s.PaymentTerm
 }
 
-func (s *SchemasPrice) GetProperties() PricePropertiesUnion {
+func (s *SchemasPrice) GetProperties() PriceProperties {
 	if s == nil {
-		return PricePropertiesUnion{}
+		return PriceProperties{}
 	}
 	return s.Properties
 }
