@@ -71,7 +71,7 @@ type SchemasPrice struct {
 	BillingCadence     optionalnullable.OptionalNullable[string] `json:"billingCadence,omitzero"`
 	CreatedAt          time.Time                                 `json:"createdAt"`
 	InvoiceDisplayName string                                    `json:"invoiceDisplayName"`
-	// Pricing model of a price as returned by the API. Includes legacy models ('dynamic', 'volume', 'percentage') retained for existing prices; only 'standard' can be created (see PriceModelInput).
+	// Pricing model of a price as returned by the API. Includes the legacy models ('dynamic', 'percentage') retained for existing prices; 'standard' and 'volume' can be created (see PriceModelInput).
 	Model       *PriceModel             `json:"model,omitzero"`
 	PaymentTerm SchemasPricePaymentTerm `json:"paymentTerm"`
 	Properties  PriceProperties         `json:"properties"`
@@ -80,6 +80,8 @@ type SchemasPrice struct {
 	Features []PriceFeature `json:"features,omitzero"`
 	// When true, grants applied to a subscription will discount usage charged by this price. Only supported for standard metered prices.
 	GrantDiscountEnabled *bool `default:"false" json:"grantDiscountEnabled"`
+	// A fixed amount owed whole rather than a per-period rate. An obligation is not prorated over a partial first period: when a subscription starts before its billing anchor, no truncated stub is billed and the first charge is the full amount at the next anchor. An obligation also refuses an interval boundary that falls strictly inside one of its own billing periods, since part of an amount owed whole is not a thing to bill. Defaults to false, which is a rate and is today's behaviour for every price. Not supported on a metered price, whose amount resolves from usage at close.
+	IsObligation *bool `default:"false" json:"isObligation"`
 	// Quantity for invoice line items. Total per period = quantity × unitPrice. Only supported for fee prices; metered prices derive quantity from usage. Defaults to 1.
 	Quantity int64 `json:"quantity"`
 }
@@ -198,6 +200,13 @@ func (s *SchemasPrice) GetGrantDiscountEnabled() *bool {
 		return nil
 	}
 	return s.GrantDiscountEnabled
+}
+
+func (s *SchemasPrice) GetIsObligation() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.IsObligation
 }
 
 func (s *SchemasPrice) GetQuantity() int64 {

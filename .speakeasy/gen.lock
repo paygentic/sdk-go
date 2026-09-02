@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 5f9f8092-429e-454b-8c55-a2d2d1508328
 management:
-  docChecksum: 8746c9375b98e989d2ca1ac31f62dbaf
+  docChecksum: 213ddee729506a346ac85873e7ed7805
   docVersion: 0.1.0
-  speakeasyVersion: 1.796.1
-  generationVersion: 2.933.0
-  releaseVersion: 0.5.4
-  configChecksum: 680e18301ee5cbe9c6290bec0695deb1
+  speakeasyVersion: 1.796.3
+  generationVersion: 2.934.1
+  releaseVersion: 0.5.5
+  configChecksum: ef37c90ed05d63f5a6f2d49de3414a86
   repoURL: https://github.com/paygentic/sdk-go.git
   installationURL: https://github.com/paygentic/sdk-go
 persistentEdits:
-  generation_id: f342a50f-b980-49bd-bcb8-232e05f5e8f2
-  pristine_commit_hash: e93c9471dca7302624e5e2367be2a4c69aea7408
-  pristine_tree_hash: e3fc8518ffb982af8197de313b404ed4a97d5135
+  generation_id: 1e2597fa-096e-401b-a351-7eaaa516c2b1
+  pristine_commit_hash: 4952b1a1fbcdf35d233a537504668fdae4db9a29
+  pristine_tree_hash: b1153dc8420c297bf5ddb9dcfcc74d72ae5452bc
 features:
   go:
     additionalDependencies: 0.1.0
@@ -62,8 +62,8 @@ trackedFiles:
     pristine_git_object: d0855dc266a1838082f8ac4aca63bbaa304341ab
   client.go:
     id: d633516feaf9
-    last_write_checksum: sha1:3e9e4a12a7d90c53f6e81365efa453990b881705
-    pristine_git_object: bf5ccafb158b5dcc6e055e47f9eaa3ff4626cea9
+    last_write_checksum: sha1:75f04128524a91b5f291682aaee2b24eb0d01b80
+    pristine_git_object: 1e750f10ca9d63dcc96de313e32492d1ea3e6a25
   costs.go:
     id: 247b6e6ecaf3
     last_write_checksum: sha1:6a0c8cf65c575073eba23dfb3b2f8e5044013500
@@ -702,8 +702,8 @@ trackedFiles:
     pristine_git_object: a027cab2a91ca46cbf7ed39bfa0effd0aa73fedf
   docs/models/components/planversionpriceslot.md:
     id: da5e0cf24805
-    last_write_checksum: sha1:68ebfc12919c1a889c33ba1c0bd02c162d87ae00
-    pristine_git_object: 5e693890cda91e56b2bab5e02619150b9ffbf426
+    last_write_checksum: sha1:a5786edf1ea2c5be56768da200946a33a876c145
+    pristine_git_object: c151b986daf88881cd89de3e5a5aa2c7f7f4aa14
   docs/models/components/planversionpriceslotmodel.md:
     id: a9f2ea238a5d
     last_write_checksum: sha1:5e5b20701b399b876c38792587c5fafabd8290a5
@@ -734,8 +734,8 @@ trackedFiles:
     pristine_git_object: b2143169f9a703586f758c6fb887d369f13511a6
   docs/models/components/price.md:
     id: d3b8618112be
-    last_write_checksum: sha1:99e582b069d9908c7d28c61e3c9b069a5c1f897f
-    pristine_git_object: e4cc647a42ae25dba3c7c9ee90a7a5032025250d
+    last_write_checksum: sha1:de40a1d478f22f018fc84d1beb620d71dca4f6cd
+    pristine_git_object: a3cfe6c9df99148a63193f97e2bbfb61c89004e1
   docs/models/components/pricefeature.md:
     id: 6a762a1e9e91
     last_write_checksum: sha1:36da44d9cf96ec1c3a772e2bd8d6ad2bc31acbb4
@@ -754,16 +754,16 @@ trackedFiles:
     pristine_git_object: 5662396abc8a8a70295c04877df22bb36fd3c688
   docs/models/components/pricemodel.md:
     id: 31ac9e7c668b
-    last_write_checksum: sha1:8e4e2bacf894e4e3df0c92bf62f3a0c3a5af4b61
-    pristine_git_object: b0aaed554e8dff8ae00890f021b62dde9e373941
+    last_write_checksum: sha1:de7b4073b9f84b49fa971f6f1fb31e4cf142008b
+    pristine_git_object: 059279c4ea8684bb6941833adabe66baec05ee5a
   docs/models/components/pricemodel1.md:
     id: 5a54894a5325
     last_write_checksum: sha1:b6d66dc9794da6c0f5871129f11d959ade2d7188
     pristine_git_object: 83b0a88abda8d4c62a97de82eb3eff1763edfb6e
   docs/models/components/pricemodelinput.md:
     id: 39390afdf0d5
-    last_write_checksum: sha1:365a45b25175c7209d75c02c473ec92ec3cd8a51
-    pristine_git_object: a75ffc53b3b3c4e454cc4c679879f5317401d3fa
+    last_write_checksum: sha1:adc09aa10a89789142a519aae04e4c14d6fa6af3
+    pristine_git_object: 34e5b00f0f8a0d6f5e2bf0dba3d7e9148c7de6b9
   docs/models/components/priceobject.md:
     id: c4d2e4d3465c
     last_write_checksum: sha1:7093d4c76b1ba294e4461c71cf6d3ba61f6cb7a7
@@ -966,8 +966,8 @@ trackedFiles:
     pristine_git_object: 310747c07d87a385c7844989394551258679d5bd
   docs/models/components/schemasprice.md:
     id: 90047d00e532
-    last_write_checksum: sha1:48161cfe8165572946a7abf199eb1fe7cc804fc9
-    pristine_git_object: 2ed86cdb65c3e3fe817fb5c96bb0c47976374547
+    last_write_checksum: sha1:6dcb61f96e4a002587de499dc33f6c401984fb05
+    pristine_git_object: d4135378f5f966e605e134a1d05b7df08ec5fc13
   docs/models/components/schemaspriceobject.md:
     id: 7eba89f14f4e
     last_write_checksum: sha1:93d78a38250af1bc65718da918d9dec0196ba815
@@ -1402,8 +1402,8 @@ trackedFiles:
     pristine_git_object: a4da90d4756674e5a5cf487dbedb0fab17bb9af4
   docs/models/operations/createpricerequest.md:
     id: d62e88e82e5f
-    last_write_checksum: sha1:90c644fe41c78cc358c538ee484f38a8fe4da9a3
-    pristine_git_object: e35fbd82e47d6367af5397cf3657fd51d0591b3d
+    last_write_checksum: sha1:fa8054314ef1706246fa234ea7fe090e313e1967
+    pristine_git_object: 62cce11f79c75c18b4aaa685f199392c054e496f
   docs/models/operations/createproductrequest.md:
     id: 8d6e174e41cf
     last_write_checksum: sha1:906f9d75d5dc9fdaa337bf6d639adc8f43d65596
@@ -2302,8 +2302,8 @@ trackedFiles:
     pristine_git_object: 56675fc2df74384d7d36e3c1eb6f6c291578dfc1
   docs/models/operations/updatepricerequestbody.md:
     id: 096563363bd9
-    last_write_checksum: sha1:50b908f5a22e071d780790e98b22024727d94fce
-    pristine_git_object: ab28ea7e6412351ed912f8e354c3b4e86a0f8f5d
+    last_write_checksum: sha1:eb73c875744b5dd4abacf5f1b52787e5f140f1ca
+    pristine_git_object: 447c1e0d5620b736a0a8f82f12ecf77b2880b31f
   docs/models/operations/updateproductrequest.md:
     id: 850e8c5e79d0
     last_write_checksum: sha1:3abd09258ede540c390ea2a02041a9d48063f9e0
@@ -2862,16 +2862,16 @@ trackedFiles:
     pristine_git_object: 63df7f354188237a3662bba04988fca942268c22
   models/components/planversionpriceslot.go:
     id: 4bdbadb5df2a
-    last_write_checksum: sha1:ac6cce8cb165d96bc62116c672cfb70f4e45675e
-    pristine_git_object: da7c38864f6da3e44e77d6ec1bf92e49a4557e31
+    last_write_checksum: sha1:8cb16046d4c2d9cd326d567e601813693d717079
+    pristine_git_object: 5568a4ca00334d4aaf2faf4b6cd4ff8022358a21
   models/components/planversionsummary.go:
     id: 29836b89dbb8
     last_write_checksum: sha1:8fac493c721b92f9aea8cd828991f4a52410cf3e
     pristine_git_object: d6eb171bc8c9be58711ea4c1bc41818180263bfb
   models/components/price.go:
     id: c16ae24caea8
-    last_write_checksum: sha1:9b93e39660361b85dc13589986646d1a7eb0072a
-    pristine_git_object: 107b0db0e9e3766db0c5e5d72a35b1af42c60c4b
+    last_write_checksum: sha1:4b650fdf7a4acbf91bcf4d3ad693d8e1775f9b29
+    pristine_git_object: 080c9238adeddb3368f7a8e2d08659b84c1a9ca6
   models/components/pricefeature.go:
     id: 6f64db0132e5
     last_write_checksum: sha1:0e30f83660a01f37f9c0ab2382b1c9cbc84d1cc8
@@ -2882,12 +2882,12 @@ trackedFiles:
     pristine_git_object: faa1d0e4dde57924de41942759571702f020b428
   models/components/pricemodel.go:
     id: fc8d636842db
-    last_write_checksum: sha1:a0204d3bb41fb7d1c247995e9fd0db88f00caab2
-    pristine_git_object: 94fa306482a5a31ff6fe620275b1ecbf2c9e3910
+    last_write_checksum: sha1:3d6a28b969a0ac57a3e59114135b1db93d5699a5
+    pristine_git_object: 3a3db7a96a58a498e994195930495f71fbc204f8
   models/components/pricemodelinput.go:
     id: ae61aded053d
-    last_write_checksum: sha1:4a6431b8cb864ffa5926340b11e990067ef97415
-    pristine_git_object: c809c6a90b5132a4c5c2e853243aa371dda95aae
+    last_write_checksum: sha1:996860840c29ff6fa41cdd3709a472676a27a2ed
+    pristine_git_object: cfd4f6c5325538860229284a64f928c34f6f253e
   models/components/priceproperties.go:
     id: 0c0a85daa04b
     last_write_checksum: sha1:60431c9415e7a7633fc031d75973fcfc2a4c52cd
@@ -2974,8 +2974,8 @@ trackedFiles:
     pristine_git_object: e3bf20c27cc83a9b0e21675ad748106dab58822d
   models/components/schemasprice.go:
     id: b02cf88fd0a8
-    last_write_checksum: sha1:9b58b5a44f4993c3bd145433e158ad29a06a69d3
-    pristine_git_object: 349d36a0717e3cd646de259c3907de91c81e5d40
+    last_write_checksum: sha1:e642ac2b297d86c4604bb703ec8a2768a4744355
+    pristine_git_object: 3a3bc1cb56678db28dbccab3d74f69d50bc7e42b
   models/components/security.go:
     id: 3a5eba5fe9e0
     last_write_checksum: sha1:33305dc6794e4a887192e240d6cbb393cbb81d75
@@ -3178,8 +3178,8 @@ trackedFiles:
     pristine_git_object: e5ce68a737d735ab2e6072ef5c7a2f05c38e6a21
   models/operations/createprice.go:
     id: d0e889823ae6
-    last_write_checksum: sha1:ab853f34eaeb4c2b5fbc850cbea3a1cd5dec63bf
-    pristine_git_object: e18af3ccd32fc376b07526d2cc337fb5ae412009
+    last_write_checksum: sha1:e982801dc50b0df4e7278dfe767e303d9b5b9167
+    pristine_git_object: b69ea1f53e2937695b8ff091221b05ff5e0c39fa
   models/operations/createproduct.go:
     id: d3138b30305f
     last_write_checksum: sha1:c49e7c5142e1335979766915ec512145d87d5131
@@ -3606,8 +3606,8 @@ trackedFiles:
     pristine_git_object: e79f6574fa1f038db9e53f6d5d8e4c3cfad6d81f
   models/operations/updateprice.go:
     id: 8332940468a5
-    last_write_checksum: sha1:a172b52dc2244ce92e6d8edd5443cb8067b8df66
-    pristine_git_object: 71b80749f9209b62583b86c7580e4b543c491176
+    last_write_checksum: sha1:3fcb2dbc6be6b8daf2246faff7f9db83a19c84de
+    pristine_git_object: 75b5e4399e03f5476d230f20d13dff97a26a2e6d
   models/operations/updateproduct.go:
     id: eb3ba2bfec26
     last_write_checksum: sha1:88d50361e87e35d02584f1b36f90925fe79c94b1
@@ -4454,10 +4454,10 @@ examples:
   createPrice:
     speakeasy-default-create-price:
       requestBody:
-        application/json: {"invoiceDisplayName": "<value>", "paymentTerm": "in_arrears", "properties": {"maxPrice": "<value>", "minPrice": "<value>"}, "grantDiscountEnabled": false}
+        application/json: {"invoiceDisplayName": "<value>", "paymentTerm": "in_arrears", "properties": {"maxPrice": "<value>", "minPrice": "<value>"}, "grantDiscountEnabled": false, "isObligation": false}
       responses:
         "201":
-          application/json: {"id": "<id>", "object": "price", "merchantId": "<id>", "createdAt": "2026-10-05T13:07:49.806Z", "invoiceDisplayName": "<value>", "paymentTerm": "in_advance", "properties": {"maxCharge": "<value>", "minCharge": "<value>", "percentage": "<value>"}, "updatedAt": "2024-01-14T15:09:30.569Z", "grantDiscountEnabled": false, "quantity": 252475}
+          application/json: {"id": "<id>", "object": "price", "merchantId": "<id>", "createdAt": "2026-10-05T13:07:49.806Z", "invoiceDisplayName": "<value>", "paymentTerm": "in_advance", "properties": {"maxCharge": "<value>", "minCharge": "<value>", "percentage": "<value>"}, "updatedAt": "2024-01-14T15:09:30.569Z", "grantDiscountEnabled": false, "isObligation": false, "quantity": 252475}
         "400":
           application/json: {"error": "not_found", "message": "The requested resource was not found"}
         "401":
@@ -4486,7 +4486,7 @@ examples:
           id: "<id>"
       responses:
         "200":
-          application/json: {"id": "<id>", "object": "price", "merchantId": "<id>", "createdAt": "2024-11-21T10:08:56.515Z", "invoiceDisplayName": "<value>", "paymentTerm": "in_arrears", "properties": {"maxCharge": "<value>", "minCharge": "<value>", "percentage": "<value>"}, "updatedAt": "2025-07-08T01:37:23.087Z", "grantDiscountEnabled": false, "quantity": 296918}
+          application/json: {"id": "<id>", "object": "price", "merchantId": "<id>", "createdAt": "2024-11-21T10:08:56.515Z", "invoiceDisplayName": "<value>", "paymentTerm": "in_arrears", "properties": {"maxCharge": "<value>", "minCharge": "<value>", "percentage": "<value>"}, "updatedAt": "2025-07-08T01:37:23.087Z", "grantDiscountEnabled": false, "isObligation": false, "quantity": 296918}
         "400":
           application/json: {"error": "not_found", "message": "The requested resource was not found"}
         "401":
@@ -4502,7 +4502,7 @@ examples:
         application/json: {}
       responses:
         "200":
-          application/json: {"id": "<id>", "object": "price", "merchantId": "<id>", "createdAt": "2025-11-06T18:08:04.065Z", "invoiceDisplayName": "<value>", "paymentTerm": "in_advance", "properties": {"maxCharge": "<value>", "minCharge": "<value>", "percentage": "<value>"}, "updatedAt": "2026-06-07T02:13:50.582Z", "grantDiscountEnabled": false, "quantity": 616565}
+          application/json: {"id": "<id>", "object": "price", "merchantId": "<id>", "createdAt": "2025-11-06T18:08:04.065Z", "invoiceDisplayName": "<value>", "paymentTerm": "in_advance", "properties": {"maxCharge": "<value>", "minCharge": "<value>", "percentage": "<value>"}, "updatedAt": "2026-06-07T02:13:50.582Z", "grantDiscountEnabled": false, "isObligation": false, "quantity": 616565}
         "400":
           application/json: {"error": "not_found", "message": "The requested resource was not found"}
         "401":
@@ -5966,7 +5966,7 @@ examples:
           versionNumber: 541574
       responses:
         "200":
-          application/json: {"id": "<id>", "object": "plan_version", "versionNumber": 969073, "status": "archived", "isDefault": true, "subscriptionCount": 265555, "updatedAt": "2026-12-13T23:04:42.440Z", "prices": [{"id": "<id>", "object": "price", "merchantId": "<id>", "createdAt": "2025-02-20T18:42:50.017Z", "invoiceDisplayName": "<value>", "model": "dynamic", "paymentTerm": "in_advance", "properties": {"key": "<value>"}, "updatedAt": "2024-10-10T06:17:20.359Z", "grantDiscountEnabled": false, "quantity": 1, "priceDeleted": true}]}
+          application/json: {"id": "<id>", "object": "plan_version", "versionNumber": 969073, "status": "archived", "isDefault": true, "subscriptionCount": 265555, "updatedAt": "2026-12-13T23:04:42.440Z", "prices": [{"id": "<id>", "object": "price", "merchantId": "<id>", "createdAt": "2025-02-20T18:42:50.017Z", "invoiceDisplayName": "<value>", "model": "dynamic", "paymentTerm": "in_advance", "properties": {"key": "<value>"}, "updatedAt": "2024-10-10T06:17:20.359Z", "grantDiscountEnabled": false, "isObligation": false, "quantity": 1, "priceDeleted": true}]}
         "400":
           application/json: {"error": "not_found", "message": "The requested resource was not found"}
         "401":
@@ -6202,4 +6202,4 @@ generatedTests:
   downloadInvoicePdf: "2026-08-18T13:02:38Z"
   listSubscriptionAdjustments: "2026-08-27T22:45:49Z"
   createSubscriptionAdjustment: "2026-08-27T22:45:49Z"
-releaseNotes: "## Go SDK Changes:\n* `Client.Prices.Create()`: \n  *  `request.Request.Properties` **Changed** (Breaking ⚠️)\n  *  `response.Properties` **Changed** (Breaking ⚠️)\n* `Client.Prices.List()`:  `response.Data[].Properties` **Changed** (Breaking ⚠️)\n* `Client.Prices.Get()`:  `response.Properties` **Changed** (Breaking ⚠️)\n* `Client.Prices.Update()`: \n  *  `request.Body.Properties` **Changed** (Breaking ⚠️)\n  *  `response.Properties` **Changed** (Breaking ⚠️)\n  *  `error.status[409]` **Added**\n* `Client.Subscriptions.ListSubscriptionAdjustments()`: **Added**\n* `Client.Subscriptions.CreateSubscriptionAdjustment()`: **Added**\n* `Client.Subscriptions.DeleteSubscriptionAdjustment()`: **Added**\n"
+releaseNotes: "## Go SDK Changes:\n* `Client.Plans.Create()`:  `response.Prices[].IsObligation` **Added**\n* `Client.Plans.List()`:  `response.Data[].Prices[].IsObligation` **Added**\n* `Client.Plans.ListAvailable()`:  `response.Data[].Prices[].IsObligation` **Added**\n* `Client.Plans.Get()`:  `response.Prices[].IsObligation` **Added**\n* `Client.Plans.Update()`:  `response.Prices[].IsObligation` **Added**\n* `Client.Plans.MintPlanVersion()`:  `response.Prices[].IsObligation` **Added**\n* `Client.Plans.GetPlanVersion()`:  `response.Prices[].IsObligation` **Added**\n* `Client.Plans.TransitionPlanVersion()`:  `response.Prices[].IsObligation` **Added**\n* `Client.Prices.Create()`: \n  *  `request.Request` **Changed**\n  *  `response.IsObligation` **Added**\n* `Client.Prices.List()`:  `response.Data[].IsObligation` **Added**\n* `Client.Prices.Get()`:  `response.IsObligation` **Added**\n* `Client.Prices.Update()`: \n  *  `request.Body` **Changed**\n  *  `response.IsObligation` **Added**\n"

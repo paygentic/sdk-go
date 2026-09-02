@@ -103,6 +103,8 @@ type Price struct {
 	Features []PriceFeature `json:"features,omitzero"`
 	// When true, grants applied to a subscription will discount usage charged by this price. Only supported for standard metered prices.
 	GrantDiscountEnabled *bool `default:"false" json:"grantDiscountEnabled"`
+	// A fixed amount owed whole rather than a per-period rate. An obligation is not prorated over a partial first period: when a subscription starts before its billing anchor, no truncated stub is billed and the first charge is the full amount at the next anchor. An obligation also refuses an interval boundary that falls strictly inside one of its own billing periods, since part of an amount owed whole is not a thing to bill. Defaults to false, which is a rate and is today's behaviour for every price. Not supported on a metered price, whose amount resolves from usage at close.
+	IsObligation *bool `default:"false" json:"isObligation"`
 	// Quantity used when generating invoice line items for this price. Total per period = quantity × unitPrice. Only supported for fee prices; metered prices derive quantity from usage. Defaults to 1.
 	Quantity *int64 `default:"1" json:"quantity"`
 }
@@ -235,6 +237,13 @@ func (p *Price) GetGrantDiscountEnabled() *bool {
 		return nil
 	}
 	return p.GrantDiscountEnabled
+}
+
+func (p *Price) GetIsObligation() *bool {
+	if p == nil {
+		return nil
+	}
+	return p.IsObligation
 }
 
 func (p *Price) GetQuantity() *int64 {
