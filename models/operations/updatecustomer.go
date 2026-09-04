@@ -41,7 +41,14 @@ func CreateTaxRatesMapOfTaxRates(mapOfTaxRates map[string]float64) TaxRates {
 	}
 }
 
-func (u *TaxRates) UnmarshalJSON(data []byte) error {
+func (u *TaxRates) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = TaxRates{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 

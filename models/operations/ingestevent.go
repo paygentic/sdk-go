@@ -237,7 +237,14 @@ func CreateIngestEventRequestIngestEventRequestBody2(ingestEventRequestBody2 Ing
 	}
 }
 
-func (u *IngestEventRequest) UnmarshalJSON(data []byte) error {
+func (u *IngestEventRequest) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = IngestEventRequest{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 

@@ -214,6 +214,7 @@ func (u CreateCustomerResponse) IsUnknown() bool {
 }
 
 func (u *CreateCustomerResponse) UnmarshalJSON(data []byte) error {
+	*u = CreateCustomerResponse{}
 
 	var candidates []utils.UnionCandidate
 

@@ -1409,10 +1409,17 @@ func (s *InvoicesV2) DownloadInvoicePdf(ctx context.Context, id string, opts ...
 		timeout = s.sdkConfiguration.Timeout
 	}
 
+	var streamCancel context.CancelFunc
+
 	if timeout != nil {
 		var cancel context.CancelFunc
 		ctx, cancel = context.WithTimeout(ctx, *timeout)
-		defer cancel()
+		streamCancel = cancel
+		defer func() {
+			if streamCancel != nil {
+				streamCancel()
+			}
+		}()
 	}
 
 	req, err := http.NewRequestWithContext(ctx, "GET", opURL, nil)
@@ -1525,6 +1532,8 @@ func (s *InvoicesV2) DownloadInvoicePdf(ctx context.Context, id string, opts ...
 	case httpRes.StatusCode == 200:
 		switch {
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/pdf`):
+			httpRes.Body = utils.BodyWithCancel(httpRes.Body, streamCancel)
+			streamCancel = nil
 			return httpRes.Body, nil
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)

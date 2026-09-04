@@ -70,7 +70,14 @@ func (u EntitlementListItem) IsUnknown() bool {
 	return u.Type == EntitlementListItemTypeUnknown
 }
 
-func (u *EntitlementListItem) UnmarshalJSON(data []byte) error {
+func (u *EntitlementListItem) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = EntitlementListItem{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	type discriminator struct {
 		FeatureType string `json:"featureType"`

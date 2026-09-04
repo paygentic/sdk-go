@@ -110,6 +110,7 @@ func (u From) IsUnknown() bool {
 }
 
 func (u *From) UnmarshalJSON(data []byte) error {
+	*u = From{}
 
 	var candidates []utils.UnionCandidate
 
@@ -225,6 +226,7 @@ func (u To) IsUnknown() bool {
 }
 
 func (u *To) UnmarshalJSON(data []byte) error {
+	*u = To{}
 
 	var candidates []utils.UnionCandidate
 
@@ -382,6 +384,7 @@ func (u ValueUnion) IsUnknown() bool {
 }
 
 func (u *ValueUnion) UnmarshalJSON(data []byte) error {
+	*u = ValueUnion{}
 
 	var candidates []utils.UnionCandidate
 

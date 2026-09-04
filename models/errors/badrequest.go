@@ -61,6 +61,7 @@ func (u BadRequest) IsUnknown() bool {
 }
 
 func (u *BadRequest) UnmarshalJSON(data []byte) error {
+	*u = BadRequest{}
 
 	var candidates []utils.UnionCandidate
 

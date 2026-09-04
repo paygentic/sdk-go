@@ -3,7 +3,9 @@
 package components
 
 import (
+	"github.com/paygentic/sdk-go/internal/utils"
 	"github.com/paygentic/sdk-go/optionalnullable"
+	"time"
 )
 
 // EventType - Type of event: 'usage' for billable metric events, 'fee' for fee events, 'discount' for grant discount line items (subtotal/total are negative, representing a credit)
@@ -24,6 +26,29 @@ func (e *EventType) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "usage", "fee", "discount":
+			return true
+		}
+	}
+	return false
+}
+
+// InvoiceLineItemPaymentTerm - When this line falls due relative to the window it covers: `in_advance` at the window's start, `in_arrears` at its end. A metered line is stamped `in_arrears`, because usage is only known once the window closes — but metered rows written before that rule carry `null` and were never backfilled, so do not read a metered line's term as guaranteed. `null` also means the line is not billed on a term of its own: manual, grant-discount and adjustment lines carry no term, and an adjustment instead falls due with the charge it reduces. Treat `null` as an expected value on any line type, not an error.
+type InvoiceLineItemPaymentTerm string
+
+const (
+	InvoiceLineItemPaymentTermInAdvance InvoiceLineItemPaymentTerm = "in_advance"
+	InvoiceLineItemPaymentTermInArrears InvoiceLineItemPaymentTerm = "in_arrears"
+)
+
+func (e InvoiceLineItemPaymentTerm) ToPointer() *InvoiceLineItemPaymentTerm {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InvoiceLineItemPaymentTerm) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "in_advance", "in_arrears":
 			return true
 		}
 	}
@@ -66,6 +91,12 @@ type InvoiceLineItem struct {
 	ItemID optionalnullable.OptionalNullable[string] `json:"itemId,omitzero"`
 	// The price this line was generated from, or `null` when the line has no originating charge. With `itemId` it says whether a missing tag is fixable: `priceId` set and `itemId` null means the charge was simply untagged, which tagging it and restamping resolves; both null means the line records a grant-credit purchase, which is deferred revenue and is never tagged. Any measure of outstanding mapping work must exclude the latter or it can never reach zero.
 	PriceID optionalnullable.OptionalNullable[string] `json:"priceId,omitzero"`
+	// Start of the billed window this line covers, inclusive. Distinct from the invoice's own period, which is the union of its lines' windows (earliest start to latest end) and so covers time no single line bills on a mixed-timing invoice.
+	PeriodStart *time.Time `json:"periodStart,omitzero"`
+	// End of the billed window this line covers, exclusive — the instant at `periodEnd` belongs to the next window. Equal to `periodStart` on a one-off charge, which bills at an instant and has no period grid.
+	PeriodEnd *time.Time `json:"periodEnd,omitzero"`
+	// When this line falls due relative to the window it covers: `in_advance` at the window's start, `in_arrears` at its end. A metered line is stamped `in_arrears`, because usage is only known once the window closes — but metered rows written before that rule carry `null` and were never backfilled, so do not read a metered line's term as guaranteed. `null` also means the line is not billed on a term of its own: manual, grant-discount and adjustment lines carry no term, and an adjustment instead falls due with the charge it reduces. Treat `null` as an expected value on any line type, not an error.
+	PaymentTerm optionalnullable.OptionalNullable[InvoiceLineItemPaymentTerm] `json:"paymentTerm,omitzero"`
 	// Display name for this line item on invoices
 	InvoiceDisplayName string `json:"invoiceDisplayName"`
 	// Type of line item: 'charge' for regular billing, 'refund' for refunded items (amounts are negated)
@@ -90,6 +121,17 @@ type InvoiceLineItem struct {
 	TotalTax string `json:"totalTax"`
 	// Unit price in decimal dollars
 	UnitPrice string `json:"unitPrice"`
+}
+
+func (i InvoiceLineItem) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InvoiceLineItem) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (i *InvoiceLineItem) GetEventType() EventType {
@@ -132,6 +174,27 @@ func (i *InvoiceLineItem) GetPriceID() optionalnullable.OptionalNullable[string]
 		return nil
 	}
 	return i.PriceID
+}
+
+func (i *InvoiceLineItem) GetPeriodStart() *time.Time {
+	if i == nil {
+		return nil
+	}
+	return i.PeriodStart
+}
+
+func (i *InvoiceLineItem) GetPeriodEnd() *time.Time {
+	if i == nil {
+		return nil
+	}
+	return i.PeriodEnd
+}
+
+func (i *InvoiceLineItem) GetPaymentTerm() optionalnullable.OptionalNullable[InvoiceLineItemPaymentTerm] {
+	if i == nil {
+		return nil
+	}
+	return i.PaymentTerm
 }
 
 func (i *InvoiceLineItem) GetInvoiceDisplayName() string {

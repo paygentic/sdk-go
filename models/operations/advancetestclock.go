@@ -93,7 +93,14 @@ func CreateAdvanceTestClockRequestBodyAdvanceTestClockRequestBody2(advanceTestCl
 	}
 }
 
-func (u *AdvanceTestClockRequestBody) UnmarshalJSON(data []byte) error {
+func (u *AdvanceTestClockRequestBody) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = AdvanceTestClockRequestBody{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	var candidates []utils.UnionCandidate
 

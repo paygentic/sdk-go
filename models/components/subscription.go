@@ -274,7 +274,14 @@ func (u PaymentUnion) IsUnknown() bool {
 	return u.Type == PaymentUnionTypeUnknown
 }
 
-func (u *PaymentUnion) UnmarshalJSON(data []byte) error {
+func (u *PaymentUnion) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = PaymentUnion{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	type discriminator struct {
 		Status string `json:"status"`

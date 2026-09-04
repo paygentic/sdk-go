@@ -235,6 +235,7 @@ func (u PriceProperties) IsUnknown() bool {
 }
 
 func (u *PriceProperties) UnmarshalJSON(data []byte) error {
+	*u = PriceProperties{}
 
 	var candidates []utils.UnionCandidate
 

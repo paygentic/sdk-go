@@ -219,7 +219,14 @@ func CreateEntitlementTemplateMetered(metered EntitlementTemplateMetered) Entitl
 	}
 }
 
-func (u *EntitlementTemplate) UnmarshalJSON(data []byte) error {
+func (u *EntitlementTemplate) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = EntitlementTemplate{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
 
 	type discriminator struct {
 		Type string `json:"type"`

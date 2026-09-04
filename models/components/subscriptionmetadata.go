@@ -69,6 +69,7 @@ func (u SubscriptionMetadata) IsUnknown() bool {
 }
 
 func (u *SubscriptionMetadata) UnmarshalJSON(data []byte) error {
+	*u = SubscriptionMetadata{}
 
 	var candidates []utils.UnionCandidate
 
