@@ -79,6 +79,29 @@ func (e *PricePaymentTerm) IsExact() bool {
 	return false
 }
 
+// PriceRateType - What properties.unitPrice is denominated in. 'amount' (the default) is an amount of the invoice currency for each unit metered, so the quantity is the multiplier. 'proportion' is the reverse: a dimensionless share of a currency-denominated quantity, so '0.02' is 2% and the invoice prints '2.00%'. Presentation only. Requires a standard metered price in real currency.
+type PriceRateType string
+
+const (
+	PriceRateTypeAmount     PriceRateType = "amount"
+	PriceRateTypeProportion PriceRateType = "proportion"
+)
+
+func (e PriceRateType) ToPointer() *PriceRateType {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *PriceRateType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "amount", "proportion":
+			return true
+		}
+	}
+	return false
+}
+
 type Price struct {
 	// Unique identifier for a price
 	ID     string       `json:"id"`
@@ -105,6 +128,10 @@ type Price struct {
 	GrantDiscountEnabled *bool `default:"false" json:"grantDiscountEnabled"`
 	// A fixed amount owed whole rather than a per-period rate. An obligation is not prorated over a partial first period: when a subscription starts before its billing anchor, no truncated stub is billed and the first charge is the full amount at the next anchor. An obligation also refuses an interval boundary that falls strictly inside one of its own billing periods, since part of an amount owed whole is not a thing to bill. Defaults to false, which is a rate and is today's behaviour for every price. Not supported on a metered price, whose amount resolves from usage at close.
 	IsObligation *bool `default:"false" json:"isObligation"`
+	// What properties.unitPrice is denominated in. 'amount' (the default) is an amount of the invoice currency for each unit metered, so the quantity is the multiplier. 'proportion' is the reverse: a dimensionless share of a currency-denominated quantity, so '0.02' is 2% and the invoice prints '2.00%'. Presentation only. Requires a standard metered price in real currency.
+	RateType *PriceRateType `default:"amount" json:"rateType"`
+	// A price's tax declaration. Optional on write — a price that declares nothing is `IN_SCOPE`, and is billed and taxed exactly as it was before this object existed. Always present on read. Replaced as a whole on update: send the object to change it, omit it to leave it alone.
+	Tax PriceTax `json:"tax"`
 	// Quantity used when generating invoice line items for this price. Total per period = quantity × unitPrice. Only supported for fee prices; metered prices derive quantity from usage. Defaults to 1.
 	Quantity *int64 `default:"1" json:"quantity"`
 }
@@ -244,6 +271,20 @@ func (p *Price) GetIsObligation() *bool {
 		return nil
 	}
 	return p.IsObligation
+}
+
+func (p *Price) GetRateType() *PriceRateType {
+	if p == nil {
+		return nil
+	}
+	return p.RateType
+}
+
+func (p *Price) GetTax() PriceTax {
+	if p == nil {
+		return PriceTax{}
+	}
+	return p.Tax
 }
 
 func (p *Price) GetQuantity() *int64 {

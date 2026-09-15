@@ -48,6 +48,8 @@ type CreatePriceRequest struct {
 	Model *components.PriceModelInput `json:"model,omitzero"`
 	// Line item label shown on customer invoices. Sample values: 'Claude Token Consumption', 'Storage Usage (GB)', 'Inference API Calls', 'Image Generation Count', 'Training Compute Hours', 'Data Transfer (TB)'
 	InvoiceDisplayName string `json:"invoiceDisplayName"`
+	// Presentation only. Prices sharing this value, within one billing period, print as a single row on the rendered invoice PDF and are described by this string. Every member still bills its own line item on the ledger, this API and the compliance document. The combined row's rate is derived from the members' own rates. Requires the 'standard' pricing model. Sample values: 'Cross Border Fees', 'FX Fees'
+	InvoiceDisplayGroup optionalnullable.OptionalNullable[string] `json:"invoiceDisplayGroup,omitzero"`
 	// Billing timing preference: 'in_advance' (prepaid — charged upfront or drawn from a prepaid commitment) or 'in_arrears' (charged at period end).
 	PaymentTerm CreatePricePaymentTerm `json:"paymentTerm"`
 	// ISO 8601 duration for recurring charges (e.g., 'P1M' for monthly, 'P1Y' for yearly) or 'P0D' for one-time charges. Required for fees, optional for billable metrics. Sample values: 'P0D' for one-time, 'P1M' for monthly recurring, 'P1Y' for yearly recurring
@@ -58,6 +60,10 @@ type CreatePriceRequest struct {
 	GrantDiscountEnabled *bool `default:"false" json:"grantDiscountEnabled"`
 	// A fixed amount owed whole rather than a per-period rate. An obligation is not prorated over a partial first period: when a subscription starts before its billing anchor, no truncated stub is billed and the first charge is the full amount at the next anchor. An obligation also refuses an interval boundary that falls strictly inside one of its own billing periods, since part of an amount owed whole is not a thing to bill. Defaults to false, which is a rate and is today's behaviour for every price. Not supported on a metered price, whose amount resolves from usage at close.
 	IsObligation *bool `default:"false" json:"isObligation"`
+	// What properties.unitPrice is denominated in. 'amount' (the default) is an amount of the invoice currency for each unit metered, so the quantity is the multiplier. 'proportion' is the reverse: a dimensionless share of a currency-denominated quantity, so '0.02' is 2% and the invoice prints '2.00%'. Presentation only. Requires a standard metered price in real currency.
+	RateType *components.RateType `json:"rateType,omitzero"`
+	// A price's tax declaration. Optional on write — a price that declares nothing is `IN_SCOPE`, and is billed and taxed exactly as it was before this object existed. Always present on read. Replaced as a whole on update: send the object to change it, omit it to leave it alone.
+	Tax *components.PriceTax `json:"tax,omitzero"`
 	// Quantity for invoice line items. Total per period = quantity × unitPrice. Only supported for fee prices; metered prices derive quantity from usage. Defaults to 1.
 	Quantity *int64 `json:"quantity,omitzero"`
 }
@@ -108,6 +114,13 @@ func (c *CreatePriceRequest) GetInvoiceDisplayName() string {
 	return c.InvoiceDisplayName
 }
 
+func (c *CreatePriceRequest) GetInvoiceDisplayGroup() optionalnullable.OptionalNullable[string] {
+	if c == nil {
+		return nil
+	}
+	return c.InvoiceDisplayGroup
+}
+
 func (c *CreatePriceRequest) GetPaymentTerm() CreatePricePaymentTerm {
 	if c == nil {
 		return CreatePricePaymentTerm("")
@@ -148,6 +161,20 @@ func (c *CreatePriceRequest) GetIsObligation() *bool {
 		return nil
 	}
 	return c.IsObligation
+}
+
+func (c *CreatePriceRequest) GetRateType() *components.RateType {
+	if c == nil {
+		return nil
+	}
+	return c.RateType
+}
+
+func (c *CreatePriceRequest) GetTax() *components.PriceTax {
+	if c == nil {
+		return nil
+	}
+	return c.Tax
 }
 
 func (c *CreatePriceRequest) GetQuantity() *int64 {

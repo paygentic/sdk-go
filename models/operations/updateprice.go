@@ -44,6 +44,8 @@ type UpdatePriceRequestBody struct {
 	PricingUnitID optionalnullable.OptionalNullable[string] `json:"pricingUnitId,omitzero"`
 	// Updated invoice line item label. Sample values: 'LLM Token Usage', 'Storage Charges', 'API Call Fees'
 	InvoiceDisplayName *string `json:"invoiceDisplayName,omitzero"`
+	// Presentation only. Prices sharing this value, within one billing period, print as a single row on the rendered invoice PDF and are described by this string. Every member still bills its own line item on the ledger, this API and the compliance document. The combined row's rate is derived from the members' own rates. Requires the 'standard' pricing model. Sample values: 'Cross Border Fees', 'FX Fees'
+	InvoiceDisplayGroup optionalnullable.OptionalNullable[string] `json:"invoiceDisplayGroup,omitzero"`
 	// The pricing model to set. 'standard' and 'volume' are accepted. Legacy 'dynamic'/'percentage' prices can still be edited (other fields) but cannot be switched back to those models. Percentage/revenue-share is expressed via 'standard' with a unit-price multiplier.
 	Model      *components.PriceModelInput `json:"model,omitzero"`
 	Properties *components.PriceProperties `json:"properties,omitzero"`
@@ -57,6 +59,10 @@ type UpdatePriceRequestBody struct {
 	GrantDiscountEnabled *bool `json:"grantDiscountEnabled,omitzero"`
 	// A fixed amount owed whole rather than a per-period rate. An obligation is not prorated over a partial first period: when a subscription starts before its billing anchor, no truncated stub is billed and the first charge is the full amount at the next anchor. An obligation also refuses an interval boundary that falls strictly inside one of its own billing periods, since part of an amount owed whole is not a thing to bill. Defaults to false, which is a rate and is today's behaviour for every price. Not supported on a metered price, whose amount resolves from usage at close.
 	IsObligation *bool `json:"isObligation,omitzero"`
+	// What properties.unitPrice is denominated in. 'amount' (the default) is an amount of the invoice currency for each unit metered, so the quantity is the multiplier. 'proportion' is the reverse: a dimensionless share of a currency-denominated quantity, so '0.02' is 2% and the invoice prints '2.00%'. Presentation only. Requires a standard metered price in real currency.
+	RateType *components.RateType `json:"rateType,omitzero"`
+	// A price's tax declaration. Optional on write — a price that declares nothing is `IN_SCOPE`, and is billed and taxed exactly as it was before this object existed. Always present on read. Replaced as a whole on update: send the object to change it, omit it to leave it alone.
+	Tax *components.PriceTax `json:"tax,omitzero"`
 	// Quantity for invoice line items. Total per period = quantity × unitPrice. Only supported for fee prices; metered prices derive quantity from usage. Defaults to 1.
 	Quantity *int64 `json:"quantity,omitzero"`
 }
@@ -91,6 +97,13 @@ func (u *UpdatePriceRequestBody) GetInvoiceDisplayName() *string {
 		return nil
 	}
 	return u.InvoiceDisplayName
+}
+
+func (u *UpdatePriceRequestBody) GetInvoiceDisplayGroup() optionalnullable.OptionalNullable[string] {
+	if u == nil {
+		return nil
+	}
+	return u.InvoiceDisplayGroup
 }
 
 func (u *UpdatePriceRequestBody) GetModel() *components.PriceModelInput {
@@ -140,6 +153,20 @@ func (u *UpdatePriceRequestBody) GetIsObligation() *bool {
 		return nil
 	}
 	return u.IsObligation
+}
+
+func (u *UpdatePriceRequestBody) GetRateType() *components.RateType {
+	if u == nil {
+		return nil
+	}
+	return u.RateType
+}
+
+func (u *UpdatePriceRequestBody) GetTax() *components.PriceTax {
+	if u == nil {
+		return nil
+	}
+	return u.Tax
 }
 
 func (u *UpdatePriceRequestBody) GetQuantity() *int64 {

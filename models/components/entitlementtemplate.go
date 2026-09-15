@@ -178,9 +178,9 @@ func (e *EntitlementTemplateBoolean) GetType() string {
 type EntitlementTemplateType string
 
 const (
-	EntitlementTemplateTypeBoolean EntitlementTemplateType = "boolean"
-	EntitlementTemplateTypeStatic  EntitlementTemplateType = "static"
-	EntitlementTemplateTypeMetered EntitlementTemplateType = "metered"
+	EntitlementTemplateTypeBoolean      EntitlementTemplateType = "boolean"
+	EntitlementTemplateTypeStatic       EntitlementTemplateType = "static"
+	EntitlementTemplateTypeMeteredValue EntitlementTemplateType = "metered"
 )
 
 // EntitlementTemplate - Template for the entitlement. Boolean for simple on/off features, static for features with configuration, metered for usage-based features.
@@ -211,7 +211,7 @@ func CreateEntitlementTemplateStatic(static EntitlementTemplateStatic) Entitleme
 }
 
 func CreateEntitlementTemplateMetered(metered EntitlementTemplateMetered) EntitlementTemplate {
-	typ := EntitlementTemplateTypeMetered
+	typ := EntitlementTemplateTypeMeteredValue
 
 	return EntitlementTemplate{
 		EntitlementTemplateMetered: &metered,
@@ -263,7 +263,7 @@ func (u *EntitlementTemplate) UnmarshalJSON(data []byte) (err error) {
 		}
 
 		u.EntitlementTemplateMetered = entitlementTemplateMetered
-		u.Type = EntitlementTemplateTypeMetered
+		u.Type = EntitlementTemplateTypeMeteredValue
 		return nil
 	}
 

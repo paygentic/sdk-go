@@ -33,7 +33,7 @@ switch entitlementTemplate.Type {
 		// entitlementTemplate.EntitlementTemplateBoolean is populated
 	case components.EntitlementTemplateTypeStatic:
 		// entitlementTemplate.EntitlementTemplateStatic is populated
-	case components.EntitlementTemplateTypeMetered:
+	case components.EntitlementTemplateTypeMeteredValue:
 		// entitlementTemplate.EntitlementTemplateMetered is populated
 }
 ```

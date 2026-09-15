@@ -25,3 +25,11 @@ func (c *CreateSubscriptionAdjustmentRequest) GetBody() components.CreateSubscri
 	}
 	return c.Body
 }
+
+func (c *CreateSubscriptionAdjustmentRequest) GetBodyPercentageDiscount() *components.CreatePercentageDiscountAdjustment {
+	return c.GetBody().CreatePercentageDiscountAdjustment
+}
+
+func (c *CreateSubscriptionAdjustmentRequest) GetBodyUsageDiscount() *components.CreateUsageDiscountAdjustment {
+	return c.GetBody().CreateUsageDiscountAdjustment
+}

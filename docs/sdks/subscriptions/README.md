@@ -456,7 +456,7 @@ func main() {
 | Error Type                   | Status Code                  | Content Type                 |
 | ---------------------------- | ---------------------------- | ---------------------------- |
 | errors.BadRequest            | 400                          | application/json             |
-| errors.Error                 | 401, 403, 404                | application/json             |
+| errors.Error                 | 401, 403, 404, 429           | application/json             |
 | errors.Error                 | 500                          | application/json             |
 | errors.PaygenticDefaultError | 4XX, 5XX                     | \*/\*                        |
 
@@ -518,11 +518,11 @@ func main() {
 
 ## CreateSubscriptionAdjustment
 
-Attaches a percentage discount to the subscription for a dated window. Every invoice calculated while the window is open carries one discount line for each discounted charge, and tax is assessed on the reduced amount. An invoice that already exists is not changed, including one still in draft — the discount reaches the periods that close after it is created. There is no update operation, and a window cannot be changed after it is created. To change a rate before any invoice has issued under the discount, delete the adjustment and create a replacement. Once an invoice has issued the adjustment is permanent, so set effectiveTo at creation time whenever the deal has a known end date.
+Attaches an adjustment to the subscription for a dated window. A percentageDiscount reduces every discountable charge by a rate and carries one discount line per charge on the invoice. A usageDiscount takes a number of usage units off one metered price's billable quantity before that line is priced, so the line re-slots on a volume ladder and shows the corrected quantity; it emits no line of its own. Tax is assessed on the reduced amount either way. An invoice that already exists is not changed, including one still in draft — the adjustment reaches the periods that close after it is created. There is no update operation, and a window cannot be changed after it is created. To change an adjustment before any invoice has issued under it, delete it and create a replacement. Once an invoice has issued the adjustment is permanent, so set effectiveTo at creation time whenever the deal has a known end date.
 
-### Example Usage
+### Example Usage: percentageDiscount
 
-<!-- UsageSnippet language="go" operationID="createSubscriptionAdjustment" method="post" path="/v0/subscriptions/{id}/adjustments" -->
+<!-- UsageSnippet language="go" operationID="createSubscriptionAdjustment" method="post" path="/v0/subscriptions/{id}/adjustments" example="percentageDiscount" -->
 ```go
 package main
 
@@ -530,10 +530,10 @@ import(
 	"context"
 	"os"
 	paygentic "github.com/paygentic/sdk-go"
-	"github.com/paygentic/sdk-go/models/components"
 	"github.com/paygentic/sdk-go/types"
 	"github.com/paygentic/sdk-go/optionalnullable"
 	"time"
+	"github.com/paygentic/sdk-go/models/components"
 	"log"
 )
 
@@ -544,14 +544,58 @@ func main() {
         paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
     )
 
-    res, err := s.Subscriptions.CreateSubscriptionAdjustment(ctx, "<id>", components.CreateSubscriptionAdjustmentRequest{
-        Type: components.CreateSubscriptionAdjustmentRequestTypePercentageDiscount,
-        PercentageDiscount: "0.35",
-        EffectiveFrom: types.MustTimeFromString("2026-01-01T00:00:00Z"),
-        EffectiveTo: optionalnullable.From[time.Time](nil),
-        Description: optionalnullable.From(paygentic.Pointer("FY26 Growth")),
-        IdempotencyKey: paygentic.Pointer("adj_fy26_growth_001"),
-    })
+    res, err := s.Subscriptions.CreateSubscriptionAdjustment(ctx, "<id>", components.CreateCreateSubscriptionAdjustmentRequestPercentageDiscount(
+        components.CreatePercentageDiscountAdjustment{
+            PercentageDiscount: "0.35",
+            EffectiveFrom: types.MustTimeFromString("2026-01-01T00:00:00Z"),
+            EffectiveTo: optionalnullable.From[time.Time](nil),
+            Description: optionalnullable.From(paygentic.Pointer("FY26 Growth")),
+            IdempotencyKey: paygentic.Pointer("adj_fy26_growth_001"),
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: usageDiscount
+
+<!-- UsageSnippet language="go" operationID="createSubscriptionAdjustment" method="post" path="/v0/subscriptions/{id}/adjustments" example="usageDiscount" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	paygentic "github.com/paygentic/sdk-go"
+	"github.com/paygentic/sdk-go/types"
+	"github.com/paygentic/sdk-go/optionalnullable"
+	"github.com/paygentic/sdk-go/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := paygentic.New(
+        paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
+    )
+
+    res, err := s.Subscriptions.CreateSubscriptionAdjustment(ctx, "<id>", components.CreateCreateSubscriptionAdjustmentRequestUsageDiscount(
+        components.CreateUsageDiscountAdjustment{
+            UsageDiscount: "300",
+            TargetPriceIds: []string{
+                "price_a1b2c3d4e5f6g7h8",
+            },
+            EffectiveFrom: types.MustTimeFromString("2026-03-01T00:00:00Z"),
+            EffectiveTo: optionalnullable.From(paygentic.Pointer(types.MustNewTimeFromString("2026-04-01T00:00:00Z"))),
+            Description: optionalnullable.From(paygentic.Pointer("March outage — bad events")),
+            IdempotencyKey: paygentic.Pointer("adj_march_outage_001"),
+        },
+    ))
     if err != nil {
         log.Fatal(err)
     }

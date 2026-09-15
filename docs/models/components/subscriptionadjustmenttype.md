@@ -8,6 +8,9 @@ import (
 )
 
 value := components.SubscriptionAdjustmentTypePercentageDiscount
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.SubscriptionAdjustmentType("custom_value")
 ```
 
 
@@ -16,3 +19,4 @@ value := components.SubscriptionAdjustmentTypePercentageDiscount
 | Name                                           | Value                                          |
 | ---------------------------------------------- | ---------------------------------------------- |
 | `SubscriptionAdjustmentTypePercentageDiscount` | percentageDiscount                             |
+| `SubscriptionAdjustmentTypeUsageDiscount`      | usageDiscount                                  |

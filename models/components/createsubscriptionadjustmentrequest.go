@@ -4,100 +4,94 @@ package components
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/paygentic/sdk-go/internal/utils"
-	"github.com/paygentic/sdk-go/optionalnullable"
-	"time"
 )
 
-// CreateSubscriptionAdjustmentRequestType - The kind of adjustment. `percentageDiscount` reduces every discountable charge by a rate.
 type CreateSubscriptionAdjustmentRequestType string
 
 const (
 	CreateSubscriptionAdjustmentRequestTypePercentageDiscount CreateSubscriptionAdjustmentRequestType = "percentageDiscount"
+	CreateSubscriptionAdjustmentRequestTypeUsageDiscount      CreateSubscriptionAdjustmentRequestType = "usageDiscount"
 )
 
-func (e CreateSubscriptionAdjustmentRequestType) ToPointer() *CreateSubscriptionAdjustmentRequestType {
-	return &e
-}
-func (e *CreateSubscriptionAdjustmentRequestType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "percentageDiscount":
-		*e = CreateSubscriptionAdjustmentRequestType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for CreateSubscriptionAdjustmentRequestType: %v", v)
-	}
-}
-
+// CreateSubscriptionAdjustmentRequest - One adjustment to attach to the subscription. The type decides which number the body carries: a rate for percentageDiscount, a unit count and one target price for usageDiscount.
 type CreateSubscriptionAdjustmentRequest struct {
-	// The kind of adjustment. `percentageDiscount` reduces every discountable charge by a rate.
-	Type CreateSubscriptionAdjustmentRequestType `json:"type"`
-	// The discount rate as a decimal fraction between 0 and 1, sent as a string. "0.35" means 35 percent. "1" means 100 percent, not 1 percent. At most 6 decimal places. A value of 0 or above 1 is rejected.
-	PercentageDiscount string `json:"percentageDiscount"`
-	// The first instant the discount applies. Inclusive.
-	EffectiveFrom time.Time `json:"effectiveFrom"`
-	// The instant the discount stops applying. Exclusive, so a window ending on the same date another begins neither overlaps nor leaves a gap. Null means the discount never stops, and it cannot be ended later — set an instant whenever the deal has a known end date. Must be after effectiveFrom.
-	EffectiveTo optionalnullable.OptionalNullable[time.Time] `json:"effectiveTo,omitzero"`
-	// The deal's own name, shown on each discount line of the invoice.
-	Description optionalnullable.OptionalNullable[string] `json:"description,omitzero"`
-	// A key of your choosing that makes a retry safe. Sending the same key against the same subscription returns the adjustment already created and creates no second one. Without a key a retried request creates a second adjustment, and two percentage discounts compound — two of 0.35 bill 57.75 percent off, not 35 percent.
-	IdempotencyKey *string `json:"idempotencyKey,omitzero"`
+	CreatePercentageDiscountAdjustment *CreatePercentageDiscountAdjustment `queryParam:"inline" union:"member"`
+	CreateUsageDiscountAdjustment      *CreateUsageDiscountAdjustment      `queryParam:"inline" union:"member"`
+
+	Type CreateSubscriptionAdjustmentRequestType
 }
 
-func (c CreateSubscriptionAdjustmentRequest) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
+func CreateCreateSubscriptionAdjustmentRequestPercentageDiscount(percentageDiscount CreatePercentageDiscountAdjustment) CreateSubscriptionAdjustmentRequest {
+	typ := CreateSubscriptionAdjustmentRequestTypePercentageDiscount
 
-func (c *CreateSubscriptionAdjustmentRequest) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
+	return CreateSubscriptionAdjustmentRequest{
+		CreatePercentageDiscountAdjustment: &percentageDiscount,
+		Type:                               typ,
 	}
-	return nil
 }
 
-func (c *CreateSubscriptionAdjustmentRequest) GetType() CreateSubscriptionAdjustmentRequestType {
-	if c == nil {
-		return CreateSubscriptionAdjustmentRequestType("")
+func CreateCreateSubscriptionAdjustmentRequestUsageDiscount(usageDiscount CreateUsageDiscountAdjustment) CreateSubscriptionAdjustmentRequest {
+	typ := CreateSubscriptionAdjustmentRequestTypeUsageDiscount
+
+	return CreateSubscriptionAdjustmentRequest{
+		CreateUsageDiscountAdjustment: &usageDiscount,
+		Type:                          typ,
 	}
-	return c.Type
 }
 
-func (c *CreateSubscriptionAdjustmentRequest) GetPercentageDiscount() string {
-	if c == nil {
-		return ""
+func (u *CreateSubscriptionAdjustmentRequest) UnmarshalJSON(data []byte) (err error) {
+	previous := *u
+	*u = CreateSubscriptionAdjustmentRequest{}
+	defer func() {
+		if err != nil {
+			*u = previous
+		}
+	}()
+
+	type discriminator struct {
+		Type string `json:"type"`
 	}
-	return c.PercentageDiscount
-}
 
-func (c *CreateSubscriptionAdjustmentRequest) GetEffectiveFrom() time.Time {
-	if c == nil {
-		return time.Time{}
+	dis := new(discriminator)
+	if err := json.Unmarshal(data, &dis); err != nil {
+		return fmt.Errorf("could not unmarshal discriminator: %w", err)
 	}
-	return c.EffectiveFrom
-}
 
-func (c *CreateSubscriptionAdjustmentRequest) GetEffectiveTo() optionalnullable.OptionalNullable[time.Time] {
-	if c == nil {
+	switch dis.Type {
+	case "percentageDiscount":
+		createPercentageDiscountAdjustment := new(CreatePercentageDiscountAdjustment)
+		if err := utils.UnmarshalJSON(data, &createPercentageDiscountAdjustment, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == percentageDiscount) type CreatePercentageDiscountAdjustment within CreateSubscriptionAdjustmentRequest: %w", string(data), err)
+		}
+
+		u.CreatePercentageDiscountAdjustment = createPercentageDiscountAdjustment
+		u.Type = CreateSubscriptionAdjustmentRequestTypePercentageDiscount
+		return nil
+	case "usageDiscount":
+		createUsageDiscountAdjustment := new(CreateUsageDiscountAdjustment)
+		if err := utils.UnmarshalJSON(data, &createUsageDiscountAdjustment, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == usageDiscount) type CreateUsageDiscountAdjustment within CreateSubscriptionAdjustmentRequest: %w", string(data), err)
+		}
+
+		u.CreateUsageDiscountAdjustment = createUsageDiscountAdjustment
+		u.Type = CreateSubscriptionAdjustmentRequestTypeUsageDiscount
 		return nil
 	}
-	return c.EffectiveTo
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateSubscriptionAdjustmentRequest", string(data))
 }
 
-func (c *CreateSubscriptionAdjustmentRequest) GetDescription() optionalnullable.OptionalNullable[string] {
-	if c == nil {
-		return nil
+func (u CreateSubscriptionAdjustmentRequest) MarshalJSON() ([]byte, error) {
+	if u.CreatePercentageDiscountAdjustment != nil {
+		return utils.MarshalJSON(u.CreatePercentageDiscountAdjustment, "", true)
 	}
-	return c.Description
-}
 
-func (c *CreateSubscriptionAdjustmentRequest) GetIdempotencyKey() *string {
-	if c == nil {
-		return nil
+	if u.CreateUsageDiscountAdjustment != nil {
+		return utils.MarshalJSON(u.CreateUsageDiscountAdjustment, "", true)
 	}
-	return c.IdempotencyKey
+
+	return nil, errors.New("could not marshal union type CreateSubscriptionAdjustmentRequest: all fields are null")
 }

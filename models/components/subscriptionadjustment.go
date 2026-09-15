@@ -36,23 +36,22 @@ type SubscriptionAdjustmentType string
 
 const (
 	SubscriptionAdjustmentTypePercentageDiscount SubscriptionAdjustmentType = "percentageDiscount"
+	SubscriptionAdjustmentTypeUsageDiscount      SubscriptionAdjustmentType = "usageDiscount"
 )
 
 func (e SubscriptionAdjustmentType) ToPointer() *SubscriptionAdjustmentType {
 	return &e
 }
-func (e *SubscriptionAdjustmentType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *SubscriptionAdjustmentType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "percentageDiscount", "usageDiscount":
+			return true
+		}
 	}
-	switch v {
-	case "percentageDiscount":
-		*e = SubscriptionAdjustmentType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for SubscriptionAdjustmentType: %v", v)
-	}
+	return false
 }
 
 type SubscriptionAdjustment struct {
@@ -62,13 +61,17 @@ type SubscriptionAdjustment struct {
 	// Unique identifier for a subscription
 	SubscriptionID string                     `json:"subscriptionId"`
 	Type           SubscriptionAdjustmentType `json:"type"`
-	// The discount rate as a decimal fraction between 0 and 1. "0.35" means 35 percent.
-	PercentageDiscount string `json:"percentageDiscount"`
-	// The first instant the discount applies. Inclusive.
+	// The discount rate as a decimal fraction between 0 and 1. "0.35" means 35 percent. Null on a usageDiscount, which carries a unit count instead.
+	PercentageDiscount *string `json:"percentageDiscount"`
+	// The number of usage units taken off the targeted line's billable quantity. Null on a percentageDiscount, which carries a rate instead.
+	UsageDiscount *string `json:"usageDiscount"`
+	// The prices this adjustment reduces. Exactly one metered price on a usageDiscount; empty on a percentageDiscount, which reduces every discountable charge.
+	TargetPriceIds []string `json:"targetPriceIds"`
+	// Opens the window. Read per type: INCLUSIVE on a percentageDiscount, whose window is prorated by day overlap; EXCLUSIVE on a usageDiscount, which corrects a line whose period END falls strictly after this instant.
 	EffectiveFrom time.Time `json:"effectiveFrom"`
-	// The instant the discount stops applying. Exclusive. Null means the discount never stops.
+	// Closes the window, or null for never. Read per type: EXCLUSIVE on a percentageDiscount; INCLUSIVE on a usageDiscount, which corrects a line whose period END falls on or before this instant.
 	EffectiveTo *time.Time `json:"effectiveTo"`
-	// The deal's own name, shown on each discount line of the invoice.
+	// The deal's own name. Shown on each discount line a percentageDiscount emits; a usageDiscount emits no line, so its description is carried here only.
 	Description *string   `json:"description"`
 	CreatedAt   time.Time `json:"createdAt"`
 }
@@ -112,11 +115,25 @@ func (s *SubscriptionAdjustment) GetType() SubscriptionAdjustmentType {
 	return s.Type
 }
 
-func (s *SubscriptionAdjustment) GetPercentageDiscount() string {
+func (s *SubscriptionAdjustment) GetPercentageDiscount() *string {
 	if s == nil {
-		return ""
+		return nil
 	}
 	return s.PercentageDiscount
+}
+
+func (s *SubscriptionAdjustment) GetUsageDiscount() *string {
+	if s == nil {
+		return nil
+	}
+	return s.UsageDiscount
+}
+
+func (s *SubscriptionAdjustment) GetTargetPriceIds() []string {
+	if s == nil {
+		return []string{}
+	}
+	return s.TargetPriceIds
 }
 
 func (s *SubscriptionAdjustment) GetEffectiveFrom() time.Time {
