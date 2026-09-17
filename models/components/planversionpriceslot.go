@@ -131,6 +131,10 @@ type PlanVersionPriceSlot struct {
 	IsObligation *bool `default:"false" json:"isObligation"`
 	// What properties.unitPrice is denominated in. 'amount' (the default) is an amount of the invoice currency for each unit metered, so the quantity is the multiplier. 'proportion' is the reverse: a dimensionless share of a currency-denominated quantity, so '0.02' is 2% and the invoice prints '2.00%'. Presentation only. Requires a standard metered price in real currency.
 	RateType *PlanVersionPriceSlotRateType `default:"amount" json:"rateType"`
+	// Presentation only. Prices sharing this value, within one billing period, print as a single row on the rendered invoice PDF and are described by this string. Every member still bills its own line item on the ledger, this API and the compliance document. The combined row's rate is derived from the members' own rates. Requires the 'standard' pricing model. Sample values: 'Cross Border Fees', 'FX Fees'
+	InvoiceDisplayGroup optionalnullable.OptionalNullable[string] `json:"invoiceDisplayGroup,omitzero"`
+	// Unique identifier for a pricing unit
+	PricingUnitID *string `json:"pricingUnitId,omitzero"`
 	// A price's tax declaration. Optional on write — a price that declares nothing is `IN_SCOPE`, and is billed and taxed exactly as it was before this object existed. Always present on read. Replaced as a whole on update: send the object to change it, omit it to leave it alone.
 	Tax PriceTax `json:"tax"`
 	// Quantity used when generating invoice line items for this price. Total per period = quantity × unitPrice. Only supported for fee prices; metered prices derive quantity from usage. Defaults to 1.
@@ -281,6 +285,20 @@ func (p *PlanVersionPriceSlot) GetRateType() *PlanVersionPriceSlotRateType {
 		return nil
 	}
 	return p.RateType
+}
+
+func (p *PlanVersionPriceSlot) GetInvoiceDisplayGroup() optionalnullable.OptionalNullable[string] {
+	if p == nil {
+		return nil
+	}
+	return p.InvoiceDisplayGroup
+}
+
+func (p *PlanVersionPriceSlot) GetPricingUnitID() *string {
+	if p == nil {
+		return nil
+	}
+	return p.PricingUnitID
 }
 
 func (p *PlanVersionPriceSlot) GetTax() PriceTax {

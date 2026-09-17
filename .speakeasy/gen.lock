@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 5f9f8092-429e-454b-8c55-a2d2d1508328
 management:
-  docChecksum: ebfed76ef770c001f43bd702acdd1ce2
+  docChecksum: 332d674f9526d1f5d7aa3d5590574735
   docVersion: 0.1.0
   speakeasyVersion: 1.797.0
   generationVersion: 2.937.18
-  releaseVersion: 0.5.7
-  configChecksum: e17477fc07f80c06bd0a83a111b90032
+  releaseVersion: 0.5.8
+  configChecksum: 9e46b3620705a5936ab3b2f2a5bb0317
   repoURL: https://github.com/paygentic/sdk-go.git
   installationURL: https://github.com/paygentic/sdk-go
 persistentEdits:
-  generation_id: a109e2aa-52aa-428f-ae04-40c9cef04f38
-  pristine_commit_hash: 80787702abac2d162dd7b2b5d61b472863a00f15
-  pristine_tree_hash: 3e67303fd40b6edac9f366713593fb59f774d6bc
+  generation_id: 51cbbbcc-ef26-4e88-8a79-8c682c7572ce
+  pristine_commit_hash: 5952fc9de227f60298316f7f9669b70cf8d70b21
+  pristine_tree_hash: 56973e5ea3115454537fe6096f8fd1f269ca12ac
 features:
   go:
     additionalDependencies: 0.1.0
@@ -62,8 +62,8 @@ trackedFiles:
     pristine_git_object: d0855dc266a1838082f8ac4aca63bbaa304341ab
   client.go:
     id: d633516feaf9
-    last_write_checksum: sha1:0246da70e543a310c72532c5c8421a204fa4590b
-    pristine_git_object: 92e701216f66e6251043032116669c0ce6985b5f
+    last_write_checksum: sha1:8442f272e8ed8172410396f04bdcf029bf38f47e
+    pristine_git_object: ad1b42415a756f0918406ef1b9c8ef0142e1b6b0
   costs.go:
     id: 247b6e6ecaf3
     last_write_checksum: sha1:6a0c8cf65c575073eba23dfb3b2f8e5044013500
@@ -270,8 +270,8 @@ trackedFiles:
     pristine_git_object: e2ddd9551a6e129c0ff1197366178d8858a32f35
   docs/models/components/createusagediscountadjustment.md:
     id: ec6d23655cb1
-    last_write_checksum: sha1:cf8277ffc57676c90aaad2d9d8bba73cf843168f
-    pristine_git_object: 1c664c2f80b5b8a9cd946ee00d14edbaf3760187
+    last_write_checksum: sha1:1f97438e5f5ef33b277c3e9519cd6b6618881d54
+    pristine_git_object: 544c17b81973cb02865bf7624e503956e7234434
   docs/models/components/currencybreakdownentry.md:
     id: f322051f0d67
     last_write_checksum: sha1:5eeec011d1533f814f9cd2764570ed80d9b1a076
@@ -714,8 +714,8 @@ trackedFiles:
     pristine_git_object: a027cab2a91ca46cbf7ed39bfa0effd0aa73fedf
   docs/models/components/planversionpriceslot.md:
     id: da5e0cf24805
-    last_write_checksum: sha1:9c902961dccf5dc4f43ef83ea6ecfeb0b049600e
-    pristine_git_object: cfad0f9d2e11c054b32ce6cd0d839221dff7b258
+    last_write_checksum: sha1:2b9bb5b886f006489bfd3ab2695ca0f6debb59b9
+    pristine_git_object: 1368b0d061709aad0478adf3567c1b00af742114
   docs/models/components/planversionpriceslotmodel.md:
     id: a9f2ea238a5d
     last_write_checksum: sha1:5e5b20701b399b876c38792587c5fafabd8290a5
@@ -750,8 +750,8 @@ trackedFiles:
     pristine_git_object: b2143169f9a703586f758c6fb887d369f13511a6
   docs/models/components/price.md:
     id: d3b8618112be
-    last_write_checksum: sha1:1168f65caa933768f0817a9885b54e0202601b56
-    pristine_git_object: 78097388a2b85e07a313502b00645e3dc457fa06
+    last_write_checksum: sha1:ffa9a886bb1005c2364b49c78e145b9ab6bf525b
+    pristine_git_object: 372981f88e64dce9f314c4be538ccd20ed49610b
   docs/models/components/pricefeature.md:
     id: 6a762a1e9e91
     last_write_checksum: sha1:36da44d9cf96ec1c3a772e2bd8d6ad2bc31acbb4
@@ -1222,12 +1222,12 @@ trackedFiles:
     pristine_git_object: 34b3ae91e77d214b53ab4b90082ef3646eb0c90b
   docs/models/components/volumepriceproperties.md:
     id: d8e659afb9b6
-    last_write_checksum: sha1:d697cc075b5d079576a580fac48e9b2dd453d531
-    pristine_git_object: 3af69e6d4b455611376ded91122aab5669fe4eca
+    last_write_checksum: sha1:6e500975c437b23077b4fb1e2bc95df15ad2364e
+    pristine_git_object: 0242e0381c24546bcee262c9a2282da063b233ac
   docs/models/components/volumetier.md:
     id: 4d7780933c8c
-    last_write_checksum: sha1:936fe6663d3775799157279e24f0818a7a58cb62
-    pristine_git_object: e40feb0aa9df226a397ef65c95f4dab5a61649fe
+    last_write_checksum: sha1:67c8c93c410ae01befb9a4d38181470bb2626243
+    pristine_git_object: 3ea7767a3b5ead29f6596aedb410955d5041118f
   docs/models/components/windowedvalue.md:
     id: d630fd8a2faf
     last_write_checksum: sha1:cfac814f0a573870bd3b1536f2be38145f38e796
@@ -2714,8 +2714,8 @@ trackedFiles:
     pristine_git_object: 0c4d3354ea80b7ff7e72aa42be4de1a35b039ecc
   models/components/createusagediscountadjustment.go:
     id: fd403845a209
-    last_write_checksum: sha1:adfb90c7025895d773c25000df169b3e32b7f0ae
-    pristine_git_object: 84573b39ca41cd86e8ef798bc0210c892f429467
+    last_write_checksum: sha1:ea0180150ad2c5706bc30a869ea4c76c4994b277
+    pristine_git_object: e2c464ac7646d8382cedbc779ebfb36203d8e8c8
   models/components/currencybreakdownentry.go:
     id: 4625b53ee4c1
     last_write_checksum: sha1:f22405cf2ccaffa7771c40b874ea6e7d60337df5
@@ -2902,16 +2902,16 @@ trackedFiles:
     pristine_git_object: 63df7f354188237a3662bba04988fca942268c22
   models/components/planversionpriceslot.go:
     id: 4bdbadb5df2a
-    last_write_checksum: sha1:4888244c5be8fafc5b3d73c9b1abf3d90e12c2e3
-    pristine_git_object: 01522d07a9fa10d5b4a8b317095d24991b374902
+    last_write_checksum: sha1:bcaad497be6d1654dccd412baebdf4f09d291d45
+    pristine_git_object: 75ba6666944bbf123ca712ae750f1384ab4df4fe
   models/components/planversionsummary.go:
     id: 29836b89dbb8
     last_write_checksum: sha1:8fac493c721b92f9aea8cd828991f4a52410cf3e
     pristine_git_object: d6eb171bc8c9be58711ea4c1bc41818180263bfb
   models/components/price.go:
     id: c16ae24caea8
-    last_write_checksum: sha1:de0aa157a16fb7145fa13c9e9ef86fe5dbf22e01
-    pristine_git_object: 7bd22baec80f2a1fb96d034bbd1f91b4bb213129
+    last_write_checksum: sha1:5b05ca8b845b4fbc4c57171d0449ed54a12c7969
+    pristine_git_object: da43adab620a90c7c8017375fcf2796fbef115de
   models/components/pricefeature.go:
     id: 6f64db0132e5
     last_write_checksum: sha1:0e30f83660a01f37f9c0ab2382b1c9cbc84d1cc8
@@ -2930,8 +2930,8 @@ trackedFiles:
     pristine_git_object: cfd4f6c5325538860229284a64f928c34f6f253e
   models/components/priceproperties.go:
     id: 0c0a85daa04b
-    last_write_checksum: sha1:0ace0215bc04a657b8f79c78f724eff925cc3597
-    pristine_git_object: 3f59b076db124f3b2b1a4c924725ca64d0bfbcbb
+    last_write_checksum: sha1:c159cd8656c165718664da97d51f6fcecb8e76ac
+    pristine_git_object: def446fb5f361c047469cc6224ca21045c05082f
   models/components/pricetax.go:
     id: 3603b45f1ed6
     last_write_checksum: sha1:d9b2338bdf75d4a51962ac49e595dd3918cd3f04
@@ -6282,4 +6282,13 @@ generatedTests:
   createSubscriptionAdjustment: "2026-08-27T22:45:49Z"
   createSubscriptionAdjustment-percentageDiscount: "2026-09-15T16:13:34Z"
   createSubscriptionAdjustment-usageDiscount: "2026-09-15T16:13:34Z"
-releaseNotes: "## Go SDK Changes:\n* `Client.Subscriptions.ListSubscriptionAdjustments()`:  `response.Data[]` **Changed** (Breaking ⚠️)\n* `Client.Subscriptions.CreateSubscriptionAdjustment()`: \n  *  `request.Body` **Changed** (Breaking ⚠️)\n  *  `response` **Changed** (Breaking ⚠️)\n* `Client.Plans.TransitionPlanVersion()`:  `response.Prices[]` **Changed**\n* `Client.Prices.Create()`: \n  *  `request.Request` **Changed**\n  *  `response` **Changed**\n* `Client.Plans.Get()`:  `response.Prices[]` **Changed**\n* `Client.Plans.Update()`:  `response.Prices[]` **Changed**\n* `Client.Plans.MintPlanVersion()`:  `response.Prices[]` **Changed**\n* `Client.Plans.GetPlanVersion()`:  `response.Prices[]` **Changed**\n* `Client.Customers.List()`:  `error.status[429]` **Added**\n* `Client.Plans.ListAvailable()`:  `response.Data[].Prices[]` **Changed**\n* `Client.Prices.List()`:  `response.Data[]` **Changed**\n* `Client.Prices.Get()`:  `response` **Changed**\n* `Client.Prices.Update()`: \n  *  `request.Body` **Changed**\n  *  `response` **Changed**\n* `Client.Subscriptions.ReconcileSubscriptionFeatures()`:  `error.status[429]` **Added**\n* `Client.Plans.List()`:  `response.Data[].Prices[]` **Changed**\n* `Client.Plans.Create()`:  `response.Prices[]` **Changed**\n* `Client.InvoicesV2.ListLineItems()`:  `response.Data[].UsageDiscountIds` **Added**\n* `Client.InvoicesV2.CreateLineItem()`:  `response.UsageDiscountIds` **Added**\n"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `Client.Plans.Create()`:  `response.Prices[]` **Changed**
+  * `Client.Plans.List()`:  `response.Data[].Prices[]` **Changed**
+  * `Client.Plans.ListAvailable()`:  `response.Data[].Prices[]` **Changed**
+  * `Client.Plans.Get()`:  `response.Prices[]` **Changed**
+  * `Client.Plans.Update()`:  `response.Prices[]` **Changed**
+  * `Client.Plans.MintPlanVersion()`:  `response.Prices[]` **Changed**
+  * `Client.Plans.GetPlanVersion()`:  `response.Prices[]` **Changed**
+  * `Client.Plans.TransitionPlanVersion()`:  `response.Prices[]` **Changed**
