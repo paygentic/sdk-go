@@ -4,7 +4,42 @@ package components
 
 import (
 	"github.com/paygentic/sdk-go/internal/utils"
+	"github.com/paygentic/sdk-go/optionalnullable"
+	"time"
 )
+
+// ProfitabilitySummaryResponseRevenueRange - Where the caller's revenue actually lies in time. Scoped by the same filters as the request (merchant, and where given customer, subscription and currency), so it is not an account-wide statement. Present only when the selected range returned nothing. An object carries the bounds of the real revenue; null means no revenue under these filters at any time; an absent field means the extent was not resolved, because the result was not empty or because the lookup failed. An absent field must never be read as an absence. The bounds may span more than this endpoint's maximum queryable range, so clamp before re-querying.
+type ProfitabilitySummaryResponseRevenueRange struct {
+	// Earliest invoice issue instant.
+	From time.Time `json:"from"`
+	// Latest invoice issue instant.
+	To time.Time `json:"to"`
+}
+
+func (p ProfitabilitySummaryResponseRevenueRange) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *ProfitabilitySummaryResponseRevenueRange) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *ProfitabilitySummaryResponseRevenueRange) GetFrom() time.Time {
+	if p == nil {
+		return time.Time{}
+	}
+	return p.From
+}
+
+func (p *ProfitabilitySummaryResponseRevenueRange) GetTo() time.Time {
+	if p == nil {
+		return time.Time{}
+	}
+	return p.To
+}
 
 type ProfitabilitySummaryResponse struct {
 	// Object type identifier
@@ -16,6 +51,8 @@ type ProfitabilitySummaryResponse struct {
 	Rows []ProfitabilityRow `json:"rows"`
 	// Non-fatal warnings collected during cost discovery (e.g. an individual cost query failed). Empty array on a clean run.
 	Warnings []string `json:"warnings,omitzero"`
+	// Where the caller's revenue actually lies in time. Scoped by the same filters as the request (merchant, and where given customer, subscription and currency), so it is not an account-wide statement. Present only when the selected range returned nothing. An object carries the bounds of the real revenue; null means no revenue under these filters at any time; an absent field means the extent was not resolved, because the result was not empty or because the lookup failed. An absent field must never be read as an absence. The bounds may span more than this endpoint's maximum queryable range, so clamp before re-querying.
+	RevenueRange optionalnullable.OptionalNullable[ProfitabilitySummaryResponseRevenueRange] `json:"revenueRange,omitzero"`
 }
 
 func (p ProfitabilitySummaryResponse) MarshalJSON() ([]byte, error) {
@@ -52,4 +89,11 @@ func (p *ProfitabilitySummaryResponse) GetWarnings() []string {
 		return nil
 	}
 	return p.Warnings
+}
+
+func (p *ProfitabilitySummaryResponse) GetRevenueRange() optionalnullable.OptionalNullable[ProfitabilitySummaryResponseRevenueRange] {
+	if p == nil {
+		return nil
+	}
+	return p.RevenueRange
 }

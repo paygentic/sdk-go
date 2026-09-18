@@ -4,7 +4,42 @@ package components
 
 import (
 	"github.com/paygentic/sdk-go/internal/utils"
+	"github.com/paygentic/sdk-go/optionalnullable"
+	"time"
 )
+
+// RevenueSummaryResponseRevenueRange - Where the caller's revenue actually lies in time. Scoped by the same filters as the request (merchant, and where given customer, subscription and currency), so it is not an account-wide statement. Present only when the selected range returned nothing. An object carries the bounds of the real revenue; null means no revenue under these filters at any time; an absent field means the extent was not resolved, because the result was not empty or because the lookup failed. An absent field must never be read as an absence. The bounds may span more than this endpoint's maximum queryable range, so clamp before re-querying.
+type RevenueSummaryResponseRevenueRange struct {
+	// Earliest invoice issue instant.
+	From time.Time `json:"from"`
+	// Latest invoice issue instant.
+	To time.Time `json:"to"`
+}
+
+func (r RevenueSummaryResponseRevenueRange) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RevenueSummaryResponseRevenueRange) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RevenueSummaryResponseRevenueRange) GetFrom() time.Time {
+	if r == nil {
+		return time.Time{}
+	}
+	return r.From
+}
+
+func (r *RevenueSummaryResponseRevenueRange) GetTo() time.Time {
+	if r == nil {
+		return time.Time{}
+	}
+	return r.To
+}
 
 type RevenueSummaryResponse struct {
 	// Object type identifier
@@ -28,6 +63,8 @@ type RevenueSummaryResponse struct {
 	GroupBreakdown []GroupInvoiceSummary `json:"groupBreakdown,omitzero"`
 	// Per-currency revenue aggregates (only present when groupBy=currency is specified). Primary currency appears first, then alphabetical by ISO code. When present, top-level netRevenue, invoices, payments, and trend fields are omitted.
 	CurrencyBreakdown []CurrencyBreakdownEntry `json:"currencyBreakdown,omitzero"`
+	// Where the caller's revenue actually lies in time. Scoped by the same filters as the request (merchant, and where given customer, subscription and currency), so it is not an account-wide statement. Present only when the selected range returned nothing. An object carries the bounds of the real revenue; null means no revenue under these filters at any time; an absent field means the extent was not resolved, because the result was not empty or because the lookup failed. An absent field must never be read as an absence. The bounds may span more than this endpoint's maximum queryable range, so clamp before re-querying.
+	RevenueRange optionalnullable.OptionalNullable[RevenueSummaryResponseRevenueRange] `json:"revenueRange,omitzero"`
 }
 
 func (r RevenueSummaryResponse) MarshalJSON() ([]byte, error) {
@@ -113,4 +150,11 @@ func (r *RevenueSummaryResponse) GetCurrencyBreakdown() []CurrencyBreakdownEntry
 		return nil
 	}
 	return r.CurrencyBreakdown
+}
+
+func (r *RevenueSummaryResponse) GetRevenueRange() optionalnullable.OptionalNullable[RevenueSummaryResponseRevenueRange] {
+	if r == nil {
+		return nil
+	}
+	return r.RevenueRange
 }
