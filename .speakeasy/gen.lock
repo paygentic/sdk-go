@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 5f9f8092-429e-454b-8c55-a2d2d1508328
 management:
-  docChecksum: 593775e9cf35ed89df7a617d1d147582
+  docChecksum: 2ed87226e9ee3fde399a92f1bc628894
   docVersion: 0.1.0
-  speakeasyVersion: 1.797.0
-  generationVersion: 2.937.18
-  releaseVersion: 0.5.9
-  configChecksum: 4c09540318279f6616303b3f8d9abae9
+  speakeasyVersion: 1.798.0
+  generationVersion: 2.938.0
+  releaseVersion: 0.5.10
+  configChecksum: baa1aaaab0c85fa7ca0e9c550ae83710
   repoURL: https://github.com/paygentic/sdk-go.git
   installationURL: https://github.com/paygentic/sdk-go
 persistentEdits:
-  generation_id: e89288df-8512-46bc-83c5-0be084d3324b
-  pristine_commit_hash: 4837a01f439760b0a06cba181436b30abafd8763
-  pristine_tree_hash: baed230d00a0cfabd05df297bf3c45527fded7ba
+  generation_id: 4306110d-609d-4d34-af39-176e452fce04
+  pristine_commit_hash: d495d4690b00f0b29273752a64eb755214991e30
+  pristine_tree_hash: a986516714aa6464e64af717d24849683bcda4c5
 features:
   go:
     additionalDependencies: 0.1.0
@@ -62,8 +62,8 @@ trackedFiles:
     pristine_git_object: d0855dc266a1838082f8ac4aca63bbaa304341ab
   client.go:
     id: d633516feaf9
-    last_write_checksum: sha1:c9aa5b38d50b15fedcf25ba4f6186d9a9f398a29
-    pristine_git_object: 868d2a8336d958eb1184a9d127eb2f96996c4967
+    last_write_checksum: sha1:575fd1edd6ad0d3ad0b7f63aa75b62873186a2ae
+    pristine_git_object: 5125d5ae07e0996bae8d44151e5d57426daef783
   costs.go:
     id: 247b6e6ecaf3
     last_write_checksum: sha1:6a0c8cf65c575073eba23dfb3b2f8e5044013500
@@ -178,8 +178,12 @@ trackedFiles:
     pristine_git_object: c76e6790adc47166d9069c5f7059d43b3033c8ab
   docs/models/components/costreportresponse.md:
     id: c51ed432d656
-    last_write_checksum: sha1:481f42f024033a09fe254e010a46ba2e7709d307
-    pristine_git_object: 6aa021e888f894fcf58b4ba0eef39499474a2347
+    last_write_checksum: sha1:3e2fd777959b0013731d556eda03b6cee6b046d5
+    pristine_git_object: f795e1abb102ec84996c04216e7675ec0ed3062f
+  docs/models/components/costreportresponsecostrange.md:
+    id: cd3d7f455cdb
+    last_write_checksum: sha1:aece9df0e93dcb37a6cb93c6affcb103cf385a65
+    pristine_git_object: 5341f5efb6a18ac8c5c2c1316ef48f946fd62223
   docs/models/components/costreportresponseobject.md:
     id: 59de2f92919c
     last_write_checksum: sha1:9423385404a77ff68dbcd22e1bf5654b69866ff8
@@ -290,8 +294,8 @@ trackedFiles:
     pristine_git_object: d47da9c9338fe7ae3795af747ea6323d0f916e54
   docs/models/components/documentwithheldreason.md:
     id: a8c7f2b9566c
-    last_write_checksum: sha1:067d73a64b95caea3763741371ce8852a0d94d30
-    pristine_git_object: e382b1dc7a95dd0f1d3306540c006c6bee27fbb8
+    last_write_checksum: sha1:23b92348d6df6d085d0bfe9cac7707ef40114294
+    pristine_git_object: d85c865c552df0b910611b7397d4092546ef8f9e
   docs/models/components/dynamicpriceproperties.md:
     id: 5ed7b6dd72d1
     last_write_checksum: sha1:52ed83f5bac664b65f4a95dc5ba9e83faece34da
@@ -414,8 +418,8 @@ trackedFiles:
     pristine_git_object: fe3f586ff587976a2be555370fb8efe2df0f0a36
   docs/models/components/invoice.md:
     id: dfe36624d47f
-    last_write_checksum: sha1:748732202462a06eb70ca344a31d7c3a31a840ed
-    pristine_git_object: 228dbf06999db8dd504cd6ae6e34248089195e40
+    last_write_checksum: sha1:6228de5ba1c8d7fba6f3e370e267deb0911f04c9
+    pristine_git_object: 25369a472bf88059c86a20213fe06a56424ff080
   docs/models/components/invoicecategorysummary.md:
     id: a5e39b9edb7e
     last_write_checksum: sha1:fbebb01af4297d2806a479e9ebed892eeeb64a4e
@@ -822,8 +826,12 @@ trackedFiles:
     pristine_git_object: b54302034dd217fbd5e62817bff8e795d8f90bc1
   docs/models/components/profitabilitysummaryresponse.md:
     id: ca3f4647249a
-    last_write_checksum: sha1:2abdc79be9d9ab40bca932d78c16d9d33f5fa3a4
-    pristine_git_object: 6d41e0f4f4dd6db743fe2435ff0b577497ff4c2d
+    last_write_checksum: sha1:e7612fd8196052963be1b7a141eead9a4b6fb300
+    pristine_git_object: 6b18d86e893ab95e3d9880b9c58326aec642c4eb
+  docs/models/components/profitabilitysummaryresponsecostrange.md:
+    id: 06b5cdb32229
+    last_write_checksum: sha1:b47379b68fd0b10b69989ec9a32225f7dab281c3
+    pristine_git_object: dde0a4bb5544cb830f704b16b2aff8b876df3fc7
   docs/models/components/profitabilitysummaryresponserevenuerange.md:
     id: e3214042a669
     last_write_checksum: sha1:30f8dc571416a779509c23f983e53d4315fdd780
@@ -2670,8 +2678,8 @@ trackedFiles:
     pristine_git_object: bc82b3f6cf528a8186c2aa6a4879e7843a806771
   models/components/costreportresponse.go:
     id: 2d904abc0249
-    last_write_checksum: sha1:cb89f64a50281a595c542f4d564eb948b5cdd8f6
-    pristine_git_object: 5dfd0171ba826f4652669039cfa132b7b80ba648
+    last_write_checksum: sha1:c471c52093647bb96d935da236d528a202643d59
+    pristine_git_object: 555f06a4ec80b317e7d39b7b3df27bc864f968b0
   models/components/costreporttimeseries.go:
     id: 36482750254a
     last_write_checksum: sha1:45ac43d6c577d8f6cc93a0958cb9b250fe51fbdf
@@ -2782,8 +2790,8 @@ trackedFiles:
     pristine_git_object: 8ff1b7a1be3a86afd536955c9ce90e608ddd1659
   models/components/invoice.go:
     id: c48ce6abe467
-    last_write_checksum: sha1:446749362d5686a850abc348230e6bd0ee96d120
-    pristine_git_object: ce182bac815e5d27f8ddf256b2fd11a701fcab03
+    last_write_checksum: sha1:f9a08d2d33b8738197c858a7813d489e840db833
+    pristine_git_object: 664d1c5182f055fe5b903c9ffe3c9f63e7f24043
   models/components/invoicecategorysummary.go:
     id: 0426254d387e
     last_write_checksum: sha1:d1cc293e7e0ea1c6c1bf710cbb167e7be813c3ad
@@ -2954,8 +2962,8 @@ trackedFiles:
     pristine_git_object: 18f7faec47225a81c298d4492209456c6930d368
   models/components/profitabilitysummaryresponse.go:
     id: f6065a637ba4
-    last_write_checksum: sha1:65b377ec3d68623568f20a388bb703a87c2786c2
-    pristine_git_object: 9cd4351751469042feeb8fa7cb86ca73e187c023
+    last_write_checksum: sha1:86b99d15f467df166f3f75e8fe11c42056a37944
+    pristine_git_object: 336754c3fa2eb7b322ab77b0f375ab744eb0245e
   models/components/profitabilitytrend.go:
     id: 622009f3b139
     last_write_checksum: sha1:1ce99065bcc3aa29680c7c7022057f6512285822
@@ -6292,6 +6300,5 @@ generatedTests:
   createSubscriptionAdjustment-usageDiscount: "2026-09-15T16:13:34Z"
 releaseNotes: |
   ## Go SDK Changes:
-  * `Client.Subscriptions.ReconcileSubscriptionFeatures()`:  `error.status[503]` **Added**
-  * `Client.Revenue.Get()`:  `response.RevenueRange` **Added**
-  * `Client.Profitability.GetProfitability()`:  `response.RevenueRange` **Added**
+  * `Client.Costs.GetCostReport()`:  `response.CostRange` **Added**
+  * `Client.Profitability.GetProfitability()`:  `response.CostRange` **Added**
