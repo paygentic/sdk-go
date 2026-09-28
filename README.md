@@ -218,6 +218,7 @@ func main() {
 		Name:        "Token Counter",
 		ProductID:   paygentic.Pointer("prod_abc123"),
 		Unit:        "tokens",
+		EventType:   "<value>",
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -498,6 +499,7 @@ func main() {
 		Name:        "Token Counter",
 		ProductID:   paygentic.Pointer("prod_abc123"),
 		Unit:        "tokens",
+		EventType:   "<value>",
 	}, operations.WithRetries(
 		retry.Config{
 			Strategy: "backoff",
@@ -557,6 +559,7 @@ func main() {
 		Name:        "Token Counter",
 		ProductID:   paygentic.Pointer("prod_abc123"),
 		Unit:        "tokens",
+		EventType:   "<value>",
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -614,6 +617,7 @@ func main() {
 		Name:        "Token Counter",
 		ProductID:   paygentic.Pointer("prod_abc123"),
 		Unit:        "tokens",
+		EventType:   "<value>",
 	})
 	if err != nil {
 
@@ -686,6 +690,7 @@ func main() {
 		Name:        "Token Counter",
 		ProductID:   paygentic.Pointer("prod_abc123"),
 		Unit:        "tokens",
+		EventType:   "<value>",
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -726,6 +731,7 @@ func main() {
 		Name:        "Token Counter",
 		ProductID:   paygentic.Pointer("prod_abc123"),
 		Unit:        "tokens",
+		EventType:   "<value>",
 	})
 	if err != nil {
 		log.Fatal(err)

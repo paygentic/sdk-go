@@ -10,7 +10,7 @@ import (
 type RevenueTrendBucket struct {
 	// Start time of this bucket
 	Timestamp time.Time `json:"timestamp"`
-	// Total amount of all invoices issued in this bucket (all statuses, by issuedAt)
+	// Total amount of all invoices issued in this bucket (all statuses, by issuedAt), excluding tax
 	IssuedInvoices string `json:"issuedInvoices"`
 	// Amount of written-off invoices in dollars for this bucket (by writtenOffAt)
 	WrittenOffInvoices string `json:"writtenOffInvoices"`

@@ -67,8 +67,8 @@ type CreateBillableMetricRequest struct {
 	// Measurement unit used when aggregating this metric's values. Common examples: 'tokens', 'GB', 'calls', 'images', 'hours', 'TB', 'queries', 'requests'
 	Unit string `json:"unit"`
 	// CloudEvents type for meter routing. Links this billable metric to the metering service.
-	EventType *string `json:"eventType,omitzero"`
-	// JSONPath to extract a numeric value from event data. Must start with `$.` (example: `$.amount` or `$.payload.bytes`). Required for SUM/AVG/MIN/MAX/LATEST aggregations.
+	EventType string `json:"eventType"`
+	// JSONPath to extract a numeric value from event data. Must start with `$.` (example: `$.amount` or `$.payload.bytes`). Required for SUM/AVG/MIN/MAX/LATEST aggregations. Optional for UNIQUE_COUNT, which counts distinct values of this property when set and distinct events when not. Not stored for COUNT.
 	ValueProperty *string `json:"valueProperty,omitzero"`
 	// Map of dimension name to JSONPath for group-by queries. Each value must start with `$.` (example: `$.region`).
 	GroupBy map[string]string `json:"groupBy,omitzero"`
@@ -136,9 +136,9 @@ func (c *CreateBillableMetricRequest) GetUnit() string {
 	return c.Unit
 }
 
-func (c *CreateBillableMetricRequest) GetEventType() *string {
+func (c *CreateBillableMetricRequest) GetEventType() string {
 	if c == nil {
-		return nil
+		return ""
 	}
 	return c.EventType
 }

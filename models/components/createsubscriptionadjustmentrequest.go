@@ -14,12 +14,16 @@ type CreateSubscriptionAdjustmentRequestType string
 const (
 	CreateSubscriptionAdjustmentRequestTypePercentageDiscount CreateSubscriptionAdjustmentRequestType = "percentageDiscount"
 	CreateSubscriptionAdjustmentRequestTypeUsageDiscount      CreateSubscriptionAdjustmentRequestType = "usageDiscount"
+	CreateSubscriptionAdjustmentRequestTypeMinimumQuantity    CreateSubscriptionAdjustmentRequestType = "minimumQuantity"
+	CreateSubscriptionAdjustmentRequestTypeMaximumQuantity    CreateSubscriptionAdjustmentRequestType = "maximumQuantity"
 )
 
-// CreateSubscriptionAdjustmentRequest - One adjustment to attach to the subscription. The type decides which number the body carries: a rate for percentageDiscount, a unit count and one target price for usageDiscount.
+// CreateSubscriptionAdjustmentRequest - One adjustment to attach to the subscription. The type decides which number the body carries: a rate for percentageDiscount, a unit count and one target price for usageDiscount, and a contracted quantity and one target price for minimumQuantity and maximumQuantity.
 type CreateSubscriptionAdjustmentRequest struct {
 	CreatePercentageDiscountAdjustment *CreatePercentageDiscountAdjustment `queryParam:"inline" union:"member"`
 	CreateUsageDiscountAdjustment      *CreateUsageDiscountAdjustment      `queryParam:"inline" union:"member"`
+	CreateMinimumQuantityAdjustment    *CreateMinimumQuantityAdjustment    `queryParam:"inline" union:"member"`
+	CreateMaximumQuantityAdjustment    *CreateMaximumQuantityAdjustment    `queryParam:"inline" union:"member"`
 
 	Type CreateSubscriptionAdjustmentRequestType
 }
@@ -39,6 +43,24 @@ func CreateCreateSubscriptionAdjustmentRequestUsageDiscount(usageDiscount Create
 	return CreateSubscriptionAdjustmentRequest{
 		CreateUsageDiscountAdjustment: &usageDiscount,
 		Type:                          typ,
+	}
+}
+
+func CreateCreateSubscriptionAdjustmentRequestMinimumQuantity(minimumQuantity CreateMinimumQuantityAdjustment) CreateSubscriptionAdjustmentRequest {
+	typ := CreateSubscriptionAdjustmentRequestTypeMinimumQuantity
+
+	return CreateSubscriptionAdjustmentRequest{
+		CreateMinimumQuantityAdjustment: &minimumQuantity,
+		Type:                            typ,
+	}
+}
+
+func CreateCreateSubscriptionAdjustmentRequestMaximumQuantity(maximumQuantity CreateMaximumQuantityAdjustment) CreateSubscriptionAdjustmentRequest {
+	typ := CreateSubscriptionAdjustmentRequestTypeMaximumQuantity
+
+	return CreateSubscriptionAdjustmentRequest{
+		CreateMaximumQuantityAdjustment: &maximumQuantity,
+		Type:                            typ,
 	}
 }
 
@@ -79,6 +101,24 @@ func (u *CreateSubscriptionAdjustmentRequest) UnmarshalJSON(data []byte) (err er
 		u.CreateUsageDiscountAdjustment = createUsageDiscountAdjustment
 		u.Type = CreateSubscriptionAdjustmentRequestTypeUsageDiscount
 		return nil
+	case "minimumQuantity":
+		createMinimumQuantityAdjustment := new(CreateMinimumQuantityAdjustment)
+		if err := utils.UnmarshalJSON(data, &createMinimumQuantityAdjustment, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == minimumQuantity) type CreateMinimumQuantityAdjustment within CreateSubscriptionAdjustmentRequest: %w", string(data), err)
+		}
+
+		u.CreateMinimumQuantityAdjustment = createMinimumQuantityAdjustment
+		u.Type = CreateSubscriptionAdjustmentRequestTypeMinimumQuantity
+		return nil
+	case "maximumQuantity":
+		createMaximumQuantityAdjustment := new(CreateMaximumQuantityAdjustment)
+		if err := utils.UnmarshalJSON(data, &createMaximumQuantityAdjustment, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == maximumQuantity) type CreateMaximumQuantityAdjustment within CreateSubscriptionAdjustmentRequest: %w", string(data), err)
+		}
+
+		u.CreateMaximumQuantityAdjustment = createMaximumQuantityAdjustment
+		u.Type = CreateSubscriptionAdjustmentRequestTypeMaximumQuantity
+		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateSubscriptionAdjustmentRequest", string(data))
@@ -91,6 +131,14 @@ func (u CreateSubscriptionAdjustmentRequest) MarshalJSON() ([]byte, error) {
 
 	if u.CreateUsageDiscountAdjustment != nil {
 		return utils.MarshalJSON(u.CreateUsageDiscountAdjustment, "", true)
+	}
+
+	if u.CreateMinimumQuantityAdjustment != nil {
+		return utils.MarshalJSON(u.CreateMinimumQuantityAdjustment, "", true)
+	}
+
+	if u.CreateMaximumQuantityAdjustment != nil {
+		return utils.MarshalJSON(u.CreateMaximumQuantityAdjustment, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type CreateSubscriptionAdjustmentRequest: all fields are null")

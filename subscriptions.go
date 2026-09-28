@@ -219,7 +219,7 @@ func (s *Subscriptions) List(ctx context.Context, request *operations.ListSubscr
 
 			var out errors.BadRequest
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, errors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -244,7 +244,7 @@ func (s *Subscriptions) List(ctx context.Context, request *operations.ListSubscr
 
 			var out errors.Error
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, errors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -265,7 +265,7 @@ func (s *Subscriptions) List(ctx context.Context, request *operations.ListSubscr
 
 			var out errors.Error
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, errors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -493,7 +493,7 @@ func (s *Subscriptions) Create(ctx context.Context, request operations.CreateSub
 
 			var out errors.BadRequest
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, errors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -520,7 +520,7 @@ func (s *Subscriptions) Create(ctx context.Context, request operations.CreateSub
 
 			var out errors.Error
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, errors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -541,7 +541,7 @@ func (s *Subscriptions) Create(ctx context.Context, request operations.CreateSub
 
 			var out errors.Error
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, errors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -767,7 +767,7 @@ func (s *Subscriptions) Get(ctx context.Context, id string, opts ...operations.O
 
 			var out errors.Error
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, errors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -788,7 +788,7 @@ func (s *Subscriptions) Get(ctx context.Context, id string, opts ...operations.O
 
 			var out errors.Error
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, errors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -1018,7 +1018,7 @@ func (s *Subscriptions) UpdateSubscription(ctx context.Context, id string, body 
 
 			var out errors.BadRequest
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, errors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -1043,7 +1043,7 @@ func (s *Subscriptions) UpdateSubscription(ctx context.Context, id string, body 
 
 			var out errors.Error
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, errors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -1064,7 +1064,7 @@ func (s *Subscriptions) UpdateSubscription(ctx context.Context, id string, body 
 
 			var out errors.Error
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, errors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -1301,7 +1301,7 @@ func (s *Subscriptions) GeneratePortalLink(ctx context.Context, id string, body 
 
 			var out errors.Error
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, errors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -1322,7 +1322,7 @@ func (s *Subscriptions) GeneratePortalLink(ctx context.Context, id string, body 
 
 			var out errors.Error
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, errors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -1553,7 +1553,7 @@ func (s *Subscriptions) Terminate(ctx context.Context, id string, body operation
 
 			var out errors.BadRequest
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, errors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -1580,7 +1580,7 @@ func (s *Subscriptions) Terminate(ctx context.Context, id string, body operation
 
 			var out errors.Error
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, errors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -1601,7 +1601,7 @@ func (s *Subscriptions) Terminate(ctx context.Context, id string, body operation
 
 			var out errors.Error
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, errors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -1834,7 +1834,7 @@ func (s *Subscriptions) ReconcileSubscriptionFeatures(ctx context.Context, id st
 
 			var out errors.BadRequest
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, errors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -1861,7 +1861,7 @@ func (s *Subscriptions) ReconcileSubscriptionFeatures(ctx context.Context, id st
 
 			var out errors.Error
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, errors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -1884,7 +1884,7 @@ func (s *Subscriptions) ReconcileSubscriptionFeatures(ctx context.Context, id st
 
 			var out errors.Error
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, errors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -2117,7 +2117,7 @@ func (s *Subscriptions) ListSubscriptionAdjustments(ctx context.Context, id stri
 
 			var out errors.Error
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, errors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -2138,7 +2138,7 @@ func (s *Subscriptions) ListSubscriptionAdjustments(ctx context.Context, id stri
 
 			var out errors.Error
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, errors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -2371,7 +2371,7 @@ func (s *Subscriptions) CreateSubscriptionAdjustment(ctx context.Context, id str
 
 			var out errors.BadRequest
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, errors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -2396,7 +2396,7 @@ func (s *Subscriptions) CreateSubscriptionAdjustment(ctx context.Context, id str
 
 			var out errors.Error
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, errors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -2417,7 +2417,7 @@ func (s *Subscriptions) CreateSubscriptionAdjustment(ctx context.Context, id str
 
 			var out errors.Error
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return nil, err
+				return nil, errors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
 			return nil, &out
@@ -2453,8 +2453,8 @@ func (s *Subscriptions) CreateSubscriptionAdjustment(ctx context.Context, id str
 }
 
 // DeleteSubscriptionAdjustment - Delete Adjustment
-// Deletes an adjustment that has not yet reached an issued invoice. No invoice changes: an invoice still in draft keeps its numbers, and loses the discount only when its period is calculated again. An adjustment that has already discounted an issued invoice cannot be deleted, because the invoice records why the customer was charged that amount. Its window cannot be shortened afterwards either, so set effectiveTo at creation time whenever the deal has a known end date.
-func (s *Subscriptions) DeleteSubscriptionAdjustment(ctx context.Context, id string, adjustmentID string, opts ...operations.Option) error {
+// Stops an adjustment from applying to any period it has not already been billed on. An adjustment that has never reached an issued invoice is removed, and the response is 204. An adjustment that has already been billed on an issued invoice is RETRACTED instead: its effectiveTo moves to the end of the last period it was billed on, the adjustment still exists, and the response is 200 carrying it. Read a 200 as "shortened", not as "removed". No invoice changes either way: an issued invoice keeps its numbers, and a draft loses the adjustment only when its period is calculated again. Deleting the same adjustment again returns the same 200 and the same window.
+func (s *Subscriptions) DeleteSubscriptionAdjustment(ctx context.Context, id string, adjustmentID string, opts ...operations.Option) (*components.SubscriptionAdjustment, error) {
 	request := operations.DeleteSubscriptionAdjustmentRequest{
 		ID:           id,
 		AdjustmentID: adjustmentID,
@@ -2468,7 +2468,7 @@ func (s *Subscriptions) DeleteSubscriptionAdjustment(ctx context.Context, id str
 
 	for _, opt := range opts {
 		if err := opt(&o, supportedOptions...); err != nil {
-			return fmt.Errorf("error applying option: %w", err)
+			return nil, fmt.Errorf("error applying option: %w", err)
 		}
 	}
 
@@ -2480,7 +2480,7 @@ func (s *Subscriptions) DeleteSubscriptionAdjustment(ctx context.Context, id str
 	}
 	opURL, err := utils.GenerateURL(ctx, baseURL, "/v0/subscriptions/{id}/adjustments/{adjustmentId}", request, nil)
 	if err != nil {
-		return fmt.Errorf("error generating URL: %w", err)
+		return nil, fmt.Errorf("error generating URL: %w", err)
 	}
 
 	hookCtx := hooks.HookContext{
@@ -2505,13 +2505,13 @@ func (s *Subscriptions) DeleteSubscriptionAdjustment(ctx context.Context, id str
 
 	req, err := http.NewRequestWithContext(ctx, "DELETE", opURL, nil)
 	if err != nil {
-		return fmt.Errorf("error creating request: %w", err)
+		return nil, fmt.Errorf("error creating request: %w", err)
 	}
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
-		return err
+		return nil, err
 	}
 
 	for k, v := range o.SetHeaders {
@@ -2571,17 +2571,17 @@ func (s *Subscriptions) DeleteSubscriptionAdjustment(ctx context.Context, id str
 		})
 
 		if err != nil {
-			return err
+			return nil, err
 		} else {
 			httpRes, err = s.hooks.AfterSuccess(hooks.AfterSuccessContext{HookContext: hookCtx}, httpRes)
 			if err != nil {
-				return err
+				return nil, err
 			}
 		}
 	} else {
 		req, err = s.hooks.BeforeRequest(hooks.BeforeRequestContext{HookContext: hookCtx}, req)
 		if err != nil {
-			return err
+			return nil, err
 		}
 
 		httpRes, err = s.sdkConfiguration.Client.Do(req)
@@ -2593,23 +2593,44 @@ func (s *Subscriptions) DeleteSubscriptionAdjustment(ctx context.Context, id str
 			}
 
 			_, err = s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, nil, err)
-			return err
+			return nil, err
 		} else if utils.MatchStatusCodes([]string{"4XX", "5XX"}, httpRes.StatusCode) {
 			_httpRes, err := s.hooks.AfterError(hooks.AfterErrorContext{HookContext: hookCtx}, httpRes, nil)
 			if err != nil {
-				return err
+				return nil, err
 			} else if _httpRes != nil {
 				httpRes = _httpRes
 			}
 		} else {
 			httpRes, err = s.hooks.AfterSuccess(hooks.AfterSuccessContext{HookContext: hookCtx}, httpRes)
 			if err != nil {
-				return err
+				return nil, err
 			}
 		}
 	}
 
 	switch {
+	case httpRes.StatusCode == 200:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out components.SubscriptionAdjustment
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			return &out, nil
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, errors.NewPaygenticDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
 	case httpRes.StatusCode == 204:
 		utils.DrainBody(httpRes)
 	case httpRes.StatusCode == 401:
@@ -2623,62 +2644,63 @@ func (s *Subscriptions) DeleteSubscriptionAdjustment(ctx context.Context, id str
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
-				return err
+				return nil, err
 			}
 
 			var out errors.Error
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return err
+				return nil, errors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
-			return &out
+			return nil, &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
-				return err
+				return nil, err
 			}
-			return errors.NewPaygenticDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+			return nil, errors.NewPaygenticDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
 	case httpRes.StatusCode == 500:
 		switch {
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
-				return err
+				return nil, err
 			}
 
 			var out errors.Error
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
-				return err
+				return nil, errors.NewResponseValidationError("response did not match the declared error schema", httpRes.StatusCode, string(rawBody), httpRes, err)
 			}
 
-			return &out
+			return nil, &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
-				return err
+				return nil, err
 			}
-			return errors.NewPaygenticDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+			return nil, errors.NewPaygenticDefaultError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
 	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
 		rawBody, err := utils.ConsumeRawBody(httpRes)
 		if err != nil {
-			return err
+			return nil, err
 		}
-		return errors.NewPaygenticDefaultError("API error occurred", httpRes.StatusCode, string(rawBody), httpRes)
+		return nil, errors.NewPaygenticDefaultError("API error occurred", httpRes.StatusCode, string(rawBody), httpRes)
 	case httpRes.StatusCode >= 500 && httpRes.StatusCode < 600:
 		rawBody, err := utils.ConsumeRawBody(httpRes)
 		if err != nil {
-			return err
+			return nil, err
 		}
-		return errors.NewPaygenticDefaultError("API error occurred", httpRes.StatusCode, string(rawBody), httpRes)
+		return nil, errors.NewPaygenticDefaultError("API error occurred", httpRes.StatusCode, string(rawBody), httpRes)
 	default:
 		rawBody, err := utils.ConsumeRawBody(httpRes)
 		if err != nil {
-			return err
+			return nil, err
 		}
-		return errors.NewPaygenticDefaultError("unknown status code returned", httpRes.StatusCode, string(rawBody), httpRes)
+		return nil, errors.NewPaygenticDefaultError("unknown status code returned", httpRes.StatusCode, string(rawBody), httpRes)
 	}
 
-	return nil
+	return nil, nil
+
 }

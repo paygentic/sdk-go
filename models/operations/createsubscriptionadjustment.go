@@ -33,3 +33,11 @@ func (c *CreateSubscriptionAdjustmentRequest) GetBodyPercentageDiscount() *compo
 func (c *CreateSubscriptionAdjustmentRequest) GetBodyUsageDiscount() *components.CreateUsageDiscountAdjustment {
 	return c.GetBody().CreateUsageDiscountAdjustment
 }
+
+func (c *CreateSubscriptionAdjustmentRequest) GetBodyMinimumQuantity() *components.CreateMinimumQuantityAdjustment {
+	return c.GetBody().CreateMinimumQuantityAdjustment
+}
+
+func (c *CreateSubscriptionAdjustmentRequest) GetBodyMaximumQuantity() *components.CreateMaximumQuantityAdjustment {
+	return c.GetBody().CreateMaximumQuantityAdjustment
+}

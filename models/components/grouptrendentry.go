@@ -7,7 +7,7 @@ type GroupTrendEntry struct {
 	GroupKey string `json:"groupKey"`
 	// Human-readable label for the group (e.g. plan name)
 	GroupLabel string `json:"groupLabel"`
-	// Total issued invoice amount in dollars for this group in this bucket
+	// Total issued invoice amount in dollars for this group in this bucket, excluding tax
 	IssuedInvoices string `json:"issuedInvoices"`
 }
 

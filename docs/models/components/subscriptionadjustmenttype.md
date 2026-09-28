@@ -20,3 +20,5 @@ custom := components.SubscriptionAdjustmentType("custom_value")
 | ---------------------------------------------- | ---------------------------------------------- |
 | `SubscriptionAdjustmentTypePercentageDiscount` | percentageDiscount                             |
 | `SubscriptionAdjustmentTypeUsageDiscount`      | usageDiscount                                  |
+| `SubscriptionAdjustmentTypeMinimumQuantity`    | minimumQuantity                                |
+| `SubscriptionAdjustmentTypeMaximumQuantity`    | maximumQuantity                                |

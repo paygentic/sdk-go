@@ -5,7 +5,7 @@ package components
 type InvoiceCategorySummary struct {
 	// Number of invoices in this category
 	Count int64 `json:"count"`
-	// Total amount of invoices in this category in dollars
+	// Total amount of invoices in this category in dollars, including tax
 	Amount string `json:"amount"`
 }
 

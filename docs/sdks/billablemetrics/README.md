@@ -43,6 +43,7 @@ func main() {
         Name: "Token Counter",
         ProductID: paygentic.Pointer("prod_abc123"),
         Unit: "tokens",
+        EventType: "<value>",
     })
     if err != nil {
         log.Fatal(err)

@@ -7,7 +7,7 @@ type ProfitabilityRow struct {
 	CustomerID string `json:"customerId"`
 	// Display name for the row. 'Other' for the overflow row.
 	CustomerName string `json:"customerName"`
-	// Net revenue (paid + outstanding) in unit currency, with two decimals.
+	// Revenue excluding tax (paid + outstanding invoices issued in the period), in unit currency, with two decimals.
 	NetRevenue string `json:"netRevenue"`
 	// Aggregated cost in unit currency, with two decimals.
 	TotalCost string `json:"totalCost"`

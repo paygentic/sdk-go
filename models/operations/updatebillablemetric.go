@@ -17,9 +17,9 @@ type UpdateBillableMetricRequestBody struct {
 	Unit *string `json:"unit,omitzero"`
 	// Optional item tag, used to map this metric's invoice lines to an external accounting/tax identity. Send a new id to re-tag — the item must be filed under this charge's own product, and an archived item is rejected. An item from another product is refused with `ITEM_PRODUCT_MISMATCH`: a tag is an accounting grouping and does not move the charge between products, and no field here could move it back. Re-file the item to move every charge anchored to it together. Send `null` to untag. Every line item whose invoice has not closed reports this charge's current tag, so a re-tag takes effect on the bill in progress and on any generated ahead of it — no further action, and no window to wait for. Lines on a closed invoice keep the item recorded at close and never move. Un-tagging works the same way: those lines report no item.
 	ItemID optionalnullable.OptionalNullable[string] `json:"itemId,omitzero"`
-	// CloudEvents type for meter routing.
-	EventType optionalnullable.OptionalNullable[string] `json:"eventType,omitzero"`
-	// JSONPath to extract a numeric value from event data. Must start with `$.` (example: `$.amount` or `$.payload.bytes`).
+	// CloudEvents type for meter routing. Cannot be cleared: every billable metric needs one.
+	EventType *string `json:"eventType,omitzero"`
+	// JSONPath to extract a numeric value from event data. Must start with `$.` (example: `$.amount` or `$.payload.bytes`). Cannot be cleared on a SUM/AVG/MIN/MAX/LATEST metric. Not stored for COUNT.
 	ValueProperty optionalnullable.OptionalNullable[string] `json:"valueProperty,omitzero"`
 	// Map of dimension name to JSONPath for group-by queries. Each value must start with `$.` (example: `$.region`).
 	GroupBy optionalnullable.OptionalNullable[map[string]string] `json:"groupBy,omitzero"`
@@ -66,7 +66,7 @@ func (u *UpdateBillableMetricRequestBody) GetItemID() optionalnullable.OptionalN
 	return u.ItemID
 }
 
-func (u *UpdateBillableMetricRequestBody) GetEventType() optionalnullable.OptionalNullable[string] {
+func (u *UpdateBillableMetricRequestBody) GetEventType() *string {
 	if u == nil {
 		return nil
 	}

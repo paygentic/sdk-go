@@ -31,7 +31,7 @@ generation:
     generateNewTests: true
     skipResponseBodyAssertions: false
 go:
-  version: 0.5.10
+  version: 0.6.0
   additionalDependencies: {}
   allowUnknownFieldsInWeakUnions: false
   baseErrorName: ClientError
@@ -40,6 +40,8 @@ go:
   enableCustomCodeRegions: false
   enableSkipDeserialization: false
   envVarPrefix: PAYGENTIC
+  fixFlags:
+    encodePathParams: false
   flattenGlobalSecurity: true
   flatteningOrder: parameters-first
   forwardCompatibleEnumsByDefault: true

@@ -5,7 +5,7 @@ package components
 type CurrencyBreakdownEntry struct {
 	// ISO 4217 currency code (uppercase, e.g. USD, EUR, GBP)
 	Currency string `json:"currency"`
-	// Net collected revenue in dollars for this currency (issued invoices + completed payments)
+	// Revenue in dollars for this currency, excluding tax: invoices issued in the period plus completed payments
 	NetRevenue string         `json:"netRevenue"`
 	Invoices   InvoiceSummary `json:"invoices"`
 	Payments   PaymentSummary `json:"payments"`

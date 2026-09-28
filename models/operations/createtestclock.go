@@ -8,7 +8,7 @@ import (
 )
 
 type CreateTestClockRequest struct {
-	// Initial time for the test clock (defaults to current time). Cannot be more than 1 hour in the past to prevent accidental backdating. The 1-hour buffer accounts for clock drift and network delays.
+	// Initial time for the test clock (defaults to current time). May be in the past, which lets a subscription on the clock start on a past date and bill its periods as the clock advances.
 	CurrentTime *time.Time `json:"currentTime,omitzero"`
 	// Description of the test clock's purpose
 	Description *string `json:"description,omitzero"`
