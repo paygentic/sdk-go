@@ -33,30 +33,6 @@ func (e *PriceObject) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type PriceModel1 string
-
-const (
-	PriceModel1Standard   PriceModel1 = "standard"
-	PriceModel1Dynamic    PriceModel1 = "dynamic"
-	PriceModel1Volume     PriceModel1 = "volume"
-	PriceModel1Percentage PriceModel1 = "percentage"
-)
-
-func (e PriceModel1) ToPointer() *PriceModel1 {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PriceModel1) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "standard", "dynamic", "volume", "percentage":
-			return true
-		}
-	}
-	return false
-}
-
 type PricePaymentTerm string
 
 const (
@@ -79,49 +55,29 @@ func (e *PricePaymentTerm) IsExact() bool {
 	return false
 }
 
-// PriceRateType - What properties.unitPrice is denominated in. 'amount' (the default) is an amount of the invoice currency for each unit metered, so the quantity is the multiplier. 'proportion' is the reverse: a dimensionless share of a currency-denominated quantity, so '0.02' is 2% and the invoice prints '2.00%'. Presentation only. Requires a standard metered price in real currency.
-type PriceRateType string
-
-const (
-	PriceRateTypeAmount     PriceRateType = "amount"
-	PriceRateTypeProportion PriceRateType = "proportion"
-)
-
-func (e PriceRateType) ToPointer() *PriceRateType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PriceRateType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "amount", "proportion":
-			return true
-		}
-	}
-	return false
-}
-
 type Price struct {
 	// Unique identifier for a price
 	ID     string       `json:"id"`
 	Object *PriceObject `default:"price" json:"object"`
-	// Unique identifier for an organization
-	MerchantID       string  `json:"merchantId"`
+	// Unique identifier for a billable metric
 	BillableMetricID *string `json:"billableMetricId,omitzero"`
-	// The unique identifier for the fee referred to by this price
+	// The unique identifier for the fee referred to by this price. Present when price is linked to a fee.
 	FeeID *string `json:"feeId,omitzero"`
-	// ISO 8601 duration for billing frequency (e.g., P1M for monthly)
+	// Unique identifier for a pricing unit
+	PricingUnitID *string `json:"pricingUnitId,omitzero"`
+	// Unique identifier for an organization
+	MerchantID string `json:"merchantId"`
+	// ISO 8601 duration. 'P0D' for one-time, 'P1M' for monthly, 'P1Y' for yearly. Required for fees, optional for billable metrics. Defaults to plan's billingCadence if not specified.
 	BillingCadence     optionalnullable.OptionalNullable[string] `json:"billingCadence,omitzero"`
 	CreatedAt          time.Time                                 `json:"createdAt"`
-	Currency           *string                                   `json:"currency,omitzero"`
-	Description        *string                                   `json:"description,omitzero"`
 	InvoiceDisplayName string                                    `json:"invoiceDisplayName"`
-	Model              PriceModel1                               `json:"model"`
-	PaymentTerm        PricePaymentTerm                          `json:"paymentTerm"`
-	Properties         map[string]any                            `json:"properties"`
-	UnitAmount         *string                                   `json:"unitAmount,omitzero"`
-	UpdatedAt          time.Time                                 `json:"updatedAt"`
+	// Presentation only. Prices sharing this value, within one billing period, print as a single row on the rendered invoice PDF and are described by this string. Every member still bills its own line item on the ledger, this API and the compliance document. The combined row's rate is derived from the members' own rates. Requires the 'standard' pricing model. Sample values: 'Cross Border Fees', 'FX Fees'
+	InvoiceDisplayGroup optionalnullable.OptionalNullable[string] `json:"invoiceDisplayGroup,omitzero"`
+	// Pricing model of a price as returned by the API. Includes the legacy models ('dynamic', 'percentage') retained for existing prices; 'standard' and 'volume' can be created (see PriceModelInput).
+	Model       *PriceModel      `json:"model,omitzero"`
+	PaymentTerm PricePaymentTerm `json:"paymentTerm"`
+	Properties  PriceProperties  `json:"properties"`
+	UpdatedAt   time.Time        `json:"updatedAt"`
 	// Features associated with this price
 	Features []PriceFeature `json:"features,omitzero"`
 	// When true, grants applied to a subscription will discount usage charged by this price. Only supported for standard metered prices.
@@ -129,15 +85,11 @@ type Price struct {
 	// A fixed amount owed whole rather than a per-period rate. An obligation is not prorated over a partial first period: when a subscription starts before its billing anchor, no truncated stub is billed and the first charge is the full amount at the next anchor. An obligation also refuses an interval boundary that falls strictly inside one of its own billing periods, since part of an amount owed whole is not a thing to bill. Defaults to false, which is a rate and is today's behaviour for every price. Not supported on a metered price, whose amount resolves from usage at close.
 	IsObligation *bool `default:"false" json:"isObligation"`
 	// What properties.unitPrice is denominated in. 'amount' (the default) is an amount of the invoice currency for each unit metered, so the quantity is the multiplier. 'proportion' is the reverse: a dimensionless share of a currency-denominated quantity, so '0.02' is 2% and the invoice prints '2.00%'. Presentation only. Requires a standard metered price in real currency.
-	RateType *PriceRateType `default:"amount" json:"rateType"`
-	// Presentation only. Prices sharing this value, within one billing period, print as a single row on the rendered invoice PDF and are described by this string. Every member still bills its own line item on the ledger, this API and the compliance document. The combined row's rate is derived from the members' own rates. Requires the 'standard' pricing model. Sample values: 'Cross Border Fees', 'FX Fees'
-	InvoiceDisplayGroup optionalnullable.OptionalNullable[string] `json:"invoiceDisplayGroup,omitzero"`
-	// Unique identifier for a pricing unit
-	PricingUnitID *string `json:"pricingUnitId,omitzero"`
+	RateType *RateType `json:"rateType,omitzero"`
 	// A price's tax declaration. Optional on write — a price that declares nothing is `IN_SCOPE`, and is billed and taxed exactly as it was before this object existed. Always present on read. Replaced as a whole on update: send the object to change it, omit it to leave it alone.
 	Tax PriceTax `json:"tax"`
-	// Quantity used when generating invoice line items for this price. Total per period = quantity × unitPrice. Only supported for fee prices; metered prices derive quantity from usage. Defaults to 1.
-	Quantity *int64 `default:"1" json:"quantity"`
+	// Quantity for invoice line items. Total per period = quantity × unitPrice. Only supported for fee prices; metered prices derive quantity from usage. Defaults to 1.
+	Quantity int64 `json:"quantity"`
 }
 
 func (p Price) MarshalJSON() ([]byte, error) {
@@ -165,13 +117,6 @@ func (p *Price) GetObject() *PriceObject {
 	return p.Object
 }
 
-func (p *Price) GetMerchantID() string {
-	if p == nil {
-		return ""
-	}
-	return p.MerchantID
-}
-
 func (p *Price) GetBillableMetricID() *string {
 	if p == nil {
 		return nil
@@ -184,6 +129,20 @@ func (p *Price) GetFeeID() *string {
 		return nil
 	}
 	return p.FeeID
+}
+
+func (p *Price) GetPricingUnitID() *string {
+	if p == nil {
+		return nil
+	}
+	return p.PricingUnitID
+}
+
+func (p *Price) GetMerchantID() string {
+	if p == nil {
+		return ""
+	}
+	return p.MerchantID
 }
 
 func (p *Price) GetBillingCadence() optionalnullable.OptionalNullable[string] {
@@ -200,20 +159,6 @@ func (p *Price) GetCreatedAt() time.Time {
 	return p.CreatedAt
 }
 
-func (p *Price) GetCurrency() *string {
-	if p == nil {
-		return nil
-	}
-	return p.Currency
-}
-
-func (p *Price) GetDescription() *string {
-	if p == nil {
-		return nil
-	}
-	return p.Description
-}
-
 func (p *Price) GetInvoiceDisplayName() string {
 	if p == nil {
 		return ""
@@ -221,9 +166,16 @@ func (p *Price) GetInvoiceDisplayName() string {
 	return p.InvoiceDisplayName
 }
 
-func (p *Price) GetModel() PriceModel1 {
+func (p *Price) GetInvoiceDisplayGroup() optionalnullable.OptionalNullable[string] {
 	if p == nil {
-		return PriceModel1("")
+		return nil
+	}
+	return p.InvoiceDisplayGroup
+}
+
+func (p *Price) GetModel() *PriceModel {
+	if p == nil {
+		return nil
 	}
 	return p.Model
 }
@@ -235,18 +187,11 @@ func (p *Price) GetPaymentTerm() PricePaymentTerm {
 	return p.PaymentTerm
 }
 
-func (p *Price) GetProperties() map[string]any {
+func (p *Price) GetProperties() PriceProperties {
 	if p == nil {
-		return map[string]any{}
+		return PriceProperties{}
 	}
 	return p.Properties
-}
-
-func (p *Price) GetUnitAmount() *string {
-	if p == nil {
-		return nil
-	}
-	return p.UnitAmount
 }
 
 func (p *Price) GetUpdatedAt() time.Time {
@@ -277,25 +222,11 @@ func (p *Price) GetIsObligation() *bool {
 	return p.IsObligation
 }
 
-func (p *Price) GetRateType() *PriceRateType {
+func (p *Price) GetRateType() *RateType {
 	if p == nil {
 		return nil
 	}
 	return p.RateType
-}
-
-func (p *Price) GetInvoiceDisplayGroup() optionalnullable.OptionalNullable[string] {
-	if p == nil {
-		return nil
-	}
-	return p.InvoiceDisplayGroup
-}
-
-func (p *Price) GetPricingUnitID() *string {
-	if p == nil {
-		return nil
-	}
-	return p.PricingUnitID
 }
 
 func (p *Price) GetTax() PriceTax {
@@ -305,9 +236,9 @@ func (p *Price) GetTax() PriceTax {
 	return p.Tax
 }
 
-func (p *Price) GetQuantity() *int64 {
+func (p *Price) GetQuantity() int64 {
 	if p == nil {
-		return nil
+		return 0
 	}
 	return p.Quantity
 }

@@ -122,7 +122,7 @@ func main() {
 
 ### Response
 
-**[*components.SchemasBillingSchedule](../../models/components/schemasbillingschedule.md), error**
+**[*components.BillingSchedule](../../models/components/billingschedule.md), error**
 
 ### Errors
 
@@ -177,7 +177,7 @@ func main() {
 
 ### Response
 
-**[*components.SchemasBillingSchedule](../../models/components/schemasbillingschedule.md), error**
+**[*components.BillingSchedule](../../models/components/billingschedule.md), error**
 
 ### Errors
 
@@ -233,7 +233,7 @@ func main() {
 
 ### Response
 
-**[*components.SchemasBillingSchedule](../../models/components/schemasbillingschedule.md), error**
+**[*components.BillingSchedule](../../models/components/billingschedule.md), error**
 
 ### Errors
 

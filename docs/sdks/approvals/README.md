@@ -61,7 +61,7 @@ func main() {
 
 ### Response
 
-**[*components.SchemasApproval](../../models/components/schemasapproval.md), error**
+**[*components.Approval](../../models/components/approval.md), error**
 
 ### Errors
 
@@ -172,7 +172,7 @@ func main() {
 
 ### Response
 
-**[*components.SchemasApproval](../../models/components/schemasapproval.md), error**
+**[*components.Approval](../../models/components/approval.md), error**
 
 ### Errors
 
@@ -230,7 +230,7 @@ func main() {
 
 ### Response
 
-**[*components.SchemasApproval](../../models/components/schemasapproval.md), error**
+**[*components.Approval](../../models/components/approval.md), error**
 
 ### Errors
 

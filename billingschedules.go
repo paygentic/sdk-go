@@ -306,7 +306,7 @@ func (s *BillingSchedules) ListBillingSchedules(ctx context.Context, orderID *st
 }
 
 // CreateBillingSchedule - Create a billing schedule
-func (s *BillingSchedules) CreateBillingSchedule(ctx context.Context, request components.CreateBillingScheduleRequest, opts ...operations.Option) (*components.SchemasBillingSchedule, error) {
+func (s *BillingSchedules) CreateBillingSchedule(ctx context.Context, request components.CreateBillingScheduleRequest, opts ...operations.Option) (*components.BillingSchedule, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -472,7 +472,7 @@ func (s *BillingSchedules) CreateBillingSchedule(ctx context.Context, request co
 				return nil, err
 			}
 
-			var out components.SchemasBillingSchedule
+			var out components.BillingSchedule
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
@@ -579,7 +579,7 @@ func (s *BillingSchedules) CreateBillingSchedule(ctx context.Context, request co
 }
 
 // GetBillingSchedule - Get a billing schedule
-func (s *BillingSchedules) GetBillingSchedule(ctx context.Context, id string, opts ...operations.Option) (*components.SchemasBillingSchedule, error) {
+func (s *BillingSchedules) GetBillingSchedule(ctx context.Context, id string, opts ...operations.Option) (*components.BillingSchedule, error) {
 	request := operations.GetBillingScheduleRequest{
 		ID: id,
 	}
@@ -742,7 +742,7 @@ func (s *BillingSchedules) GetBillingSchedule(ctx context.Context, id string, op
 				return nil, err
 			}
 
-			var out components.SchemasBillingSchedule
+			var out components.BillingSchedule
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
@@ -826,7 +826,7 @@ func (s *BillingSchedules) GetBillingSchedule(ctx context.Context, id string, op
 }
 
 // UpdateBillingSchedule - Update a billing schedule
-func (s *BillingSchedules) UpdateBillingSchedule(ctx context.Context, id string, body components.UpdateBillingScheduleRequest, opts ...operations.Option) (*components.SchemasBillingSchedule, error) {
+func (s *BillingSchedules) UpdateBillingSchedule(ctx context.Context, id string, body components.UpdateBillingScheduleRequest, opts ...operations.Option) (*components.BillingSchedule, error) {
 	request := operations.UpdateBillingScheduleRequest{
 		ID:   id,
 		Body: body,
@@ -997,7 +997,7 @@ func (s *BillingSchedules) UpdateBillingSchedule(ctx context.Context, id string,
 				return nil, err
 			}
 
-			var out components.SchemasBillingSchedule
+			var out components.BillingSchedule
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}

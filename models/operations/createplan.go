@@ -147,8 +147,8 @@ type CreatePlanRequest struct {
 	MerchantID string `json:"merchantId"`
 	// Plan identifier visible to customers. Sample values: 'Basic Tier', 'Business Package', 'Enterprise Solution', 'Metered Billing', 'Free Tier', 'Premium Access'
 	Name string `json:"name"`
-	// Array of price IDs to associate with this plan
-	Prices []string `json:"prices,omitzero"`
+	// The prices this plan starts with. An entry is either a price ID on its own, or an object that names a price ID and the key by which you address that line. A price ID on its own receives a generated key.
+	Prices []components.PlanLineRef `json:"prices,omitzero"`
 	// Unique identifier for a product
 	ProductID string `json:"productId"`
 	// Whether tax is added on top of the price (exclusive) or included in the price (inclusive)
@@ -241,7 +241,7 @@ func (c *CreatePlanRequest) GetName() string {
 	return c.Name
 }
 
-func (c *CreatePlanRequest) GetPrices() []string {
+func (c *CreatePlanRequest) GetPrices() []components.PlanLineRef {
 	if c == nil {
 		return nil
 	}

@@ -7,6 +7,7 @@ import (
 )
 
 type CreateItemRequest struct {
+	// Unique identifier for an organization
 	MerchantID string `json:"merchantId"`
 	// Canonical sellable name for the Item
 	Name string `json:"name"`

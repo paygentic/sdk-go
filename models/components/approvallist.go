@@ -32,7 +32,7 @@ func (e *ApprovalListObject) UnmarshalJSON(data []byte) error {
 
 type ApprovalList struct {
 	Object ApprovalListObject `json:"object"`
-	Data   []SchemasApproval  `json:"data"`
+	Data   []Approval         `json:"data"`
 	// Offset-based pagination response.
 	Pagination OffsetPagination `json:"pagination"`
 }
@@ -44,9 +44,9 @@ func (a *ApprovalList) GetObject() ApprovalListObject {
 	return a.Object
 }
 
-func (a *ApprovalList) GetData() []SchemasApproval {
+func (a *ApprovalList) GetData() []Approval {
 	if a == nil {
-		return []SchemasApproval{}
+		return []Approval{}
 	}
 	return a.Data
 }

@@ -102,7 +102,7 @@ func (e *PlanVersionPriceSlotRateType) IsExact() bool {
 	return false
 }
 
-// PlanVersionPriceSlot - One price slot on a plan version. Every `Price` field is present, plus `priceDeleted` layered on top.
+// PlanVersionPriceSlot - One price slot on a plan version. Every `Price` field is present, plus `key` and `priceDeleted` layered on top.
 type PlanVersionPriceSlot struct {
 	// Unique identifier for a price
 	ID     string                      `json:"id"`
@@ -139,6 +139,8 @@ type PlanVersionPriceSlot struct {
 	Tax PriceTax `json:"tax"`
 	// Quantity used when generating invoice line items for this price. Total per period = quantity × unitPrice. Only supported for fee prices; metered prices derive quantity from usage. Defaults to 1.
 	Quantity *int64 `default:"1" json:"quantity"`
+	// The name of this line. Send it as the `key` of a subscription price-interval operation to address this line. A line created before keys could be supplied carries a generated key, which does not match the format that this API accepts for new keys.
+	Key string `json:"key"`
 	// True when the underlying price this slot references has been soft-deleted.
 	PriceDeleted bool `json:"priceDeleted"`
 }
@@ -313,6 +315,13 @@ func (p *PlanVersionPriceSlot) GetQuantity() *int64 {
 		return nil
 	}
 	return p.Quantity
+}
+
+func (p *PlanVersionPriceSlot) GetKey() string {
+	if p == nil {
+		return ""
+	}
+	return p.Key
 }
 
 func (p *PlanVersionPriceSlot) GetPriceDeleted() bool {

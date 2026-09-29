@@ -402,7 +402,7 @@ func main() {
 
 ### Response
 
-**[*components.PaymentSession](../../models/components/paymentsession.md), error**
+**[*components.CustomerPaymentSession](../../models/components/customerpaymentsession.md), error**
 
 ### Errors
 

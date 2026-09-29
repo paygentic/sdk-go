@@ -34,8 +34,9 @@ func (e *ItemObject) UnmarshalJSON(data []byte) error {
 
 type Item struct {
 	// Unique identifier for an item
-	ID                 string              `json:"id"`
-	Object             *ItemObject         `default:"item" json:"object"`
+	ID     string      `json:"id"`
+	Object *ItemObject `default:"item" json:"object"`
+	// Unique identifier for an organization
 	MerchantID         string              `json:"merchantId"`
 	Name               string              `json:"name"`
 	Metadata           map[string]any      `json:"metadata"`

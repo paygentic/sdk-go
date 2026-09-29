@@ -96,13 +96,13 @@ type Order struct {
 	TermEndDate    time.Time                                    `json:"termEndDate"`
 	CloseDate      optionalnullable.OptionalNullable[time.Time] `json:"closeDate,omitzero"`
 	// Decimal string (TCV)
-	TotalAmount            string            `json:"totalAmount"`
-	DefaultPaymentTermDays int64             `json:"defaultPaymentTermDays"`
-	Metadata               map[string]any    `json:"metadata"`
-	LineItems              []OrderLineItem   `json:"lineItems"`
-	BillingSchedules       []BillingSchedule `json:"billingSchedules"`
-	CreatedAt              time.Time         `json:"createdAt"`
-	UpdatedAt              time.Time         `json:"updatedAt"`
+	TotalAmount            string                 `json:"totalAmount"`
+	DefaultPaymentTermDays int64                  `json:"defaultPaymentTermDays"`
+	Metadata               map[string]any         `json:"metadata"`
+	LineItems              []OrderLineItem        `json:"lineItems"`
+	BillingSchedules       []OrderBillingSchedule `json:"billingSchedules"`
+	CreatedAt              time.Time              `json:"createdAt"`
+	UpdatedAt              time.Time              `json:"updatedAt"`
 }
 
 func (o Order) MarshalJSON() ([]byte, error) {
@@ -242,9 +242,9 @@ func (o *Order) GetLineItems() []OrderLineItem {
 	return o.LineItems
 }
 
-func (o *Order) GetBillingSchedules() []BillingSchedule {
+func (o *Order) GetBillingSchedules() []OrderBillingSchedule {
 	if o == nil {
-		return []BillingSchedule{}
+		return []OrderBillingSchedule{}
 	}
 	return o.BillingSchedules
 }

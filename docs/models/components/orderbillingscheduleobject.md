@@ -1,4 +1,4 @@
-# SchemasPaymentSessionObject
+# OrderBillingScheduleObject
 
 ## Example Usage
 
@@ -7,7 +7,7 @@ import (
 	"github.com/paygentic/sdk-go/models/components"
 )
 
-value := components.SchemasPaymentSessionObjectPaymentSession
+value := components.OrderBillingScheduleObjectBillingSchedule
 ```
 
 
@@ -15,4 +15,4 @@ value := components.SchemasPaymentSessionObjectPaymentSession
 
 | Name                                        | Value                                       |
 | ------------------------------------------- | ------------------------------------------- |
-| `SchemasPaymentSessionObjectPaymentSession` | payment_session                             |
+| `OrderBillingScheduleObjectBillingSchedule` | billing_schedule                            |

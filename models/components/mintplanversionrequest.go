@@ -2,69 +2,24 @@
 
 package components
 
-import (
-	"github.com/paygentic/sdk-go/internal/utils"
-)
-
-type ReplacePrice struct {
-	// Unique identifier for a price
-	ReplacesPriceID string `json:"replacesPriceId"`
-	// Unique identifier for a price
-	WithPriceID string `json:"withPriceId"`
-}
-
-func (r *ReplacePrice) GetReplacesPriceID() string {
-	if r == nil {
-		return ""
-	}
-	return r.ReplacesPriceID
-}
-
-func (r *ReplacePrice) GetWithPriceID() string {
-	if r == nil {
-		return ""
-	}
-	return r.WithPriceID
-}
-
-// MintPlanVersionRequest - A reference-by-id price diff applied to the prices of the plan's current version. Every id references an existing price created via POST /prices; inline price definitions are not accepted. A mint must carry at least one price change, so an empty body is rejected. A version must carry at least one price, so a diff that would leave none is rejected.
+// MintPlanVersionRequest - The price set the new version is to hold. Every price ID references an existing price created via POST /prices; inline price definitions are not accepted. The change against the plan's current version follows from the keys: a key on both sides with a different price ID replaces that line and keeps its identity, a key only in this request adds a line, and a key the current version holds and this request omits removes that line. An entry with no key adds a line under a generated key; it is never matched to an existing line by price ID. A version must carry at least one price, so an empty set is rejected.
 type MintPlanVersionRequest struct {
-	// Prices to add to the version. Each must not already be on the plan's current version.
-	AddPrices []string `json:"addPrices,omitzero"`
-	// Prices to remove. Each must be on the plan's current version.
-	RemovePrices []string `json:"removePrices,omitzero"`
-	// Prices to swap in place, preserving the slot's lineage so the price keeps its identity where the plan is configured for stable price ids. replacesPriceId must be on the plan's current version; withPriceId is the new price.
-	ReplacePrices []ReplacePrice `json:"replacePrices,omitzero"`
+	// The full price set the new version holds. To move off the previous addPrices, removePrices and replacePrices fields: a replacePrices entry becomes the same key with the new price ID, a removePrices entry becomes an omitted key, and an addPrices entry becomes a new entry.
+	Prices []MintPlanLineRef `json:"prices"`
+	// The ID of the plan version you read the current price set from. Supply it to be told when the plan has moved on: the request is rejected with 409 if the plan's current version is no longer this one, so a set built from a stale read cannot drop a line another caller has just added. Omit it to write the set unconditionally.
+	BasedOnVersionID *string `json:"basedOnVersionId,omitzero"`
 }
 
-func (m MintPlanVersionRequest) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(m, "", false)
-}
-
-func (m *MintPlanVersionRequest) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &m, "", false, nil); err != nil {
-		return err
+func (m *MintPlanVersionRequest) GetPrices() []MintPlanLineRef {
+	if m == nil {
+		return []MintPlanLineRef{}
 	}
-	return nil
+	return m.Prices
 }
 
-func (m *MintPlanVersionRequest) GetAddPrices() []string {
+func (m *MintPlanVersionRequest) GetBasedOnVersionID() *string {
 	if m == nil {
 		return nil
 	}
-	return m.AddPrices
-}
-
-func (m *MintPlanVersionRequest) GetRemovePrices() []string {
-	if m == nil {
-		return nil
-	}
-	return m.RemovePrices
-}
-
-func (m *MintPlanVersionRequest) GetReplacePrices() []ReplacePrice {
-	if m == nil {
-		return nil
-	}
-	return m.ReplacePrices
+	return m.BasedOnVersionID
 }

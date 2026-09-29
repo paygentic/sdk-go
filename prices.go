@@ -33,7 +33,7 @@ func newPrices(rootSDK *Client, sdkConfig config.SDKConfiguration, hooks *hooks.
 }
 
 // Create
-func (s *Prices) Create(ctx context.Context, request operations.CreatePriceRequest, opts ...operations.Option) (*components.SchemasPrice, error) {
+func (s *Prices) Create(ctx context.Context, request operations.CreatePriceRequest, opts ...operations.Option) (*components.Price, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -199,7 +199,7 @@ func (s *Prices) Create(ctx context.Context, request operations.CreatePriceReque
 				return nil, err
 			}
 
-			var out components.SchemasPrice
+			var out components.Price
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
@@ -579,7 +579,7 @@ func (s *Prices) List(ctx context.Context, billableMetricID *string, merchantID 
 }
 
 // Get
-func (s *Prices) Get(ctx context.Context, id string, opts ...operations.Option) (*components.SchemasPrice, error) {
+func (s *Prices) Get(ctx context.Context, id string, opts ...operations.Option) (*components.Price, error) {
 	request := operations.GetPriceRequest{
 		ID: id,
 	}
@@ -742,7 +742,7 @@ func (s *Prices) Get(ctx context.Context, id string, opts ...operations.Option) 
 				return nil, err
 			}
 
-			var out components.SchemasPrice
+			var out components.Price
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
@@ -847,7 +847,7 @@ func (s *Prices) Get(ctx context.Context, id string, opts ...operations.Option) 
 }
 
 // Update
-func (s *Prices) Update(ctx context.Context, id string, body operations.UpdatePriceRequestBody, opts ...operations.Option) (*components.SchemasPrice, error) {
+func (s *Prices) Update(ctx context.Context, id string, body operations.UpdatePriceRequestBody, opts ...operations.Option) (*components.Price, error) {
 	request := operations.UpdatePriceRequest{
 		ID:   id,
 		Body: body,
@@ -1018,7 +1018,7 @@ func (s *Prices) Update(ctx context.Context, id string, body operations.UpdatePr
 				return nil, err
 			}
 
-			var out components.SchemasPrice
+			var out components.Price
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}

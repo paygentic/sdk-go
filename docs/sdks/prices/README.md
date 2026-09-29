@@ -79,7 +79,7 @@ func main() {
 
 ### Response
 
-**[*components.SchemasPrice](../../models/components/schemasprice.md), error**
+**[*components.Price](../../models/components/price.md), error**
 
 ### Errors
 
@@ -205,7 +205,7 @@ func main() {
 
 ### Response
 
-**[*components.SchemasPrice](../../models/components/schemasprice.md), error**
+**[*components.Price](../../models/components/price.md), error**
 
 ### Errors
 
@@ -275,7 +275,7 @@ func main() {
 
 ### Response
 
-**[*components.SchemasPrice](../../models/components/schemasprice.md), error**
+**[*components.Price](../../models/components/price.md), error**
 
 ### Errors
 

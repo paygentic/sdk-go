@@ -122,7 +122,7 @@ type Plan struct {
 	MerchantID  string           `json:"merchantId"`
 	Name        string           `json:"name"`
 	PaymentTerm *PlanPaymentTerm `json:"paymentTerm,omitzero"`
-	Prices      []Price          `json:"prices,omitzero"`
+	Prices      []PlanPrice      `json:"prices,omitzero"`
 	// Unique identifier for a product
 	ProductID string `json:"productId"`
 	// Whether tax is added on top of the price (exclusive) or included in the price (inclusive)
@@ -255,7 +255,7 @@ func (p *Plan) GetPaymentTerm() *PlanPaymentTerm {
 	return p.PaymentTerm
 }
 
-func (p *Plan) GetPrices() []Price {
+func (p *Plan) GetPrices() []PlanPrice {
 	if p == nil {
 		return nil
 	}

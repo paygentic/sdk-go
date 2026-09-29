@@ -33,7 +33,7 @@ func newApprovals(rootSDK *Client, sdkConfig config.SDKConfiguration, hooks *hoo
 }
 
 // CreateApproval - Submit a resource for approval
-func (s *Approvals) CreateApproval(ctx context.Context, request components.CreateApprovalRequest, opts ...operations.Option) (*components.SchemasApproval, error) {
+func (s *Approvals) CreateApproval(ctx context.Context, request components.CreateApprovalRequest, opts ...operations.Option) (*components.Approval, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -199,7 +199,7 @@ func (s *Approvals) CreateApproval(ctx context.Context, request components.Creat
 				return nil, err
 			}
 
-			var out components.SchemasApproval
+			var out components.Approval
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
@@ -572,7 +572,7 @@ func (s *Approvals) ListApprovals(ctx context.Context, request *operations.ListA
 }
 
 // GetApproval - Get an approval
-func (s *Approvals) GetApproval(ctx context.Context, id string, opts ...operations.Option) (*components.SchemasApproval, error) {
+func (s *Approvals) GetApproval(ctx context.Context, id string, opts ...operations.Option) (*components.Approval, error) {
 	request := operations.GetApprovalRequest{
 		ID: id,
 	}
@@ -735,7 +735,7 @@ func (s *Approvals) GetApproval(ctx context.Context, id string, opts ...operatio
 				return nil, err
 			}
 
-			var out components.SchemasApproval
+			var out components.Approval
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
@@ -819,7 +819,7 @@ func (s *Approvals) GetApproval(ctx context.Context, id string, opts ...operatio
 }
 
 // UpdateApproval - Update an approval (approve, reject, or cancel)
-func (s *Approvals) UpdateApproval(ctx context.Context, id string, body components.UpdateApprovalRequest, opts ...operations.Option) (*components.SchemasApproval, error) {
+func (s *Approvals) UpdateApproval(ctx context.Context, id string, body components.UpdateApprovalRequest, opts ...operations.Option) (*components.Approval, error) {
 	request := operations.UpdateApprovalRequest{
 		ID:   id,
 		Body: body,
@@ -990,7 +990,7 @@ func (s *Approvals) UpdateApproval(ctx context.Context, id string, body componen
 				return nil, err
 			}
 
-			var out components.SchemasApproval
+			var out components.Approval
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}

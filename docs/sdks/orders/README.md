@@ -515,7 +515,7 @@ func main() {
 
 ### Response
 
-**[*components.Approval](../../models/components/approval.md), error**
+**[*components.OrderApproval](../../models/components/orderapproval.md), error**
 
 ### Errors
 

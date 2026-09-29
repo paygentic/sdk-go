@@ -128,24 +128,26 @@ func (e *BillingSchedulePeriodPreset) IsExact() bool {
 	return false
 }
 
-// BillingSchedule - Summary of a billing schedule owned by this order. The full schedule (with intervals + staged invoices) is served under /billingSchedules. Owner-polymorphic: a schedule belongs to exactly one Order or one Subscription (XOR); cadence lives on ScheduleIntervals, not the header.
 type BillingSchedule struct {
-	ID              string                                    `json:"id"`
-	Object          BillingScheduleObject                     `json:"object"`
-	OrderID         optionalnullable.OptionalNullable[string] `json:"orderId,omitzero"`
-	SubscriptionID  optionalnullable.OptionalNullable[string] `json:"subscriptionId,omitzero"`
-	MerchantID      string                                    `json:"merchantId"`
-	Status          BillingScheduleStatus                     `json:"status"`
-	StartDate       time.Time                                 `json:"startDate"`
-	EndDate         time.Time                                 `json:"endDate"`
-	BillingAnchor   time.Time                                 `json:"billingAnchor"`
-	AlignmentPolicy BillingScheduleAlignmentPolicy            `json:"alignmentPolicy"`
-	ProrationPolicy BillingScheduleProrationPolicy            `json:"prorationPolicy"`
-	PaymentTermDays optionalnullable.OptionalNullable[int64]  `json:"paymentTermDays,omitzero"`
-	PeriodPreset    BillingSchedulePeriodPreset               `json:"periodPreset"`
-	Metadata        map[string]any                            `json:"metadata"`
-	CreatedAt       time.Time                                 `json:"createdAt"`
-	UpdatedAt       time.Time                                 `json:"updatedAt"`
+	ID             string                                    `json:"id"`
+	Object         BillingScheduleObject                     `json:"object"`
+	OrderID        optionalnullable.OptionalNullable[string] `json:"orderId,omitzero"`
+	SubscriptionID optionalnullable.OptionalNullable[string] `json:"subscriptionId,omitzero"`
+	MerchantID     string                                    `json:"merchantId"`
+	Status         BillingScheduleStatus                     `json:"status"`
+	StartDate      time.Time                                 `json:"startDate"`
+	// The schedule's end date. Always present.
+	EndDate             *time.Time                                   `json:"endDate"`
+	BillingAnchor       time.Time                                    `json:"billingAnchor"`
+	AlignmentPolicy     BillingScheduleAlignmentPolicy               `json:"alignmentPolicy"`
+	ProrationPolicy     BillingScheduleProrationPolicy               `json:"prorationPolicy"`
+	PaymentTermDays     optionalnullable.OptionalNullable[int64]     `json:"paymentTermDays,omitzero"`
+	PeriodPreset        BillingSchedulePeriodPreset                  `json:"periodPreset"`
+	CustomPeriodWindows []any                                        `json:"customPeriodWindows"`
+	Metadata            map[string]any                               `json:"metadata"`
+	CreatedAt           time.Time                                    `json:"createdAt"`
+	UpdatedAt           time.Time                                    `json:"updatedAt"`
+	DeletedAt           optionalnullable.OptionalNullable[time.Time] `json:"deletedAt,omitzero"`
 }
 
 func (b BillingSchedule) MarshalJSON() ([]byte, error) {
@@ -208,9 +210,9 @@ func (b *BillingSchedule) GetStartDate() time.Time {
 	return b.StartDate
 }
 
-func (b *BillingSchedule) GetEndDate() time.Time {
+func (b *BillingSchedule) GetEndDate() *time.Time {
 	if b == nil {
-		return time.Time{}
+		return nil
 	}
 	return b.EndDate
 }
@@ -250,6 +252,13 @@ func (b *BillingSchedule) GetPeriodPreset() BillingSchedulePeriodPreset {
 	return b.PeriodPreset
 }
 
+func (b *BillingSchedule) GetCustomPeriodWindows() []any {
+	if b == nil {
+		return []any{}
+	}
+	return b.CustomPeriodWindows
+}
+
 func (b *BillingSchedule) GetMetadata() map[string]any {
 	if b == nil {
 		return map[string]any{}
@@ -269,4 +278,11 @@ func (b *BillingSchedule) GetUpdatedAt() time.Time {
 		return time.Time{}
 	}
 	return b.UpdatedAt
+}
+
+func (b *BillingSchedule) GetDeletedAt() optionalnullable.OptionalNullable[time.Time] {
+	if b == nil {
+		return nil
+	}
+	return b.DeletedAt
 }

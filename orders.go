@@ -2102,7 +2102,7 @@ func (s *Orders) DeleteOrderLineItem(ctx context.Context, orderID string, id str
 
 // CreateOrderApproval - Create an approval for the order
 // Submit the order for maker-checker approval. Returns 409 if a pending approval already exists.
-func (s *Orders) CreateOrderApproval(ctx context.Context, orderID string, body components.CreateOrderApprovalRequest, opts ...operations.Option) (*components.Approval, error) {
+func (s *Orders) CreateOrderApproval(ctx context.Context, orderID string, body components.CreateOrderApprovalRequest, opts ...operations.Option) (*components.OrderApproval, error) {
 	request := operations.CreateOrderApprovalRequest{
 		OrderID: orderID,
 		Body:    body,
@@ -2273,7 +2273,7 @@ func (s *Orders) CreateOrderApproval(ctx context.Context, orderID string, body c
 				return nil, err
 			}
 
-			var out components.Approval
+			var out components.OrderApproval
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}

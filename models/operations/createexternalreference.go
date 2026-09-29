@@ -8,6 +8,7 @@ import (
 )
 
 type CreateExternalReferenceRequest struct {
+	// Unique identifier for an organization
 	MerchantID string `json:"merchantId"`
 	// The type of Paygentic entity this external reference points at
 	EntityType components.EntityType `json:"entityType"`

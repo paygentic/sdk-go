@@ -1612,7 +1612,7 @@ func (s *Customers) ListCustomerPaymentMethods(ctx context.Context, id string, o
 
 // CreateCustomerPaymentMethod - Set up a payment method
 // Create a payment session that captures a new off-session payment method for this customer without charging. The response contains a hosted-page URL — redirect the customer to it, or load it inside an iframe (when iframed, the page reports outcomes via `postMessage` to the parent window).
-func (s *Customers) CreateCustomerPaymentMethod(ctx context.Context, id string, body *operations.CreateCustomerPaymentMethodRequestBody, opts ...operations.Option) (*components.PaymentSession, error) {
+func (s *Customers) CreateCustomerPaymentMethod(ctx context.Context, id string, body *operations.CreateCustomerPaymentMethodRequestBody, opts ...operations.Option) (*components.CustomerPaymentSession, error) {
 	request := operations.CreateCustomerPaymentMethodRequest{
 		ID:   id,
 		Body: body,
@@ -1783,7 +1783,7 @@ func (s *Customers) CreateCustomerPaymentMethod(ctx context.Context, id string, 
 				return nil, err
 			}
 
-			var out components.PaymentSession
+			var out components.CustomerPaymentSession
 			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 				return nil, err
 			}
