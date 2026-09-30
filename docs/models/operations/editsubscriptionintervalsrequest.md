@@ -1,0 +1,9 @@
+# EditSubscriptionIntervalsRequest
+
+
+## Fields
+
+| Field                                                                                                      | Type                                                                                                       | Required                                                                                                   | Description                                                                                                |
+| ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `ID`                                                                                                       | `string`                                                                                                   | :heavy_check_mark:                                                                                         | The subscription ID                                                                                        |
+| `Body`                                                                                                     | [components.EditSubscriptionIntervalsRequest](../../models/components/editsubscriptionintervalsrequest.md) | :heavy_check_mark:                                                                                         | N/A                                                                                                        |

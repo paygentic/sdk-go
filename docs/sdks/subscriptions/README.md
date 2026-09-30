@@ -10,6 +10,8 @@ A `Subscription` is a customer's commitment to purchase a `Product` following th
 * [Create](#create) - Create
 * [Get](#get) - Get
 * [UpdateSubscription](#updatesubscription) - Update
+* [GetSubscriptionIntervals](#getsubscriptionintervals) - Get Price Intervals
+* [EditSubscriptionIntervals](#editsubscriptionintervals) - Edit Price Intervals
 * [GeneratePortalLink](#generateportallink) - Generate Portal Link
 * [Terminate](#terminate) - Terminate
 * [ReconcileSubscriptionFeatures](#reconcilesubscriptionfeatures) - Reconcile Features
@@ -276,6 +278,125 @@ func main() {
 | ---------------------------- | ---------------------------- | ---------------------------- |
 | errors.BadRequest            | 400                          | application/json             |
 | errors.Error                 | 401, 403, 404                | application/json             |
+| errors.Error                 | 500                          | application/json             |
+| errors.PaygenticDefaultError | 4XX, 5XX                     | \*/\*                        |
+
+## GetSubscriptionIntervals
+
+Returns all the price intervals of the subscription, ordered by start date. This includes intervals that ended and intervals that start in the future. If there are none, returns an empty array.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="getSubscriptionIntervals" method="get" path="/v0/subscriptions/{id}/intervals" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	paygentic "github.com/paygentic/sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := paygentic.New(
+        paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
+    )
+
+    res, err := s.Subscriptions.GetSubscriptionIntervals(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `id`                                                     | `string`                                                 | :heavy_check_mark:                                       | The subscription ID                                      |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
+
+### Response
+
+**[*components.SubscriptionIntervalsResponse](../../models/components/subscriptionintervalsresponse.md), error**
+
+### Errors
+
+| Error Type                   | Status Code                  | Content Type                 |
+| ---------------------------- | ---------------------------- | ---------------------------- |
+| errors.Error                 | 401, 403, 404                | application/json             |
+| errors.Error                 | 500                          | application/json             |
+| errors.PaygenticDefaultError | 4XX, 5XX                     | \*/\*                        |
+
+## EditSubscriptionIntervals
+
+Adds, edits, or removes price intervals on the subscription. Use an add to override a plan price for a period. Use an edit to change unitPrice, baseQuantity, quantityTransitions, or endDate. Use a remove to delete an interval. To close a price, set endDate. To re-open it, set endDate to null. To send an interval from a GET response as an edit, remove kind from it. An edit with no changed field changes nothing. If you send an add again after a timeout, it fails with 409 because it overlaps the first add. Use GET to check the result. The request is rejected if it changes a billing period that already exists, leaves a gap or an overlap, or bills a one-off price more than once.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="editSubscriptionIntervals" method="post" path="/v0/subscriptions/{id}/intervals" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	paygentic "github.com/paygentic/sdk-go"
+	"github.com/paygentic/sdk-go/optionalnullable"
+	"github.com/paygentic/sdk-go/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := paygentic.New(
+        paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
+    )
+
+    res, err := s.Subscriptions.EditSubscriptionIntervals(ctx, "<id>", components.EditSubscriptionIntervalsRequest{
+        Edit: []components.SubscriptionIntervalEditOp{
+            components.SubscriptionIntervalEditOp{
+                ID: "spi_p9q0r1s2t3u4v5w6",
+                UnitPrice: optionalnullable.From(paygentic.Pointer("9.00")),
+            },
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                  | Type                                                                                                       | Required                                                                                                   | Description                                                                                                |
+| ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                      | [context.Context](https://pkg.go.dev/context#Context)                                                      | :heavy_check_mark:                                                                                         | The context to use for the request.                                                                        |
+| `id`                                                                                                       | `string`                                                                                                   | :heavy_check_mark:                                                                                         | The subscription ID                                                                                        |
+| `body`                                                                                                     | [components.EditSubscriptionIntervalsRequest](../../models/components/editsubscriptionintervalsrequest.md) | :heavy_check_mark:                                                                                         | N/A                                                                                                        |
+| `opts`                                                                                                     | [][operations.Option](../../models/operations/option.md)                                                   | :heavy_minus_sign:                                                                                         | The options for this request.                                                                              |
+
+### Response
+
+**[*components.EditSubscriptionIntervalsResponse](../../models/components/editsubscriptionintervalsresponse.md), error**
+
+### Errors
+
+| Error Type                   | Status Code                  | Content Type                 |
+| ---------------------------- | ---------------------------- | ---------------------------- |
+| errors.BadRequest            | 400                          | application/json             |
+| errors.Error                 | 401, 403, 404, 409, 429      | application/json             |
 | errors.Error                 | 500                          | application/json             |
 | errors.PaygenticDefaultError | 4XX, 5XX                     | \*/\*                        |
 

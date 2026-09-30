@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/paygentic/sdk-go/internal/utils"
+	"github.com/paygentic/sdk-go/models/components"
 	"github.com/paygentic/sdk-go/optionalnullable"
 	"time"
 )
@@ -59,6 +60,8 @@ type UpdateSubscriptionRequestBody struct {
 	RenewalReminderDays optionalnullable.OptionalNullable[int64] `json:"renewalReminderDays,omitzero"`
 	// Payment term in days ("Net X") applied to subsequently generated invoices: invoice dueAt = invoice issue date + paymentTermDays. A non-zero value is only valid alongside bankTransferOnly=true. Set 0 for "due on issue". Already-issued invoices keep their snapshotted dueAt.
 	PaymentTermDays *int64 `json:"paymentTermDays,omitzero"`
+	// How the subscription follows new versions of its plan. `floating` follows the plan's default version: when the default changes, the subscription bills from the new default from its next billing period. `pinned` keeps the plan version that the subscription holds. A subscription created without a value is `floating`. A change to this value does not change a billing period that has already started.
+	VersionPolicy *components.SubscriptionVersionPolicy `json:"versionPolicy,omitzero"`
 }
 
 func (u UpdateSubscriptionRequestBody) MarshalJSON() ([]byte, error) {
@@ -147,6 +150,13 @@ func (u *UpdateSubscriptionRequestBody) GetPaymentTermDays() *int64 {
 		return nil
 	}
 	return u.PaymentTermDays
+}
+
+func (u *UpdateSubscriptionRequestBody) GetVersionPolicy() *components.SubscriptionVersionPolicy {
+	if u == nil {
+		return nil
+	}
+	return u.VersionPolicy
 }
 
 type UpdateSubscriptionRequest struct {

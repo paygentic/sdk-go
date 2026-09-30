@@ -177,6 +177,8 @@ type CreateSubscriptionRequest struct {
 	PaymentTermDays *int64 `json:"paymentTermDays,omitzero"`
 	// Number of minutes until the payment session expires. Defaults to 240 minutes (4 hours) if not provided.
 	SessionExpiryMinutes *float64 `json:"sessionExpiryMinutes,omitzero"`
+	// How the subscription follows new versions of its plan. `floating` follows the plan's default version: when the default changes, the subscription bills from the new default from its next billing period. `pinned` keeps the plan version that the subscription holds. A subscription created without a value is `floating`. A change to this value does not change a billing period that has already started.
+	VersionPolicy *components.SubscriptionVersionPolicy `json:"versionPolicy,omitzero"`
 	// Free-form merchant metadata to attach to the subscription. Values must be strings, numbers, or booleans.
 	Metadata map[string]components.SubscriptionMetadata `json:"metadata,omitzero"`
 }
@@ -302,6 +304,13 @@ func (c *CreateSubscriptionRequest) GetSessionExpiryMinutes() *float64 {
 		return nil
 	}
 	return c.SessionExpiryMinutes
+}
+
+func (c *CreateSubscriptionRequest) GetVersionPolicy() *components.SubscriptionVersionPolicy {
+	if c == nil {
+		return nil
+	}
+	return c.VersionPolicy
 }
 
 func (c *CreateSubscriptionRequest) GetMetadata() map[string]components.SubscriptionMetadata {

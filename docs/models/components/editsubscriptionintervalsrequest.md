@@ -1,0 +1,12 @@
+# EditSubscriptionIntervalsRequest
+
+An add/edit/remove op set to apply to the subscription's price timeline. At least one operation is required.
+
+
+## Fields
+
+| Field                                                                                                | Type                                                                                                 | Required                                                                                             | Description                                                                                          |
+| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `Add`                                                                                                | [][components.SubscriptionIntervalAddOp](../../models/components/subscriptionintervaladdop.md)       | :heavy_minus_sign:                                                                                   | New override segments to add.                                                                        |
+| `Edit`                                                                                               | [][components.SubscriptionIntervalEditOp](../../models/components/subscriptionintervaleditop.md)     | :heavy_minus_sign:                                                                                   | Changes to existing intervals.                                                                       |
+| `Remove`                                                                                             | [][components.SubscriptionIntervalRemoveOp](../../models/components/subscriptionintervalremoveop.md) | :heavy_minus_sign:                                                                                   | Intervals to remove outright.                                                                        |

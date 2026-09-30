@@ -502,6 +502,8 @@ type Subscription struct {
 	PlanVersionID *string `json:"planVersionId,omitzero"`
 	// The version number of the plan version referenced by planVersionId, as of subscription creation.
 	VersionNumber *int64 `json:"versionNumber,omitzero"`
+	// How the subscription follows new versions of its plan. `floating` follows the plan's default version: when the default changes, the subscription bills from the new default from its next billing period. `pinned` keeps the plan version that the subscription holds. A subscription created without a value is `floating`. A change to this value does not change a billing period that has already started.
+	VersionPolicy SubscriptionVersionPolicy `json:"versionPolicy"`
 	// Deprecated. Legacy-only, not populated for new subscriptions.
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
@@ -666,6 +668,13 @@ func (s *Subscription) GetVersionNumber() *int64 {
 		return nil
 	}
 	return s.VersionNumber
+}
+
+func (s *Subscription) GetVersionPolicy() SubscriptionVersionPolicy {
+	if s == nil {
+		return SubscriptionVersionPolicy("")
+	}
+	return s.VersionPolicy
 }
 
 func (s *Subscription) GetPrefundAmount() *string {

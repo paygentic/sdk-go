@@ -443,6 +443,8 @@ func main() {
 * [Create](docs/sdks/subscriptions/README.md#create) - Create
 * [Get](docs/sdks/subscriptions/README.md#get) - Get
 * [UpdateSubscription](docs/sdks/subscriptions/README.md#updatesubscription) - Update
+* [GetSubscriptionIntervals](docs/sdks/subscriptions/README.md#getsubscriptionintervals) - Get Price Intervals
+* [EditSubscriptionIntervals](docs/sdks/subscriptions/README.md#editsubscriptionintervals) - Edit Price Intervals
 * [GeneratePortalLink](docs/sdks/subscriptions/README.md#generateportallink) - Generate Portal Link
 * [Terminate](docs/sdks/subscriptions/README.md#terminate) - Terminate
 * [ReconcileSubscriptionFeatures](docs/sdks/subscriptions/README.md#reconcilesubscriptionfeatures) - Reconcile Features

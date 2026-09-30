@@ -69,6 +69,33 @@ func (e *GroupBy) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// PeriodBasis - Which date places revenue inside the window. 'issued' (default) counts whole invoices by their issue date, the basis revenue is recognised on. 'billingPeriod' counts invoice lines by the start of the period each line bills, so a window covering one billing period returns that period's charges, whichever invoices carry them: this month's advance fee and this month's arrears usage. Paid, outstanding and written-off follow each line's invoice; a refund splits across its invoice's lines by subtotal; payments not tied to an invoice are excluded because they bill no period.
+type PeriodBasis string
+
+const (
+	PeriodBasisIssued        PeriodBasis = "issued"
+	PeriodBasisBillingPeriod PeriodBasis = "billingPeriod"
+)
+
+func (e PeriodBasis) ToPointer() *PeriodBasis {
+	return &e
+}
+func (e *PeriodBasis) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "issued":
+		fallthrough
+	case "billingPeriod":
+		*e = PeriodBasis(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for PeriodBasis: %v", v)
+	}
+}
+
 type GetRevenueRequest struct {
 	// Start of the time range (ISO 8601 format)
 	StartTime time.Time `queryParam:"style=form,explode=true,name=startTime"`
@@ -86,6 +113,8 @@ type GetRevenueRequest struct {
 	Currency *string `queryParam:"style=form,explode=true,name=currency"`
 	// Group invoice data by dimension. Allowed values: 'plan' (max 5 groups, top 4 + 'other' when exceeding), 'customer' (max 25 groups, top 24 + 'other' when exceeding, sorted by revenue descending), 'currency' (one entry per currency, primary currency first then alphabetical). Note: groupBy values are mutually exclusive — combining them returns a 400 error. When groupBy=currency is active, top-level netRevenue, invoices, and payments fields are omitted; currencyBreakdown is the sole data source.
 	GroupBy *GroupBy `queryParam:"style=form,explode=true,name=groupBy"`
+	// Which date places revenue inside the window. 'issued' (default) counts whole invoices by their issue date, the basis revenue is recognised on. 'billingPeriod' counts invoice lines by the start of the period each line bills, so a window covering one billing period returns that period's charges, whichever invoices carry them: this month's advance fee and this month's arrears usage. Paid, outstanding and written-off follow each line's invoice; a refund splits across its invoice's lines by subtotal; payments not tied to an invoice are excluded because they bill no period.
+	PeriodBasis *PeriodBasis `default:"issued" queryParam:"style=form,explode=true,name=periodBasis"`
 }
 
 func (g GetRevenueRequest) MarshalJSON() ([]byte, error) {
@@ -153,4 +182,11 @@ func (g *GetRevenueRequest) GetGroupBy() *GroupBy {
 		return nil
 	}
 	return g.GroupBy
+}
+
+func (g *GetRevenueRequest) GetPeriodBasis() *PeriodBasis {
+	if g == nil {
+		return nil
+	}
+	return g.PeriodBasis
 }
