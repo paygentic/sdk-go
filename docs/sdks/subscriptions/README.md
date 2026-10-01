@@ -12,6 +12,8 @@ A `Subscription` is a customer's commitment to purchase a `Product` following th
 * [UpdateSubscription](#updatesubscription) - Update
 * [GetSubscriptionIntervals](#getsubscriptionintervals) - Get Price Intervals
 * [EditSubscriptionIntervals](#editsubscriptionintervals) - Edit Price Intervals
+* [ListSubscriptionIntervalChanges](#listsubscriptionintervalchanges) - List Interval Changes
+* [ListIntervalChanges](#listintervalchanges) - List Merchant Interval Changes
 * [GeneratePortalLink](#generateportallink) - Generate Portal Link
 * [Terminate](#terminate) - Terminate
 * [ReconcileSubscriptionFeatures](#reconcilesubscriptionfeatures) - Reconcile Features
@@ -361,14 +363,16 @@ func main() {
         paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
     )
 
-    res, err := s.Subscriptions.EditSubscriptionIntervals(ctx, "<id>", components.EditSubscriptionIntervalsRequest{
-        Edit: []components.SubscriptionIntervalEditOp{
-            components.SubscriptionIntervalEditOp{
-                ID: "spi_p9q0r1s2t3u4v5w6",
-                UnitPrice: optionalnullable.From(paygentic.Pointer("9.00")),
+    res, err := s.Subscriptions.EditSubscriptionIntervals(ctx, "<id>", components.CreateEditSubscriptionIntervalsRequestUnionEditSubscriptionIntervalsRequest2(
+        components.EditSubscriptionIntervalsRequest2{
+            Edit: []components.SubscriptionIntervalEditOp{
+                components.SubscriptionIntervalEditOp{
+                    ID: "spi_p9q0r1s2t3u4v5w6",
+                    UnitPrice: optionalnullable.From(paygentic.Pointer("9.00")),
+                },
             },
         },
-    })
+    ))
     if err != nil {
         log.Fatal(err)
     }
@@ -380,12 +384,12 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                                                  | Type                                                                                                       | Required                                                                                                   | Description                                                                                                |
-| ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `ctx`                                                                                                      | [context.Context](https://pkg.go.dev/context#Context)                                                      | :heavy_check_mark:                                                                                         | The context to use for the request.                                                                        |
-| `id`                                                                                                       | `string`                                                                                                   | :heavy_check_mark:                                                                                         | The subscription ID                                                                                        |
-| `body`                                                                                                     | [components.EditSubscriptionIntervalsRequest](../../models/components/editsubscriptionintervalsrequest.md) | :heavy_check_mark:                                                                                         | N/A                                                                                                        |
-| `opts`                                                                                                     | [][operations.Option](../../models/operations/option.md)                                                   | :heavy_minus_sign:                                                                                         | The options for this request.                                                                              |
+| Parameter                                                                                                            | Type                                                                                                                 | Required                                                                                                             | Description                                                                                                          |
+| -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                | [context.Context](https://pkg.go.dev/context#Context)                                                                | :heavy_check_mark:                                                                                                   | The context to use for the request.                                                                                  |
+| `id`                                                                                                                 | `string`                                                                                                             | :heavy_check_mark:                                                                                                   | The subscription ID                                                                                                  |
+| `body`                                                                                                               | [components.EditSubscriptionIntervalsRequestUnion](../../models/components/editsubscriptionintervalsrequestunion.md) | :heavy_check_mark:                                                                                                   | N/A                                                                                                                  |
+| `opts`                                                                                                               | [][operations.Option](../../models/operations/option.md)                                                             | :heavy_minus_sign:                                                                                                   | The options for this request.                                                                                        |
 
 ### Response
 
@@ -397,6 +401,118 @@ func main() {
 | ---------------------------- | ---------------------------- | ---------------------------- |
 | errors.BadRequest            | 400                          | application/json             |
 | errors.Error                 | 401, 403, 404, 409, 429      | application/json             |
+| errors.Error                 | 500                          | application/json             |
+| errors.PaygenticDefaultError | 4XX, 5XX                     | \*/\*                        |
+
+## ListSubscriptionIntervalChanges
+
+Lists the subscription's interval changes, oldest first. Each shows why it was made and each interval before and after.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="listSubscriptionIntervalChanges" method="get" path="/v0/subscriptions/{id}/intervalChanges" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	paygentic "github.com/paygentic/sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := paygentic.New(
+        paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
+    )
+
+    res, err := s.Subscriptions.ListSubscriptionIntervalChanges(ctx, "<id>", paygentic.Pointer("10"), paygentic.Pointer("0"))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `id`                                                     | `string`                                                 | :heavy_check_mark:                                       | The subscription ID                                      |
+| `limit`                                                  | `*string`                                                | :heavy_minus_sign:                                       | Number of interval changes to return                     |
+| `offset`                                                 | `*string`                                                | :heavy_minus_sign:                                       | Number of interval changes to skip                       |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
+
+### Response
+
+**[*components.SubscriptionIntervalChangesResponse](../../models/components/subscriptionintervalchangesresponse.md), error**
+
+### Errors
+
+| Error Type                   | Status Code                  | Content Type                 |
+| ---------------------------- | ---------------------------- | ---------------------------- |
+| errors.Error                 | 401, 403, 404                | application/json             |
+| errors.Error                 | 500                          | application/json             |
+| errors.PaygenticDefaultError | 4XX, 5XX                     | \*/\*                        |
+
+## ListIntervalChanges
+
+Lists the interval changes of all your subscriptions, oldest first. `from` is included and `to` is excluded.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="listIntervalChanges" method="get" path="/v0/intervalChanges" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	paygentic "github.com/paygentic/sdk-go"
+	"github.com/paygentic/sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := paygentic.New(
+        paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
+    )
+
+    res, err := s.Subscriptions.ListIntervalChanges(ctx, &operations.ListIntervalChangesRequest{})
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                      | Type                                                                                           | Required                                                                                       | Description                                                                                    |
+| ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                          | [context.Context](https://pkg.go.dev/context#Context)                                          | :heavy_check_mark:                                                                             | The context to use for the request.                                                            |
+| `request`                                                                                      | [operations.ListIntervalChangesRequest](../../models/operations/listintervalchangesrequest.md) | :heavy_check_mark:                                                                             | The request object to use for the request.                                                     |
+| `opts`                                                                                         | [][operations.Option](../../models/operations/option.md)                                       | :heavy_minus_sign:                                                                             | The options for this request.                                                                  |
+
+### Response
+
+**[*components.SubscriptionIntervalChangesResponse](../../models/components/subscriptionintervalchangesresponse.md), error**
+
+### Errors
+
+| Error Type                   | Status Code                  | Content Type                 |
+| ---------------------------- | ---------------------------- | ---------------------------- |
+| errors.BadRequest            | 400                          | application/json             |
+| errors.Error                 | 401, 403                     | application/json             |
 | errors.Error                 | 500                          | application/json             |
 | errors.PaygenticDefaultError | 4XX, 5XX                     | \*/\*                        |
 

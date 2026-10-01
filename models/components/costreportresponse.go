@@ -143,6 +143,10 @@ type CostReportResponse struct {
 	// Non-fatal warnings, e.g. costs that could not be queried.
 	Warnings   []string   `json:"warnings,omitzero"`
 	Pagination Pagination `json:"pagination"`
+	// Every group the report found, empty groups included, before top-N folding into 'Other' and before pagination.
+	GroupCount *int64 `json:"groupCount,omitzero"`
+	// Groups with neither cost nor usage in the period, counted over the whole report and reported whether or not `excludeEmpty` is set. Null when a cost read failed (see `warnings`): a group empty in the costs that loaded may have usage in the one that failed, so none is counted and `excludeEmpty` leaves nobody out.
+	EmptyGroupCount optionalnullable.OptionalNullable[int64] `json:"emptyGroupCount,omitzero"`
 	// Where the caller's cost data actually lies in time. Present only when the selected range returned no cost. An object carries the bounds of the real cost events; null means the caller has no cost event at any time; an absent field means the extent was not resolved, because the result was not empty, because the lookup failed, or because the metering service does not serve the bounds method. An absent field must never be read as an absence.
 	CostRange optionalnullable.OptionalNullable[CostReportResponseCostRange] `json:"costRange,omitzero"`
 }
@@ -233,6 +237,20 @@ func (c *CostReportResponse) GetPagination() Pagination {
 		return Pagination{}
 	}
 	return c.Pagination
+}
+
+func (c *CostReportResponse) GetGroupCount() *int64 {
+	if c == nil {
+		return nil
+	}
+	return c.GroupCount
+}
+
+func (c *CostReportResponse) GetEmptyGroupCount() optionalnullable.OptionalNullable[int64] {
+	if c == nil {
+		return nil
+	}
+	return c.EmptyGroupCount
 }
 
 func (c *CostReportResponse) GetCostRange() optionalnullable.OptionalNullable[CostReportResponseCostRange] {

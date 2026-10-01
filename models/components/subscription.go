@@ -377,6 +377,31 @@ func (e *SubscriptionStatusEnum) IsExact() bool {
 	return false
 }
 
+// TerminationChangeReason - Why the subscription was terminated. Null while it is not terminated.
+type TerminationChangeReason string
+
+const (
+	TerminationChangeReasonCommercial  TerminationChangeReason = "commercial"
+	TerminationChangeReasonCorrection  TerminationChangeReason = "correction"
+	TerminationChangeReasonMigration   TerminationChangeReason = "migration"
+	TerminationChangeReasonUnspecified TerminationChangeReason = "unspecified"
+)
+
+func (e TerminationChangeReason) ToPointer() *TerminationChangeReason {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *TerminationChangeReason) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "commercial", "correction", "migration", "unspecified":
+			return true
+		}
+	}
+	return false
+}
+
 type Merchant struct {
 	ID    string `json:"id"`
 	Name  string `json:"name"`
@@ -519,6 +544,8 @@ type Subscription struct {
 	TerminatedBy *string `json:"terminatedBy,omitzero"`
 	// Reason for termination
 	TerminationReason *string `json:"terminationReason,omitzero"`
+	// Why the subscription was terminated. Null while it is not terminated.
+	TerminationChangeReason optionalnullable.OptionalNullable[TerminationChangeReason] `json:"terminationChangeReason,omitzero"`
 	// Test clock ID if this subscription is attached to a test clock. Only present in non-production environments.
 	TestClockID *string   `json:"testClockId,omitzero"`
 	UpdatedAt   time.Time `json:"updatedAt"`
@@ -724,6 +751,13 @@ func (s *Subscription) GetTerminationReason() *string {
 		return nil
 	}
 	return s.TerminationReason
+}
+
+func (s *Subscription) GetTerminationChangeReason() optionalnullable.OptionalNullable[TerminationChangeReason] {
+	if s == nil {
+		return nil
+	}
+	return s.TerminationChangeReason
 }
 
 func (s *Subscription) GetTestClockID() *string {

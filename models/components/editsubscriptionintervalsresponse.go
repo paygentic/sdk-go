@@ -38,6 +38,8 @@ type EditSubscriptionIntervalsResponse struct {
 	// True when the op set resolved to no change and nothing was written.
 	Unchanged bool                                       `json:"unchanged"`
 	LineItems EditSubscriptionIntervalsResponseLineItems `json:"lineItems"`
+	// The record this edit wrote. Null when the edit changed nothing.
+	IntervalChange *SubscriptionIntervalChange `json:"intervalChange"`
 }
 
 func (e *EditSubscriptionIntervalsResponse) GetIntervals() []SubscriptionInterval {
@@ -59,4 +61,11 @@ func (e *EditSubscriptionIntervalsResponse) GetLineItems() EditSubscriptionInter
 		return EditSubscriptionIntervalsResponseLineItems{}
 	}
 	return e.LineItems
+}
+
+func (e *EditSubscriptionIntervalsResponse) GetIntervalChange() *SubscriptionIntervalChange {
+	if e == nil {
+		return nil
+	}
+	return e.IntervalChange
 }

@@ -3,41 +3,9 @@
 package operations
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/paygentic/sdk-go/internal/utils"
 	"time"
 )
-
-// GetProfitabilityBucketWidth - Time bucket granularity for the per-customer revenue trend. When omitted, the server picks a reasonable bucket from the window length.
-type GetProfitabilityBucketWidth string
-
-const (
-	GetProfitabilityBucketWidthHour GetProfitabilityBucketWidth = "hour"
-	GetProfitabilityBucketWidthDay  GetProfitabilityBucketWidth = "day"
-	GetProfitabilityBucketWidthWeek GetProfitabilityBucketWidth = "week"
-)
-
-func (e GetProfitabilityBucketWidth) ToPointer() *GetProfitabilityBucketWidth {
-	return &e
-}
-func (e *GetProfitabilityBucketWidth) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "hour":
-		fallthrough
-	case "day":
-		fallthrough
-	case "week":
-		*e = GetProfitabilityBucketWidth(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for GetProfitabilityBucketWidth: %v", v)
-	}
-}
 
 type GetProfitabilityRequest struct {
 	// Merchant whose customers to summarize
@@ -50,8 +18,10 @@ type GetProfitabilityRequest struct {
 	TopN *int64 `default:"10" queryParam:"style=form,explode=true,name=topN"`
 	// ISO 4217 currency code to scope the summary. Defaults to the merchant's primary currency.
 	Currency *string `queryParam:"style=form,explode=true,name=currency"`
-	// Time bucket granularity for the per-customer revenue trend. When omitted, the server picks a reasonable bucket from the window length.
-	BucketWidth *GetProfitabilityBucketWidth `default:"day" queryParam:"style=form,explode=true,name=bucketWidth"`
+	// When true, leave customers with neither revenue nor cost in the period out of `rows`. They are dropped before ranking, so they take no top-N slot and are not folded into the 'Other' row. `emptyCustomerCount` says how many there are either way.
+	ExcludeEmpty *bool `default:"false" queryParam:"style=form,explode=true,name=excludeEmpty"`
+	// When true, also return in `emptyCustomers` the customers counted in `emptyCustomerCount` that `rows` does not carry, so a caller can show the complete customer list.
+	IncludeEmpty *bool `default:"false" queryParam:"style=form,explode=true,name=includeEmpty"`
 }
 
 func (g GetProfitabilityRequest) MarshalJSON() ([]byte, error) {
@@ -100,9 +70,16 @@ func (g *GetProfitabilityRequest) GetCurrency() *string {
 	return g.Currency
 }
 
-func (g *GetProfitabilityRequest) GetBucketWidth() *GetProfitabilityBucketWidth {
+func (g *GetProfitabilityRequest) GetExcludeEmpty() *bool {
 	if g == nil {
 		return nil
 	}
-	return g.BucketWidth
+	return g.ExcludeEmpty
+}
+
+func (g *GetProfitabilityRequest) GetIncludeEmpty() *bool {
+	if g == nil {
+		return nil
+	}
+	return g.IncludeEmpty
 }

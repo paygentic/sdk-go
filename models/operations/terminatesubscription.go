@@ -2,9 +2,15 @@
 
 package operations
 
+import (
+	"github.com/paygentic/sdk-go/models/components"
+)
+
 type TerminateSubscriptionRequestBody struct {
 	// Cancellation explanation text. Sample values: 'Customer requested cancellation', 'Payment failure', 'Service migration', 'Contract expiration'
 	Reason string `json:"reason"`
+	// Why a change was made. `correction` fixes data to match what was agreed; `migration` moves a contract from another system; `commercial` is a real change to the deal. Defaults to `unspecified`.
+	ChangeReason *components.ChangeReason `json:"changeReason,omitzero"`
 }
 
 func (t *TerminateSubscriptionRequestBody) GetReason() string {
@@ -12,6 +18,13 @@ func (t *TerminateSubscriptionRequestBody) GetReason() string {
 		return ""
 	}
 	return t.Reason
+}
+
+func (t *TerminateSubscriptionRequestBody) GetChangeReason() *components.ChangeReason {
+	if t == nil {
+		return nil
+	}
+	return t.ChangeReason
 }
 
 type TerminateSubscriptionRequest struct {

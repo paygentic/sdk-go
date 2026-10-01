@@ -1,0 +1,12 @@
+# SubscriptionIntervalChangeEntry
+
+One interval that the change added, edited or removed, with its state before and after.
+
+
+## Fields
+
+| Field                                                                                                   | Type                                                                                                    | Required                                                                                                | Description                                                                                             |
+| ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `IntervalID`                                                                                            | `string`                                                                                                | :heavy_check_mark:                                                                                      | N/A                                                                                                     |
+| `Before`                                                                                                | [*components.SubscriptionIntervalChangeCopy](../../models/components/subscriptionintervalchangecopy.md) | :heavy_check_mark:                                                                                      | The interval before the edit. Null when the edit added it.                                              |
+| `After`                                                                                                 | [*components.SubscriptionIntervalChangeCopy](../../models/components/subscriptionintervalchangecopy.md) | :heavy_check_mark:                                                                                      | The interval after the edit. Null when the edit removed it.                                             |

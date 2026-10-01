@@ -8,8 +8,8 @@ import (
 
 type EditSubscriptionIntervalsRequest struct {
 	// The subscription ID
-	ID   string                                      `pathParam:"style=simple,explode=false,name=id"`
-	Body components.EditSubscriptionIntervalsRequest `request:"mediaType=application/json"`
+	ID   string                                           `pathParam:"style=simple,explode=false,name=id"`
+	Body components.EditSubscriptionIntervalsRequestUnion `request:"mediaType=application/json"`
 }
 
 func (e *EditSubscriptionIntervalsRequest) GetID() string {
@@ -19,9 +19,9 @@ func (e *EditSubscriptionIntervalsRequest) GetID() string {
 	return e.ID
 }
 
-func (e *EditSubscriptionIntervalsRequest) GetBody() components.EditSubscriptionIntervalsRequest {
+func (e *EditSubscriptionIntervalsRequest) GetBody() components.EditSubscriptionIntervalsRequestUnion {
 	if e == nil {
-		return components.EditSubscriptionIntervalsRequest{}
+		return components.EditSubscriptionIntervalsRequestUnion{}
 	}
 	return e.Body
 }

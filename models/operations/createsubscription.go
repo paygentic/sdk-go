@@ -181,6 +181,12 @@ type CreateSubscriptionRequest struct {
 	VersionPolicy *components.SubscriptionVersionPolicy `json:"versionPolicy,omitzero"`
 	// Free-form merchant metadata to attach to the subscription. Values must be strings, numbers, or booleans.
 	Metadata map[string]components.SubscriptionMetadata `json:"metadata,omitzero"`
+	// Why a change was made. `correction` fixes data to match what was agreed; `migration` moves a contract from another system; `commercial` is a real change to the deal. Defaults to `unspecified`.
+	ChangeReason *components.ChangeReason `json:"changeReason,omitzero"`
+	// A free-text note on why these intervals are changing.
+	ChangeDescription *string `json:"changeDescription,omitzero"`
+	// Your own key-value data about the change, such as a CRM deal ID.
+	ChangeMetadata map[string]components.IntervalChangeMetadata `json:"changeMetadata,omitzero"`
 }
 
 func (c CreateSubscriptionRequest) MarshalJSON() ([]byte, error) {
@@ -318,4 +324,25 @@ func (c *CreateSubscriptionRequest) GetMetadata() map[string]components.Subscrip
 		return nil
 	}
 	return c.Metadata
+}
+
+func (c *CreateSubscriptionRequest) GetChangeReason() *components.ChangeReason {
+	if c == nil {
+		return nil
+	}
+	return c.ChangeReason
+}
+
+func (c *CreateSubscriptionRequest) GetChangeDescription() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ChangeDescription
+}
+
+func (c *CreateSubscriptionRequest) GetChangeMetadata() map[string]components.IntervalChangeMetadata {
+	if c == nil {
+		return nil
+	}
+	return c.ChangeMetadata
 }

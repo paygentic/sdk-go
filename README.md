@@ -445,6 +445,8 @@ func main() {
 * [UpdateSubscription](docs/sdks/subscriptions/README.md#updatesubscription) - Update
 * [GetSubscriptionIntervals](docs/sdks/subscriptions/README.md#getsubscriptionintervals) - Get Price Intervals
 * [EditSubscriptionIntervals](docs/sdks/subscriptions/README.md#editsubscriptionintervals) - Edit Price Intervals
+* [ListSubscriptionIntervalChanges](docs/sdks/subscriptions/README.md#listsubscriptionintervalchanges) - List Interval Changes
+* [ListIntervalChanges](docs/sdks/subscriptions/README.md#listintervalchanges) - List Merchant Interval Changes
 * [GeneratePortalLink](docs/sdks/subscriptions/README.md#generateportallink) - Generate Portal Link
 * [Terminate](docs/sdks/subscriptions/README.md#terminate) - Terminate
 * [ReconcileSubscriptionFeatures](docs/sdks/subscriptions/README.md#reconcilesubscriptionfeatures) - Reconcile Features

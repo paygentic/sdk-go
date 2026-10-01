@@ -2,9 +2,24 @@
 
 package components
 
+import (
+	"github.com/paygentic/sdk-go/internal/utils"
+)
+
 type SubscriptionIntervalRemoveOp struct {
 	// The interval being removed.
 	ID string `json:"id"`
+}
+
+func (s SubscriptionIntervalRemoveOp) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *SubscriptionIntervalRemoveOp) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (s *SubscriptionIntervalRemoveOp) GetID() string {

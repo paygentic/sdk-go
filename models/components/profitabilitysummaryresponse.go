@@ -80,8 +80,16 @@ type ProfitabilitySummaryResponse struct {
 	object string `const:"profitability_summary" json:"object"`
 	// ISO 4217 currency code applied to revenue and cost values
 	Currency string `json:"currency"`
-	// Top-N customer rows by profit descending, optionally followed by a single 'Other' row when more than topN customers contributed.
+	// Top-N customer rows by profit descending, optionally followed by a single 'Other' row when more than topN customers contributed. With `excludeEmpty=true`, customers with neither revenue nor cost in the period are left out.
 	Rows []ProfitabilityRow `json:"rows"`
+	// The merchant's customers this summary scored, whether or not they made a row.
+	CustomerCount *int64 `json:"customerCount,omitzero"`
+	// Customers with neither revenue nor cost in the period, counted whether or not `excludeEmpty` left them out of `rows`. Null when a cost read failed: their cost was never established, so none is counted and `excludeEmpty` leaves nobody out.
+	EmptyCustomerCount optionalnullable.OptionalNullable[int64] `json:"emptyCustomerCount,omitzero"`
+	// Customers `rows` does not carry because a cost read failed (see `warnings`) and they had no revenue in the period. Null when every cost read settled.
+	UnloadedCustomerCount optionalnullable.OptionalNullable[int64] `json:"unloadedCustomerCount,omitzero"`
+	// The customers `emptyCustomerCount` counts that `rows` does not carry, either as a row or folded into the 'Other' row, sorted by name, each reading zero with a null margin. Present only when `includeEmpty=true` and the count is answered. They are never ranked, never part of the top-N and never folded into the 'Other' row.
+	EmptyCustomers []ProfitabilityRow `json:"emptyCustomers,omitzero"`
 	// Non-fatal warnings collected during cost discovery (e.g. an individual cost query failed). Empty array on a clean run.
 	Warnings []string `json:"warnings,omitzero"`
 	// Where the caller's revenue actually lies in time. Scoped by the same filters as the request (merchant, and where given customer, subscription and currency), so it is not an account-wide statement. Present only when the selected range returned nothing. An object carries the bounds of the real revenue; null means no revenue under these filters at any time; an absent field means the extent was not resolved, because the result was not empty or because the lookup failed. An absent field must never be read as an absence. The bounds may span more than this endpoint's maximum queryable range, so clamp before re-querying.
@@ -117,6 +125,34 @@ func (p *ProfitabilitySummaryResponse) GetRows() []ProfitabilityRow {
 		return []ProfitabilityRow{}
 	}
 	return p.Rows
+}
+
+func (p *ProfitabilitySummaryResponse) GetCustomerCount() *int64 {
+	if p == nil {
+		return nil
+	}
+	return p.CustomerCount
+}
+
+func (p *ProfitabilitySummaryResponse) GetEmptyCustomerCount() optionalnullable.OptionalNullable[int64] {
+	if p == nil {
+		return nil
+	}
+	return p.EmptyCustomerCount
+}
+
+func (p *ProfitabilitySummaryResponse) GetUnloadedCustomerCount() optionalnullable.OptionalNullable[int64] {
+	if p == nil {
+		return nil
+	}
+	return p.UnloadedCustomerCount
+}
+
+func (p *ProfitabilitySummaryResponse) GetEmptyCustomers() []ProfitabilityRow {
+	if p == nil {
+		return nil
+	}
+	return p.EmptyCustomers
 }
 
 func (p *ProfitabilitySummaryResponse) GetWarnings() []string {

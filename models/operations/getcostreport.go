@@ -112,6 +112,8 @@ type GetCostReportRequest struct {
 	TopN *int64 `default:"9" queryParam:"style=form,explode=true,name=topN"`
 	// When true, include prior-period comparison data in each group.
 	ComparePriorPeriod *bool `default:"false" queryParam:"style=form,explode=true,name=comparePriorPeriod"`
+	// When true, leave out groups with neither cost nor usage in the period. They are dropped before ranking, so they take no top-N slot, do not appear in the 'Other' bucket and are not counted in `pagination.total`. `emptyGroupCount` says how many were left out.
+	ExcludeEmpty *bool `default:"false" queryParam:"style=form,explode=true,name=excludeEmpty"`
 	// Time window granularity for the time-series breakdown.
 	WindowSize *GetCostReportWindowSize `queryParam:"style=form,explode=true,name=windowSize"`
 	// Field to sort groups by.
@@ -198,6 +200,13 @@ func (g *GetCostReportRequest) GetComparePriorPeriod() *bool {
 		return nil
 	}
 	return g.ComparePriorPeriod
+}
+
+func (g *GetCostReportRequest) GetExcludeEmpty() *bool {
+	if g == nil {
+		return nil
+	}
+	return g.ExcludeEmpty
 }
 
 func (g *GetCostReportRequest) GetWindowSize() *GetCostReportWindowSize {
