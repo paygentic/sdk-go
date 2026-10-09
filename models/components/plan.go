@@ -144,6 +144,8 @@ type Plan struct {
 	DefaultVersionID *string `json:"defaultVersionId,omitzero"`
 	// Governs price identity when a price on this plan's default version is replaced. When true (default), replacing a price at make-default keeps the original price id live (its value changes) and the superseded value is preserved under a new id. When false, the replacement price's id goes live instead and the superseded value stays under the original id.
 	StablePriceIds *bool `default:"true" json:"stablePriceIds"`
+	// When a move to a new plan version takes effect for this plan's subscriptions. `end_of_current_period` (the default) moves everything at the end of the current billing period. `immediate` changes entitlements at the move, in-arrears prices for the whole current period, and in-advance prices from the next period. Neither prorates.
+	VersionTransition VersionTransition `json:"versionTransition"`
 }
 
 func (p Plan) MarshalJSON() ([]byte, error) {
@@ -337,4 +339,11 @@ func (p *Plan) GetStablePriceIds() *bool {
 		return nil
 	}
 	return p.StablePriceIds
+}
+
+func (p *Plan) GetVersionTransition() VersionTransition {
+	if p == nil {
+		return VersionTransition{}
+	}
+	return p.VersionTransition
 }

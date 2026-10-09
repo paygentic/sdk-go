@@ -332,12 +332,15 @@ func main() {
 * [List](docs/sdks/invoicesv2/README.md#list) - List
 * [ListLineItems](docs/sdks/invoicesv2/README.md#listlineitems) - List Line Items
 * [CreateLineItem](docs/sdks/invoicesv2/README.md#createlineitem) - Create Manual Line Item
+* [ListProjectedInvoices](docs/sdks/invoicesv2/README.md#listprojectedinvoices) - List projected
 * [Get](docs/sdks/invoicesv2/README.md#get) - Get
 * [GetLineItems](docs/sdks/invoicesv2/README.md#getlineitems) - Get Line Items
 * [DownloadInvoicePdf](docs/sdks/invoicesv2/README.md#downloadinvoicepdf) - Download Invoice PDF
+* [RecordInvoicePayment](docs/sdks/invoicesv2/README.md#recordinvoicepayment) - Settle Invoice Payment
 * [CreateInvoiceRefund](docs/sdks/invoicesv2/README.md#createinvoicerefund) - Refund Invoice
 * [ListInvoiceRefunds](docs/sdks/invoicesv2/README.md#listinvoicerefunds) - List Invoice Refunds
 * [VoidInvoiceRefund](docs/sdks/invoicesv2/README.md#voidinvoicerefund) - Void Invoice Refund
+* [RetryInvoicePayment](docs/sdks/invoicesv2/README.md#retryinvoicepayment) - Retry Payment
 
 ### [Items](docs/sdks/items/README.md)
 
@@ -352,6 +355,10 @@ func main() {
 * [UpsertMerchantIntegration](docs/sdks/merchantintegrations/README.md#upsertmerchantintegration) - Upsert
 * [GetMerchantIntegration](docs/sdks/merchantintegrations/README.md#getmerchantintegration) - Get
 * [DisconnectMerchantIntegration](docs/sdks/merchantintegrations/README.md#disconnectmerchantintegration) - Disconnect
+
+### [Merchants](docs/sdks/merchants/README.md)
+
+* [Reset](docs/sdks/merchants/README.md#reset) - Reset a merchant's data
 
 ### [Orders](docs/sdks/orders/README.md)
 
@@ -445,6 +452,7 @@ func main() {
 * [UpdateSubscription](docs/sdks/subscriptions/README.md#updatesubscription) - Update
 * [GetSubscriptionIntervals](docs/sdks/subscriptions/README.md#getsubscriptionintervals) - Get Price Intervals
 * [EditSubscriptionIntervals](docs/sdks/subscriptions/README.md#editsubscriptionintervals) - Edit Price Intervals
+* [MigrateSubscriptionVersion](docs/sdks/subscriptions/README.md#migratesubscriptionversion) - Migrate To A Plan Version
 * [ListSubscriptionIntervalChanges](docs/sdks/subscriptions/README.md#listsubscriptionintervalchanges) - List Interval Changes
 * [ListIntervalChanges](docs/sdks/subscriptions/README.md#listintervalchanges) - List Merchant Interval Changes
 * [GeneratePortalLink](docs/sdks/subscriptions/README.md#generateportallink) - Generate Portal Link
@@ -466,6 +474,14 @@ func main() {
 
 * [Get](docs/sdks/users/README.md#get) - Get
 * [Update](docs/sdks/users/README.md#update) - Update
+
+### [Webhooks](docs/sdks/webhooks/README.md)
+
+* [Get](docs/sdks/webhooks/README.md#get) - Get
+* [Enable](docs/sdks/webhooks/README.md#enable) - Enable
+* [Update](docs/sdks/webhooks/README.md#update) - Update
+* [Disable](docs/sdks/webhooks/README.md#disable) - Disable
+* [GetPortal](docs/sdks/webhooks/README.md#getportal) - Get Portal Access
 
 </details>
 <!-- End Available Resources and Operations [operations] -->

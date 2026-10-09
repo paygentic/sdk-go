@@ -130,6 +130,8 @@ type UpdatePlanRequestBody struct {
 	CreditAllocations []components.PlanCreditAllocation `json:"creditAllocations,omitzero"`
 	// Governs price identity when a price is replaced by minting a new plan version and making it default. When true (default), replacing a price at make-default keeps the original price id live (its value changes) and the superseded value is preserved under a new id. When false, the replacement price's id goes live instead and the superseded value stays under the original id. Has no effect on this request's own prices field: prices carried over keep their ids, but swapping one price for another there moves the plan to the new price's id rather than keeping the original live.
 	StablePriceIds *bool `json:"stablePriceIds,omitzero"`
+	// When a move to a new plan version takes effect for this plan's subscriptions. `end_of_current_period` (the default) moves everything at the end of the current billing period. `immediate` changes entitlements at the move, in-arrears prices for the whole current period, and in-advance prices from the next period. Neither prorates.
+	VersionTransition *components.VersionTransition `json:"versionTransition,omitzero"`
 }
 
 func (u UpdatePlanRequestBody) MarshalJSON() ([]byte, error) {
@@ -239,6 +241,13 @@ func (u *UpdatePlanRequestBody) GetStablePriceIds() *bool {
 		return nil
 	}
 	return u.StablePriceIds
+}
+
+func (u *UpdatePlanRequestBody) GetVersionTransition() *components.VersionTransition {
+	if u == nil {
+		return nil
+	}
+	return u.VersionTransition
 }
 
 type UpdatePlanRequest struct {

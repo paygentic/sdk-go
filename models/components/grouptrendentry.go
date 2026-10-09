@@ -7,7 +7,9 @@ type GroupTrendEntry struct {
 	GroupKey string `json:"groupKey"`
 	// Human-readable label for the group (e.g. plan name)
 	GroupLabel string `json:"groupLabel"`
-	// Total issued invoice amount in dollars for this group in this bucket, excluding tax
+	// Revenue for this group in this bucket, computed exactly as netRevenue. A group outside the top N, or with only a refund in the window, counts under 'other'.
+	Revenue string `json:"revenue"`
+	// Total issued invoice amount in dollars for this group in this bucket, excluding tax, before refunds
 	IssuedInvoices string `json:"issuedInvoices"`
 }
 
@@ -23,6 +25,13 @@ func (g *GroupTrendEntry) GetGroupLabel() string {
 		return ""
 	}
 	return g.GroupLabel
+}
+
+func (g *GroupTrendEntry) GetRevenue() string {
+	if g == nil {
+		return ""
+	}
+	return g.Revenue
 }
 
 func (g *GroupTrendEntry) GetIssuedInvoices() string {

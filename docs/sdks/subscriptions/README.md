@@ -12,6 +12,7 @@ A `Subscription` is a customer's commitment to purchase a `Product` following th
 * [UpdateSubscription](#updatesubscription) - Update
 * [GetSubscriptionIntervals](#getsubscriptionintervals) - Get Price Intervals
 * [EditSubscriptionIntervals](#editsubscriptionintervals) - Edit Price Intervals
+* [MigrateSubscriptionVersion](#migratesubscriptionversion) - Migrate To A Plan Version
 * [ListSubscriptionIntervalChanges](#listsubscriptionintervalchanges) - List Interval Changes
 * [ListIntervalChanges](#listintervalchanges) - List Merchant Interval Changes
 * [GeneratePortalLink](#generateportallink) - Generate Portal Link
@@ -394,6 +395,65 @@ func main() {
 ### Response
 
 **[*components.EditSubscriptionIntervalsResponse](../../models/components/editsubscriptionintervalsresponse.md), error**
+
+### Errors
+
+| Error Type                   | Status Code                  | Content Type                 |
+| ---------------------------- | ---------------------------- | ---------------------------- |
+| errors.BadRequest            | 400                          | application/json             |
+| errors.Error                 | 401, 403, 404, 409, 429      | application/json             |
+| errors.Error                 | 500                          | application/json             |
+| errors.PaygenticDefaultError | 4XX, 5XX                     | \*/\*                        |
+
+## MigrateSubscriptionVersion
+
+Moves the subscription to a named version of its plan. By default the move follows the plan's versionTransition. With timing next_period, the move takes effect at the end of the current billing period: the current period bills as before, and each period that starts at or after that boundary bills from the target version. With timing immediate, entitlements change at once, in-arrears prices bill the whole current period at the target version, and in-advance prices change at the end of the current period, with no proration. The target can be an older or a newer published version. A migration always sets versionPolicy to pinned, so a later change of the plan's default version does not move the subscription. To follow the plan default again, call PATCH /v0/subscriptions/{id} with versionPolicy: 'floating'. A second migration before the boundary replaces the first. Migrating to the version the subscription is already on changes nothing except that it pins a floating subscription, so it is safe to repeat. A version number that does not exist on the plan and an archived version both return 404. The request is refused with 409 and a code when: the subscription is not live; the subscription ends at or before the boundary; a kept override has a rate that would mean something else on the new price; a feature's reset period, metric or pricing unit changes; or the new version sells a price that a continuing interval already covers.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="migrateSubscriptionVersion" method="post" path="/v0/subscriptions/{id}/versionMigration" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	paygentic "github.com/paygentic/sdk-go"
+	"github.com/paygentic/sdk-go/models/components"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := paygentic.New(
+        paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
+    )
+
+    res, err := s.Subscriptions.MigrateSubscriptionVersion(ctx, "<id>", components.MigrateSubscriptionVersionRequest{
+        TargetVersionNumber: 2,
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                    | Type                                                                                                         | Required                                                                                                     | Description                                                                                                  |
+| ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
+| `ctx`                                                                                                        | [context.Context](https://pkg.go.dev/context#Context)                                                        | :heavy_check_mark:                                                                                           | The context to use for the request.                                                                          |
+| `id`                                                                                                         | `string`                                                                                                     | :heavy_check_mark:                                                                                           | The subscription ID                                                                                          |
+| `body`                                                                                                       | [components.MigrateSubscriptionVersionRequest](../../models/components/migratesubscriptionversionrequest.md) | :heavy_check_mark:                                                                                           | N/A                                                                                                          |
+| `opts`                                                                                                       | [][operations.Option](../../models/operations/option.md)                                                     | :heavy_minus_sign:                                                                                           | The options for this request.                                                                                |
+
+### Response
+
+**[*components.MigrateSubscriptionVersionResponse](../../models/components/migratesubscriptionversionresponse.md), error**
 
 ### Errors
 

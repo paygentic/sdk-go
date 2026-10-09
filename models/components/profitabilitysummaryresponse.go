@@ -80,7 +80,7 @@ type ProfitabilitySummaryResponse struct {
 	object string `const:"profitability_summary" json:"object"`
 	// ISO 4217 currency code applied to revenue and cost values
 	Currency string `json:"currency"`
-	// Top-N customer rows by profit descending, optionally followed by a single 'Other' row when more than topN customers contributed. With `excludeEmpty=true`, customers with neither revenue nor cost in the period are left out.
+	// Top-N customer rows by profit descending, optionally followed by a single 'Other' row when more than topN customers contributed. Soft-deleted customers appear only through the 'deleted' row, which comes last, never by name. With `excludeEmpty=true`, customers with neither revenue nor cost in the period are left out.
 	Rows []ProfitabilityRow `json:"rows"`
 	// The merchant's customers this summary scored, whether or not they made a row.
 	CustomerCount *int64 `json:"customerCount,omitzero"`

@@ -10,11 +10,13 @@ import (
 type RevenueTrendBucket struct {
 	// Start time of this bucket
 	Timestamp time.Time `json:"timestamp"`
-	// Total amount of all invoices issued in this bucket (all statuses, by issuedAt), excluding tax
+	// Revenue for this bucket, computed exactly as netRevenue: invoices issued in the bucket (on periodBasis=billingPeriod, lines billing it), excluding tax, less refunds issued in it, excluding tax. The buckets sum to netRevenue.
+	Revenue string `json:"revenue"`
+	// Total amount of all invoices issued in this bucket (all statuses, by issuedAt), excluding tax, before refunds. Revenue is the revenue field.
 	IssuedInvoices string `json:"issuedInvoices"`
 	// Amount of written-off invoices in dollars for this bucket (by writtenOffAt)
 	WrittenOffInvoices string `json:"writtenOffInvoices"`
-	// Revenue from completed payments in dollars for this bucket
+	// Completed payment-link payments in dollars for this bucket, reported beside revenue, not in it
 	CompletedPayments string `json:"completedPayments"`
 	// Gross magnitude of usage-scaled rebates (negative metered line items) on invoices issued in this bucket, in dollars. Netted into issuedInvoices; surfaced here for visibility.
 	Rebates string `json:"rebates"`
@@ -38,6 +40,13 @@ func (r *RevenueTrendBucket) GetTimestamp() time.Time {
 		return time.Time{}
 	}
 	return r.Timestamp
+}
+
+func (r *RevenueTrendBucket) GetRevenue() string {
+	if r == nil {
+		return ""
+	}
+	return r.Revenue
 }
 
 func (r *RevenueTrendBucket) GetIssuedInvoices() string {

@@ -33,7 +33,7 @@ func newRevenue(rootSDK *Client, sdkConfig config.SDKConfiguration, hooks *hooks
 }
 
 // Get revenue summary
-// Returns revenue summary with invoice and payment breakdowns (outstanding/paid/writtenOff), plus a time-series trend. Revenue is sourced from all issued invoices (v0 + v1) and completed payments.
+// Returns revenue summary with invoice and payment breakdowns (outstanding/paid/writtenOff), plus a time-series trend. Revenue is what was billed in the period (by default, invoices issued in it; see periodBasis), whatever their status since, less refunds, both excluding tax; completed payments are reported under payments, never in revenue.
 func (s *Revenue) Get(ctx context.Context, request operations.GetRevenueRequest, opts ...operations.Option) (*components.RevenueSummaryResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{

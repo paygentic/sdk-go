@@ -2,7 +2,7 @@
 
 package paygentic
 
-// Generated from OpenAPI doc version 0.1.0 and generator version 2.943.0
+// Generated from OpenAPI doc version 0.1.0 and generator version 2.946.0
 
 import (
 	"context"
@@ -91,6 +91,7 @@ type Client struct {
 	Profitability *Profitability
 	// Test clocks provide programmable time control to simulate subscription and billing scenarios during testing.
 	TestClocks *TestClocks
+	Merchants  *Merchants
 	// An `ExternalReference` links a Paygentic entity (e.g. an `Item`) to a record in an external system such as Salesforce or NetSuite. Multiple external records may map to the same Paygentic entity, but each external id is the *primary* reference of at most one entity per merchant.
 	ExternalReferences *ExternalReferences
 	// An `Item` is the canonical "thing you sell" that external-system mappings point at. It is fully decoupled from the billing `Product` and holds no pricing/plan/metering, and it is CRM/ERP agnostic — which providers map to it lives entirely in its `ExternalReference` rows.
@@ -104,6 +105,8 @@ type Client struct {
 	MerchantIntegrations *MerchantIntegrations
 	// Submit, decide, cancel, and read maker-checker approvals.
 	Approvals *Approvals
+	// Endpoints for setting up webhook integrations and administering webhook settings
+	Webhooks *Webhooks
 
 	sdkConfiguration config.SDKConfiguration
 	hooks            *hooks.Hooks
@@ -180,11 +183,11 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided options
 func New(opts ...SDKOption) *Client {
 	sdk := &Client{
-		SDKVersion: "0.6.3",
+		SDKVersion: "0.6.4",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent:         "speakeasy-sdk/go 0.6.3 2.943.0 0.1.0 github.com/paygentic/sdk-go",
-			SDKVersion:        "0.6.3",
-			GenVersion:        "2.943.0",
+			UserAgent:         "speakeasy-sdk/go 0.6.4 2.946.0 0.1.0 github.com/paygentic/sdk-go",
+			SDKVersion:        "0.6.4",
+			GenVersion:        "2.946.0",
 			OpenAPIDocVersion: "0.1.0",
 			ServerList:        ServerList,
 		},
@@ -227,6 +230,7 @@ func New(opts ...SDKOption) *Client {
 	sdk.Revenue = newRevenue(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Profitability = newProfitability(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.TestClocks = newTestClocks(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Merchants = newMerchants(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.ExternalReferences = newExternalReferences(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Items = newItems(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Orders = newOrders(sdk, sdk.sdkConfiguration, sdk.hooks)
@@ -234,6 +238,7 @@ func New(opts ...SDKOption) *Client {
 	sdk.Salesforce = newSalesforce(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.MerchantIntegrations = newMerchantIntegrations(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Approvals = newApprovals(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Webhooks = newWebhooks(sdk, sdk.sdkConfiguration, sdk.hooks)
 
 	return sdk
 }

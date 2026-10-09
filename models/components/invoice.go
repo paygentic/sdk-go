@@ -143,7 +143,7 @@ func (e *DocumentWithheldReason) IsExact() bool {
 	return false
 }
 
-// InvoiceStatus - The current status of the invoice
+// InvoiceStatus - The current status of the invoice. PROJECTED is returned only by GET /v2/invoices/projected and is never the status of a stored invoice.
 type InvoiceStatus string
 
 const (
@@ -158,6 +158,7 @@ const (
 	InvoiceStatusCancelled     InvoiceStatus = "CANCELLED"
 	InvoiceStatusWrittenOff    InvoiceStatus = "WRITTEN_OFF"
 	InvoiceStatusFailed        InvoiceStatus = "FAILED"
+	InvoiceStatusProjected     InvoiceStatus = "PROJECTED"
 )
 
 func (e InvoiceStatus) ToPointer() *InvoiceStatus {
@@ -168,7 +169,7 @@ func (e InvoiceStatus) ToPointer() *InvoiceStatus {
 func (e *InvoiceStatus) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "ACTIVE", "CLOSING", "CLOSED", "CALCULATING", "DRAFT", "ISSUED", "PAYMENT_FAILED", "PAID", "CANCELLED", "WRITTEN_OFF", "FAILED":
+		case "ACTIVE", "CLOSING", "CLOSED", "CALCULATING", "DRAFT", "ISSUED", "PAYMENT_FAILED", "PAID", "CANCELLED", "WRITTEN_OFF", "FAILED", "PROJECTED":
 			return true
 		}
 	}
@@ -312,7 +313,7 @@ type Invoice struct {
 	Permalink optionalnullable.OptionalNullable[string] `json:"permalink,omitzero"`
 	// The sequence number of this invoice period
 	SequenceNumber int64 `json:"sequenceNumber"`
-	// The current status of the invoice
+	// The current status of the invoice. PROJECTED is returned only by GET /v2/invoices/projected and is never the status of a stored invoice.
 	Status InvoiceStatus `json:"status"`
 	// The subscription ID this invoice belongs to
 	SubscriptionID string `json:"subscriptionId"`

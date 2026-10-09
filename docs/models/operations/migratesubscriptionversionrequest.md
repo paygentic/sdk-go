@@ -1,0 +1,9 @@
+# MigrateSubscriptionVersionRequest
+
+
+## Fields
+
+| Field                                                                                                        | Type                                                                                                         | Required                                                                                                     | Description                                                                                                  |
+| ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
+| `ID`                                                                                                         | `string`                                                                                                     | :heavy_check_mark:                                                                                           | The subscription ID                                                                                          |
+| `Body`                                                                                                       | [components.MigrateSubscriptionVersionRequest](../../models/components/migratesubscriptionversionrequest.md) | :heavy_check_mark:                                                                                           | N/A                                                                                                          |

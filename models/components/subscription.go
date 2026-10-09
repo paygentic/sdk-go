@@ -354,6 +354,29 @@ func (u PaymentUnion) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type PaymentUnion: all fields are null")
 }
 
+// SubscriptionElapsedPeriodBilling - Whether this subscription's backdated start bills its elapsed periods, as chosen at creation. `null` for a subscription created before the choice existed. `null` is listed in the enum as well as via `nullable` because the response validator checks the enum independently.
+type SubscriptionElapsedPeriodBilling string
+
+const (
+	SubscriptionElapsedPeriodBillingNone      SubscriptionElapsedPeriodBilling = "none"
+	SubscriptionElapsedPeriodBillingPerPeriod SubscriptionElapsedPeriodBilling = "per_period"
+)
+
+func (e SubscriptionElapsedPeriodBilling) ToPointer() *SubscriptionElapsedPeriodBilling {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *SubscriptionElapsedPeriodBilling) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "per_period":
+			return true
+		}
+	}
+	return false
+}
+
 type SubscriptionStatusEnum string
 
 const (
@@ -536,10 +559,18 @@ type Subscription struct {
 	// Deprecated. Legacy-only, not populated for new subscriptions.
 	//
 	// Deprecated: This will be removed in a future release, please migrate away from it as soon as possible.
-	MinimumAccountBalance *string                `json:"minimumAccountBalance,omitzero"`
-	StartedAt             time.Time              `json:"startedAt"`
-	Status                SubscriptionStatusEnum `json:"status"`
-	TerminatedAt          *time.Time             `json:"terminatedAt,omitzero"`
+	MinimumAccountBalance *string   `json:"minimumAccountBalance,omitzero"`
+	StartedAt             time.Time `json:"startedAt"`
+	// Whether this subscription's backdated start bills its elapsed periods, as chosen at creation. `null` for a subscription created before the choice existed. `null` is listed in the enum as well as via `nullable` because the response validator checks the enum independently.
+	ElapsedPeriodBilling *SubscriptionElapsedPeriodBilling `json:"elapsedPeriodBilling"`
+	// The billing start: a charge is billed only if it falls due at or after this moment. Fixed at creation and never changed. It is `startedAt`, unless the start was backdated with `elapsedPeriodBilling` of `none`, in which case it is the moment of creation.
+	BillingStartsAt *time.Time `json:"billingStartsAt"`
+	// The instant the subscription's billing periods are anchored on: its billing anchor, else its start. Every recurring period boundary is this instant plus a whole number of cadences.
+	BillingAnchor time.Time `json:"billingAnchor"`
+	// The ISO-8601 duration the subscription's billing periods step by where no price sets its own: the subscription's cadence, else its plan's.
+	BillingCadence string                 `json:"billingCadence"`
+	Status         SubscriptionStatusEnum `json:"status"`
+	TerminatedAt   *time.Time             `json:"terminatedAt,omitzero"`
 	// ID of who terminated the subscription (customer ID or merchant ID)
 	TerminatedBy *string `json:"terminatedBy,omitzero"`
 	// Reason for termination
@@ -723,6 +754,34 @@ func (s *Subscription) GetStartedAt() time.Time {
 		return time.Time{}
 	}
 	return s.StartedAt
+}
+
+func (s *Subscription) GetElapsedPeriodBilling() *SubscriptionElapsedPeriodBilling {
+	if s == nil {
+		return nil
+	}
+	return s.ElapsedPeriodBilling
+}
+
+func (s *Subscription) GetBillingStartsAt() *time.Time {
+	if s == nil {
+		return nil
+	}
+	return s.BillingStartsAt
+}
+
+func (s *Subscription) GetBillingAnchor() time.Time {
+	if s == nil {
+		return time.Time{}
+	}
+	return s.BillingAnchor
+}
+
+func (s *Subscription) GetBillingCadence() string {
+	if s == nil {
+		return ""
+	}
+	return s.BillingCadence
 }
 
 func (s *Subscription) GetStatus() SubscriptionStatusEnum {

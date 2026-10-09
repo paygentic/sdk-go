@@ -1,0 +1,12 @@
+# HostedLinkPaymentResult
+
+
+## Fields
+
+| Field                                                                                  | Type                                                                                   | Required                                                                               | Description                                                                            |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `Method`                                                                               | `string`                                                                               | :heavy_check_mark:                                                                     | Discriminator: a hosted payment link was minted/regenerated.                           |
+| `Provider`                                                                             | [components.InvoicePaymentProvider](../../models/components/invoicepaymentprovider.md) | :heavy_check_mark:                                                                     | The payment provider that a hosted payment link routes to.                             |
+| `PaymentSessionID`                                                                     | `string`                                                                               | :heavy_check_mark:                                                                     | The newly created payment session ID.                                                  |
+| `PaymentURL`                                                                           | `string`                                                                               | :heavy_check_mark:                                                                     | The customer-facing payment link for the new session.                                  |
+| `Invoice`                                                                              | [components.Invoice](../../models/components/invoice.md)                               | :heavy_check_mark:                                                                     | N/A                                                                                    |

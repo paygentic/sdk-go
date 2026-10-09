@@ -1,0 +1,9 @@
+# UpdateWebhooksRequest
+
+
+## Fields
+
+| Field                                                                                                         | Type                                                                                                          | Required                                                                                                      | Description                                                                                                   |
+| ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `MerchantID`                                                                                                  | `*string`                                                                                                     | :heavy_minus_sign:                                                                                            | The merchant organization ID. If omitted, defaults to the merchant associated with the authenticated API key. |
+| `Body`                                                                                                        | [operations.UpdateWebhooksRequestBody](../../models/operations/updatewebhooksrequestbody.md)                  | :heavy_check_mark:                                                                                            | N/A                                                                                                           |

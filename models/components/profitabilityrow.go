@@ -2,19 +2,45 @@
 
 package components
 
+// CostData - Whether metering recorded usage against a cost for every customer the row covers (`recorded`), some of them (`partial`, only on the 'Other' and 'deleted' rows) or none (`none`). Usage that prices at zero is recorded, so `recorded` with a zero `totalCost` is a measured zero. `none` means no cost data, not a zero cost.
+type CostData string
+
+const (
+	CostDataRecorded CostData = "recorded"
+	CostDataPartial  CostData = "partial"
+	CostDataNone     CostData = "none"
+)
+
+func (e CostData) ToPointer() *CostData {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CostData) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "recorded", "partial", "none":
+			return true
+		}
+	}
+	return false
+}
+
 type ProfitabilityRow struct {
-	// Customer ID, or the literal 'other' for the overflow row.
+	// Customer ID, the literal 'other' for the overflow row, or the literal 'deleted' for the row that folds every soft-deleted customer with revenue or cost in the period.
 	CustomerID string `json:"customerId"`
-	// Display name for the row. 'Other' for the overflow row.
+	// Display name for the row. 'Other' for the overflow row, 'Deleted customers' for the deleted row.
 	CustomerName string `json:"customerName"`
-	// Revenue excluding tax (paid + outstanding invoices issued in the period), in unit currency, with two decimals.
+	// Revenue excluding tax, in units of the currency, with two decimals: what was billed in the period, recognised when each invoice is issued. Every invoice issued in the period counts, whether it was since paid, is still outstanding, failed payment or was written off, less non-voided refunds issued in the period. It is billings, not cash collected, and the same figure /v0/revenue reports.
 	NetRevenue string `json:"netRevenue"`
 	// Aggregated cost in unit currency, with two decimals.
 	TotalCost string `json:"totalCost"`
 	// Profit (revenue − cost) in unit currency, with two decimals. May be negative.
 	Profit string `json:"profit"`
-	// Margin percent (profit / revenue × 100), with two decimals. Null when revenue is zero.
+	// Margin percent (profit / revenue × 100), with two decimals. Null when revenue is zero or negative, and when `costData` is not `recorded`: a cost nobody recorded reads as zero, and a margin over it would claim the row costs nothing.
 	MarginPct *string `json:"marginPct"`
+	// Whether metering recorded usage against a cost for every customer the row covers (`recorded`), some of them (`partial`, only on the 'Other' and 'deleted' rows) or none (`none`). Usage that prices at zero is recorded, so `recorded` with a zero `totalCost` is a measured zero. `none` means no cost data, not a zero cost.
+	CostData *CostData `json:"costData,omitzero"`
 }
 
 func (p *ProfitabilityRow) GetCustomerID() string {
@@ -57,4 +83,11 @@ func (p *ProfitabilityRow) GetMarginPct() *string {
 		return nil
 	}
 	return p.MarginPct
+}
+
+func (p *ProfitabilityRow) GetCostData() *CostData {
+	if p == nil {
+		return nil
+	}
+	return p.CostData
 }

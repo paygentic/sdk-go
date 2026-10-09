@@ -167,6 +167,8 @@ type CreateSubscriptionRequest struct {
 	RedirectUrls *RedirectUrls `json:"redirectUrls,omitzero"`
 	// Subscription activation timestamp in ISO 8601 format. Sample values: '2024-01-15T10:30:00Z', '2024-02-01T00:00:00Z'
 	StartedAt time.Time `json:"startedAt"`
+	// Whether a backdated start bills its elapsed periods. A start is backdated when `startedAt` is more than 24 hours before the subscription is created. `none` bills only charges that fall due from the moment of creation, for a customer whose earlier periods another system already billed. `per_period` bills every charge that fell due from `startedAt`, on one first invoice; it refuses a `startedAt` more than 12 months back. Has no effect on a start that is not backdated. Defaults to `none`.
+	ElapsedPeriodBilling *components.ElapsedPeriodBilling `default:"none" json:"elapsedPeriodBilling"`
 	// Test clock identifier for simulating time-based billing scenarios. Sample values: 'tc_abc123xyz', 'tc_789def456'. Restricted to non-production environments (local, dev, sandbox). Must belong to the same merchant organization.
 	TestClockID *string `json:"testClockId,omitzero"`
 	// Override plan setting for renewal reminder emails. When set, this subscription's setting takes precedence over the plan default. Set to true to enable reminders, false to disable, or null/omit to use plan default.
@@ -275,6 +277,13 @@ func (c *CreateSubscriptionRequest) GetStartedAt() time.Time {
 		return time.Time{}
 	}
 	return c.StartedAt
+}
+
+func (c *CreateSubscriptionRequest) GetElapsedPeriodBilling() *components.ElapsedPeriodBilling {
+	if c == nil {
+		return nil
+	}
+	return c.ElapsedPeriodBilling
 }
 
 func (c *CreateSubscriptionRequest) GetTestClockID() *string {

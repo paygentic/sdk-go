@@ -1,6 +1,6 @@
 # InvoiceStatus
 
-The current status of the invoice
+The current status of the invoice. PROJECTED is returned only by GET /v2/invoices/projected and is never the status of a stored invoice.
 
 ## Example Usage
 
@@ -31,3 +31,4 @@ custom := components.InvoiceStatus("custom_value")
 | `InvoiceStatusCancelled`     | CANCELLED                    |
 | `InvoiceStatusWrittenOff`    | WRITTEN_OFF                  |
 | `InvoiceStatusFailed`        | FAILED                       |
+| `InvoiceStatusProjected`     | PROJECTED                    |
