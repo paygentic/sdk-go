@@ -1,23 +1,23 @@
 lockVersion: 2.0.0
 id: 5f9f8092-429e-454b-8c55-a2d2d1508328
 management:
-  docChecksum: 6d3e87fcfc1ddd166908eac5f553a681
+  docChecksum: b2505479ef0e1902a4ce20be0241dd70
   docVersion: 0.1.0
-  speakeasyVersion: 1.801.0
-  generationVersion: 2.946.0
-  releaseVersion: 0.6.4
-  configChecksum: 98c61ca1e4dddd5dec2e5bfc9aaf4c05
+  speakeasyVersion: 1.802.0
+  generationVersion: 2.948.4
+  releaseVersion: 0.7.0
+  configChecksum: 4bd499f19dd36c98e9284afa0b254524
   repoURL: https://github.com/paygentic/sdk-go.git
   installationURL: https://github.com/paygentic/sdk-go
 persistentEdits:
-  generation_id: 212ce603-eab5-441a-aa86-81b4e480dd79
-  pristine_commit_hash: 026c18ae8b72d2ae999dce084ba649d9216d0c64
-  pristine_tree_hash: c7127fcee6ad268e84d51a3e0d1dbf76c09d5834
+  generation_id: 645d05bc-4ca5-4032-95b4-fd23205cf9dd
+  pristine_commit_hash: 7aefcc0154eaecf1094ebdb612c8f91d35a6df72
+  pristine_tree_hash: e9eb7a8117a94ba52269629786b195e9fe2adb8c
 features:
   go:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.14
-    core: 3.14.1
+    core: 3.16.1
     defaultEnabledRetries: 0.2.0
     deprecations: 2.81.3
     downloadStreams: 0.1.3
@@ -62,8 +62,8 @@ trackedFiles:
     pristine_git_object: a1fb385bf7d1d3f785698b48678bf54d907a8f6c
   client.go:
     id: d633516feaf9
-    last_write_checksum: sha1:2157bff211ceea09f6c1c0e65342b919e99d87e1
-    pristine_git_object: 4f857d9e1d4247bcb26ce55493f16f10a6dc8987
+    last_write_checksum: sha1:7b219d9c029718eef0ca48fc45f415da60786197
+    pristine_git_object: 8e31210ae3d49d4e5622eec8edad77620249c52b
   costs.go:
     id: 247b6e6ecaf3
     last_write_checksum: sha1:e88ccd60d9ee1520dee9f6c756fe5adf35cc370a
@@ -334,8 +334,8 @@ trackedFiles:
     pristine_git_object: 635553d5185c44aa545ecb1a30c78c41693c2629
   docs/models/components/documentwithheldreason.md:
     id: a8c7f2b9566c
-    last_write_checksum: sha1:23b92348d6df6d085d0bfe9cac7707ef40114294
-    pristine_git_object: d85c865c552df0b910611b7397d4092546ef8f9e
+    last_write_checksum: sha1:cff6a47367e026b98b5a018dba0dc050db840851
+    pristine_git_object: 7fd3cb599429159c24588e1604558531425e36d8
   docs/models/components/dynamicpriceproperties.md:
     id: 5ed7b6dd72d1
     last_write_checksum: sha1:52ed83f5bac664b65f4a95dc5ba9e83faece34da
@@ -498,8 +498,8 @@ trackedFiles:
     pristine_git_object: ef5a2acd45314b00311649581f47f145b94995f0
   docs/models/components/invoice.md:
     id: dfe36624d47f
-    last_write_checksum: sha1:3f958fa05f387d744b85a653ed3a280e7f96b026
-    pristine_git_object: c0cb3295f0e6b72c6fb1093b7f893b7d8a83142c
+    last_write_checksum: sha1:0333faa0fbc7e71dccce01c780c24458dddd94e1
+    pristine_git_object: a434c5508f68a8291934b99b6060cbaa2c032eb3
   docs/models/components/invoicecategorysummary.md:
     id: a5e39b9edb7e
     last_write_checksum: sha1:947f6f4ba2385f11cd6c0dfe4c96c7b0eeae050d
@@ -3158,8 +3158,8 @@ trackedFiles:
     pristine_git_object: 5d992d8cb2f4f6c17ed61b9a4e7d40c71c881f60
   models/components/invoice.go:
     id: c48ce6abe467
-    last_write_checksum: sha1:506d24517b7c0e035b36269b76e58fa8894f00b4
-    pristine_git_object: 9d7e0477221c7898733cb47164ae2bca96ab96d0
+    last_write_checksum: sha1:eec929d5aad9ae2f3424e47abdbfb10a5ada22db
+    pristine_git_object: 64f35f5d3cb220dd4d53a3f9a10111b42876d6ba
   models/components/invoicecategorysummary.go:
     id: 0426254d387e
     last_write_checksum: sha1:8edce197c2ce75eab091237cf649076728f669ec
@@ -7035,4 +7035,3 @@ generatedTests:
   createWebhooks: "2026-10-09T10:20:02Z"
   updateWebhooks: "2026-10-09T10:20:02Z"
   getWebhookPortal: "2026-10-09T10:20:02Z"
-releaseNotes: "## Go SDK Changes:\n* `Client.Subscriptions.MigrateSubscriptionVersion()`: **Added**\n* `Client.InvoicesV2.ListProjectedInvoices()`: **Added**\n* `Client.InvoicesV2.RecordInvoicePayment()`: **Added**\n* `Client.InvoicesV2.RetryInvoicePayment()`: **Added**\n* `Client.Merchants.Reset()`: **Added**\n* `Client.Webhooks.Get()`: **Added**\n* `Client.Webhooks.Enable()`: **Added**\n* `Client.Webhooks.Update()`: **Added**\n* `Client.Webhooks.Disable()`: **Added**\n* `Client.Webhooks.GetPortal()`: **Added**\n* `Client.Plans.Create()`: \n  *  `request.Request.VersionTransition` **Added**\n  *  `response.VersionTransition` **Added**\n* `Client.Plans.List()`:  `response.Data[].VersionTransition` **Added**\n* `Client.Plans.ListAvailable()`:  `response.Data[].VersionTransition` **Added**\n* `Client.Plans.Get()`:  `response.VersionTransition` **Added**\n* `Client.Plans.Update()`: \n  *  `request.Body.VersionTransition` **Added**\n  *  `response.VersionTransition` **Added**\n* `Client.Subscriptions.List()`:  `response.Data[]` **Changed**\n* `Client.Subscriptions.Create()`: \n  *  `request.Request.ElapsedPeriodBilling` **Added**\n  *  `response` **Changed**\n* `Client.Subscriptions.Get()`:  `response` **Changed**\n* `Client.Subscriptions.UpdateSubscription()`:  `response` **Changed**\n* `Client.Subscriptions.Terminate()`:  `response` **Changed**\n* `Client.InvoicesV2.List()`:  `response.Data[].Status.Enum(projected)` **Added**\n* `Client.InvoicesV2.Get()`:  `response.Status.Enum(projected)` **Added**\n* `Client.Revenue.Get()`:  `response.Trend[]` **Changed**\n* `Client.Profitability.GetProfitability()`:  `response.Rows[].CostData` **Added**\n"
