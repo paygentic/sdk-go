@@ -416,6 +416,7 @@ func main() {
 ### [Revenue](docs/sdks/revenue/README.md)
 
 * [Get](docs/sdks/revenue/README.md#get) - Get revenue summary
+* [GetRevenueAccounts](docs/sdks/revenue/README.md#getrevenueaccounts) - List customer accounts
 
 ### [Salesforce](docs/sdks/salesforce/README.md)
 

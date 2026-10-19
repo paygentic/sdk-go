@@ -45,6 +45,8 @@ type RevenueSummaryResponse struct {
 	// Object type identifier
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	object string `const:"revenue_summary" json:"object"`
+	// ISO 4217 currency code every figure in the response is in: the requested currency, or the merchant's primary currency when none was requested. Omitted when groupBy=currency is active.
+	Currency *string `json:"currency,omitzero"`
 	// Revenue: what was billed in the period, excluding tax, in units of the currency. On the default issue-date basis it is recognised when each invoice is issued; with periodBasis=billingPeriod, each invoice line counts in the period it bills, and a refund splits across its invoice's lines. An invoice counts whether it was since paid, is still outstanding, failed payment or was written off, less non-voided refunds. It is billings, not cash collected: what customers still owe is invoices.outstanding, including tax, and payment-link collections are under payments. Omitted when groupBy=currency is active.
 	NetRevenue *string `json:"netRevenue,omitzero"`
 	// Total of non-voided refunds (credit notes) issued in the period, in dollars, including tax. netRevenue subtracts these refunds excluding tax. Omitted when groupBy=currency is active.
@@ -80,6 +82,13 @@ func (r *RevenueSummaryResponse) UnmarshalJSON(data []byte) error {
 
 func (r *RevenueSummaryResponse) GetObject() string {
 	return "revenue_summary"
+}
+
+func (r *RevenueSummaryResponse) GetCurrency() *string {
+	if r == nil {
+		return nil
+	}
+	return r.Currency
 }
 
 func (r *RevenueSummaryResponse) GetNetRevenue() *string {

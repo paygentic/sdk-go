@@ -1,0 +1,11 @@
+# AccountFigure
+
+A number of invoices and their total amount due, gross of tax.
+
+
+## Fields
+
+| Field                                                                                                                       | Type                                                                                                                        | Required                                                                                                                    | Description                                                                                                                 |
+| --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `Count`                                                                                                                     | `int64`                                                                                                                     | :heavy_check_mark:                                                                                                          | Number of invoices with an amount due above zero. A credit invoice, or one whose amount due rounds to zero, is not counted. |
+| `Amount`                                                                                                                    | `string`                                                                                                                    | :heavy_check_mark:                                                                                                          | Total amount due in major units of the currency, in its decimal places                                                      |
