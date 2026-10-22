@@ -13,7 +13,7 @@ type GetInvoiceLineItemsRequest struct {
 	Limit *int64 `default:"100" queryParam:"style=form,explode=true,name=limit"`
 	// Opaque pagination token to fetch the next page of results, taken from a previous response's nextPageToken. Do not construct or parse this value.
 	PageToken *string `queryParam:"style=form,explode=true,name=pageToken"`
-	// Comma-separated list of fields to expand. Supports: items — resolves each returned line's item and that item's external accounting codes into an `items` collection, so a line can be translated to a GL/SKU code without a second call.
+	// Comma-separated list of fields to expand. Supports: items, lineProvenance. `items` resolves each returned line's item and that item's external accounting codes into an `items` collection, so a line can be translated to a GL/SKU code without a second call. `lineProvenance` adds `provenance` to each returned line: how its amount before tax was calculated.
 	Expand *string `queryParam:"style=form,explode=true,name=expand"`
 	// Narrows which external references are returned per item when expand=items. Matched exactly against the provider stored on the reference (e.g. accountsiq); there is no allowlist of known providers, but the value must satisfy the same format every stored provider does, so a malformed one is rejected rather than answered with an empty result that reads as "nothing is mapped". It never removes lines or items: an item with no reference for this provider comes back with an empty list, so unmapped SKUs stay visible. Ignored when the items expansion is not requested.
 	Provider *string `queryParam:"style=form,explode=true,name=provider"`

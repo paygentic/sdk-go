@@ -5,6 +5,7 @@ package components
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"github.com/paygentic/sdk-go/internal/utils"
 )
 
@@ -99,6 +100,9 @@ func (u *SubscriptionMetadata) UnmarshalJSON(data []byte) error {
 	}
 
 	if len(candidates) == 0 {
+		if !json.Valid(data) {
+			return fmt.Errorf("could not unmarshal `%s` into any supported union types for SubscriptionMetadata", string(data))
+		}
 		u.UnknownRaw = json.RawMessage(data)
 		u.Type = SubscriptionMetadataTypeUnknown
 		return nil
@@ -126,6 +130,9 @@ func (u *SubscriptionMetadata) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
+	if !json.Valid(data) {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for SubscriptionMetadata", string(data))
+	}
 	u.UnknownRaw = json.RawMessage(data)
 	u.Type = SubscriptionMetadataTypeUnknown
 	return nil

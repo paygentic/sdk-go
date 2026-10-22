@@ -5,6 +5,7 @@ package errors
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"github.com/paygentic/sdk-go/internal/utils"
 )
 
@@ -83,6 +84,9 @@ func (u *BadRequest) UnmarshalJSON(data []byte) error {
 	}
 
 	if len(candidates) == 0 {
+		if !json.Valid(data) {
+			return fmt.Errorf("could not unmarshal `%s` into any supported union types for BadRequest", string(data))
+		}
 		u.UnknownRaw = json.RawMessage(data)
 		u.Type = BadRequestTypeUnknown
 		return nil
@@ -107,6 +111,9 @@ func (u *BadRequest) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
+	if !json.Valid(data) {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for BadRequest", string(data))
+	}
 	u.UnknownRaw = json.RawMessage(data)
 	u.Type = BadRequestTypeUnknown
 	return nil

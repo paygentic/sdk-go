@@ -5,6 +5,7 @@ package operations
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"github.com/paygentic/sdk-go/internal/utils"
 	"github.com/paygentic/sdk-go/models/components"
 )
@@ -236,6 +237,9 @@ func (u *CreateCustomerResponse) UnmarshalJSON(data []byte) error {
 	}
 
 	if len(candidates) == 0 {
+		if !json.Valid(data) {
+			return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateCustomerResponse", string(data))
+		}
 		u.UnknownRaw = json.RawMessage(data)
 		u.Type = CreateCustomerResponseTypeUnknown
 		return nil
@@ -260,6 +264,9 @@ func (u *CreateCustomerResponse) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
+	if !json.Valid(data) {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateCustomerResponse", string(data))
+	}
 	u.UnknownRaw = json.RawMessage(data)
 	u.Type = CreateCustomerResponseTypeUnknown
 	return nil

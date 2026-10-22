@@ -135,6 +135,8 @@ type LineItem struct {
 	EstimatedMeteredQuantity optionalnullable.OptionalNullable[string] `json:"estimatedMeteredQuantity,omitzero"`
 	// Real-time estimated subtotal for a line whose amount is not final yet: current usage for a metered item, the rate the subscription is on for a fee. Null for manual items, and for any line whose amount is already final or cannot be estimated.
 	EstimatedSubtotal optionalnullable.OptionalNullable[string] `json:"estimatedSubtotal,omitzero"`
+	// How the line's amount before tax was calculated: a trace of one evaluation, saved when the invoice was calculated and fixed once it is issued. Returned only with `expand=lineProvenance`. Every field but `status` is present when `status` is `recorded`. Every number is a plain decimal string.
+	Provenance *LineProvenance `json:"provenance,omitzero"`
 }
 
 func (l LineItem) MarshalJSON() ([]byte, error) {
@@ -335,4 +337,11 @@ func (l *LineItem) GetEstimatedSubtotal() optionalnullable.OptionalNullable[stri
 		return nil
 	}
 	return l.EstimatedSubtotal
+}
+
+func (l *LineItem) GetProvenance() *LineProvenance {
+	if l == nil {
+		return nil
+	}
+	return l.Provenance
 }
