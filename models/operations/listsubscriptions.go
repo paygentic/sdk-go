@@ -73,8 +73,9 @@ type ListSubscriptionsRequest struct {
 	// Return subscriptions for this merchant organization. May be combined with `consumerId` to scope to a single consumer/merchant pair. Cannot be combined with `customerId`.
 	MerchantID *string `queryParam:"style=form,explode=true,name=merchantId"`
 	// Number of subscriptions to skip
-	Offset *string                  `default:"0" queryParam:"style=form,explode=true,name=offset"`
-	Status *ListSubscriptionsStatus `queryParam:"style=form,explode=true,name=status"`
+	Offset *string `default:"0" queryParam:"style=form,explode=true,name=offset"`
+	// Return subscriptions in any of these statuses. Repeat the parameter to pass several, e.g. `?status=active&status=pending_payment`. Omit it to return every status. An SDK leaves an empty list out of the request, so an empty list also returns every status: check for one before calling if it should match nothing.
+	Status []ListSubscriptionsStatus `queryParam:"style=form,explode=true,name=status"`
 	// Filter subscriptions started at or before this ISO 8601 date-time
 	StartedBefore *time.Time `queryParam:"style=form,explode=true,name=startedBefore"`
 	// Include related resources. When 'customer' is specified, each subscription includes merchant and consumer details.
@@ -127,7 +128,7 @@ func (l *ListSubscriptionsRequest) GetOffset() *string {
 	return l.Offset
 }
 
-func (l *ListSubscriptionsRequest) GetStatus() *ListSubscriptionsStatus {
+func (l *ListSubscriptionsRequest) GetStatus() []ListSubscriptionsStatus {
 	if l == nil {
 		return nil
 	}

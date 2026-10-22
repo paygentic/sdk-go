@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 5f9f8092-429e-454b-8c55-a2d2d1508328
 management:
-  docChecksum: 467f6f33f5fe120ce2a4b5579abfca5d
+  docChecksum: 186ff87332fcf5f60b3120df75a85e1a
   docVersion: 0.1.0
   speakeasyVersion: 1.803.1
   generationVersion: 2.950.2
-  releaseVersion: 0.8.0
-  configChecksum: b62fa1b2a2e5adf43390f49059f0e718
+  releaseVersion: 0.8.1
+  configChecksum: 9485dae39f3bc960bbb4d96ab4f583ec
   repoURL: https://github.com/paygentic/sdk-go.git
   installationURL: https://github.com/paygentic/sdk-go
 persistentEdits:
-  generation_id: 4f97aeb2-a369-4d86-b98c-507616d0a16f
-  pristine_commit_hash: 04a97b1397ebec832c52ee1272a59f7c88d0ca8b
-  pristine_tree_hash: e7b6355206e83f92004b14ce746bb4932524efdd
+  generation_id: ce8e2eb9-d38f-4a63-abbb-4d742c65676d
+  pristine_commit_hash: a94f32ed26b72d45788ebb300bb2fc2033e0eb04
+  pristine_tree_hash: 6df4fd0264e08594fab09c69d237ea7032faaed7
 features:
   go:
     additionalDependencies: 0.1.0
@@ -63,8 +63,8 @@ trackedFiles:
     pristine_git_object: a1fb385bf7d1d3f785698b48678bf54d907a8f6c
   client.go:
     id: d633516feaf9
-    last_write_checksum: sha1:76595b266c4c9f68a7b503648986e669aa29edde
-    pristine_git_object: 75996270be79c3e3102c6425be16d4ac9ccef110
+    last_write_checksum: sha1:c6c7e1718fe5ac263726ddc869a51ebb93732db7
+    pristine_git_object: 061e0d487104215ef3649b8d1ffc4e5b4e285fb0
   costs.go:
     id: 247b6e6ecaf3
     last_write_checksum: sha1:e88ccd60d9ee1520dee9f6c756fe5adf35cc370a
@@ -2503,8 +2503,8 @@ trackedFiles:
     pristine_git_object: c0178c8c58a86f2d0a216e63afd0282c426c269a
   docs/models/operations/listsubscriptionsrequest.md:
     id: a3e8b8d6f57f
-    last_write_checksum: sha1:ea8254daabd9ae276ca95cb1fec8b90808de318e
-    pristine_git_object: c65eba2a0d91c97d892d768148ca3bbf3e7c4e82
+    last_write_checksum: sha1:4bb3f4cee6e398c5f4dd2d8b0358470a3df8afbc
+    pristine_git_object: 0dcf7fe2300a29bf0b115099ecb9afb238a5db1b
   docs/models/operations/listsubscriptionsresponse.md:
     id: 992ea8fcc67d
     last_write_checksum: sha1:45fdd0a0efbb6ad6dc4b07fac57f17c9ecb8daaf
@@ -4267,8 +4267,8 @@ trackedFiles:
     pristine_git_object: f8c95141a824b2862c6b75fbfe56a44902b35df4
   models/operations/listsubscriptions.go:
     id: 683e14fd2682
-    last_write_checksum: sha1:d56457f7275345fe4ee8b1d48766ab749517569a
-    pristine_git_object: 367e303dabf095933aaae098a1b843f65c057a5a
+    last_write_checksum: sha1:548e6a42085f8175ddb5016d4da911e77a6dcfbc
+    pristine_git_object: 06df468d23a52425351daa678693975410a01e29
   models/operations/listtestclocks.go:
     id: 6d737cb85870
     last_write_checksum: sha1:f4f5eaf709b1a3cf28ccbf80af6b9847285172b1
@@ -7225,4 +7225,4 @@ generatedTests:
   updateWebhooks: "2026-10-09T10:20:02Z"
   getWebhookPortal: "2026-10-09T10:20:02Z"
   getRevenueAccounts: "2026-10-19T19:44:09Z"
-releaseNotes: "## Go SDK Changes:\n* `Client.BillableMetrics.Create()`:  `error` **Changed**\n* `Client.BillableMetrics.List()`:  `error` **Changed**\n* `Client.BillableMetrics.Get()`:  `error` **Changed**\n* `Client.BillableMetrics.Update()`:  `error` **Changed**\n* `Client.BillableMetrics.Meter()`:  `error` **Changed**\n* `Client.BillableMetrics.ListEvents()`:  `error` **Changed**\n* `Client.Customers.List()`:  `error` **Changed**\n* `Client.Customers.Create()`:  `error` **Changed**\n* `Client.Customers.Get()`:  `error` **Changed**\n* `Client.Customers.Delete()`:  `error` **Changed**\n* `Client.Customers.Update()`:  `error` **Changed**\n* `Client.Customers.ListCustomerPaymentMethods()`:  `error` **Changed**\n* `Client.Customers.CreateCustomerPaymentMethod()`:  `error` **Changed**\n* `Client.Entitlements.List()`:  `error` **Changed**\n* `Client.Entitlements.Issue()`:  `error` **Changed**\n* `Client.Entitlements.Get()`:  `error` **Changed**\n* `Client.Entitlements.Grants.List()`:  `error` **Changed**\n* `Client.Entitlements.Grants.Create()`:  `error` **Changed**\n* `Client.Entitlements.Grants.Purchase()`:  `error` **Changed**\n* `Client.Entitlements.Grants.Get()`:  `error` **Changed**\n* `Client.Entitlements.Grants.Void()`:  `error` **Changed**\n* `Client.Features.List()`:  `error` **Changed**\n* `Client.Features.Create()`:  `error` **Changed**\n* `Client.Features.Get()`:  `error` **Changed**\n* `Client.Features.Update()`:  `error` **Changed**\n* `Client.Features.Delete()`:  `error` **Changed**\n* `Client.Fees.Create()`:  `error` **Changed**\n* `Client.Fees.List()`:  `error` **Changed**\n* `Client.Fees.Get()`:  `error` **Changed**\n* `Client.Fees.Update()`:  `error` **Changed**\n* `Client.Fees.Delete()`:  `error` **Changed**\n* `Client.Plans.Create()`:  `error` **Changed**\n* `Client.Plans.List()`:  `error` **Changed**\n* `Client.Plans.ListAvailable()`:  `error` **Changed**\n* `Client.Plans.Get()`:  `error` **Changed**\n* `Client.Plans.Update()`:  `error` **Changed**\n* `Client.Plans.ListPlanVersions()`:  `error` **Changed**\n* `Client.Plans.MintPlanVersion()`:  `error` **Changed**\n* `Client.Plans.GetPlanVersion()`:  `error` **Changed**\n* `Client.Plans.TransitionPlanVersion()`:  `error` **Changed**\n* `Client.Prices.Create()`:  `error` **Changed**\n* `Client.Prices.List()`:  `error` **Changed**\n* `Client.Prices.Get()`:  `error` **Changed**\n* `Client.Prices.Update()`:  `error` **Changed**\n* `Client.Prices.Delete()`:  `error` **Changed**\n* `Client.Products.Create()`:  `error` **Changed**\n* `Client.Products.List()`:  `error` **Changed**\n* `Client.Products.Get()`:  `error` **Changed**\n* `Client.Products.Update()`:  `error` **Changed**\n* `Client.Sources.Create()`:  `error` **Changed**\n* `Client.Sources.List()`:  `error` **Changed**\n* `Client.Sources.Get()`:  `error` **Changed**\n* `Client.Sources.Update()`:  `error` **Changed**\n* `Client.Sources.Events.List()`:  `error` **Changed**\n* `Client.Sources.Events.Approve()`:  `error` **Changed**\n* `Client.Sources.Events.Reject()`:  `error` **Changed**\n* `Client.Sources.Events.BulkApprove()`:  `error` **Changed**\n* `Client.Sources.Events.BulkReject()`:  `error` **Changed**\n* `Client.Sources.Rules.List()`:  `error` **Changed**\n* `Client.Sources.Rules.Create()`:  `error` **Changed**\n* `Client.Sources.Rules.Get()`:  `error` **Changed**\n* `Client.Sources.Rules.Update()`:  `error` **Changed**\n* `Client.Sources.Rules.Delete()`:  `error` **Changed**\n* `Client.Subscriptions.List()`:  `error` **Changed**\n* `Client.Subscriptions.Create()`:  `error` **Changed**\n* `Client.Subscriptions.Get()`:  `error` **Changed**\n* `Client.Subscriptions.UpdateSubscription()`:  `error` **Changed**\n* `Client.Subscriptions.GetSubscriptionIntervals()`:  `error` **Changed**\n* `Client.Subscriptions.EditSubscriptionIntervals()`:  `error` **Changed**\n* `Client.Subscriptions.MigrateSubscriptionVersion()`:  `error` **Changed**\n* `Client.Subscriptions.ListSubscriptionIntervalChanges()`:  `error` **Changed**\n* `Client.Subscriptions.ListIntervalChanges()`:  `error` **Changed**\n* `Client.Subscriptions.GeneratePortalLink()`:  `error` **Changed**\n* `Client.Subscriptions.Terminate()`:  `error` **Changed**\n* `Client.Subscriptions.ReconcileSubscriptionFeatures()`:  `error` **Changed**\n* `Client.Subscriptions.ListSubscriptionAdjustments()`:  `error` **Changed**\n* `Client.Subscriptions.CreateSubscriptionAdjustment()`:  `error` **Changed**\n* `Client.Subscriptions.DeleteSubscriptionAdjustment()`:  `error` **Changed**\n* `Client.Users.Get()`:  `error` **Changed**\n* `Client.Users.Update()`:  `error` **Changed**\n* `Client.InvoicesV2.List()`: \n  *  `response.Data[].LineItems.LineItems[].Provenance` **Added**\n  *  `error` **Changed**\n* `Client.InvoicesV2.ListLineItems()`: \n  *  `response.Data[].Provenance` **Added**\n  *  `error` **Changed**\n* `Client.InvoicesV2.CreateLineItem()`: \n  *  `response.Provenance` **Added**\n  *  `error` **Changed**\n* `Client.InvoicesV2.ListProjectedInvoices()`: \n  *  `response.Data[].LineItems.LineItems[].Provenance` **Added**\n  *  `error` **Changed**\n* `Client.InvoicesV2.Get()`: \n  *  `response.LineItems.LineItems[].Provenance` **Added**\n  *  `error` **Changed**\n* `Client.InvoicesV2.GetLineItems()`: \n  *  `response.LineItems[].Provenance` **Added**\n  *  `error` **Changed**\n* `Client.InvoicesV2.DownloadInvoicePdf()`:  `error` **Changed**\n* `Client.InvoicesV2.RecordInvoicePayment()`: \n  *  `response.union(hosted_link).Invoice.LineItems.LineItems[].Provenance` **Added**\n  *  `error` **Changed**\n* `Client.InvoicesV2.CreateInvoiceRefund()`:  `error` **Changed**\n* `Client.InvoicesV2.ListInvoiceRefunds()`:  `error` **Changed**\n* `Client.InvoicesV2.VoidInvoiceRefund()`:  `error` **Changed**\n* `Client.InvoicesV2.RetryInvoicePayment()`:  `error` **Changed**\n* `Client.Payments.List()`:  `error` **Changed**\n* `Client.Payments.Create()`:  `error` **Changed**\n* `Client.Payments.Get()`:  `error` **Changed**\n* `Client.PaymentSessions.ListPaymentSessions()`:  `error` **Changed**\n* `Client.Events.Ingest()`:  `error` **Changed**\n* `Client.Costs.CreateCost()`:  `error` **Changed**\n* `Client.Costs.ListCosts()`:  `error` **Changed**\n* `Client.Costs.GetCost()`:  `error` **Changed**\n* `Client.Costs.UpdateCost()`:  `error` **Changed**\n* `Client.Costs.DeleteCost()`:  `error` **Changed**\n* `Client.Costs.GetCostSummary()`:  `error` **Changed**\n* `Client.Costs.GetCostReport()`:  `error` **Changed**\n* `Client.Revenue.Get()`:  `error` **Changed**\n* `Client.Revenue.GetRevenueAccounts()`:  `error` **Changed**\n* `Client.Profitability.GetProfitability()`:  `error` **Changed**\n* `Client.TestClocks.List()`:  `error` **Changed**\n* `Client.TestClocks.Create()`:  `error` **Changed**\n* `Client.TestClocks.Get()`:  `error` **Changed**\n* `Client.TestClocks.Advance()`:  `error` **Changed**\n* `Client.TestClocks.Delete()`:  `error` **Changed**\n* `Client.Merchants.Reset()`:  `error` **Changed**\n* `Client.ExternalReferences.CreateExternalReference()`:  `error` **Changed**\n* `Client.ExternalReferences.ListExternalReferences()`:  `error` **Changed**\n* `Client.ExternalReferences.GetExternalReference()`:  `error` **Changed**\n* `Client.ExternalReferences.UpdateExternalReference()`:  `error` **Changed**\n* `Client.ExternalReferences.DeleteExternalReference()`:  `error` **Changed**\n* `Client.Items.CreateItem()`:  `error` **Changed**\n* `Client.Items.ListItems()`:  `error` **Changed**\n* `Client.Items.GetItem()`:  `error` **Changed**\n* `Client.Items.UpdateItem()`:  `error` **Changed**\n* `Client.Orders.CreateOrder()`:  `error` **Changed**\n* `Client.Orders.ListOrders()`:  `error` **Changed**\n* `Client.Orders.GetOrder()`:  `error` **Changed**\n* `Client.Orders.UpdateOrder()`:  `error` **Changed**\n* `Client.Orders.DeleteOrder()`:  `error` **Changed**\n* `Client.Orders.CreateOrderLineItem()`:  `error` **Changed**\n* `Client.Orders.UpdateOrderLineItem()`:  `error` **Changed**\n* `Client.Orders.DeleteOrderLineItem()`:  `error` **Changed**\n* `Client.BillingSchedules.ListBillingSchedules()`:  `error` **Changed**\n* `Client.BillingSchedules.CreateBillingSchedule()`:  `error` **Changed**\n* `Client.BillingSchedules.GetBillingSchedule()`:  `error` **Changed**\n* `Client.BillingSchedules.UpdateBillingSchedule()`:  `error` **Changed**\n* `Client.BillingSchedules.DeleteBillingSchedule()`:  `error` **Changed**\n* `Client.BillingSchedules.ListScheduleIntervals()`:  `error` **Changed**\n* `Client.BillingSchedules.ReplaceScheduleIntervals()`:  `error` **Changed**\n* `Client.BillingSchedules.ListScheduleInvoices()`:  `error` **Changed**\n* `Client.BillingSchedules.GenerateScheduleInvoices()`:  `error` **Changed**\n* `Client.Salesforce.ListSalesforceAccounts()`:  `error` **Changed**\n* `Client.MerchantIntegrations.ListMerchantIntegrations()`:  `error` **Changed**\n* `Client.MerchantIntegrations.UpsertMerchantIntegration()`:  `error` **Changed**\n* `Client.MerchantIntegrations.GetMerchantIntegration()`:  `error` **Changed**\n* `Client.MerchantIntegrations.DisconnectMerchantIntegration()`:  `error` **Changed**\n* `Client.Approvals.CreateApproval()`:  `error` **Changed**\n* `Client.Approvals.ListApprovals()`:  `error` **Changed**\n* `Client.Approvals.GetApproval()`:  `error` **Changed**\n* `Client.Approvals.UpdateApproval()`:  `error` **Changed**\n* `Client.Webhooks.Get()`:  `error` **Changed**\n* `Client.Webhooks.Enable()`:  `error` **Changed**\n* `Client.Webhooks.Update()`:  `error` **Changed**\n* `Client.Webhooks.Disable()`:  `error` **Changed**\n* `Client.Webhooks.GetPortal()`:  `error` **Changed**\n"
+releaseNotes: "## Go SDK Changes:\n* `Client.Subscriptions.List()`: \n  *  `request.Request.Status` **Changed** (Breaking ⚠️)\n"
