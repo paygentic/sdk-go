@@ -469,6 +469,8 @@ func (s *Webhooks) Enable(ctx context.Context, merchantID *string, opts ...opera
 	case httpRes.StatusCode == 401:
 		fallthrough
 	case httpRes.StatusCode == 403:
+		fallthrough
+	case httpRes.StatusCode == 404:
 		switch {
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -985,7 +987,7 @@ func (s *Webhooks) Disable(ctx context.Context, merchantID *string, opts ...oper
 }
 
 // GetPortal - Get Portal Access
-// Returns a link to the webhook portal, where you add endpoints, choose event types, read the signing secret and inspect deliveries. The link opens without a login and expires one hour after it is issued, at `expiresAt`. Treat it as a secret. Returns 404 unless webhooks are enabled.
+// Returns a link to the webhook portal, where you add endpoints, choose event types, read the signing secret and inspect deliveries. The link opens without a login and expires one hour after it is issued, at `expiresAt`. Treat it as a secret. The link is read-only unless the caller holds `webhooks:write`: a read-only portal shows endpoints and deliveries but does not let you add or change endpoints, read the signing secret or replay messages. Returns 404 unless webhooks are enabled.
 func (s *Webhooks) GetPortal(ctx context.Context, merchantID *string, opts ...operations.Option) (*components.WebhookPortal, error) {
 	request := operations.GetWebhookPortalRequest{
 		MerchantID: merchantID,

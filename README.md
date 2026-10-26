@@ -602,12 +602,12 @@ By Default, an API error will return `errors.PaygenticDefaultError`. When custom
 
 For example, the `Create` function may return the following errors:
 
-| Error Type                   | Status Code | Content Type     |
-| ---------------------------- | ----------- | ---------------- |
-| errors.BadRequest            | 400         | application/json |
-| errors.Error                 | 401, 403    | application/json |
-| errors.Error                 | 500         | application/json |
-| errors.PaygenticDefaultError | 4XX, 5XX    | \*/\*            |
+| Error Type                   | Status Code   | Content Type     |
+| ---------------------------- | ------------- | ---------------- |
+| errors.BadRequest            | 400           | application/json |
+| errors.Error                 | 401, 403, 404 | application/json |
+| errors.Error                 | 500           | application/json |
+| errors.PaygenticDefaultError | 4XX, 5XX      | \*/\*            |
 
 ### Example
 

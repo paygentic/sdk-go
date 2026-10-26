@@ -10,13 +10,13 @@ import (
 )
 
 type IngestEventRequestBody2 struct {
-	// CloudEvents type. Must match an eventType configured on a BillableMetric.
+	// CloudEvents type. Must match an eventType configured on a BillableMetric. Must not contain control characters.
 	Type string `json:"type"`
 	// Event source URI identifying the application.
 	Source string `json:"source"`
 	// Customer or entity ID this event relates to. Required unless externalSubject is provided.
 	Subject *string `json:"subject,omitzero"`
-	// Your own customer identifier, matched against the customer's externalId. Fallback for when the Paygentic customer ID is not known — prefer subject when it is. Events reported before the customer exists are linked retroactively once a customer with this externalId is created. Resolution is eventually consistent: after an externalId is removed or reassigned, events may resolve to the previous customer for up to one hour. If subject is also provided, subject takes precedence and externalSubject is recorded but not used for resolution.
+	// Your own customer identifier, matched against the customer's externalId. Fallback for when the Paygentic customer ID is not known — prefer subject when it is. Events reported before the customer exists are linked retroactively once a customer with this externalId is created. Resolution is eventually consistent: after an externalId is removed or reassigned, or its customer is deleted, events may resolve to the previous customer for up to one hour, and for up to 48 hours if Paygentic's database is unavailable. If subject is also provided, subject takes precedence and externalSubject is recorded but not used for resolution.
 	ExternalSubject string `json:"externalSubject"`
 	// Organization/merchant ID. Defaults to the authenticated user's organization. Platform users can specify a different organization.
 	Namespace *string `json:"namespace,omitzero"`
@@ -108,13 +108,13 @@ func (i *IngestEventRequestBody2) GetData() map[string]any {
 // #endregion class-body-ingesteventrequestbody2
 
 type IngestEventRequestBody1 struct {
-	// CloudEvents type. Must match an eventType configured on a BillableMetric.
+	// CloudEvents type. Must match an eventType configured on a BillableMetric. Must not contain control characters.
 	Type string `json:"type"`
 	// Event source URI identifying the application.
 	Source string `json:"source"`
 	// Customer or entity ID this event relates to. Required unless externalSubject is provided.
 	Subject string `json:"subject"`
-	// Your own customer identifier, matched against the customer's externalId. Fallback for when the Paygentic customer ID is not known — prefer subject when it is. Events reported before the customer exists are linked retroactively once a customer with this externalId is created. Resolution is eventually consistent: after an externalId is removed or reassigned, events may resolve to the previous customer for up to one hour. If subject is also provided, subject takes precedence and externalSubject is recorded but not used for resolution.
+	// Your own customer identifier, matched against the customer's externalId. Fallback for when the Paygentic customer ID is not known — prefer subject when it is. Events reported before the customer exists are linked retroactively once a customer with this externalId is created. Resolution is eventually consistent: after an externalId is removed or reassigned, or its customer is deleted, events may resolve to the previous customer for up to one hour, and for up to 48 hours if Paygentic's database is unavailable. If subject is also provided, subject takes precedence and externalSubject is recorded but not used for resolution.
 	ExternalSubject *string `json:"externalSubject,omitzero"`
 	// Organization/merchant ID. Defaults to the authenticated user's organization. Platform users can specify a different organization.
 	Namespace *string `json:"namespace,omitzero"`

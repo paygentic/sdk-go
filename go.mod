@@ -1,3 +1,3 @@
 module github.com/paygentic/sdk-go
 
-go 1.26.8
+go 1.26.10
