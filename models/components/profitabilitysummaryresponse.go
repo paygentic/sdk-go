@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-// ProfitabilitySummaryResponseRevenueRange - Where the caller's revenue actually lies in time. Scoped by the same filters as the request (merchant, and where given customer, subscription and currency), so it is not an account-wide statement. Present only when the selected range returned nothing. An object carries the bounds of the real revenue; null means no revenue under these filters at any time; an absent field means the extent was not resolved, because the result was not empty or because the lookup failed. An absent field must never be read as an absence. The bounds may span more than this endpoint's maximum queryable range, so clamp before re-querying.
+// ProfitabilitySummaryResponseRevenueRange - Where the caller's revenue actually lies in time. Scoped by the same filters as the request (merchant, and where given customer, subscription and currency), so it is not an account-wide statement. Present only when the selected range returned nothing. An object carries the bounds of the real revenue; null means no revenue under these filters at any time; an absent field means the extent was not resolved, because the result was not empty or because the lookup failed. An absent field must never be read as an absence. The bounds are instants that exist and both are included, so a window that holds `to` ends after it. The bounds may span more than this endpoint's maximum queryable range, so clamp before re-querying.
 type ProfitabilitySummaryResponseRevenueRange struct {
 	// Earliest invoice issue instant.
 	From time.Time `json:"from"`
@@ -41,7 +41,7 @@ func (p *ProfitabilitySummaryResponseRevenueRange) GetTo() time.Time {
 	return p.To
 }
 
-// ProfitabilitySummaryResponseCostRange - Where the caller's cost data actually lies in time. Present only when the selected range returned no cost. An object carries the bounds of the real cost events; null means the caller has no cost event at any time; an absent field means the extent was not resolved, because the result was not empty, because the lookup failed, or because the metering service does not serve the bounds method. An absent field must never be read as an absence.
+// ProfitabilitySummaryResponseCostRange - Where the caller's cost data actually lies in time. Present only when the selected range returned no cost. An object carries the bounds of the real cost events; null means the caller has no cost event at any time; an absent field means the extent was not resolved, because the result was not empty, because the lookup failed, or because the metering service does not serve the bounds method. An absent field must never be read as an absence. The bounds are instants that exist and both are included, so a window that holds `to` ends after it.
 type ProfitabilitySummaryResponseCostRange struct {
 	// Earliest cost event instant.
 	From time.Time `json:"from"`
@@ -92,9 +92,9 @@ type ProfitabilitySummaryResponse struct {
 	EmptyCustomers []ProfitabilityRow `json:"emptyCustomers,omitzero"`
 	// Non-fatal warnings collected during cost discovery (e.g. an individual cost query failed). Empty array on a clean run.
 	Warnings []string `json:"warnings,omitzero"`
-	// Where the caller's revenue actually lies in time. Scoped by the same filters as the request (merchant, and where given customer, subscription and currency), so it is not an account-wide statement. Present only when the selected range returned nothing. An object carries the bounds of the real revenue; null means no revenue under these filters at any time; an absent field means the extent was not resolved, because the result was not empty or because the lookup failed. An absent field must never be read as an absence. The bounds may span more than this endpoint's maximum queryable range, so clamp before re-querying.
+	// Where the caller's revenue actually lies in time. Scoped by the same filters as the request (merchant, and where given customer, subscription and currency), so it is not an account-wide statement. Present only when the selected range returned nothing. An object carries the bounds of the real revenue; null means no revenue under these filters at any time; an absent field means the extent was not resolved, because the result was not empty or because the lookup failed. An absent field must never be read as an absence. The bounds are instants that exist and both are included, so a window that holds `to` ends after it. The bounds may span more than this endpoint's maximum queryable range, so clamp before re-querying.
 	RevenueRange optionalnullable.OptionalNullable[ProfitabilitySummaryResponseRevenueRange] `json:"revenueRange,omitzero"`
-	// Where the caller's cost data actually lies in time. Present only when the selected range returned no cost. An object carries the bounds of the real cost events; null means the caller has no cost event at any time; an absent field means the extent was not resolved, because the result was not empty, because the lookup failed, or because the metering service does not serve the bounds method. An absent field must never be read as an absence.
+	// Where the caller's cost data actually lies in time. Present only when the selected range returned no cost. An object carries the bounds of the real cost events; null means the caller has no cost event at any time; an absent field means the extent was not resolved, because the result was not empty, because the lookup failed, or because the metering service does not serve the bounds method. An absent field must never be read as an absence. The bounds are instants that exist and both are included, so a window that holds `to` ends after it.
 	CostRange optionalnullable.OptionalNullable[ProfitabilitySummaryResponseCostRange] `json:"costRange,omitzero"`
 }
 

@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-// RevenueSummaryResponseRevenueRange - Where the caller's revenue actually lies in time. Scoped by the same filters as the request (merchant, and where given customer, subscription and currency), so it is not an account-wide statement. Present only when the selected range returned nothing. An object carries the bounds of the real revenue; null means no revenue under these filters at any time; an absent field means the extent was not resolved, because the result was not empty or because the lookup failed. An absent field must never be read as an absence. The bounds may span more than this endpoint's maximum queryable range, so clamp before re-querying.
+// RevenueSummaryResponseRevenueRange - Where the caller's revenue actually lies in time. Scoped by the same filters as the request (merchant, and where given customer, subscription and currency), so it is not an account-wide statement. Present only when the selected range returned nothing. An object carries the bounds of the real revenue; null means no revenue under these filters at any time; an absent field means the extent was not resolved, because the result was not empty or because the lookup failed. An absent field must never be read as an absence. The bounds are instants that exist and both are included, so a window that holds `to` ends after it. The bounds may span more than this endpoint's maximum queryable range, so clamp before re-querying.
 type RevenueSummaryResponseRevenueRange struct {
 	// Earliest invoice issue instant.
 	From time.Time `json:"from"`
@@ -65,7 +65,7 @@ type RevenueSummaryResponse struct {
 	GroupBreakdown []GroupInvoiceSummary `json:"groupBreakdown,omitzero"`
 	// Per-currency revenue aggregates (only present when groupBy=currency is specified). Primary currency appears first, then alphabetical by ISO code. When present, top-level netRevenue, invoices, payments, and trend fields are omitted.
 	CurrencyBreakdown []CurrencyBreakdownEntry `json:"currencyBreakdown,omitzero"`
-	// Where the caller's revenue actually lies in time. Scoped by the same filters as the request (merchant, and where given customer, subscription and currency), so it is not an account-wide statement. Present only when the selected range returned nothing. An object carries the bounds of the real revenue; null means no revenue under these filters at any time; an absent field means the extent was not resolved, because the result was not empty or because the lookup failed. An absent field must never be read as an absence. The bounds may span more than this endpoint's maximum queryable range, so clamp before re-querying.
+	// Where the caller's revenue actually lies in time. Scoped by the same filters as the request (merchant, and where given customer, subscription and currency), so it is not an account-wide statement. Present only when the selected range returned nothing. An object carries the bounds of the real revenue; null means no revenue under these filters at any time; an absent field means the extent was not resolved, because the result was not empty or because the lookup failed. An absent field must never be read as an absence. The bounds are instants that exist and both are included, so a window that holds `to` ends after it. The bounds may span more than this endpoint's maximum queryable range, so clamp before re-querying.
 	RevenueRange optionalnullable.OptionalNullable[RevenueSummaryResponseRevenueRange] `json:"revenueRange,omitzero"`
 }
 

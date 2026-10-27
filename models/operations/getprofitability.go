@@ -10,9 +10,9 @@ import (
 type GetProfitabilityRequest struct {
 	// Merchant whose customers to summarize
 	MerchantID string `queryParam:"style=form,explode=true,name=merchantId"`
-	// Start of the time range (ISO 8601 format)
+	// Start of the read window, included (ISO 8601 format)
 	From time.Time `queryParam:"style=form,explode=true,name=from"`
-	// End of the time range (ISO 8601 format)
+	// End of the read window, excluded: the read counts from <= t < to, so a month ends at the first instant of the next month (ISO 8601 format)
 	To time.Time `queryParam:"style=form,explode=true,name=to"`
 	// Number of top customers (by profit) to return individually. The rest are rolled into a single 'Other' row.
 	TopN *int64 `default:"10" queryParam:"style=form,explode=true,name=topN"`

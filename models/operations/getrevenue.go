@@ -97,9 +97,9 @@ func (e *PeriodBasis) UnmarshalJSON(data []byte) error {
 }
 
 type GetRevenueRequest struct {
-	// Start of the time range (ISO 8601 format)
+	// Start of the read window, included (ISO 8601 format)
 	StartTime time.Time `queryParam:"style=form,explode=true,name=startTime"`
-	// End of the time range (ISO 8601 format)
+	// End of the read window, excluded: the read counts startTime <= t < endTime, so a month ends at the first instant of the next month (ISO 8601 format)
 	EndTime time.Time `queryParam:"style=form,explode=true,name=endTime"`
 	// Time bucket granularity for trend data
 	BucketWidth *GetRevenueBucketWidth `default:"day" queryParam:"style=form,explode=true,name=bucketWidth"`

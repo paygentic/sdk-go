@@ -44,9 +44,9 @@ type GetCostSummaryRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// Filter usage to a specific subject (billing entity). When provided, only cost events matching this subject are included. When omitted, usage is aggregated across all subjects for the merchant.
 	Subject *string `queryParam:"style=form,explode=true,name=subject"`
-	// Start of the query window (ISO 8601). Required together with 'to'.
+	// Start of the query window, included (ISO 8601). Required together with 'to'.
 	From time.Time `queryParam:"style=form,explode=true,name=from"`
-	// End of the query window (ISO 8601). Required together with 'from'.
+	// End of the query window, excluded: the read counts from <= t < to (ISO 8601). Required together with 'from'.
 	To time.Time `queryParam:"style=form,explode=true,name=to"`
 	// Comma-separated dimension keys to group results by.
 	GroupBy *string `queryParam:"style=form,explode=true,name=groupBy"`

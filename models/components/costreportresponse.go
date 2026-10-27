@@ -33,9 +33,12 @@ func (e *CostReportResponseObject) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// Period - The read window, as requested: the report counts from <= t < to. Unlike `costRange`, `to` is not an instant the report covers, so a chart axis ends before it.
 type Period struct {
+	// Start of the read window, included.
 	From time.Time `json:"from"`
-	To   time.Time `json:"to"`
+	// End of the read window, excluded.
+	To time.Time `json:"to"`
 }
 
 func (p Period) MarshalJSON() ([]byte, error) {
@@ -90,7 +93,7 @@ func (p *Pagination) GetOffset() int64 {
 	return p.Offset
 }
 
-// CostReportResponseCostRange - Where the caller's cost data actually lies in time. Present only when the selected range returned no cost. An object carries the bounds of the real cost events; null means the caller has no cost event at any time; an absent field means the extent was not resolved, because the result was not empty, because the lookup failed, or because the metering service does not serve the bounds method. An absent field must never be read as an absence.
+// CostReportResponseCostRange - Where the caller's cost data actually lies in time. Present only when the selected range returned no cost. An object carries the bounds of the real cost events; null means the caller has no cost event at any time; an absent field means the extent was not resolved, because the result was not empty, because the lookup failed, or because the metering service does not serve the bounds method. An absent field must never be read as an absence. The bounds are instants that exist and both are included, so a window that holds `to` ends after it.
 type CostReportResponseCostRange struct {
 	// Earliest cost event instant.
 	From time.Time `json:"from"`
@@ -127,7 +130,8 @@ type CostReportResponse struct {
 	Object *CostReportResponseObject `default:"cost_report" json:"object"`
 	// ISO 4217 currency code for all monetary values in this response.
 	Currency string `json:"currency"`
-	Period   Period `json:"period"`
+	// The read window, as requested: the report counts from <= t < to. Unlike `costRange`, `to` is not an instant the report covers, so a chart axis ends before it.
+	Period Period `json:"period"`
 	// The active grouping dimension (e.g. 'cost', 'customer', or a dynamic dimension key).
 	GroupBy string `json:"groupBy"`
 	// Sum of cost across all groups (not just top N).
@@ -147,7 +151,7 @@ type CostReportResponse struct {
 	GroupCount *int64 `json:"groupCount,omitzero"`
 	// Groups with neither cost nor usage in the period, counted over the whole report and reported whether or not `excludeEmpty` is set. Null when a cost read failed (see `warnings`): a group empty in the costs that loaded may have usage in the one that failed, so none is counted and `excludeEmpty` leaves nobody out.
 	EmptyGroupCount optionalnullable.OptionalNullable[int64] `json:"emptyGroupCount,omitzero"`
-	// Where the caller's cost data actually lies in time. Present only when the selected range returned no cost. An object carries the bounds of the real cost events; null means the caller has no cost event at any time; an absent field means the extent was not resolved, because the result was not empty, because the lookup failed, or because the metering service does not serve the bounds method. An absent field must never be read as an absence.
+	// Where the caller's cost data actually lies in time. Present only when the selected range returned no cost. An object carries the bounds of the real cost events; null means the caller has no cost event at any time; an absent field means the extent was not resolved, because the result was not empty, because the lookup failed, or because the metering service does not serve the bounds method. An absent field must never be read as an absence. The bounds are instants that exist and both are included, so a window that holds `to` ends after it.
 	CostRange optionalnullable.OptionalNullable[CostReportResponseCostRange] `json:"costRange,omitzero"`
 }
 

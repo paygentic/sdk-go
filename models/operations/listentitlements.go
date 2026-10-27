@@ -128,6 +128,30 @@ func (e *ListEntitlementsObject) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// Stale - Present only when the database can't be reached, or the list takes more than a second to compute. The response is then the last result for this same request in the past hour, computed at `computedAt`.
+type Stale struct {
+	// When this result was computed.
+	ComputedAt time.Time `json:"computedAt"`
+}
+
+func (s Stale) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *Stale) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *Stale) GetComputedAt() time.Time {
+	if s == nil {
+		return time.Time{}
+	}
+	return s.ComputedAt
+}
+
 // ListEntitlementsResponse - Successfully retrieved the list of entitlements for the customer.
 type ListEntitlementsResponse struct {
 	Object *ListEntitlementsObject `default:"list" json:"object"`
@@ -135,6 +159,8 @@ type ListEntitlementsResponse struct {
 	Data []components.EntitlementListItem `json:"data"`
 	// Offset-based pagination response.
 	Pagination components.OffsetPagination `json:"pagination"`
+	// Present only when the database can't be reached, or the list takes more than a second to compute. The response is then the last result for this same request in the past hour, computed at `computedAt`.
+	Stale *Stale `json:"stale,omitzero"`
 }
 
 func (l ListEntitlementsResponse) MarshalJSON() ([]byte, error) {
@@ -167,4 +193,11 @@ func (l *ListEntitlementsResponse) GetPagination() components.OffsetPagination {
 		return components.OffsetPagination{}
 	}
 	return l.Pagination
+}
+
+func (l *ListEntitlementsResponse) GetStale() *Stale {
+	if l == nil {
+		return nil
+	}
+	return l.Stale
 }

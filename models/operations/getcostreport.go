@@ -96,9 +96,9 @@ func (e *SortDir) UnmarshalJSON(data []byte) error {
 type GetCostReportRequest struct {
 	// The merchant organization ID. If omitted, defaults to the merchant associated with the authenticated API key.
 	MerchantID *string `queryParam:"style=form,explode=true,name=merchantId"`
-	// Start of the query window (ISO 8601).
+	// Start of the query window, included (ISO 8601).
 	From time.Time `queryParam:"style=form,explode=true,name=from"`
-	// End of the query window (ISO 8601).
+	// End of the query window, excluded: the read counts from <= t < to (ISO 8601).
 	To time.Time `queryParam:"style=form,explode=true,name=to"`
 	// Dimension to group results by. Valid values: 'cost' (group by cost ID), 'customer' (group by customer ID), or any dimension key from a filtered cost's groupBy schema for dynamic dimension grouping. Dynamic dimension values require exactly one costId filter.
 	GroupBy string `queryParam:"style=form,explode=true,name=groupBy"`
