@@ -2,7 +2,7 @@
 
 package components
 
-// OutstandingBlock - What is owed, gross of tax, from any date. `awaitingPayment` and `paymentFailed` add up to it, in count and amount.
+// OutstandingBlock - What is owed, gross of tax, from any date. `awaitingPayment` and `paymentFailed` add up to it, in count and amount. `overdue` is a part of `awaitingPayment`.
 type OutstandingBlock struct {
 	// Number of unpaid invoices with an amount due above zero. A credit invoice, or one whose amount due rounds to zero, is not counted.
 	Count int64 `json:"count"`
@@ -12,6 +12,8 @@ type OutstandingBlock struct {
 	AwaitingPayment AccountFigure `json:"awaitingPayment"`
 	// The part with status `PAYMENT_FAILED`: collection has ended
 	PaymentFailed AccountFigure `json:"paymentFailed"`
+	// The invoices of `awaitingPayment` past their due date: status `ISSUED`, no card retry scheduled, and a due date before the start of today, UTC. Today is the subscription's test clock when test clocks are enabled. A subset of `awaitingPayment` by count. A credit invoice is never overdue, so the amount can exceed `awaitingPayment.amount`.
+	Overdue AccountFigure `json:"overdue"`
 }
 
 func (o *OutstandingBlock) GetCount() int64 {
@@ -40,4 +42,11 @@ func (o *OutstandingBlock) GetPaymentFailed() AccountFigure {
 		return AccountFigure{}
 	}
 	return o.PaymentFailed
+}
+
+func (o *OutstandingBlock) GetOverdue() AccountFigure {
+	if o == nil {
+		return AccountFigure{}
+	}
+	return o.Overdue
 }

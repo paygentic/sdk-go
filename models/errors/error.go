@@ -7,6 +7,7 @@ import (
 	"github.com/paygentic/sdk-go/models/components"
 )
 
+// Error - Unauthorized - Authentication failed or user does not have permissions
 type Error struct {
 	// Coarse HTTP error category (e.g. 'bad_request', 'forbidden'). Maps to the HTTP status code.
 	Error_ *string `json:"error,omitzero"`

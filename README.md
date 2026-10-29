@@ -199,7 +199,6 @@ package main
 import (
 	"context"
 	paygentic "github.com/paygentic/sdk-go"
-	"github.com/paygentic/sdk-go/models/operations"
 	"log"
 	"os"
 )
@@ -211,15 +210,7 @@ func main() {
 		paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
 	)
 
-	res, err := s.BillableMetrics.Create(ctx, operations.CreateBillableMetricRequest{
-		Aggregation: operations.CreateBillableMetricAggregationSum,
-		Description: "Tracks total tokens consumed per API call.",
-		MerchantID:  "org_YS8jkP59V71TdUvj",
-		Name:        "Token Counter",
-		ProductID:   paygentic.Pointer("prod_abc123"),
-		Unit:        "tokens",
-		EventType:   "<value>",
-	})
+	res, err := s.Me.GetMe(ctx)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -348,6 +339,10 @@ func main() {
 * [ListItems](docs/sdks/items/README.md#listitems) - List
 * [GetItem](docs/sdks/items/README.md#getitem) - Get
 * [UpdateItem](docs/sdks/items/README.md#updateitem) - Update
+
+### [Me](docs/sdks/me/README.md)
+
+* [GetMe](docs/sdks/me/README.md#getme) - Get the caller
 
 ### [MerchantIntegrations](docs/sdks/merchantintegrations/README.md)
 
@@ -499,7 +494,6 @@ package main
 import (
 	"context"
 	paygentic "github.com/paygentic/sdk-go"
-	"github.com/paygentic/sdk-go/models/operations"
 	"github.com/paygentic/sdk-go/retry"
 	"log"
 	"models/operations"
@@ -513,15 +507,7 @@ func main() {
 		paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
 	)
 
-	res, err := s.BillableMetrics.Create(ctx, operations.CreateBillableMetricRequest{
-		Aggregation: operations.CreateBillableMetricAggregationSum,
-		Description: "Tracks total tokens consumed per API call.",
-		MerchantID:  "org_YS8jkP59V71TdUvj",
-		Name:        "Token Counter",
-		ProductID:   paygentic.Pointer("prod_abc123"),
-		Unit:        "tokens",
-		EventType:   "<value>",
-	}, operations.WithRetries(
+	res, err := s.Me.GetMe(ctx, operations.WithRetries(
 		retry.Config{
 			Strategy: "backoff",
 			Backoff: &retry.BackoffStrategy{
@@ -549,7 +535,6 @@ package main
 import (
 	"context"
 	paygentic "github.com/paygentic/sdk-go"
-	"github.com/paygentic/sdk-go/models/operations"
 	"github.com/paygentic/sdk-go/retry"
 	"log"
 	"os"
@@ -573,15 +558,7 @@ func main() {
 		paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
 	)
 
-	res, err := s.BillableMetrics.Create(ctx, operations.CreateBillableMetricRequest{
-		Aggregation: operations.CreateBillableMetricAggregationSum,
-		Description: "Tracks total tokens consumed per API call.",
-		MerchantID:  "org_YS8jkP59V71TdUvj",
-		Name:        "Token Counter",
-		ProductID:   paygentic.Pointer("prod_abc123"),
-		Unit:        "tokens",
-		EventType:   "<value>",
-	})
+	res, err := s.Me.GetMe(ctx)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -600,14 +577,12 @@ Handling errors in this SDK should largely match your expectations. All operatio
 
 By Default, an API error will return `errors.PaygenticDefaultError`. When custom error responses are specified for an operation, the SDK may also return their associated error. You can refer to respective *Errors* tables in SDK docs for more details on possible error types for each operation.
 
-For example, the `Create` function may return the following errors:
+For example, the `GetMe` function may return the following errors:
 
-| Error Type                   | Status Code   | Content Type     |
-| ---------------------------- | ------------- | ---------------- |
-| errors.BadRequest            | 400           | application/json |
-| errors.Error                 | 401, 403, 404 | application/json |
-| errors.Error                 | 500           | application/json |
-| errors.PaygenticDefaultError | 4XX, 5XX      | \*/\*            |
+| Error Type                   | Status Code | Content Type     |
+| ---------------------------- | ----------- | ---------------- |
+| errors.Error                 | 401, 403    | application/json |
+| errors.PaygenticDefaultError | 4XX, 5XX    | \*/\*            |
 
 ### Example
 
@@ -619,7 +594,6 @@ import (
 	"errors"
 	paygentic "github.com/paygentic/sdk-go"
 	"github.com/paygentic/sdk-go/models/errors"
-	"github.com/paygentic/sdk-go/models/operations"
 	"log"
 	"os"
 )
@@ -631,28 +605,8 @@ func main() {
 		paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
 	)
 
-	res, err := s.BillableMetrics.Create(ctx, operations.CreateBillableMetricRequest{
-		Aggregation: operations.CreateBillableMetricAggregationSum,
-		Description: "Tracks total tokens consumed per API call.",
-		MerchantID:  "org_YS8jkP59V71TdUvj",
-		Name:        "Token Counter",
-		ProductID:   paygentic.Pointer("prod_abc123"),
-		Unit:        "tokens",
-		EventType:   "<value>",
-	})
+	res, err := s.Me.GetMe(ctx)
 	if err != nil {
-
-		var e *errors.BadRequest
-		if errors.As(err, &e) {
-			// handle error
-			log.Fatal(e.Error())
-		}
-
-		var e *errors.Error
-		if errors.As(err, &e) {
-			// handle error
-			log.Fatal(e.Error())
-		}
 
 		var e *errors.Error
 		if errors.As(err, &e) {
@@ -691,7 +645,6 @@ package main
 import (
 	"context"
 	paygentic "github.com/paygentic/sdk-go"
-	"github.com/paygentic/sdk-go/models/operations"
 	"log"
 	"os"
 )
@@ -704,15 +657,7 @@ func main() {
 		paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
 	)
 
-	res, err := s.BillableMetrics.Create(ctx, operations.CreateBillableMetricRequest{
-		Aggregation: operations.CreateBillableMetricAggregationSum,
-		Description: "Tracks total tokens consumed per API call.",
-		MerchantID:  "org_YS8jkP59V71TdUvj",
-		Name:        "Token Counter",
-		ProductID:   paygentic.Pointer("prod_abc123"),
-		Unit:        "tokens",
-		EventType:   "<value>",
-	})
+	res, err := s.Me.GetMe(ctx)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -732,7 +677,6 @@ package main
 import (
 	"context"
 	paygentic "github.com/paygentic/sdk-go"
-	"github.com/paygentic/sdk-go/models/operations"
 	"log"
 	"os"
 )
@@ -745,15 +689,7 @@ func main() {
 		paygentic.WithSecurity(os.Getenv("PAYGENTIC_BEARER_AUTH")),
 	)
 
-	res, err := s.BillableMetrics.Create(ctx, operations.CreateBillableMetricRequest{
-		Aggregation: operations.CreateBillableMetricAggregationSum,
-		Description: "Tracks total tokens consumed per API call.",
-		MerchantID:  "org_YS8jkP59V71TdUvj",
-		Name:        "Token Counter",
-		ProductID:   paygentic.Pointer("prod_abc123"),
-		Unit:        "tokens",
-		EventType:   "<value>",
-	})
+	res, err := s.Me.GetMe(ctx)
 	if err != nil {
 		log.Fatal(err)
 	}
