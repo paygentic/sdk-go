@@ -412,6 +412,7 @@ const (
 	TerminationChangeReasonCorrection  TerminationChangeReason = "correction"
 	TerminationChangeReasonMigration   TerminationChangeReason = "migration"
 	TerminationChangeReasonUnspecified TerminationChangeReason = "unspecified"
+	TerminationChangeReasonContractual TerminationChangeReason = "contractual"
 )
 
 func (e TerminationChangeReason) ToPointer() *TerminationChangeReason {
@@ -422,7 +423,7 @@ func (e TerminationChangeReason) ToPointer() *TerminationChangeReason {
 func (e *TerminationChangeReason) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "commercial", "correction", "migration", "unspecified":
+		case "commercial", "correction", "migration", "unspecified", "contractual":
 			return true
 		}
 	}

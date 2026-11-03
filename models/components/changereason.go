@@ -2,7 +2,7 @@
 
 package components
 
-// ChangeReason - Why a change was made. `correction` fixes data to match what was agreed; `migration` moves a contract from another system; `commercial` is a real change to the deal. Defaults to `unspecified`.
+// ChangeReason - Why a change was made. `correction` repairs data that was entered wrong; `migration` moves a contract from another system; `commercial` is a real change to the deal; `contractual` applies a step the original contract scheduled, such as an annual uplift. Defaults to `unspecified`.
 type ChangeReason string
 
 const (
@@ -10,6 +10,7 @@ const (
 	ChangeReasonCorrection  ChangeReason = "correction"
 	ChangeReasonMigration   ChangeReason = "migration"
 	ChangeReasonUnspecified ChangeReason = "unspecified"
+	ChangeReasonContractual ChangeReason = "contractual"
 )
 
 func (e ChangeReason) ToPointer() *ChangeReason {
@@ -20,7 +21,7 @@ func (e ChangeReason) ToPointer() *ChangeReason {
 func (e *ChangeReason) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "commercial", "correction", "migration", "unspecified":
+		case "commercial", "correction", "migration", "unspecified", "contractual":
 			return true
 		}
 	}

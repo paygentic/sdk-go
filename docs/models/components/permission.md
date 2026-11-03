@@ -49,6 +49,8 @@ custom := components.Permission("custom_value")
 | `PermissionPortalSessionsRead`               | portalSessions:read                          |
 | `PermissionPlatformUsersRead`                | platformUsers:read                           |
 | `PermissionPlatformAdminRead`                | platformAdmin:read                           |
+| `PermissionLoginLockoutRead`                 | loginLockout:read                            |
+| `PermissionPlatformSystemRead`               | platformSystem:read                          |
 | `PermissionOrganizationCreationRead`         | organizationCreation:read                    |
 | `PermissionComplianceRead`                   | compliance:read                              |
 | `PermissionTaxSettingsRead`                  | taxSettings:read                             |
@@ -92,6 +94,8 @@ custom := components.Permission("custom_value")
 | `PermissionPortalSessionsWrite`              | portalSessions:write                         |
 | `PermissionPlatformUsersWrite`               | platformUsers:write                          |
 | `PermissionPlatformAdminWrite`               | platformAdmin:write                          |
+| `PermissionLoginLockoutWrite`                | loginLockout:write                           |
+| `PermissionPlatformSystemWrite`              | platformSystem:write                         |
 | `PermissionOrganizationCreationWrite`        | organizationCreation:write                   |
 | `PermissionComplianceWrite`                  | compliance:write                             |
 | `PermissionTaxSettingsWrite`                 | taxSettings:write                            |

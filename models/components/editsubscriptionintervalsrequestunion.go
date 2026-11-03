@@ -15,7 +15,7 @@ type EditSubscriptionIntervalsRequest3 struct {
 	Edit []SubscriptionIntervalEditOp `json:"edit,omitzero"`
 	// Intervals to remove outright.
 	Remove []SubscriptionIntervalRemoveOp `json:"remove"`
-	// Why a change was made. `correction` fixes data to match what was agreed; `migration` moves a contract from another system; `commercial` is a real change to the deal. Defaults to `unspecified`.
+	// Why a change was made. `correction` repairs data that was entered wrong; `migration` moves a contract from another system; `commercial` is a real change to the deal; `contractual` applies a step the original contract scheduled, such as an annual uplift. Defaults to `unspecified`.
 	ChangeReason *ChangeReason `json:"changeReason,omitzero"`
 	// A free-text note on why these intervals are changing.
 	Description *string `json:"description,omitzero"`
@@ -86,7 +86,7 @@ type EditSubscriptionIntervalsRequest2 struct {
 	Edit []SubscriptionIntervalEditOp `json:"edit"`
 	// Intervals to remove outright.
 	Remove []SubscriptionIntervalRemoveOp `json:"remove,omitzero"`
-	// Why a change was made. `correction` fixes data to match what was agreed; `migration` moves a contract from another system; `commercial` is a real change to the deal. Defaults to `unspecified`.
+	// Why a change was made. `correction` repairs data that was entered wrong; `migration` moves a contract from another system; `commercial` is a real change to the deal; `contractual` applies a step the original contract scheduled, such as an annual uplift. Defaults to `unspecified`.
 	ChangeReason *ChangeReason `json:"changeReason,omitzero"`
 	// A free-text note on why these intervals are changing.
 	Description *string `json:"description,omitzero"`
@@ -157,7 +157,7 @@ type EditSubscriptionIntervalsRequest1 struct {
 	Edit []SubscriptionIntervalEditOp `json:"edit,omitzero"`
 	// Intervals to remove outright.
 	Remove []SubscriptionIntervalRemoveOp `json:"remove,omitzero"`
-	// Why a change was made. `correction` fixes data to match what was agreed; `migration` moves a contract from another system; `commercial` is a real change to the deal. Defaults to `unspecified`.
+	// Why a change was made. `correction` repairs data that was entered wrong; `migration` moves a contract from another system; `commercial` is a real change to the deal; `contractual` applies a step the original contract scheduled, such as an annual uplift. Defaults to `unspecified`.
 	ChangeReason *ChangeReason `json:"changeReason,omitzero"`
 	// A free-text note on why these intervals are changing.
 	Description *string `json:"description,omitzero"`

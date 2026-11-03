@@ -24,3 +24,4 @@ custom := components.TerminationChangeReason("custom_value")
 | `TerminationChangeReasonCorrection`  | correction                           |
 | `TerminationChangeReasonMigration`   | migration                            |
 | `TerminationChangeReasonUnspecified` | unspecified                          |
+| `TerminationChangeReasonContractual` | contractual                          |

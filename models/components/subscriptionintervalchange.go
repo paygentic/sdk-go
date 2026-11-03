@@ -12,7 +12,7 @@ type SubscriptionIntervalChange struct {
 	ID             string `json:"id"`
 	MerchantID     string `json:"merchantId"`
 	SubscriptionID string `json:"subscriptionId"`
-	// Why a change was made. `correction` fixes data to match what was agreed; `migration` moves a contract from another system; `commercial` is a real change to the deal. Defaults to `unspecified`.
+	// Why a change was made. `correction` repairs data that was entered wrong; `migration` moves a contract from another system; `commercial` is a real change to the deal; `contractual` applies a step the original contract scheduled, such as an annual uplift. Defaults to `unspecified`.
 	ChangeReason ChangeReason `json:"changeReason"`
 	Description  *string      `json:"description"`
 	// Your own key-value data about the change, such as a CRM deal ID.

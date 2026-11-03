@@ -847,6 +847,7 @@ func (s *Prices) Get(ctx context.Context, id string, opts ...operations.Option) 
 }
 
 // Update
+// Updates a price. `paymentTerm` and `billingCadence` are fixed when the price is created: a request that sends either one is refused with a 400. To change them, create a new price.
 func (s *Prices) Update(ctx context.Context, id string, body operations.UpdatePriceRequestBody, opts ...operations.Option) (*components.Price, error) {
 	request := operations.UpdatePriceRequest{
 		ID:   id,

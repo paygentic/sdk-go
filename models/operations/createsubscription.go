@@ -183,7 +183,7 @@ type CreateSubscriptionRequest struct {
 	VersionPolicy *components.SubscriptionVersionPolicy `json:"versionPolicy,omitzero"`
 	// Free-form merchant metadata to attach to the subscription. Values must be strings, numbers, or booleans.
 	Metadata map[string]components.SubscriptionMetadata `json:"metadata,omitzero"`
-	// Why a change was made. `correction` fixes data to match what was agreed; `migration` moves a contract from another system; `commercial` is a real change to the deal. Defaults to `unspecified`.
+	// Why a change was made. `correction` repairs data that was entered wrong; `migration` moves a contract from another system; `commercial` is a real change to the deal; `contractual` applies a step the original contract scheduled, such as an annual uplift. Defaults to `unspecified`.
 	ChangeReason *components.ChangeReason `json:"changeReason,omitzero"`
 	// A free-text note on why these intervals are changing.
 	ChangeDescription *string `json:"changeDescription,omitzero"`

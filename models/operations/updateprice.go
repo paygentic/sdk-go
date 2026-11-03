@@ -3,39 +3,10 @@
 package operations
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/paygentic/sdk-go/internal/utils"
 	"github.com/paygentic/sdk-go/models/components"
 	"github.com/paygentic/sdk-go/optionalnullable"
 )
-
-// UpdatePricePaymentTerm - Billing timing preference: 'in_advance' (prepaid — charged upfront or drawn from a prepaid commitment) or 'in_arrears' (charged at period end).
-type UpdatePricePaymentTerm string
-
-const (
-	UpdatePricePaymentTermInArrears UpdatePricePaymentTerm = "in_arrears"
-	UpdatePricePaymentTermInAdvance UpdatePricePaymentTerm = "in_advance"
-)
-
-func (e UpdatePricePaymentTerm) ToPointer() *UpdatePricePaymentTerm {
-	return &e
-}
-func (e *UpdatePricePaymentTerm) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "in_arrears":
-		fallthrough
-	case "in_advance":
-		*e = UpdatePricePaymentTerm(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for UpdatePricePaymentTerm: %v", v)
-	}
-}
 
 type UpdatePriceRequestBody struct {
 	// Unique identifier for a billable metric
@@ -49,10 +20,6 @@ type UpdatePriceRequestBody struct {
 	// The pricing model to set. 'standard' and 'volume' are accepted. Legacy 'dynamic'/'percentage' prices can still be edited (other fields) but cannot be switched back to those models. Percentage/revenue-share is expressed via 'standard' with a unit-price multiplier.
 	Model      *components.PriceModelInput `json:"model,omitzero"`
 	Properties *components.PriceProperties `json:"properties,omitzero"`
-	// Billing timing preference: 'in_advance' (prepaid — charged upfront or drawn from a prepaid commitment) or 'in_arrears' (charged at period end).
-	PaymentTerm *UpdatePricePaymentTerm `json:"paymentTerm,omitzero"`
-	// ISO 8601 duration for recurring fees (e.g., 'P1M' for monthly, 'P1Y' for yearly, or 'P0D' for one-time)
-	BillingCadence optionalnullable.OptionalNullable[string] `json:"billingCadence,omitzero"`
 	// Feature to associate. Set to null to remove existing feature. Omit to leave unchanged.
 	Feature optionalnullable.OptionalNullable[components.PriceFeatureInput] `json:"feature,omitzero"`
 	// When true, grants applied to a subscription will discount usage charged by this price. Only supported for standard metered prices.
@@ -118,20 +85,6 @@ func (u *UpdatePriceRequestBody) GetProperties() *components.PriceProperties {
 		return nil
 	}
 	return u.Properties
-}
-
-func (u *UpdatePriceRequestBody) GetPaymentTerm() *UpdatePricePaymentTerm {
-	if u == nil {
-		return nil
-	}
-	return u.PaymentTerm
-}
-
-func (u *UpdatePriceRequestBody) GetBillingCadence() optionalnullable.OptionalNullable[string] {
-	if u == nil {
-		return nil
-	}
-	return u.BillingCadence
 }
 
 func (u *UpdatePriceRequestBody) GetFeature() optionalnullable.OptionalNullable[components.PriceFeatureInput] {
