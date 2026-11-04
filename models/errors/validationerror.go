@@ -14,6 +14,8 @@ type ValidationError struct {
 	Message string `json:"message"`
 	// Array of field-specific validation errors
 	Errors []components.Error `json:"errors"`
+	// Identifies this request in our logs. Include it when you contact support. Also sent in the `request-id` response header.
+	RequestID *string `json:"requestId,omitzero"`
 }
 
 var _ error = &ValidationError{}

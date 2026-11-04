@@ -46,7 +46,7 @@ type GetCostSummaryRequest struct {
 	Subject *string `queryParam:"style=form,explode=true,name=subject"`
 	// Start of the query window, included (ISO 8601). Required together with 'to'.
 	From time.Time `queryParam:"style=form,explode=true,name=from"`
-	// End of the query window, excluded: the read counts from <= t < to (ISO 8601). Required together with 'from'.
+	// End of the query window, excluded: the read counts from <= t < to (ISO 8601). Required together with 'from'. At most 403 days after `from`.
 	To time.Time `queryParam:"style=form,explode=true,name=to"`
 	// Comma-separated dimension keys to group results by.
 	GroupBy *string `queryParam:"style=form,explode=true,name=groupBy"`

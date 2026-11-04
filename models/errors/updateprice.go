@@ -9,8 +9,10 @@ import (
 
 // UpdatePriceConflictError - Price cannot be restructured because a subscription still bills it directly
 type UpdatePriceConflictError struct {
-	Error_  *string `json:"error,omitzero"`
-	Message string  `json:"message"`
+	// Identifies this request in our logs. Include it when you contact support. Also sent in the `request-id` response header.
+	RequestID *string `json:"requestId,omitzero"`
+	Error_    *string `json:"error,omitzero"`
+	Message   string  `json:"message"`
 	// Machine-readable conflict code. Open set: a new code may appear, so branch on the ones you handle and treat anything else as an unhandled conflict.
 	Code    string                         `json:"code"`
 	Details *operations.UpdatePriceDetails `json:"details,omitzero"`

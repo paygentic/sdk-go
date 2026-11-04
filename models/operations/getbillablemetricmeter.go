@@ -46,7 +46,7 @@ type GetBillableMetricMeterRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// Start of query window (ISO 8601)
 	From time.Time `queryParam:"style=form,explode=true,name=from"`
-	// End of query window (ISO 8601)
+	// End of query window (ISO 8601). At most 403 days after `from`.
 	To time.Time `queryParam:"style=form,explode=true,name=to"`
 	// Filter by customer/user ID
 	Subject *string `queryParam:"style=form,explode=true,name=subject"`

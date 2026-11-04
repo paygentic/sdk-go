@@ -44,6 +44,8 @@ type RetryPaymentResponse struct {
 	PaymentIntentID *string `json:"paymentIntentId,omitzero"`
 	// Why a payment retry did not collect the money.
 	Error *RetryPaymentError `json:"error,omitzero"`
+	// Identifies this request in our logs. Include it when you contact support. Also sent in the `request-id` response header.
+	RequestID *string `json:"requestId,omitzero"`
 }
 
 func (r RetryPaymentResponse) MarshalJSON() ([]byte, error) {
@@ -90,4 +92,11 @@ func (r *RetryPaymentResponse) GetError() *RetryPaymentError {
 		return nil
 	}
 	return r.Error
+}
+
+func (r *RetryPaymentResponse) GetRequestID() *string {
+	if r == nil {
+		return nil
+	}
+	return r.RequestID
 }

@@ -21,6 +21,8 @@ type UnprocessableEntityError struct {
 	Reason *components.AuthorizationDenialReason `json:"reason,omitzero"`
 	// Present on a 403 from the authorization check. The permissions the caller needs for this request.
 	RequiredPermissions []string `json:"requiredPermissions,omitzero"`
+	// Identifies this request in our logs. Include it when you contact support. Also sent in the `request-id` response header.
+	RequestID *string `json:"requestId,omitzero"`
 }
 
 var _ error = &UnprocessableEntityError{}

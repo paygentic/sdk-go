@@ -112,6 +112,7 @@ custom := components.Permission("custom_value")
 | `PermissionEventsWrite`                      | events:write                                 |
 | `PermissionInvoicesIssue`                    | invoices:issue                               |
 | `PermissionInvoicesVoid`                     | invoices:void                                |
+| `PermissionInvoicesTransition`               | invoices:transition                          |
 | `PermissionPaymentsRefund`                   | payments:refund                              |
 | `PermissionOrganizationDelete`               | organization:delete                          |
 | `PermissionOwnershipTransfer`                | ownership:transfer                           |

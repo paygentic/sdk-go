@@ -9,9 +9,11 @@ import (
 
 // DeletePriceConflictError - Price cannot be deleted because a live plan still references it
 type DeletePriceConflictError struct {
-	Error_  *string                        `json:"error,omitzero"`
-	Message *string                        `json:"message,omitzero"`
-	Details *operations.DeletePriceDetails `json:"details,omitzero"`
+	// Identifies this request in our logs. Include it when you contact support. Also sent in the `request-id` response header.
+	RequestID *string                        `json:"requestId,omitzero"`
+	Error_    *string                        `json:"error,omitzero"`
+	Message   *string                        `json:"message,omitzero"`
+	Details   *operations.DeletePriceDetails `json:"details,omitzero"`
 }
 
 var _ error = &DeletePriceConflictError{}
