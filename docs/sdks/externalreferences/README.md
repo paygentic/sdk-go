@@ -40,7 +40,7 @@ func main() {
 
     res, err := s.ExternalReferences.CreateExternalReference(ctx, operations.CreateExternalReferenceRequest{
         MerchantID: "<id>",
-        EntityType: components.EntityTypeItem,
+        EntityType: components.EntityTypeInputItem,
         EntityID: "<id>",
         Provider: "<value>",
         ExternalID: "<id>",
@@ -289,6 +289,6 @@ func main() {
 
 | Error Type                   | Status Code                  | Content Type                 |
 | ---------------------------- | ---------------------------- | ---------------------------- |
-| errors.Error                 | 401, 403, 404                | application/json             |
+| errors.Error                 | 401, 403, 404, 409           | application/json             |
 | errors.Error                 | 500                          | application/json             |
 | errors.PaygenticDefaultError | 4XX, 5XX                     | \*/\*                        |

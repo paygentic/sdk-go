@@ -10,8 +10,8 @@ import (
 type CreateExternalReferenceRequest struct {
 	// Unique identifier for an organization
 	MerchantID string `json:"merchantId"`
-	// The type of Paygentic entity this external reference points at
-	EntityType components.EntityType `json:"entityType"`
+	// The type of Paygentic entity a new external reference points at
+	EntityType components.EntityTypeInput `json:"entityType"`
 	// Paygentic id of the entity, e.g. `itm_xxx`
 	EntityID string `json:"entityId"`
 	// Lowercase snake_case provider identifier (e.g. `salesforce`, `netsuite`)
@@ -54,9 +54,9 @@ func (c *CreateExternalReferenceRequest) GetMerchantID() string {
 	return c.MerchantID
 }
 
-func (c *CreateExternalReferenceRequest) GetEntityType() components.EntityType {
+func (c *CreateExternalReferenceRequest) GetEntityType() components.EntityTypeInput {
 	if c == nil {
-		return components.EntityType("")
+		return components.EntityTypeInput("")
 	}
 	return c.EntityType
 }

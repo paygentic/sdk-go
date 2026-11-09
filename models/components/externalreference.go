@@ -40,7 +40,7 @@ type ExternalReference struct {
 	Object *ExternalReferenceObject `default:"externalReference" json:"object"`
 	// Unique identifier for an organization
 	MerchantID string `json:"merchantId"`
-	// The type of Paygentic entity this external reference points at
+	// The type of Paygentic entity this external reference points at. `subscriptionProposal` and `subscription` references link a subscription proposal, and the subscription its approval creates, to the CRM record they come from. They are read-only through these endpoints.
 	EntityType EntityType `json:"entityType"`
 	EntityID   string     `json:"entityId"`
 	// Lowercase snake_case provider identifier (e.g. `salesforce`, `netsuite`)

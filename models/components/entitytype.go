@@ -2,12 +2,14 @@
 
 package components
 
-// EntityType - The type of Paygentic entity this external reference points at
+// EntityType - The type of Paygentic entity this external reference points at. `subscriptionProposal` and `subscription` references link a subscription proposal, and the subscription its approval creates, to the CRM record they come from. They are read-only through these endpoints.
 type EntityType string
 
 const (
-	EntityTypeItem     EntityType = "item"
-	EntityTypeCustomer EntityType = "customer"
+	EntityTypeItem                 EntityType = "item"
+	EntityTypeCustomer             EntityType = "customer"
+	EntityTypeSubscriptionProposal EntityType = "subscriptionProposal"
+	EntityTypeSubscription         EntityType = "subscription"
 )
 
 func (e EntityType) ToPointer() *EntityType {
@@ -18,7 +20,7 @@ func (e EntityType) ToPointer() *EntityType {
 func (e *EntityType) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "item", "customer":
+		case "item", "customer", "subscriptionProposal", "subscription":
 			return true
 		}
 	}

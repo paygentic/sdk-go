@@ -14,7 +14,6 @@ import (
 type UpdateSubscriptionStatus string
 
 const (
-	UpdateSubscriptionStatusActive     UpdateSubscriptionStatus = "active"
 	UpdateSubscriptionStatusTerminated UpdateSubscriptionStatus = "terminated"
 )
 
@@ -27,8 +26,6 @@ func (e *UpdateSubscriptionStatus) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	switch v {
-	case "active":
-		fallthrough
 	case "terminated":
 		*e = UpdateSubscriptionStatus(v)
 		return nil

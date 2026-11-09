@@ -1337,7 +1337,7 @@ func (s *BillableMetrics) Meter(ctx context.Context, request operations.GetBilla
 }
 
 // ListEvents - List Meter Events
-// List raw underlying events for a billable metric from the metering service. Returns events ordered by time descending.
+// List raw underlying events for a billable metric from the metering service. Returns events ordered by time descending. Events before the metric's `eventFrom` are left out, as its usage leaves them out.
 func (s *BillableMetrics) ListEvents(ctx context.Context, request operations.ListBillableMetricEventsRequest, opts ...operations.Option) (*components.MeterEventList, error) {
 	o := operations.Options{}
 	supportedOptions := []string{

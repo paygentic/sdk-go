@@ -7,7 +7,7 @@ import (
 	"github.com/paygentic/sdk-go/models/operations"
 )
 
-value := operations.UpdateSubscriptionStatusActive
+value := operations.UpdateSubscriptionStatusTerminated
 ```
 
 
@@ -15,5 +15,4 @@ value := operations.UpdateSubscriptionStatusActive
 
 | Name                                 | Value                                |
 | ------------------------------------ | ------------------------------------ |
-| `UpdateSubscriptionStatusActive`     | active                               |
 | `UpdateSubscriptionStatusTerminated` | terminated                           |

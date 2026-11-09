@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 5f9f8092-429e-454b-8c55-a2d2d1508328
 management:
-  docChecksum: 63a83ac6c8bf4a1442e7c3322ab2f650
+  docChecksum: 9be10b4246cb0160175fb9c258a5428e
   docVersion: 0.1.0
-  speakeasyVersion: 1.806.0
+  speakeasyVersion: 1.807.0
   generationVersion: 2.956.1
-  releaseVersion: 0.8.6
-  configChecksum: 9a4c51779d83b909e112b7f6a3c62d10
+  releaseVersion: 0.8.7
+  configChecksum: fc038b46acf8def4c55142aa7e705811
   repoURL: https://github.com/paygentic/sdk-go.git
   installationURL: https://github.com/paygentic/sdk-go
 persistentEdits:
-  generation_id: c6f92a85-fcd9-4ca7-b1f0-11f188e0ec45
-  pristine_commit_hash: b59045d24f68bb6fc57b47506c29e494c506e029
-  pristine_tree_hash: 9d69aa509baef8ea214752469af27b65ef94b544
+  generation_id: 5367e8d9-0122-4952-b7e6-4debe67f53a8
+  pristine_commit_hash: 7d5f5b1a1e5132ea4cad875bfe2678e236475c4b
+  pristine_tree_hash: 4f4a944f237d838d0f31d981f41d99fd32108ce2
 features:
   go:
     additionalDependencies: 0.1.0
@@ -55,16 +55,16 @@ trackedFiles:
     pristine_git_object: fec7806b0693a6cdc2a696851d9619ff84e66033
   billablemetrics.go:
     id: 7018f8331e92
-    last_write_checksum: sha1:da8994e4994570d8ff515860c039821d80e13b87
-    pristine_git_object: 6835c382f8f6420b389be63e8370944d33491a57
+    last_write_checksum: sha1:15d14dd7f8b97e80732cceb381762c51cbc7bf7c
+    pristine_git_object: 107db3a4643a5b53ec80fc0d2d7f4ba8fba6700a
   billingschedules.go:
     id: 8847cfc5f140
     last_write_checksum: sha1:09672a93d2950ea7e90057ca7a503341386dcebd
     pristine_git_object: a1fb385bf7d1d3f785698b48678bf54d907a8f6c
   client.go:
     id: d633516feaf9
-    last_write_checksum: sha1:42a59d9c8e64dc5294a137f222bab92b617e7f34
-    pristine_git_object: 8b1ce4d73a65dd6c6633e1958b84b518345b85cf
+    last_write_checksum: sha1:57f3ef35a2626edbcf89f0b35857794953220e0b
+    pristine_git_object: 739ce002cd9fa6ffe85c2c9e545645e5566bf357
   costs.go:
     id: 247b6e6ecaf3
     last_write_checksum: sha1:1cbf585e0b952b284701b765e0ce93bcb554d5e7
@@ -411,8 +411,12 @@ trackedFiles:
     pristine_git_object: 98ee4bb84a39ad636c1edd65b1d8739530909927
   docs/models/components/entitytype.md:
     id: 6e6328586ad0
-    last_write_checksum: sha1:35bb615bca928605c3dd5fca445f2086497fc5e6
-    pristine_git_object: bfb160a1fcdd4af6ffe1ffc9114bc44a02d500f4
+    last_write_checksum: sha1:00ca2e27fe6ce9eaf57c62316837575e602a264a
+    pristine_git_object: f2e0d8f6cd9aa4fc9338294ce7c5a81b0fe5338f
+  docs/models/components/entitytypeinput.md:
+    id: f152cf2c92b5
+    last_write_checksum: sha1:7684991e73d0c9bb1d77430f9abd07d8d2708711
+    pristine_git_object: 811794a0e2cebc4252837d90f65a615494bccded
   docs/models/components/error.md:
     id: 8ccbea40d025
     last_write_checksum: sha1:c7578362abe6a3be612155306a2a51017f23b2a8
@@ -435,8 +439,8 @@ trackedFiles:
     pristine_git_object: 2c9b6c3782360d19156dfaee513775adc73d1177
   docs/models/components/externalreference.md:
     id: 092c28d5e900
-    last_write_checksum: sha1:fd1dc19eddac12187dd3eb3420cf83cbca313c60
-    pristine_git_object: b6f124023b37aeaf142cd15ac48172cbffc02cb2
+    last_write_checksum: sha1:aaa5c2c01a4097baaef990da2e6910a779bde5d7
+    pristine_git_object: e85d84f25e8cc8eaa5708347fadfd53966d109dd
   docs/models/components/externalreferenceobject.md:
     id: b56778a5b85a
     last_write_checksum: sha1:8e1139cd36a29164b6b2021415c795a125435645
@@ -1731,8 +1735,8 @@ trackedFiles:
     pristine_git_object: f1c6a901112bd760e2b1c7a47067b69814dda31b
   docs/models/operations/createexternalreferencerequest.md:
     id: 3c3ac50ab1a8
-    last_write_checksum: sha1:c2d0aed8588c1dfde2a82960252a3b9e6d61d8a7
-    pristine_git_object: d2fce7000ccd91ef2fc55adf15d769cd8fb1742e
+    last_write_checksum: sha1:5698f62c9a1661004266619eed216c843346a724
+    pristine_git_object: 77f8a7954282478eb2110428c1b7c166306bba10
   docs/models/operations/createfeaturerequest.md:
     id: 7811bfda3ef7
     last_write_checksum: sha1:0c2c8b3c9e83da7274560ea049ddadcd066eaf47
@@ -2807,8 +2811,8 @@ trackedFiles:
     pristine_git_object: 7fc759565f3b60aef49460f68f4478a6a3564e7c
   docs/models/operations/updatesubscriptionstatus.md:
     id: 3d83791d73f3
-    last_write_checksum: sha1:43d3dbaf42224a9e87451467731da775f9556304
-    pristine_git_object: aab53de91582886798991b0f7978b71759bbede2
+    last_write_checksum: sha1:96988ba93b6808cf9b1dddcc119ebd87ed653096
+    pristine_git_object: 542752eedf925a748c5a90ba9b2a01938686c805
   docs/models/operations/updateuserrequest.md:
     id: 5d3d618e0abd
     last_write_checksum: sha1:1386369792449e8897c0d0a78feaa42cc7521c3d
@@ -2855,8 +2859,8 @@ trackedFiles:
     pristine_git_object: 2621a6d1611bfb9b89666603df0b8ce51c988f73
   docs/sdks/billablemetrics/README.md:
     id: 4a5403fb7335
-    last_write_checksum: sha1:2d5dd54facd4323ee9c64ebc6c4e83021387ac20
-    pristine_git_object: 6c33eb0ba4274cc79e53199bfbff671ce8bd40aa
+    last_write_checksum: sha1:42a3204b631482adf17b14e388db342702607917
+    pristine_git_object: 67f4d4f27d9e9065588d49a696f4346e1118b547
   docs/sdks/billingschedules/README.md:
     id: 1a90809e9831
     last_write_checksum: sha1:8e9581df7ff0eb58bee4193d9cefe20c9b0fe9da
@@ -2879,8 +2883,8 @@ trackedFiles:
     pristine_git_object: 53af64eb1a4ccc161a923f2ea264df99bc825804
   docs/sdks/externalreferences/README.md:
     id: eadd619e15f3
-    last_write_checksum: sha1:5189689b54fbf089edcd779363e5db33e2965220
-    pristine_git_object: 6d24b0e0edaf27b2b95e71ee18eb2989d98f4276
+    last_write_checksum: sha1:4519cfe1dee0a365419afed8befced7c5a765eed
+    pristine_git_object: 58f19693c91e9f875818b52162efae3ee058c51c
   docs/sdks/features/README.md:
     id: e885cfb7247b
     last_write_checksum: sha1:a1f91973a08aecd0c6f6721b204bedefa525df70
@@ -2991,8 +2995,8 @@ trackedFiles:
     pristine_git_object: e41a1c8e0a7e672aab6728ff0fbe887d441eeaf8
   externalreferences.go:
     id: 87742d665604
-    last_write_checksum: sha1:66ea85235d1256e6121cfea22aac11951e5b53ea
-    pristine_git_object: 979229bc0794b1a44c3d7fbe359469e74b91cad5
+    last_write_checksum: sha1:51523318ccbd6e29df46ea7852d0f561bd7051bd
+    pristine_git_object: e50c16ffb959e694f49f2d27fc2efcd0012894a2
   features.go:
     id: cc1da3645f48
     last_write_checksum: sha1:bc592682b698fca85f0c92cf5ae99ea0e2d5da24
@@ -3243,16 +3247,20 @@ trackedFiles:
     pristine_git_object: 93c20d7574cb3c262da8abae02f1471237a98bd6
   models/components/entitytype.go:
     id: 34e85bc10e52
-    last_write_checksum: sha1:2b0dcf7738f293b2b64151a45be97232dc959801
-    pristine_git_object: 88f95e6bd34a753827ad8204e77dd0a4ce064e25
+    last_write_checksum: sha1:1f10cae8b238ab58f56578010b012d8bc9e892b2
+    pristine_git_object: 8af6f41d47bfd7f25bcea0dc02a903501f9601db
+  models/components/entitytypeinput.go:
+    id: 4a777fb3e8a7
+    last_write_checksum: sha1:167669c8658fec53b02895deed005ca10b7ec4e3
+    pristine_git_object: a7ef4540bec01ff8dc9e016baeac53f46c07fa99
   models/components/eventresponse.go:
     id: 4beee0d7c146
     last_write_checksum: sha1:634ad2fb8f78dde55d1639e01ff8a69756c1bbe7
     pristine_git_object: 84cd2f886a3753f2c6ad62b03df036821e872e9b
   models/components/externalreference.go:
     id: 679fb33cc061
-    last_write_checksum: sha1:d0ec3c08bea5960583ded1592c8e12915f52232c
-    pristine_git_object: dfb1b3c3b0a709c06fe0208bc830f2c92f059958
+    last_write_checksum: sha1:4b8cbd6ff894adbb73b2d47397730841594a9ff0
+    pristine_git_object: 5b7443d3b38424583839e2e7ccf8e881abb9f36a
   models/components/feature.go:
     id: 22cf7bbdfc4b
     last_write_checksum: sha1:ef4b7f0ac11acd1e65af5ff138834c59ed86592b
@@ -3887,8 +3895,8 @@ trackedFiles:
     pristine_git_object: 89486d49dc40ff8739df4eb0902afc1832fe2404
   models/operations/createexternalreference.go:
     id: 8edc418e8a5d
-    last_write_checksum: sha1:61c79dcf7bb81fdf79170dbc3f5f21b3787bd354
-    pristine_git_object: ba7911663f4d671f8c7980c75e80b6fc7af57eaa
+    last_write_checksum: sha1:a5a03bd57dbbb17979c5d7193315009fc5f11169
+    pristine_git_object: 2f28ff50c041c523d50fc6486ece77bb69f09244
   models/operations/createfeature.go:
     id: 84cb26ed4bc3
     last_write_checksum: sha1:3c37d3f7448bc3495913f8ba17501a38950b4048
@@ -4427,8 +4435,8 @@ trackedFiles:
     pristine_git_object: c6c85e31b66d37cfe9f02d77b69866e1fcd6a31e
   models/operations/updatesubscription.go:
     id: 1f900e362646
-    last_write_checksum: sha1:8ba1282c26c2bef74884ceb40e7f281db1979395
-    pristine_git_object: eabb21b132bf784ff955cd5672183ba3e0ef4b07
+    last_write_checksum: sha1:013debd8fdd983eb5a1332311cf836dd5ff992dd
+    pristine_git_object: 264c492beb4d316ef64388f770cee7af44fabf10
   models/operations/updateuser.go:
     id: 11181bdabe9f
     last_write_checksum: sha1:8f36097905c51e563b57176e0dc88eb69ebee3e8
@@ -7273,4 +7281,4 @@ generatedTests:
   getWebhookPortal: "2026-10-09T10:20:02Z"
   getRevenueAccounts: "2026-10-19T19:44:09Z"
   getMe: "2026-10-29T09:07:17Z"
-releaseNotes: "## Go SDK Changes:\n* `Client.Me.GetMe()`: \n  *  `response.Permissions[].Enum(invoices:transition)` **Added**\n  *  `error.RequestId` **Added**\n* `Client.BillableMetrics.Create()`:  `error` **Changed**\n* `Client.BillableMetrics.List()`:  `error.RequestId` **Added**\n* `Client.BillableMetrics.Get()`:  `error.RequestId` **Added**\n* `Client.BillableMetrics.Update()`:  `error` **Changed**\n* `Client.BillableMetrics.Meter()`:  `error` **Changed**\n* `Client.BillableMetrics.ListEvents()`:  `error` **Changed**\n* `Client.Customers.List()`:  `error` **Changed**\n* `Client.Customers.Create()`:  `error` **Changed**\n* `Client.Customers.Get()`:  `error.RequestId` **Added**\n* `Client.Customers.Delete()`:  `error.RequestId` **Added**\n* `Client.Customers.Update()`:  `error` **Changed**\n* `Client.Customers.ListCustomerPaymentMethods()`:  `error.RequestId` **Added**\n* `Client.Customers.CreateCustomerPaymentMethod()`:  `error` **Changed**\n* `Client.Entitlements.List()`:  `error` **Changed**\n* `Client.Entitlements.Issue()`:  `error` **Changed**\n* `Client.Entitlements.Get()`:  `error` **Changed**\n* `Client.Entitlements.Grants.List()`:  `error` **Changed**\n* `Client.Entitlements.Grants.Create()`:  `error` **Changed**\n* `Client.Entitlements.Grants.Purchase()`:  `error` **Changed**\n* `Client.Entitlements.Grants.Get()`:  `error` **Changed**\n* `Client.Entitlements.Grants.Void()`:  `error` **Changed**\n* `Client.Features.List()`:  `error` **Changed**\n* `Client.Features.Create()`:  `error` **Changed**\n* `Client.Features.Get()`:  `error.RequestId` **Added**\n* `Client.Features.Update()`:  `error` **Changed**\n* `Client.Features.Delete()`:  `error.RequestId` **Added**\n* `Client.Fees.Create()`:  `error` **Changed**\n* `Client.Fees.List()`:  `error.RequestId` **Added**\n* `Client.Fees.Get()`:  `error.RequestId` **Added**\n* `Client.Fees.Update()`:  `error` **Changed**\n* `Client.Fees.Delete()`:  `error.RequestId` **Added**\n* `Client.Plans.Create()`:  `error` **Changed**\n* `Client.Plans.List()`:  `error` **Changed**\n* `Client.Plans.ListAvailable()`:  `error` **Changed**\n* `Client.Plans.Get()`:  `error` **Changed**\n* `Client.Plans.Update()`:  `error` **Changed**\n* `Client.Plans.ListPlanVersions()`:  `error` **Changed**\n* `Client.Plans.MintPlanVersion()`:  `error` **Changed**\n* `Client.Plans.GetPlanVersion()`:  `error` **Changed**\n* `Client.Plans.TransitionPlanVersion()`:  `error` **Changed**\n* `Client.Prices.Create()`:  `error` **Changed**\n* `Client.Prices.List()`:  `error` **Changed**\n* `Client.Prices.Get()`:  `error` **Changed**\n* `Client.Prices.Update()`:  `error` **Changed**\n* `Client.Prices.Delete()`:  `error` **Changed**\n* `Client.Products.Create()`:  `error` **Changed**\n* `Client.Products.List()`:  `error` **Changed**\n* `Client.Products.Get()`:  `error.RequestId` **Added**\n* `Client.Products.Update()`:  `error.RequestId` **Added**\n* `Client.Sources.Create()`:  `error` **Changed**\n* `Client.Sources.List()`:  `error.RequestId` **Added**\n* `Client.Sources.Get()`:  `error.RequestId` **Added**\n* `Client.Sources.Update()`:  `error` **Changed**\n* `Client.Sources.Events.List()`:  `error.RequestId` **Added**\n* `Client.Sources.Events.Approve()`:  `error` **Changed**\n* `Client.Sources.Events.Reject()`:  `error` **Changed**\n* `Client.Sources.Events.BulkApprove()`:  `error` **Changed**\n* `Client.Sources.Events.BulkReject()`:  `error` **Changed**\n* `Client.Sources.Rules.List()`:  `error` **Changed**\n* `Client.Sources.Rules.Create()`:  `error` **Changed**\n* `Client.Sources.Rules.Get()`:  `error` **Changed**\n* `Client.Sources.Rules.Update()`:  `error` **Changed**\n* `Client.Sources.Rules.Delete()`:  `error` **Changed**\n* `Client.Subscriptions.List()`:  `error` **Changed**\n* `Client.Subscriptions.Create()`:  `error` **Changed**\n* `Client.Subscriptions.Get()`:  `error.RequestId` **Added**\n* `Client.Subscriptions.UpdateSubscription()`:  `error` **Changed**\n* `Client.Subscriptions.GetSubscriptionIntervals()`:  `error.RequestId` **Added**\n* `Client.Subscriptions.EditSubscriptionIntervals()`:  `error` **Changed**\n* `Client.Subscriptions.MigrateSubscriptionVersion()`:  `error` **Changed**\n* `Client.Subscriptions.ListSubscriptionIntervalChanges()`:  `error.RequestId` **Added**\n* `Client.Subscriptions.ListIntervalChanges()`:  `error` **Changed**\n* `Client.Subscriptions.GeneratePortalLink()`:  `error.RequestId` **Added**\n* `Client.Subscriptions.Terminate()`:  `error` **Changed**\n* `Client.Subscriptions.ReconcileSubscriptionFeatures()`:  `error` **Changed**\n* `Client.Subscriptions.ListSubscriptionAdjustments()`:  `error.RequestId` **Added**\n* `Client.Subscriptions.CreateSubscriptionAdjustment()`:  `error` **Changed**\n* `Client.Subscriptions.DeleteSubscriptionAdjustment()`:  `error.RequestId` **Added**\n* `Client.Users.Get()`:  `error.RequestId` **Added**\n* `Client.Users.Update()`:  `error.RequestId` **Added**\n* `Client.InvoicesV2.List()`:  `error.RequestId` **Added**\n* `Client.InvoicesV2.ListLineItems()`:  `error` **Changed**\n* `Client.InvoicesV2.CreateLineItem()`:  `error` **Changed**\n* `Client.InvoicesV2.ListProjectedInvoices()`:  `error` **Changed**\n* `Client.InvoicesV2.Get()`:  `error` **Changed**\n* `Client.InvoicesV2.GetLineItems()`:  `error` **Changed**\n* `Client.InvoicesV2.DownloadInvoicePdf()`:  `error.RequestId` **Added**\n* `Client.InvoicesV2.RecordInvoicePayment()`:  `error` **Changed**\n* `Client.InvoicesV2.CreateInvoiceRefund()`:  `error` **Changed**\n* `Client.InvoicesV2.ListInvoiceRefunds()`:  `error.RequestId` **Added**\n* `Client.InvoicesV2.VoidInvoiceRefund()`:  `error` **Changed**\n* `Client.InvoicesV2.RetryInvoicePayment()`: \n  *  `response.RequestId` **Added**\n  *  `error` **Changed**\n* `Client.Payments.List()`:  `error.RequestId` **Added**\n* `Client.Payments.Create()`:  `error` **Changed**\n* `Client.Payments.Get()`:  `error.RequestId` **Added**\n* `Client.PaymentSessions.ListPaymentSessions()`:  `error.RequestId` **Added**\n* `Client.Events.Ingest()`:  `error` **Changed**\n* `Client.Costs.CreateCost()`:  `error` **Changed**\n* `Client.Costs.ListCosts()`:  `error.RequestId` **Added**\n* `Client.Costs.GetCost()`:  `error.RequestId` **Added**\n* `Client.Costs.UpdateCost()`:  `error` **Changed**\n* `Client.Costs.DeleteCost()`:  `error.RequestId` **Added**\n* `Client.Costs.GetCostSummary()`:  `error` **Changed**\n* `Client.Costs.GetCostReport()`:  `error` **Changed**\n* `Client.Revenue.Get()`:  `error` **Changed**\n* `Client.Revenue.GetRevenueAccounts()`:  `error` **Changed**\n* `Client.Profitability.GetProfitability()`:  `error` **Changed**\n* `Client.TestClocks.List()`:  `error.RequestId` **Added**\n* `Client.TestClocks.Create()`:  `error.RequestId` **Added**\n* `Client.TestClocks.Get()`:  `error.RequestId` **Added**\n* `Client.TestClocks.Advance()`:  `error.RequestId` **Added**\n* `Client.TestClocks.Delete()`:  `error.RequestId` **Added**\n* `Client.Merchants.Reset()`:  `error` **Changed**\n* `Client.ExternalReferences.CreateExternalReference()`:  `error` **Changed**\n* `Client.ExternalReferences.ListExternalReferences()`:  `error` **Changed**\n* `Client.ExternalReferences.GetExternalReference()`:  `error.RequestId` **Added**\n* `Client.ExternalReferences.UpdateExternalReference()`:  `error` **Changed**\n* `Client.ExternalReferences.DeleteExternalReference()`:  `error.RequestId` **Added**\n* `Client.Items.CreateItem()`:  `error` **Changed**\n* `Client.Items.ListItems()`:  `error` **Changed**\n* `Client.Items.GetItem()`:  `error.RequestId` **Added**\n* `Client.Items.UpdateItem()`:  `error` **Changed**\n* `Client.Orders.CreateOrder()`:  `error` **Changed**\n* `Client.Orders.ListOrders()`:  `error` **Changed**\n* `Client.Orders.GetOrder()`:  `error.RequestId` **Added**\n* `Client.Orders.UpdateOrder()`:  `error` **Changed**\n* `Client.Orders.DeleteOrder()`:  `error.RequestId` **Added**\n* `Client.Orders.CreateOrderLineItem()`:  `error` **Changed**\n* `Client.Orders.UpdateOrderLineItem()`:  `error` **Changed**\n* `Client.Orders.DeleteOrderLineItem()`:  `error.RequestId` **Added**\n* `Client.BillingSchedules.ListBillingSchedules()`:  `error` **Changed**\n* `Client.BillingSchedules.CreateBillingSchedule()`:  `error` **Changed**\n* `Client.BillingSchedules.GetBillingSchedule()`:  `error.RequestId` **Added**\n* `Client.BillingSchedules.UpdateBillingSchedule()`:  `error` **Changed**\n* `Client.BillingSchedules.DeleteBillingSchedule()`:  `error.RequestId` **Added**\n* `Client.BillingSchedules.ListScheduleIntervals()`:  `error.RequestId` **Added**\n* `Client.BillingSchedules.ReplaceScheduleIntervals()`:  `error` **Changed**\n* `Client.BillingSchedules.ListScheduleInvoices()`:  `error.RequestId` **Added**\n* `Client.BillingSchedules.GenerateScheduleInvoices()`:  `error` **Changed**\n* `Client.Salesforce.ListSalesforceAccounts()`:  `error` **Changed**\n* `Client.MerchantIntegrations.ListMerchantIntegrations()`:  `error` **Changed**\n* `Client.MerchantIntegrations.UpsertMerchantIntegration()`:  `error` **Changed**\n* `Client.MerchantIntegrations.GetMerchantIntegration()`:  `error.RequestId` **Added**\n* `Client.MerchantIntegrations.DisconnectMerchantIntegration()`:  `error.RequestId` **Added**\n* `Client.Approvals.CreateApproval()`:  `error` **Changed**\n* `Client.Approvals.ListApprovals()`:  `error` **Changed**\n* `Client.Approvals.GetApproval()`:  `error.RequestId` **Added**\n* `Client.Approvals.UpdateApproval()`:  `error` **Changed**\n* `Client.Webhooks.Get()`:  `error.RequestId` **Added**\n* `Client.Webhooks.Enable()`:  `error` **Changed**\n* `Client.Webhooks.Update()`:  `error` **Changed**\n* `Client.Webhooks.Disable()`:  `error.RequestId` **Added**\n* `Client.Webhooks.GetPortal()`:  `error.RequestId` **Added**\n"
+releaseNotes: "## Go SDK Changes:\n* `Client.Subscriptions.UpdateSubscription()`: \n  *  `request.Body.Status.Enum(active)` **Removed** (Breaking ⚠️)\n* `Client.InvoicesV2.List()`:  `response.Data[].LineItems.Items[].ExternalReferences[].EntityType` **Changed**\n* `Client.InvoicesV2.ListLineItems()`:  `response.Items[].ExternalReferences[].EntityType` **Changed**\n* `Client.InvoicesV2.ListProjectedInvoices()`:  `response.Data[].LineItems.Items[].ExternalReferences[].EntityType` **Changed**\n* `Client.InvoicesV2.Get()`:  `response.LineItems.Items[].ExternalReferences[].EntityType` **Changed**\n* `Client.InvoicesV2.GetLineItems()`:  `response.Items[].ExternalReferences[].EntityType` **Changed**\n* `Client.InvoicesV2.RecordInvoicePayment()`:  `response.union(out_of_band).Invoice.LineItems.Items[].ExternalReferences[].EntityType` **Changed**\n* `Client.ExternalReferences.CreateExternalReference()`:  `response.EntityType` **Changed**\n* `Client.ExternalReferences.ListExternalReferences()`: \n  *  `request.Request.EntityType` **Changed**\n  *  `response.Data[].EntityType` **Changed**\n* `Client.ExternalReferences.GetExternalReference()`:  `response.EntityType` **Changed**\n* `Client.ExternalReferences.UpdateExternalReference()`:  `response.EntityType` **Changed**\n* `Client.ExternalReferences.DeleteExternalReference()`:  `error.status[409]` **Added**\n* `Client.Items.CreateItem()`:  `response.ExternalReferences[].EntityType` **Changed**\n* `Client.Items.ListItems()`:  `response.Data[].ExternalReferences[].EntityType` **Changed**\n* `Client.Items.GetItem()`:  `response.ExternalReferences[].EntityType` **Changed**\n* `Client.Items.UpdateItem()`:  `response.ExternalReferences[].EntityType` **Changed**\n"
