@@ -137,9 +137,17 @@ func (u BadRequest) MarshalJSON() ([]byte, error) {
 func (u BadRequest) Error() string {
 	switch u.Type {
 	case BadRequestTypeError:
+		if u.Error_ != nil {
+			return u.Error_.Message
+		}
+
 		data, _ := json.Marshal(u.Error_)
 		return string(data)
 	case BadRequestTypeValidationError:
+		if u.ValidationError != nil {
+			return u.ValidationError.Message
+		}
+
 		data, _ := json.Marshal(u.ValidationError)
 		return string(data)
 	case BadRequestTypeUnknown:

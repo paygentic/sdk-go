@@ -26,6 +26,12 @@ type RetryPaymentResponseError struct {
 var _ error = &RetryPaymentResponseError{}
 
 func (e *RetryPaymentResponseError) Error() string {
+	if e != nil {
+		if v0 := e.Error_; v0 != nil {
+			return v0.Message
+		}
+	}
+
 	data, _ := json.Marshal(e)
 	return string(data)
 }

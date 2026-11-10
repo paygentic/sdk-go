@@ -1,24 +1,24 @@
 lockVersion: 2.0.0
 id: 5f9f8092-429e-454b-8c55-a2d2d1508328
 management:
-  docChecksum: 9be10b4246cb0160175fb9c258a5428e
+  docChecksum: 805f3a4da31b6f588334c6ad20886f6c
   docVersion: 0.1.0
-  speakeasyVersion: 1.807.0
-  generationVersion: 2.956.1
-  releaseVersion: 0.8.7
-  configChecksum: fc038b46acf8def4c55142aa7e705811
+  speakeasyVersion: 1.808.0
+  generationVersion: 2.960.7
+  releaseVersion: 0.8.8
+  configChecksum: 6b781a57a43630d10ba2b6c4fa3a39ba
   repoURL: https://github.com/paygentic/sdk-go.git
   installationURL: https://github.com/paygentic/sdk-go
 persistentEdits:
-  generation_id: 5367e8d9-0122-4952-b7e6-4debe67f53a8
-  pristine_commit_hash: 7d5f5b1a1e5132ea4cad875bfe2678e236475c4b
-  pristine_tree_hash: 4f4a944f237d838d0f31d981f41d99fd32108ce2
+  generation_id: 71c7d3d5-9019-4d7e-a4f9-eb18ac69c6da
+  pristine_commit_hash: f9daebdddf3bdab8a8b8c3803a35730d9d011c78
+  pristine_tree_hash: d794703249b60c757854589ca40cc413350b3ead
 features:
   go:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.3
     constsAndDefaults: 0.1.15
-    core: 3.16.4
+    core: 3.16.6
     defaultEnabledRetries: 0.2.0
     deprecations: 2.81.3
     downloadStreams: 0.1.3
@@ -63,8 +63,8 @@ trackedFiles:
     pristine_git_object: a1fb385bf7d1d3f785698b48678bf54d907a8f6c
   client.go:
     id: d633516feaf9
-    last_write_checksum: sha1:57f3ef35a2626edbcf89f0b35857794953220e0b
-    pristine_git_object: 739ce002cd9fa6ffe85c2c9e545645e5566bf357
+    last_write_checksum: sha1:55ba2de898205df77aa6b07650bca5768fac700f
+    pristine_git_object: 37e8d759a59418ce8e7f3673ab85ce5926a4b48f
   costs.go:
     id: 247b6e6ecaf3
     last_write_checksum: sha1:1cbf585e0b952b284701b765e0ce93bcb554d5e7
@@ -947,12 +947,12 @@ trackedFiles:
     pristine_git_object: 76cdf5e3369492538de811116fbbddac1e401bbc
   docs/models/components/permission.md:
     id: 1627c686fe0e
-    last_write_checksum: sha1:c78ed30c8d488d3d2523ebaa518aeb18c71fddf6
-    pristine_git_object: 8edd60c36378d6ccc53069c55bd03e8eb7a05859
+    last_write_checksum: sha1:8207f78a85c7b02a0f43f587afc97e4efd8ef330
+    pristine_git_object: d983e4b02230f8e6b8c427a02700405714e19369
   docs/models/components/plan.md:
     id: 2e218876b697
-    last_write_checksum: sha1:d2f9a4028e2456feee00a769a3c1657b1f21230b
-    pristine_git_object: 4e1730c259e1a688d193fbedbe9231e3ccd74538
+    last_write_checksum: sha1:063cca44a9a2aa822f88dd239cef469d5e137536
+    pristine_git_object: 89fc7e2f29db0b675f0908ec109ae95963be7dad
   docs/models/components/plancreditallocation.md:
     id: 39b3e1b7218e
     last_write_checksum: sha1:adf970e01e7e89805e20ec91dab05ec3ea3ddca2
@@ -1787,8 +1787,8 @@ trackedFiles:
     pristine_git_object: 2ccfc1fbc87327aa44e9d0285a0c43aa188de8d9
   docs/models/operations/createplanrequest.md:
     id: 4c658c112d73
-    last_write_checksum: sha1:c9245bfd8daec2e9a98082efb9baccc8aebf9fbc
-    pristine_git_object: f2057273999f305b83e9540bd780cb3b279a955e
+    last_write_checksum: sha1:a78763f008ab785b03ab48d60b1168d7832d90a4
+    pristine_git_object: 2a2a5fd1a8a027a70d98722dc9f6e87497da66fb
   docs/models/operations/createplantaxbehavior.md:
     id: e8e865b9b707
     last_write_checksum: sha1:9e5683c448a2d075029a879f2767b29897a2aaa8
@@ -1823,8 +1823,8 @@ trackedFiles:
     pristine_git_object: 14518e6d4e0b98254f42dd6764615155ad9f3fd5
   docs/models/operations/createsubscriptionrequest.md:
     id: e71be0fed944
-    last_write_checksum: sha1:cef2dec4f7b3139f253fddc0d5472c520365d115
-    pristine_git_object: 43715b3ae7d30c5dc6efef5878b91cd4c9c2d3a7
+    last_write_checksum: sha1:f834c20105eb00eda809ffd78a752b8d1f44a8ac
+    pristine_git_object: f438ffbd052bbb0c79a4e63f8a5af32da75e7144
   docs/models/operations/createtestclockrequest.md:
     id: 024f0a664cfd
     last_write_checksum: sha1:5274d77bb316d31654daded2438cb11c3971157a
@@ -3039,12 +3039,12 @@ trackedFiles:
     pristine_git_object: b6a73153051a5590328272bec80a8864c2b71584
   internal/utils/json.go:
     id: ad03e3c502d8
-    last_write_checksum: sha1:0dcece1ef11ba5d960ed02a675ffc456083a4df6
-    pristine_git_object: a4984983aa4489bb603eb8dd155cb73e25198fdc
+    last_write_checksum: sha1:f5f07445c65222965b8fdfd7eb0830f12d174870
+    pristine_git_object: 6a5f87b29ebf7db546c850c8c9d0d8c7ce766e90
   internal/utils/pathparams.go:
     id: 1f3e0c30fd90
-    last_write_checksum: sha1:4fc6aa419bbd94b32dbec7f4b0848017c16cde38
-    pristine_git_object: 7886b89e05e7eaa8c012e9cc5d44e06f48b78e38
+    last_write_checksum: sha1:e944e0186f75d25cff294acdfddc9d020dd0fbe6
+    pristine_git_object: 360d6e9dcdafba9706fb43523e0411d6b16673d8
   internal/utils/queryparams.go:
     id: e7f604e65a58
     last_write_checksum: sha1:67bee3a10d9846ab40dc3964a1bd1a173f6657b4
@@ -3519,12 +3519,12 @@ trackedFiles:
     pristine_git_object: ae85470346e6ad1a2bb01489cc220c0397b37b4b
   models/components/permission.go:
     id: 0482a4a8ece4
-    last_write_checksum: sha1:230d1db27e632da92f418e5cb3312c8299167763
-    pristine_git_object: 07a2cbfc70abaa9c0c4e10070abf1640818876f8
+    last_write_checksum: sha1:a615a8540cd907d5a23d15f48fac95b668074392
+    pristine_git_object: 974a393a416af4d6a0fd6acde6d3717ecd47e82e
   models/components/plan.go:
     id: d3b8674720c0
-    last_write_checksum: sha1:7dfef963c76b18ad39b3538dcda10668aee0c79b
-    pristine_git_object: f5ac181c729237686d5548eda823dc953fb9de8a
+    last_write_checksum: sha1:7bc09bd22490727910ec60574bed2eb3a4ef85b0
+    pristine_git_object: ab250660fea5cb248ae8331ed389fc50b018b59d
   models/components/plancreditallocation.go:
     id: 154d5ae0b31e
     last_write_checksum: sha1:ff4c36301908f35aa14b6128979ce3460e4cb215
@@ -3815,48 +3815,48 @@ trackedFiles:
     pristine_git_object: f760a7d27930e5b38f78cc99ff33616a712b133a
   models/errors/badrequest.go:
     id: 1cbecfcdb76d
-    last_write_checksum: sha1:a40779bf8d8e1160a202f8d44e80167a51c8477e
-    pristine_git_object: 4a50ce5e5a1f9fe8f5c7ab5ca828afd619798be7
+    last_write_checksum: sha1:fd9b014d5f862ffd643b2542b76476622bae0b06
+    pristine_git_object: 54df174232d8e95e675ee6953d773cfe1665f573
   models/errors/deletecustomer.go:
     id: c6bc9d6581e5
-    last_write_checksum: sha1:53c0391d198678698265202339054dc74e9f9ee5
-    pristine_git_object: 0f66d1a8bbf659ca2debf05494bd7439b038ec7d
+    last_write_checksum: sha1:25326c730b22b6277adf80c5b086abd98225388b
+    pristine_git_object: e111ea39773454c3137f17177ba4433154894a59
   models/errors/deletefee.go:
     id: 49a26dffbcc4
-    last_write_checksum: sha1:ca494b2dbeb67f240826612153197e5bc0369570
-    pristine_git_object: 2266e9d1e16650eb1b235d92e342adb467b2be95
+    last_write_checksum: sha1:097270cb0485deede0c749d9bb0c27fe1e2aa86a
+    pristine_git_object: 884a85ec9a491069064710c3fee7165301e071a7
   models/errors/deleteprice.go:
     id: 11b388a0b90e
-    last_write_checksum: sha1:04a76b9cdb2304a320c82ae61e508d10f76d3672
-    pristine_git_object: fe680e8ddd1e4434827d05c26c20cc40c530da9d
+    last_write_checksum: sha1:142ac09e97d8139d5350619ae8a5044e376e68f4
+    pristine_git_object: 84cde82ffd613638658f5ea5a75036bf86a35aa2
   models/errors/error.go:
     id: 68b6f5e4d7bf
-    last_write_checksum: sha1:42ad653fbfcedd9fad5e4864bb4e6ba9d0ddc952
-    pristine_git_object: 2f994332fb28aef0a7fc08e07152fbaf709b03b6
+    last_write_checksum: sha1:21d39418a90f44a4e02b8b207ecbe958e30c9d4d
+    pristine_git_object: ea14df7e4e45d7a6a04fb87b557522e514a74b41
   models/errors/paygenticdefaulterror.go:
     id: c43cc3977ce8
     last_write_checksum: sha1:0b8d075fc86514e6d90eaef4d583e50d8e9c8291
     pristine_git_object: 11943d7841378b5b7dff58da687b1495eb1021c4
   models/errors/recordinvoicepayment.go:
     id: 74fa98989fdc
-    last_write_checksum: sha1:4cea5f025fb9be22d800b2912e99af5a78569bf1
-    pristine_git_object: 2e24c4257f9bb90633ee43c794e1492347c9bb79
+    last_write_checksum: sha1:5ebe32ff4a6b42af6bd4fe1ff3d340e8b9bb4b6d
+    pristine_git_object: c021855425ffd850b94b2fc938bfdd467078442a
   models/errors/responsevalidationerror.go:
     id: a11dee92489e
     last_write_checksum: sha1:aa7f69462e3a38d05371225adeb8c87bb433e6c4
     pristine_git_object: 9055e0489442c92c9408911f4423e77a95556487
   models/errors/retrypaymentresponseerror.go:
     id: 913e55ede69a
-    last_write_checksum: sha1:f980e9d3102dd295716c3e38b302eeec3d5d0913
-    pristine_git_object: f14e29a39915b64a4d561b8eee00aa8299fb6df6
+    last_write_checksum: sha1:22d0f9c830b838c53f70e79db36127ec577a8651
+    pristine_git_object: ce9ae33178f55c203b7e0e944c04ff9d00566b17
   models/errors/updateprice.go:
     id: 3d8e80631893
-    last_write_checksum: sha1:0da512ad7712564c72f9a4125e9e1883d058d5a6
-    pristine_git_object: d5560bb0bc6ce71ac6c822b481d0b53d665935a4
+    last_write_checksum: sha1:12dc1520e86affaf23550c297c1336f110532331
+    pristine_git_object: 70810f25e6a5955e4ab148460e4515f684396b4f
   models/errors/validationerror.go:
     id: 1ac6763dfc95
-    last_write_checksum: sha1:0395173b3daac5c085feac8b604803f6f4ad0e21
-    pristine_git_object: 691a956ab8e78e1bed5808c23d00f6dd56288f37
+    last_write_checksum: sha1:13448793a4b5da7a27d02996b0269d2d26f75161
+    pristine_git_object: 239d357d9591ffd76bfeae773dcc975b25fd83be
   models/operations/advancetestclock.go:
     id: 582855c4b22e
     last_write_checksum: sha1:f59c445c08d876b74b1b131751e818153431377e
@@ -3931,8 +3931,8 @@ trackedFiles:
     pristine_git_object: f624bcc00aadb3c74e1b9fbc5451a22c96643c16
   models/operations/createplan.go:
     id: f0f2441c3ad6
-    last_write_checksum: sha1:210dce94bcb2c9c3e500231f656bffbd8f78858a
-    pristine_git_object: 12828506c60cd9f5ec01e8944876ab3d3087ff67
+    last_write_checksum: sha1:96af32d820b19ecef4adca956bb16bf8bbe82dc5
+    pristine_git_object: 5ab5cd319c6e7ef0f2877ec8c505e4f85141b660
   models/operations/createprice.go:
     id: d0e889823ae6
     last_write_checksum: sha1:f8f3d78d1a090c479f3308f095e262ba138ecf5e
@@ -3947,8 +3947,8 @@ trackedFiles:
     pristine_git_object: 933f3c1ec4cbd19f0f87642b284adf5aeacffd27
   models/operations/createsubscription.go:
     id: 16b511206b4f
-    last_write_checksum: sha1:c857e5e3c4c5e9d775b8256b305aaf120bd2c738
-    pristine_git_object: f22576e9d3ea2ae3c5d899eab9d8788574ede93a
+    last_write_checksum: sha1:b6b84794302f3c9bd72d33c4751c31756b760ec6
+    pristine_git_object: 6236e6f5a5b47d012a3282773942ecb39b664ee0
   models/operations/createsubscriptionadjustment.go:
     id: fa86e6b4417e
     last_write_checksum: sha1:7c07918849fb721ab7a7744f154a7cbcd7497a4e
@@ -7281,4 +7281,4 @@ generatedTests:
   getWebhookPortal: "2026-10-09T10:20:02Z"
   getRevenueAccounts: "2026-10-19T19:44:09Z"
   getMe: "2026-10-29T09:07:17Z"
-releaseNotes: "## Go SDK Changes:\n* `Client.Subscriptions.UpdateSubscription()`: \n  *  `request.Body.Status.Enum(active)` **Removed** (Breaking ⚠️)\n* `Client.InvoicesV2.List()`:  `response.Data[].LineItems.Items[].ExternalReferences[].EntityType` **Changed**\n* `Client.InvoicesV2.ListLineItems()`:  `response.Items[].ExternalReferences[].EntityType` **Changed**\n* `Client.InvoicesV2.ListProjectedInvoices()`:  `response.Data[].LineItems.Items[].ExternalReferences[].EntityType` **Changed**\n* `Client.InvoicesV2.Get()`:  `response.LineItems.Items[].ExternalReferences[].EntityType` **Changed**\n* `Client.InvoicesV2.GetLineItems()`:  `response.Items[].ExternalReferences[].EntityType` **Changed**\n* `Client.InvoicesV2.RecordInvoicePayment()`:  `response.union(out_of_band).Invoice.LineItems.Items[].ExternalReferences[].EntityType` **Changed**\n* `Client.ExternalReferences.CreateExternalReference()`:  `response.EntityType` **Changed**\n* `Client.ExternalReferences.ListExternalReferences()`: \n  *  `request.Request.EntityType` **Changed**\n  *  `response.Data[].EntityType` **Changed**\n* `Client.ExternalReferences.GetExternalReference()`:  `response.EntityType` **Changed**\n* `Client.ExternalReferences.UpdateExternalReference()`:  `response.EntityType` **Changed**\n* `Client.ExternalReferences.DeleteExternalReference()`:  `error.status[409]` **Added**\n* `Client.Items.CreateItem()`:  `response.ExternalReferences[].EntityType` **Changed**\n* `Client.Items.ListItems()`:  `response.Data[].ExternalReferences[].EntityType` **Changed**\n* `Client.Items.GetItem()`:  `response.ExternalReferences[].EntityType` **Changed**\n* `Client.Items.UpdateItem()`:  `response.ExternalReferences[].EntityType` **Changed**\n"
+releaseNotes: "## Go SDK Changes:\n* `Client.Me.GetMe()`:  `response.Permissions[]` **Changed**\n* `Client.Subscriptions.Create()`: \n  *  `request.Request.BillingAnchor` **Added**\n"

@@ -159,7 +159,7 @@ type CreatePlanRequest struct {
 	RenewalReminderDays *int64 `default:"3" json:"renewalReminderDays"`
 	// Billing engine version. Only 1 (Standard, line-item billing with metered usage support) is accepted for new plans; omitting the field defaults to 1. 0 (Legacy, fee-schedule billing) is rejected — it exists only on plans created before this restriction.
 	BillingVersion *BillingVersion `default:"1" json:"billingVersion"`
-	// ISO 8601 datetime reference point for billing period alignment. Must be in the past or present. When set, subscriptions created under this plan align their first billing period to the next recurrence of this anchor.
+	// ISO 8601 datetime reference point for billing period alignment. Must be in the past or present. When set, subscriptions created under this plan align their first billing period to the next recurrence of this anchor, unless the create names its own `billingAnchor`.
 	BillingAnchor optionalnullable.OptionalNullable[time.Time] `json:"billingAnchor,omitzero"`
 	// Credit-pool funding declarations for this plan. Each entry funds a distinct pricing unit's credit pool when a subscription to this plan activates: the allocated amount is minted as a credit grant on the customer's pool for that pricing unit, once at activation, or on a recurring basis only when that allocation explicitly sets recurrencePeriod. A plan may declare zero or more allocations; no two allocations on the same plan may target the same pricingUnitId.
 	CreditAllocations []components.PlanCreditAllocation `json:"creditAllocations,omitzero"`

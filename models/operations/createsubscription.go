@@ -169,6 +169,8 @@ type CreateSubscriptionRequest struct {
 	StartedAt time.Time `json:"startedAt"`
 	// Whether a backdated start bills its elapsed periods. A start is backdated when `startedAt` is more than 24 hours before the subscription is created. `none` bills only charges that fall due from the moment of creation, for a customer whose earlier periods another system already billed. `per_period` bills every charge that fell due from `startedAt`, on one first invoice; it refuses a `startedAt` more than 12 months back. Has no effect on a start that is not backdated. Defaults to `none`.
 	ElapsedPeriodBilling *components.ElapsedPeriodBilling `default:"none" json:"elapsedPeriodBilling"`
+	// A billing anchor for this subscription, in place of the plan's. Any instant, past or future. The subscription's billing anchor is its first recurrence on or after `startedAt`, stepping back or forward by whole billing cadences. Example: on a monthly plan, an anchor of '2027-01-31T00:00:00Z' with a start of '2026-10-10T00:00:00Z' gives '2026-10-31T00:00:00Z'. A create is refused with 400 when the resolved anchor does not line up with the usage period anchor of a feature that credits unused balance. Omit it to use the plan's billing anchor. A repeated create that names an anchor resolving to a different instant than the existing subscription's gets 409.
+	BillingAnchor *time.Time `json:"billingAnchor,omitzero"`
 	// Test clock identifier for simulating time-based billing scenarios. Sample values: 'tc_abc123xyz', 'tc_789def456'. Restricted to non-production environments (local, dev, sandbox). Must belong to the same merchant organization.
 	TestClockID *string `json:"testClockId,omitzero"`
 	// Override plan setting for renewal reminder emails. When set, this subscription's setting takes precedence over the plan default. Set to true to enable reminders, false to disable, or null/omit to use plan default.
@@ -284,6 +286,13 @@ func (c *CreateSubscriptionRequest) GetElapsedPeriodBilling() *components.Elapse
 		return nil
 	}
 	return c.ElapsedPeriodBilling
+}
+
+func (c *CreateSubscriptionRequest) GetBillingAnchor() *time.Time {
+	if c == nil {
+		return nil
+	}
+	return c.BillingAnchor
 }
 
 func (c *CreateSubscriptionRequest) GetTestClockID() *string {

@@ -21,6 +21,10 @@ type ValidationError struct {
 var _ error = &ValidationError{}
 
 func (e *ValidationError) Error() string {
+	if e != nil {
+		return e.Message
+	}
+
 	data, _ := json.Marshal(e)
 	return string(data)
 }

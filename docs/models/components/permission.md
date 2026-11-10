@@ -37,6 +37,7 @@ custom := components.Permission("custom_value")
 | `PermissionPricingUnitsRead`                 | pricingUnits:read                            |
 | `PermissionSubscriptionsRead`                | subscriptions:read                           |
 | `PermissionSubscriptionAdjustmentsRead`      | subscriptionAdjustments:read                 |
+| `PermissionSubscriptionProposalsRead`        | subscriptionProposals:read                   |
 | `PermissionDiscountsRead`                    | discounts:read                               |
 | `PermissionGrantsRead`                       | grants:read                                  |
 | `PermissionEntitlementsRead`                 | entitlements:read                            |
@@ -82,6 +83,7 @@ custom := components.Permission("custom_value")
 | `PermissionPricingUnitsWrite`                | pricingUnits:write                           |
 | `PermissionSubscriptionsWrite`               | subscriptions:write                          |
 | `PermissionSubscriptionAdjustmentsWrite`     | subscriptionAdjustments:write                |
+| `PermissionSubscriptionProposalsWrite`       | subscriptionProposals:write                  |
 | `PermissionDiscountsWrite`                   | discounts:write                              |
 | `PermissionGrantsWrite`                      | grants:write                                 |
 | `PermissionEntitlementsWrite`                | entitlements:write                           |
@@ -124,3 +126,4 @@ custom := components.Permission("custom_value")
 | `PermissionSubscriptionsTaxExempt`           | subscriptions:taxExempt                      |
 | `PermissionSubscriptionsAutoApprove`         | subscriptions:autoApprove                    |
 | `PermissionOrganizationResetData`            | organization:resetData                       |
+| `PermissionSubscriptionProposalsApprove`     | subscriptionProposals:approve                |

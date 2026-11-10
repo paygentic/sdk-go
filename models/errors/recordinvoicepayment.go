@@ -28,6 +28,10 @@ type UnprocessableEntityError struct {
 var _ error = &UnprocessableEntityError{}
 
 func (e *UnprocessableEntityError) Error() string {
+	if e != nil {
+		return e.Message
+	}
+
 	data, _ := json.Marshal(e)
 	return string(data)
 }

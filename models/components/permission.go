@@ -23,6 +23,7 @@ const (
 	PermissionPricingUnitsRead                 Permission = "pricingUnits:read"
 	PermissionSubscriptionsRead                Permission = "subscriptions:read"
 	PermissionSubscriptionAdjustmentsRead      Permission = "subscriptionAdjustments:read"
+	PermissionSubscriptionProposalsRead        Permission = "subscriptionProposals:read"
 	PermissionDiscountsRead                    Permission = "discounts:read"
 	PermissionGrantsRead                       Permission = "grants:read"
 	PermissionEntitlementsRead                 Permission = "entitlements:read"
@@ -68,6 +69,7 @@ const (
 	PermissionPricingUnitsWrite                Permission = "pricingUnits:write"
 	PermissionSubscriptionsWrite               Permission = "subscriptions:write"
 	PermissionSubscriptionAdjustmentsWrite     Permission = "subscriptionAdjustments:write"
+	PermissionSubscriptionProposalsWrite       Permission = "subscriptionProposals:write"
 	PermissionDiscountsWrite                   Permission = "discounts:write"
 	PermissionGrantsWrite                      Permission = "grants:write"
 	PermissionEntitlementsWrite                Permission = "entitlements:write"
@@ -110,6 +112,7 @@ const (
 	PermissionSubscriptionsTaxExempt           Permission = "subscriptions:taxExempt"
 	PermissionSubscriptionsAutoApprove         Permission = "subscriptions:autoApprove"
 	PermissionOrganizationResetData            Permission = "organization:resetData"
+	PermissionSubscriptionProposalsApprove     Permission = "subscriptionProposals:approve"
 )
 
 func (e Permission) ToPointer() *Permission {
@@ -120,7 +123,7 @@ func (e Permission) ToPointer() *Permission {
 func (e *Permission) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "organization:read", "members:read", "profile:read", "apiKeys:read", "merchants:read", "consumers:read", "customers:read", "plans:read", "prices:read", "products:read", "features:read", "fees:read", "billableMetrics:read", "items:read", "pricingUnits:read", "subscriptions:read", "subscriptionAdjustments:read", "discounts:read", "grants:read", "entitlements:read", "creditPools:read", "orders:read", "billingSchedules:read", "invoices:read", "payments:read", "paymentSessions:read", "portalSessions:read", "platformUsers:read", "platformAdmin:read", "loginLockout:read", "platformSystem:read", "organizationCreation:read", "compliance:read", "taxSettings:read", "costs:read", "paymentAccounts:read", "payouts:read", "externalAccounts:read", "externalReferences:read", "merchantIntegrations:read", "webhooks:read", "testClocks:read", "approvals:read", "sources:read", "revenue:read", "organization:write", "members:write", "profile:write", "apiKeys:write", "merchants:write", "consumers:write", "customers:write", "plans:write", "prices:write", "products:write", "features:write", "fees:write", "billableMetrics:write", "items:write", "pricingUnits:write", "subscriptions:write", "subscriptionAdjustments:write", "discounts:write", "grants:write", "entitlements:write", "creditPools:write", "orders:write", "billingSchedules:write", "invoices:write", "payments:write", "paymentSessions:write", "portalSessions:write", "platformUsers:write", "platformAdmin:write", "loginLockout:write", "platformSystem:write", "organizationCreation:write", "compliance:write", "taxSettings:write", "costs:write", "paymentAccounts:write", "payouts:write", "externalAccounts:write", "externalReferences:write", "merchantIntegrations:write", "webhooks:write", "testClocks:write", "approvals:write", "sources:write", "events:write", "invoices:issue", "invoices:void", "invoices:transition", "payments:refund", "organization:delete", "ownership:transfer", "subscriptions:terminate", "subscriptions:terminateWithReason", "subscriptions:reconcile", "subscriptions:update", "subscriptions:delete", "subscriptions:taxExempt", "subscriptions:autoApprove", "organization:resetData":
+		case "organization:read", "members:read", "profile:read", "apiKeys:read", "merchants:read", "consumers:read", "customers:read", "plans:read", "prices:read", "products:read", "features:read", "fees:read", "billableMetrics:read", "items:read", "pricingUnits:read", "subscriptions:read", "subscriptionAdjustments:read", "subscriptionProposals:read", "discounts:read", "grants:read", "entitlements:read", "creditPools:read", "orders:read", "billingSchedules:read", "invoices:read", "payments:read", "paymentSessions:read", "portalSessions:read", "platformUsers:read", "platformAdmin:read", "loginLockout:read", "platformSystem:read", "organizationCreation:read", "compliance:read", "taxSettings:read", "costs:read", "paymentAccounts:read", "payouts:read", "externalAccounts:read", "externalReferences:read", "merchantIntegrations:read", "webhooks:read", "testClocks:read", "approvals:read", "sources:read", "revenue:read", "organization:write", "members:write", "profile:write", "apiKeys:write", "merchants:write", "consumers:write", "customers:write", "plans:write", "prices:write", "products:write", "features:write", "fees:write", "billableMetrics:write", "items:write", "pricingUnits:write", "subscriptions:write", "subscriptionAdjustments:write", "subscriptionProposals:write", "discounts:write", "grants:write", "entitlements:write", "creditPools:write", "orders:write", "billingSchedules:write", "invoices:write", "payments:write", "paymentSessions:write", "portalSessions:write", "platformUsers:write", "platformAdmin:write", "loginLockout:write", "platformSystem:write", "organizationCreation:write", "compliance:write", "taxSettings:write", "costs:write", "paymentAccounts:write", "payouts:write", "externalAccounts:write", "externalReferences:write", "merchantIntegrations:write", "webhooks:write", "testClocks:write", "approvals:write", "sources:write", "events:write", "invoices:issue", "invoices:void", "invoices:transition", "payments:refund", "organization:delete", "ownership:transfer", "subscriptions:terminate", "subscriptions:terminateWithReason", "subscriptions:reconcile", "subscriptions:update", "subscriptions:delete", "subscriptions:taxExempt", "subscriptions:autoApprove", "organization:resetData", "subscriptionProposals:approve":
 			return true
 		}
 	}
