@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 5f9f8092-429e-454b-8c55-a2d2d1508328
 management:
-  docChecksum: 805f3a4da31b6f588334c6ad20886f6c
+  docChecksum: 22d15938748f7abe392e9c2ce6c7103b
   docVersion: 0.1.0
-  speakeasyVersion: 1.808.0
-  generationVersion: 2.960.7
-  releaseVersion: 0.8.8
-  configChecksum: 6b781a57a43630d10ba2b6c4fa3a39ba
+  speakeasyVersion: 1.808.1
+  generationVersion: 2.960.8
+  releaseVersion: 0.8.9
+  configChecksum: 2ec0642b5e3b7ae9c01235196f9d11fe
   repoURL: https://github.com/paygentic/sdk-go.git
   installationURL: https://github.com/paygentic/sdk-go
 persistentEdits:
-  generation_id: 71c7d3d5-9019-4d7e-a4f9-eb18ac69c6da
-  pristine_commit_hash: f9daebdddf3bdab8a8b8c3803a35730d9d011c78
-  pristine_tree_hash: d794703249b60c757854589ca40cc413350b3ead
+  generation_id: 189697c5-aced-4e05-aadc-16df2e92af3e
+  pristine_commit_hash: 4353486bda570cc677dd32b688eacaf3f8361f9f
+  pristine_tree_hash: 8efac74ce1b50649c2313c0c8ddd6dc81fc11cbc
 features:
   go:
     additionalDependencies: 0.1.0
@@ -63,8 +63,8 @@ trackedFiles:
     pristine_git_object: a1fb385bf7d1d3f785698b48678bf54d907a8f6c
   client.go:
     id: d633516feaf9
-    last_write_checksum: sha1:55ba2de898205df77aa6b07650bca5768fac700f
-    pristine_git_object: 37e8d759a59418ce8e7f3673ab85ce5926a4b48f
+    last_write_checksum: sha1:2c1b885487a3a3b9383ec99a389b05ef10150b2e
+    pristine_git_object: b48ec5624477e3c9f4c8d99ef4c719cdc0e7090e
   costs.go:
     id: 247b6e6ecaf3
     last_write_checksum: sha1:1cbf585e0b952b284701b765e0ce93bcb554d5e7
@@ -1823,8 +1823,8 @@ trackedFiles:
     pristine_git_object: 14518e6d4e0b98254f42dd6764615155ad9f3fd5
   docs/models/operations/createsubscriptionrequest.md:
     id: e71be0fed944
-    last_write_checksum: sha1:f834c20105eb00eda809ffd78a752b8d1f44a8ac
-    pristine_git_object: f438ffbd052bbb0c79a4e63f8a5af32da75e7144
+    last_write_checksum: sha1:7e5be5c052e8d1c752e3258b8513d2e9378379df
+    pristine_git_object: d26654f7fae6687bd0ea690370a6eaf8f20a0b07
   docs/models/operations/createtestclockrequest.md:
     id: 024f0a664cfd
     last_write_checksum: sha1:5274d77bb316d31654daded2438cb11c3971157a
@@ -3947,8 +3947,8 @@ trackedFiles:
     pristine_git_object: 933f3c1ec4cbd19f0f87642b284adf5aeacffd27
   models/operations/createsubscription.go:
     id: 16b511206b4f
-    last_write_checksum: sha1:b6b84794302f3c9bd72d33c4751c31756b760ec6
-    pristine_git_object: 6236e6f5a5b47d012a3282773942ecb39b664ee0
+    last_write_checksum: sha1:e8a3d0f8605feb049e3507e5e86326104218ba3f
+    pristine_git_object: f75ff0eea9a5b890f71ba772e036bc310614e1cc
   models/operations/createsubscriptionadjustment.go:
     id: fa86e6b4417e
     last_write_checksum: sha1:7c07918849fb721ab7a7744f154a7cbcd7497a4e
@@ -7281,4 +7281,3 @@ generatedTests:
   getWebhookPortal: "2026-10-09T10:20:02Z"
   getRevenueAccounts: "2026-10-19T19:44:09Z"
   getMe: "2026-10-29T09:07:17Z"
-releaseNotes: "## Go SDK Changes:\n* `Client.Me.GetMe()`:  `response.Permissions[]` **Changed**\n* `Client.Subscriptions.Create()`: \n  *  `request.Request.BillingAnchor` **Added**\n"
