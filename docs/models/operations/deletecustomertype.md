@@ -16,9 +16,10 @@ custom := operations.DeleteCustomerType("custom_value")
 
 ## Values
 
-| Name                              | Value                             |
-| --------------------------------- | --------------------------------- |
-| `DeleteCustomerTypeSubscriptions` | subscriptions                     |
-| `DeleteCustomerTypeInvoices`      | invoices                          |
-| `DeleteCustomerTypeDisputes`      | disputes                          |
-| `DeleteCustomerTypeEntitlements`  | entitlements                      |
+| Name                                      | Value                                     |
+| ----------------------------------------- | ----------------------------------------- |
+| `DeleteCustomerTypeSubscriptions`         | subscriptions                             |
+| `DeleteCustomerTypeInvoices`              | invoices                                  |
+| `DeleteCustomerTypeDisputes`              | disputes                                  |
+| `DeleteCustomerTypeEntitlements`          | entitlements                              |
+| `DeleteCustomerTypeSubscriptionProposals` | subscriptionProposals                     |

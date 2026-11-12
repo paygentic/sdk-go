@@ -7,7 +7,7 @@ import (
 	"github.com/paygentic/sdk-go/models/operations"
 )
 
-// DeletePriceConflictError - Price cannot be deleted because a live plan still references it
+// DeletePriceConflictError - Price cannot be deleted: a live plan or subscription still references it, or a pending subscription proposal names it
 type DeletePriceConflictError struct {
 	// Identifies this request in our logs. Include it when you contact support. Also sent in the `request-id` response header.
 	RequestID *string                        `json:"requestId,omitzero"`

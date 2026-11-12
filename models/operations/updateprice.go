@@ -153,6 +153,10 @@ type UpdatePriceDetails struct {
 	PriceID           *string  `json:"priceId,omitzero"`
 	Fields            []string `json:"fields,omitzero"`
 	SubscriptionCount *int64   `json:"subscriptionCount,omitzero"`
+	// Up to ten of the pending subscription proposals that name the price
+	SubscriptionProposalIds []string `json:"subscriptionProposalIds,omitzero"`
+	// How many pending subscription proposals name the price
+	SubscriptionProposalCount *int64 `json:"subscriptionProposalCount,omitzero"`
 }
 
 func (u UpdatePriceDetails) MarshalJSON() ([]byte, error) {
@@ -185,4 +189,18 @@ func (u *UpdatePriceDetails) GetSubscriptionCount() *int64 {
 		return nil
 	}
 	return u.SubscriptionCount
+}
+
+func (u *UpdatePriceDetails) GetSubscriptionProposalIds() []string {
+	if u == nil {
+		return nil
+	}
+	return u.SubscriptionProposalIds
+}
+
+func (u *UpdatePriceDetails) GetSubscriptionProposalCount() *int64 {
+	if u == nil {
+		return nil
+	}
+	return u.SubscriptionProposalCount
 }
