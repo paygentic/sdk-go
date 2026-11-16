@@ -593,7 +593,7 @@ type Subscription struct {
 	RenewalReminderEnabled optionalnullable.OptionalNullable[bool] `json:"renewalReminderEnabled,omitzero"`
 	// Number of days before renewal to send the reminder. Null means use plan default.
 	RenewalReminderDays optionalnullable.OptionalNullable[int64] `json:"renewalReminderDays,omitzero"`
-	// Payment term in days ("Net X") snapshotted onto every invoice the subscription generates (invoice dueAt = invoice issue date + paymentTermDays). Defaults to 0 ("due on issue"); a non-zero value is only set on bankTransferOnly subscriptions.
+	// Payment term in days ("Net X") snapshotted onto every invoice the subscription generates (invoice dueAt = invoice issue date + paymentTermDays). Defaults to 0 ("due on issue"); a non-zero value is only set on a subscription created with `metadata.bankTransferOnly: true`.
 	PaymentTermDays int64 `json:"paymentTermDays"`
 	// Subscription-level auto-approval override. Null means plan default is used.
 	AutoApprove optionalnullable.OptionalNullable[bool] `json:"autoApprove,omitzero"`
