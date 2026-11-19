@@ -191,6 +191,12 @@ type CreateSubscriptionRequest struct {
 	ChangeDescription *string `json:"changeDescription,omitzero"`
 	// Your own key-value data about the change, such as a CRM deal ID.
 	ChangeMetadata map[string]components.IntervalChangeMetadata `json:"changeMetadata,omitzero"`
+	// Catalog prices to bill on this subscription that its plan version does not carry. Each must be owned by the same merchant and use the standard price model.
+	AddPrices []components.SubscriptionCreateAddPriceOp `json:"addPrices,omitzero"`
+	// Rate or quantity overrides for prices the plan version does carry.
+	OverridePrices []components.SubscriptionCreateOverridePriceOp `json:"overridePrices,omitzero"`
+	// Plan prices this subscription does not bill.
+	RemovePrices []components.SubscriptionCreateRemovePriceOp `json:"removePrices,omitzero"`
 }
 
 func (c CreateSubscriptionRequest) MarshalJSON() ([]byte, error) {
@@ -363,4 +369,25 @@ func (c *CreateSubscriptionRequest) GetChangeMetadata() map[string]components.In
 		return nil
 	}
 	return c.ChangeMetadata
+}
+
+func (c *CreateSubscriptionRequest) GetAddPrices() []components.SubscriptionCreateAddPriceOp {
+	if c == nil {
+		return nil
+	}
+	return c.AddPrices
+}
+
+func (c *CreateSubscriptionRequest) GetOverridePrices() []components.SubscriptionCreateOverridePriceOp {
+	if c == nil {
+		return nil
+	}
+	return c.OverridePrices
+}
+
+func (c *CreateSubscriptionRequest) GetRemovePrices() []components.SubscriptionCreateRemovePriceOp {
+	if c == nil {
+		return nil
+	}
+	return c.RemovePrices
 }

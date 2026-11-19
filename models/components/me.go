@@ -2,31 +2,39 @@
 
 package components
 
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// OrganizationType - The type of the active organization. Always merchant: the API makes no merchant/consumer distinction.
 type OrganizationType string
 
 const (
 	OrganizationTypeMerchant OrganizationType = "merchant"
-	OrganizationTypeConsumer OrganizationType = "consumer"
 )
 
 func (e OrganizationType) ToPointer() *OrganizationType {
 	return &e
 }
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OrganizationType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "merchant", "consumer":
-			return true
-		}
+func (e *OrganizationType) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
 	}
-	return false
+	switch v {
+	case "merchant":
+		*e = OrganizationType(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OrganizationType: %v", v)
+	}
 }
 
 type Me struct {
-	UserID           string           `json:"userId"`
-	OrganizationID   string           `json:"organizationId"`
+	UserID         string `json:"userId"`
+	OrganizationID string `json:"organizationId"`
+	// The type of the active organization. Always merchant: the API makes no merchant/consumer distinction.
 	OrganizationType OrganizationType `json:"organizationType"`
 	// The role names of the caller in the active organization.
 	Roles []string `json:"roles"`

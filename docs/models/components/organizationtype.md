@@ -1,5 +1,7 @@
 # OrganizationType
 
+The type of the active organization. Always merchant: the API makes no merchant/consumer distinction.
+
 ## Example Usage
 
 ```go
@@ -8,9 +10,6 @@ import (
 )
 
 value := components.OrganizationTypeMerchant
-
-// Open enum: custom values can be created with a direct type cast
-custom := components.OrganizationType("custom_value")
 ```
 
 
@@ -19,4 +18,3 @@ custom := components.OrganizationType("custom_value")
 | Name                       | Value                      |
 | -------------------------- | -------------------------- |
 | `OrganizationTypeMerchant` | merchant                   |
-| `OrganizationTypeConsumer` | consumer                   |

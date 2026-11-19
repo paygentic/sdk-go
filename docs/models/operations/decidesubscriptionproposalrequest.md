@@ -1,0 +1,9 @@
+# DecideSubscriptionProposalRequest
+
+
+## Fields
+
+| Field                                                                                              | Type                                                                                               | Required                                                                                           | Description                                                                                        |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `ID`                                                                                               | `string`                                                                                           | :heavy_check_mark:                                                                                 | The subscription proposal ID                                                                       |
+| `Body`                                                                                             | [components.SubscriptionProposalDecision](../../models/components/subscriptionproposaldecision.md) | :heavy_check_mark:                                                                                 | N/A                                                                                                |

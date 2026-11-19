@@ -43,5 +43,7 @@ switch createSubscriptionAdjustmentRequest.Type {
 		// createSubscriptionAdjustmentRequest.CreateMinimumQuantityAdjustment is populated
 	case components.CreateSubscriptionAdjustmentRequestTypeMaximumQuantity:
 		// createSubscriptionAdjustmentRequest.CreateMaximumQuantityAdjustment is populated
+	default:
+		// Unknown type - use createSubscriptionAdjustmentRequest.GetUnknownRaw() for raw JSON
 }
 ```

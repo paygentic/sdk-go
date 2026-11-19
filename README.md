@@ -440,6 +440,15 @@ func main() {
 * [Update](docs/sdks/rules/README.md#update) - Update Rule
 * [Delete](docs/sdks/rules/README.md#delete) - Delete Rule
 
+### [SubscriptionProposals](docs/sdks/subscriptionproposals/README.md)
+
+* [ListSubscriptionProposals](docs/sdks/subscriptionproposals/README.md#listsubscriptionproposals) - List
+* [CreateSubscriptionProposal](docs/sdks/subscriptionproposals/README.md#createsubscriptionproposal) - Create
+* [GetSubscriptionProposal](docs/sdks/subscriptionproposals/README.md#getsubscriptionproposal) - Get
+* [UpdateSubscriptionProposal](docs/sdks/subscriptionproposals/README.md#updatesubscriptionproposal) - Amend
+* [DecideSubscriptionProposal](docs/sdks/subscriptionproposals/README.md#decidesubscriptionproposal) - Approve or reject
+* [ListSubscriptionProposalProjectedInvoices](docs/sdks/subscriptionproposals/README.md#listsubscriptionproposalprojectedinvoices) - List projected
+
 ### [Subscriptions](docs/sdks/subscriptions/README.md)
 
 * [List](docs/sdks/subscriptions/README.md#list) - List

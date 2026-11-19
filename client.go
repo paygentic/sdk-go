@@ -75,6 +75,8 @@ type Client struct {
 	Sources *Sources
 	// A `Subscription` is a customer's commitment to purchase a `Product` following the terms of a `Plan` and its linked `Prices`.
 	Subscriptions *Subscriptions
+	// A `SubscriptionProposal` holds the values of a subscription until a person on your team approves or rejects it. Nothing is billed while it waits.
+	SubscriptionProposals *SubscriptionProposals
 	// A `User` is an entity granted access to an Organization's resources. All operations are performed by users.
 	Users *Users
 	// Invoice V2 operations supporting billing cycles organized by time periods. Warning: v0 invoice endpoints are no longer supported.
@@ -185,10 +187,10 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided options
 func New(opts ...SDKOption) *Client {
 	sdk := &Client{
-		SDKVersion: "0.8.11",
+		SDKVersion: "0.8.12",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent:         "speakeasy-sdk/go 0.8.11 2.961.1 0.1.0 github.com/paygentic/sdk-go",
-			SDKVersion:        "0.8.11",
+			UserAgent:         "speakeasy-sdk/go 0.8.12 2.961.1 0.1.0 github.com/paygentic/sdk-go",
+			SDKVersion:        "0.8.12",
 			GenVersion:        "2.961.1",
 			OpenAPIDocVersion: "0.1.0",
 			ServerList:        ServerList,
@@ -224,6 +226,7 @@ func New(opts ...SDKOption) *Client {
 	sdk.Products = newProducts(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Sources = newSources(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Subscriptions = newSubscriptions(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.SubscriptionProposals = newSubscriptionProposals(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Users = newUsers(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.InvoicesV2 = newInvoicesV2(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.Payments = newPayments(sdk, sdk.sdkConfiguration, sdk.hooks)

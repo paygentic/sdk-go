@@ -16,6 +16,7 @@ const (
 	CreateSubscriptionAdjustmentRequestTypeUsageDiscount      CreateSubscriptionAdjustmentRequestType = "usageDiscount"
 	CreateSubscriptionAdjustmentRequestTypeMinimumQuantity    CreateSubscriptionAdjustmentRequestType = "minimumQuantity"
 	CreateSubscriptionAdjustmentRequestTypeMaximumQuantity    CreateSubscriptionAdjustmentRequestType = "maximumQuantity"
+	CreateSubscriptionAdjustmentRequestTypeUnknown            CreateSubscriptionAdjustmentRequestType = "UNKNOWN"
 )
 
 // CreateSubscriptionAdjustmentRequest - One adjustment to attach to the subscription. The type decides which number the body carries: a rate for percentageDiscount, a unit count and one target price for usageDiscount, and a contracted quantity and one target price for minimumQuantity and maximumQuantity.
@@ -24,6 +25,7 @@ type CreateSubscriptionAdjustmentRequest struct {
 	CreateUsageDiscountAdjustment      *CreateUsageDiscountAdjustment      `queryParam:"inline" union:"member"`
 	CreateMinimumQuantityAdjustment    *CreateMinimumQuantityAdjustment    `queryParam:"inline" union:"member"`
 	CreateMaximumQuantityAdjustment    *CreateMaximumQuantityAdjustment    `queryParam:"inline" union:"member"`
+	UnknownRaw                         json.RawMessage                     `json:"-" union:"unknown"`
 
 	Type CreateSubscriptionAdjustmentRequestType
 }
@@ -64,6 +66,21 @@ func CreateCreateSubscriptionAdjustmentRequestMaximumQuantity(maximumQuantity Cr
 	}
 }
 
+func CreateCreateSubscriptionAdjustmentRequestUnknown(raw json.RawMessage) CreateSubscriptionAdjustmentRequest {
+	return CreateSubscriptionAdjustmentRequest{
+		UnknownRaw: raw,
+		Type:       CreateSubscriptionAdjustmentRequestTypeUnknown,
+	}
+}
+
+func (u CreateSubscriptionAdjustmentRequest) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u CreateSubscriptionAdjustmentRequest) IsUnknown() bool {
+	return u.Type == CreateSubscriptionAdjustmentRequestTypeUnknown
+}
+
 func (u *CreateSubscriptionAdjustmentRequest) UnmarshalJSON(data []byte) (err error) {
 	previous := *u
 	*u = CreateSubscriptionAdjustmentRequest{}
@@ -79,7 +96,18 @@ func (u *CreateSubscriptionAdjustmentRequest) UnmarshalJSON(data []byte) (err er
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		var syntaxErr *json.SyntaxError
+		if errors.As(err, &syntaxErr) {
+			return fmt.Errorf("could not unmarshal discriminator: %w", err)
+		}
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = CreateSubscriptionAdjustmentRequestTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = CreateSubscriptionAdjustmentRequestTypeUnknown
+		return nil
 	}
 
 	switch dis.Type {
@@ -119,9 +147,12 @@ func (u *CreateSubscriptionAdjustmentRequest) UnmarshalJSON(data []byte) (err er
 		u.CreateMaximumQuantityAdjustment = createMaximumQuantityAdjustment
 		u.Type = CreateSubscriptionAdjustmentRequestTypeMaximumQuantity
 		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = CreateSubscriptionAdjustmentRequestTypeUnknown
+		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateSubscriptionAdjustmentRequest", string(data))
 }
 
 func (u CreateSubscriptionAdjustmentRequest) MarshalJSON() ([]byte, error) {
@@ -141,5 +172,8 @@ func (u CreateSubscriptionAdjustmentRequest) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.CreateMaximumQuantityAdjustment, "", true)
 	}
 
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
 	return nil, errors.New("could not marshal union type CreateSubscriptionAdjustmentRequest: all fields are null")
 }
