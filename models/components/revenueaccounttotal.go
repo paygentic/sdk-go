@@ -5,7 +5,7 @@ package components
 type RevenueAccountTotal struct {
 	// ISO 4217 currency code of every amount in this entry
 	Currency string `json:"currency"`
-	// What is owed, gross of tax, from any date. `awaitingPayment` and `paymentFailed` add up to it, in count and amount. `overdue` is a part of `awaitingPayment`.
+	// What is owed, gross of tax, from any date. `awaitingPayment` and `paymentFailed` add up to it, in count and amount. `overdue` overlaps both and is a subset of neither, so do not add it to them or subtract it from them.
 	Outstanding OutstandingBlock `json:"outstanding"`
 }
 

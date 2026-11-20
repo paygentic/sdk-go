@@ -2,7 +2,7 @@
 
 package components
 
-// OutstandingBlock - What is owed, gross of tax, from any date. `awaitingPayment` and `paymentFailed` add up to it, in count and amount. `overdue` is a part of `awaitingPayment`.
+// OutstandingBlock - What is owed, gross of tax, from any date. `awaitingPayment` and `paymentFailed` add up to it, in count and amount. `overdue` overlaps both and is a subset of neither, so do not add it to them or subtract it from them.
 type OutstandingBlock struct {
 	// Number of unpaid invoices with an amount due above zero. A credit invoice, or one whose amount due rounds to zero, is not counted.
 	Count int64 `json:"count"`
@@ -12,7 +12,7 @@ type OutstandingBlock struct {
 	AwaitingPayment AccountFigure `json:"awaitingPayment"`
 	// The part with status `PAYMENT_FAILED`: collection has ended
 	PaymentFailed AccountFigure `json:"paymentFailed"`
-	// The invoices of `awaitingPayment` past their due date: status `ISSUED`, no card retry scheduled, and a due date before the start of today, UTC. Today is the subscription's test clock when test clocks are enabled. A subset of `awaitingPayment` by count. A credit invoice is never overdue, so the amount can exceed `awaitingPayment.amount`.
+	// Unpaid invoices past their due date: status `ISSUED` or `PAYMENT_FAILED`, no automatic retry still scheduled, and a due date before the start of today, UTC. Today is the subscription's test clock when test clocks are enabled. Overlaps `awaitingPayment` and `paymentFailed` and is a subset of neither, so do not add it to them or subtract it from them. A credit invoice is never overdue, so the amount can exceed the total `amount`.
 	Overdue AccountFigure `json:"overdue"`
 }
 

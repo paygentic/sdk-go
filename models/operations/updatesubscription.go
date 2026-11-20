@@ -55,7 +55,7 @@ type UpdateSubscriptionRequestBody struct {
 	RenewalReminderEnabled optionalnullable.OptionalNullable[bool] `json:"renewalReminderEnabled,omitzero"`
 	// Override plan setting for number of days before renewal to send the reminder. Set to null to use plan default.
 	RenewalReminderDays optionalnullable.OptionalNullable[int64] `json:"renewalReminderDays,omitzero"`
-	// Payment term in days ("Net X") applied to subsequently generated invoices: invoice dueAt = invoice issue date + paymentTermDays. A non-zero value is only valid on a subscription created with `metadata.bankTransferOnly: true`. Set 0 for "due on issue". Already-issued invoices keep their snapshotted dueAt.
+	// Payment term in days ("Net X") applied to subsequently generated invoices: invoice dueAt = invoice issue date + paymentTermDays. Valid on any subscription, whatever its payment method. Set 0 for "due on issue". Already-issued invoices keep their snapshotted dueAt.
 	PaymentTermDays *int64 `json:"paymentTermDays,omitzero"`
 	// How the subscription follows new versions of its plan. `floating` follows the plan's default version: when the default changes, the subscription bills from the new default from its next billing period. `pinned` keeps the plan version that the subscription holds. A subscription created without a value is `floating`. A change to this value does not change a billing period that has already started.
 	VersionPolicy *components.SubscriptionVersionPolicy `json:"versionPolicy,omitzero"`

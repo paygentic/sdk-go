@@ -66,9 +66,9 @@ type CreateSubscriptionProposalRequest struct {
 	RenewalReminderEnabled optionalnullable.OptionalNullable[bool] `json:"renewalReminderEnabled,omitzero"`
 	// Override plan setting for number of days before renewal to send the reminder. Only used if renewalReminderEnabled is true (or inherited from plan). Set to null to use plan default.
 	RenewalReminderDays optionalnullable.OptionalNullable[int64] `json:"renewalReminderDays,omitzero"`
-	// Payment term in days ("Net X") applied to every invoice the subscription generates: invoice dueAt = invoice issue date + paymentTermDays. Defaults to 0 ("due on issue"). A non-zero value needs `metadata.bankTransferOnly: true`; without it the request answers 400 `PAYMENT_TERM_DAYS_REQUIRES_BANK_TRANSFER_ONLY`.
+	// Payment term in days ("Net X") applied to every invoice the subscription generates: invoice dueAt = invoice issue date + paymentTermDays. Defaults to 0 ("due on issue"). Valid on any subscription, whatever its payment method. With a non-zero value Invoice 0's payment session expires at its due date, and sending `sessionExpiryMinutes` with it answers 400 `SESSION_EXPIRY_NOT_ALLOWED_WITH_PAYMENT_TERM`.
 	PaymentTermDays *int64 `json:"paymentTermDays,omitzero"`
-	// Number of minutes until the payment session expires. Defaults to 240 minutes (4 hours) if not provided.
+	// Number of minutes until the payment session expires. Defaults to 240 minutes (4 hours) if not provided. Not accepted with a non-zero `paymentTermDays`: the session then expires at the invoice due date.
 	SessionExpiryMinutes *float64 `json:"sessionExpiryMinutes,omitzero"`
 	// How the subscription follows new versions of its plan. `floating` follows the plan's default version: when the default changes, the subscription bills from the new default from its next billing period. `pinned` keeps the plan version that the subscription holds. A subscription created without a value is `floating`. A change to this value does not change a billing period that has already started.
 	VersionPolicy *components.SubscriptionVersionPolicy `json:"versionPolicy,omitzero"`
