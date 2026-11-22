@@ -16,6 +16,8 @@ type ListPricesRequest struct {
 	Limit *int64 `default:"10" queryParam:"style=form,explode=true,name=limit"`
 	// Number of prices to skip
 	Offset *int64 `default:"0" queryParam:"style=form,explode=true,name=offset"`
+	// Include a price that is only an older rate of a slot a live plan bills today. It still bills subscriptions pinned to its version, so set this to list every price that can bill.
+	IncludeSuperseded *bool `default:"false" queryParam:"style=form,explode=true,name=includeSuperseded"`
 }
 
 func (l ListPricesRequest) MarshalJSON() ([]byte, error) {
@@ -55,6 +57,13 @@ func (l *ListPricesRequest) GetOffset() *int64 {
 		return nil
 	}
 	return l.Offset
+}
+
+func (l *ListPricesRequest) GetIncludeSuperseded() *bool {
+	if l == nil {
+		return nil
+	}
+	return l.IncludeSuperseded
 }
 
 type ListPricesPagination struct {

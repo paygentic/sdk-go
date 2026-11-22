@@ -4,6 +4,7 @@ package errors
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/paygentic/sdk-go/models/operations"
 )
 
@@ -22,7 +23,12 @@ var _ error = &UpdatePriceConflictError{}
 
 func (e *UpdatePriceConflictError) Error() string {
 	if e != nil {
-		return e.Message
+		if e.Message != "" {
+			if e.Code != "" {
+				return fmt.Sprintf("%v: %s", e.Code, e.Message)
+			}
+			return e.Message
+		}
 	}
 
 	data, _ := json.Marshal(e)

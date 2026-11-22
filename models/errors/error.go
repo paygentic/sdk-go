@@ -4,6 +4,7 @@ package errors
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/paygentic/sdk-go/models/components"
 )
 
@@ -29,7 +30,12 @@ var _ error = &Error{}
 
 func (e *Error) Error() string {
 	if e != nil {
-		return e.Message
+		if e.Message != "" {
+			if e.Code != nil && *e.Code != "" {
+				return fmt.Sprintf("%v: %s", *e.Code, e.Message)
+			}
+			return e.Message
+		}
 	}
 
 	data, _ := json.Marshal(e)

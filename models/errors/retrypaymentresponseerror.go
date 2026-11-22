@@ -4,6 +4,7 @@ package errors
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/paygentic/sdk-go/models/components"
 )
 
@@ -28,7 +29,12 @@ var _ error = &RetryPaymentResponseError{}
 func (e *RetryPaymentResponseError) Error() string {
 	if e != nil {
 		if v0 := e.Error_; v0 != nil {
-			return v0.Message
+			if v0.Message != "" {
+				if v0.Code != nil && *v0.Code != "" {
+					return fmt.Sprintf("%v: %s", *v0.Code, v0.Message)
+				}
+				return v0.Message
+			}
 		}
 	}
 

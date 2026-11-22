@@ -304,14 +304,8 @@ func (s *Prices) Create(ctx context.Context, request operations.CreatePriceReque
 }
 
 // List
-func (s *Prices) List(ctx context.Context, billableMetricID *string, merchantID *string, limit *int64, offset *int64, opts ...operations.Option) (*operations.ListPricesResponse, error) {
-	request := operations.ListPricesRequest{
-		BillableMetricID: billableMetricID,
-		MerchantID:       merchantID,
-		Limit:            limit,
-		Offset:           offset,
-	}
-
+// Lists the merchant's prices. A price that is only an older rate of a slot a live plan bills today, such as the copy a price edit keeps for the versions it freezes, is left out unless `includeSuperseded` is true: a subscription pinned to that version still bills it, and reads it by id.
+func (s *Prices) List(ctx context.Context, request *operations.ListPricesRequest, opts ...operations.Option) (*operations.ListPricesResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,

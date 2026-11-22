@@ -138,14 +138,21 @@ func (u BadRequest) Error() string {
 	switch u.Type {
 	case BadRequestTypeError:
 		if u.Error_ != nil {
-			return u.Error_.Message
+			if u.Error_.Message != "" {
+				if u.Error_.Code != nil && *u.Error_.Code != "" {
+					return fmt.Sprintf("%v: %s", *u.Error_.Code, u.Error_.Message)
+				}
+				return u.Error_.Message
+			}
 		}
 
 		data, _ := json.Marshal(u.Error_)
 		return string(data)
 	case BadRequestTypeValidationError:
 		if u.ValidationError != nil {
-			return u.ValidationError.Message
+			if u.ValidationError.Message != "" {
+				return u.ValidationError.Message
+			}
 		}
 
 		data, _ := json.Marshal(u.ValidationError)

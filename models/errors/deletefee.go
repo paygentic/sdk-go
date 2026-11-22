@@ -20,7 +20,7 @@ var _ error = &DeleteFeeConflictError{}
 
 func (e *DeleteFeeConflictError) Error() string {
 	if e != nil {
-		if e.Message != nil {
+		if e.Message != nil && *e.Message != "" {
 			return *e.Message
 		}
 	}

@@ -10,6 +10,8 @@ import (
 type ListSubscriptionProposalsRequest struct {
 	// Return only this merchant's proposals.
 	MerchantID *string `queryParam:"style=form,explode=true,name=merchantId"`
+	// Return only the proposal whose approval created this subscription. A subscription that no proposal created, or a subscription of a merchant the caller cannot read, gives an empty list. A `merchantId` the caller cannot read is still refused with 403.
+	SubscriptionID *string `queryParam:"style=form,explode=true,name=subscriptionId"`
 	// Return proposals in any of these statuses. Repeat the parameter to pass several, e.g. `?status=pending&status=approved`. Omit it to return every status.
 	Status []components.SubscriptionProposalStatus `queryParam:"style=form,explode=true,name=status"`
 	// Number of proposals to return.
@@ -34,6 +36,13 @@ func (l *ListSubscriptionProposalsRequest) GetMerchantID() *string {
 		return nil
 	}
 	return l.MerchantID
+}
+
+func (l *ListSubscriptionProposalsRequest) GetSubscriptionID() *string {
+	if l == nil {
+		return nil
+	}
+	return l.SubscriptionID
 }
 
 func (l *ListSubscriptionProposalsRequest) GetStatus() []components.SubscriptionProposalStatus {

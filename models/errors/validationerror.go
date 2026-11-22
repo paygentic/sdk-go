@@ -22,7 +22,9 @@ var _ error = &ValidationError{}
 
 func (e *ValidationError) Error() string {
 	if e != nil {
-		return e.Message
+		if e.Message != "" {
+			return e.Message
+		}
 	}
 
 	data, _ := json.Marshal(e)

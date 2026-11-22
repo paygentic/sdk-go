@@ -34,14 +34,7 @@ func newSubscriptionProposals(rootSDK *Client, sdkConfig config.SDKConfiguration
 
 // ListSubscriptionProposals - List
 // Lists the subscription proposals you can read, newest first. Filter by `status` to list, for example, the proposals waiting for a decision: `pagination.total` then counts them. Pass `merchantId` to list one merchant's proposals. A `merchantId` you cannot read answers 403, not an empty page.
-func (s *SubscriptionProposals) ListSubscriptionProposals(ctx context.Context, merchantID *string, status []components.SubscriptionProposalStatus, limit *int64, offset *int64, opts ...operations.Option) (*operations.ListSubscriptionProposalsResponse, error) {
-	request := operations.ListSubscriptionProposalsRequest{
-		MerchantID: merchantID,
-		Status:     status,
-		Limit:      limit,
-		Offset:     offset,
-	}
-
+func (s *SubscriptionProposals) ListSubscriptionProposals(ctx context.Context, request *operations.ListSubscriptionProposalsRequest, opts ...operations.Option) (*operations.ListSubscriptionProposalsResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
