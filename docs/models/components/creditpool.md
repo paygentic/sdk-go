@@ -1,0 +1,13 @@
+# CreditPool
+
+
+## Fields
+
+| Field                                                                       | Type                                                                        | Required                                                                    | Description                                                                 |
+| --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `ID`                                                                        | `string`                                                                    | :heavy_check_mark:                                                          | N/A                                                                         |
+| `Object`                                                                    | [*components.CreditPoolObject](../../models/components/creditpoolobject.md) | :heavy_minus_sign:                                                          | N/A                                                                         |
+| `CustomerID`                                                                | `string`                                                                    | :heavy_check_mark:                                                          | Unique identifier for a customer                                            |
+| `PricingUnitID`                                                             | `string`                                                                    | :heavy_check_mark:                                                          | Unique identifier for a pricing unit                                        |
+| `CreatedAt`                                                                 | [time.Time](https://pkg.go.dev/time#Time)                                   | :heavy_check_mark:                                                          | N/A                                                                         |
+| `UpdatedAt`                                                                 | [time.Time](https://pkg.go.dev/time#Time)                                   | :heavy_check_mark:                                                          | N/A                                                                         |

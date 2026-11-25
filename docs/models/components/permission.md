@@ -61,6 +61,7 @@ custom := components.Permission("custom_value")
 | `PermissionExternalAccountsRead`             | externalAccounts:read                        |
 | `PermissionExternalReferencesRead`           | externalReferences:read                      |
 | `PermissionMerchantIntegrationsRead`         | merchantIntegrations:read                    |
+| `PermissionAccountingConnectionsRead`        | accountingConnections:read                   |
 | `PermissionWebhooksRead`                     | webhooks:read                                |
 | `PermissionTestClocksRead`                   | testClocks:read                              |
 | `PermissionApprovalsRead`                    | approvals:read                               |
@@ -107,6 +108,7 @@ custom := components.Permission("custom_value")
 | `PermissionExternalAccountsWrite`            | externalAccounts:write                       |
 | `PermissionExternalReferencesWrite`          | externalReferences:write                     |
 | `PermissionMerchantIntegrationsWrite`        | merchantIntegrations:write                   |
+| `PermissionAccountingConnectionsWrite`       | accountingConnections:write                  |
 | `PermissionWebhooksWrite`                    | webhooks:write                               |
 | `PermissionTestClocksWrite`                  | testClocks:write                             |
 | `PermissionApprovalsWrite`                   | approvals:write                              |

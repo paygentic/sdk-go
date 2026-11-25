@@ -266,6 +266,16 @@ func main() {
 * [GetCostSummary](docs/sdks/costs/README.md#getcostsummary) - Query Summary
 * [GetCostReport](docs/sdks/costs/README.md#getcostreport) - Report
 
+### [CreditPools](docs/sdks/creditpools/README.md)
+
+* [CreateCreditPool](docs/sdks/creditpools/README.md#createcreditpool) - Create or resolve
+* [ListCreditPools](docs/sdks/creditpools/README.md#listcreditpools) - List
+* [GetCreditPool](docs/sdks/creditpools/README.md#getcreditpool) - Get
+* [ListCreditPoolGrants](docs/sdks/creditpools/README.md#listcreditpoolgrants) - List grants
+* [CreateCreditPoolGrant](docs/sdks/creditpools/README.md#createcreditpoolgrant) - Grant credits
+* [GetCreditPoolLedger](docs/sdks/creditpools/README.md#getcreditpoolledger) - Get ledger
+* [CreateCreditPoolPurchase](docs/sdks/creditpools/README.md#createcreditpoolpurchase) - Purchase credits
+
 ### [Customers](docs/sdks/customers/README.md)
 
 * [List](docs/sdks/customers/README.md#list) - List by Merchant
@@ -396,6 +406,12 @@ func main() {
 * [Get](docs/sdks/prices/README.md#get) - Get
 * [Update](docs/sdks/prices/README.md#update) - Update
 * [Delete](docs/sdks/prices/README.md#delete) - Delete
+
+### [PricingUnits](docs/sdks/pricingunits/README.md)
+
+* [CreatePricingUnit](docs/sdks/pricingunits/README.md#createpricingunit) - Create
+* [ListPricingUnits](docs/sdks/pricingunits/README.md#listpricingunits) - List
+* [GetPricingUnit](docs/sdks/pricingunits/README.md#getpricingunit) - Get
 
 ### [Products](docs/sdks/products/README.md)
 

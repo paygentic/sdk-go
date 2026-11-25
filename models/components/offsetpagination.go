@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"github.com/paygentic/sdk-go/internal/utils"
+)
+
 // OffsetPagination - Offset-based pagination response.
 type OffsetPagination struct {
 	// Requested page size.
@@ -10,6 +14,17 @@ type OffsetPagination struct {
 	Offset int64 `json:"offset"`
 	// Total number of items available.
 	Total int64 `json:"total"`
+}
+
+func (o OffsetPagination) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OffsetPagination) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *OffsetPagination) GetLimit() int64 {

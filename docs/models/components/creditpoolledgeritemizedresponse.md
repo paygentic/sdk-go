@@ -1,0 +1,11 @@
+# CreditPoolLedgerItemizedResponse
+
+
+## Fields
+
+| Field                                                                                  | Type                                                                                   | Required                                                                               | Description                                                                            |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `StartingBalance`                                                                      | `float64`                                                                              | :heavy_check_mark:                                                                     | Pool's total balance at the requested window's `from`.                                 |
+| `EndingBalance`                                                                        | `float64`                                                                              | :heavy_check_mark:                                                                     | Pool's total balance at the requested window's `to`.                                   |
+| `Entries`                                                                              | [][components.CreditPoolLedgerEntry](../../models/components/creditpoolledgerentry.md) | :heavy_check_mark:                                                                     | Ledger entries within the requested window, ordered oldest first.                      |
+| `Pagination`                                                                           | [components.OffsetPagination](../../models/components/offsetpagination.md)             | :heavy_check_mark:                                                                     | Offset-based pagination response.                                                      |

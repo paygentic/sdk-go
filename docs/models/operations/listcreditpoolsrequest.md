@@ -1,0 +1,12 @@
+# ListCreditPoolsRequest
+
+
+## Fields
+
+| Field                                                                                  | Type                                                                                   | Required                                                                               | Description                                                                            |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `MerchantID`                                                                           | `*string`                                                                              | :heavy_minus_sign:                                                                     | Filter credit pools by merchant organization id (resolved through the pool's customer) |
+| `CustomerID`                                                                           | `*string`                                                                              | :heavy_minus_sign:                                                                     | Filter credit pools by customer id                                                     |
+| `PricingUnitID`                                                                        | `*string`                                                                              | :heavy_minus_sign:                                                                     | Filter credit pools by pricing unit id                                                 |
+| `Limit`                                                                                | `*int64`                                                                               | :heavy_minus_sign:                                                                     | Maximum credit pools to return                                                         |
+| `Offset`                                                                               | `*int64`                                                                               | :heavy_minus_sign:                                                                     | Zero-based offset for pagination                                                       |
